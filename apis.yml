@@ -5,7 +5,11 @@ apis:
   - aid: portkey:portkey
     name: Portkey
     tags:
-      - API
+      - AI Gateways
+      - Observability
+      - Guardrails
+      - Governance
+      - Prompt Management
     humanURL: ' https://portkey.ai/'
     properties:
       - url: ' https://portkey.ai/'
