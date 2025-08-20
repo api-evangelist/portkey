@@ -34,6 +34,18 @@ Portkey equips AI teams with everything they need to go to production - Gateway,
 
 - [Documentation]( https://portkey.ai/)
 
+## Common Properties
+
+- [Website](https://portkey.ai/)
+- [Documentation](https://portkey.ai/docs/introduction/what-is-portkey)
+- [Integrations](https://portkey.ai/docs/integrations/ecosystem)
+- [ChangeLog](https://portkey.ai/docs/changelog/2025/july)
+- [Blog](https://portkey.ai/blog)
+- [Status](https://status.portkey.ai/)
+- [Pricing](https://portkey.ai/pricing)
+- [PrivacyPolicy](https://portkey.ai/privacy-policy)
+- [TermsOfService](https://portkey.ai/terms)
+
 ## Maintainers
 
 **FN:** Kin Lane
