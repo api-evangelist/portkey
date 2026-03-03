@@ -69,6 +69,8 @@ common:
 created: '2025-08-19'
 modified: '2026-01-02'
 position: Consumer
+segments:
+  - Gateways
 description: >-
   Portkey equips AI teams with everything they need to go to production -
   Gateway, Observability, Guardrails, Governance, and Prompt Management, all in
