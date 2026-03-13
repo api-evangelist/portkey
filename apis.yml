@@ -14,10 +14,72 @@ apis:
     properties:
       - url: ' https://portkey.ai/'
         type: Documentation
+      - url: https://portkey.ai/docs/api-reference/inference-api/chat
+        type: Documentation
+      - url: https://github.com/Portkey-AI/openapi
+        type: OpenAPI
+      - url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+        type: GettingStarted
     description: >-
       Portkey equips AI teams with everything they need to go to production -
       Gateway, Observability, Guardrails, Governance, and Prompt Management, all
-      in one platform. 
+      in one platform.
+  - aid: portkey:portkey-inference-api
+    name: Portkey Inference API
+    tags:
+      - AI Gateways
+      - Inference
+      - Chat Completions
+      - Completions
+      - Embeddings
+      - Images
+      - Audio
+      - Assistants
+      - Fine-Tuning
+      - Batch
+      - Moderations
+    humanURL: https://portkey.ai/docs/product/ai-gateway/universal-api
+    properties:
+      - url: https://portkey.ai/docs/api-reference/inference-api/chat
+        type: Documentation
+      - url: https://portkey.ai/docs/api-reference/inference-api/completions
+        type: Documentation
+      - url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+        type: Documentation
+      - url: https://github.com/Portkey-AI/openapi
+        type: OpenAPI
+    description: >-
+      Portkey Inference API provides a universal API for routing to 200+ LLMs
+      across chat completions, completions, embeddings, images, audio,
+      assistants, fine-tuning, batch processing, and moderations endpoints with
+      a single unified interface. Supports OpenAI, Anthropic, and Portkey API
+      formats with automatic translation between providers.
+  - aid: portkey:portkey-admin-api
+    name: Portkey Admin API
+    tags:
+      - Administration
+      - Analytics
+      - Logs
+      - Virtual Keys
+      - Configs
+      - Users
+      - Workspaces
+      - Audit Logs
+      - API Keys
+      - Rate Limits
+    humanURL: https://portkey.ai/docs/api-reference/admin-api/introduction
+    properties:
+      - url: https://portkey.ai/docs/api-reference/admin-api/introduction
+        type: Documentation
+      - url: https://github.com/Portkey-AI/openapi
+        type: OpenAPI
+    description: >-
+      Portkey Admin API enables programmatic management of Portkey organizations
+      and workspaces, including resource management for configs, virtual keys,
+      and API keys, analytics and monitoring for usage statistics and
+      performance trends, and user and workspace administration for managing
+      accounts, permissions, and team membership. Includes audit logging of all
+      administrative operations.
 name: Portkey
 tags:
   - AI Gateways
@@ -65,6 +127,82 @@ common:
   - url: https://portkey.ai/terms
     name: Portkey | Control Panel for Production AI
     type: TermsOfService
+    description: 'null'
+  - url: https://new.portkey.ai/login
+    name: Portkey Login
+    type: Login
+    description: 'null'
+  - url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+    name: Getting Started with AI Gateway - Portkey Docs
+    type: GettingStarted
+    description: 'null'
+  - url: https://portkey.ai/docs/api-reference/inference-api/chat
+    name: Portkey API Reference - Chat
+    type: APIReference
+    description: 'null'
+  - url: https://portkey.ai/docs/api-reference/admin-api/introduction
+    name: Portkey Admin API Reference
+    type: APIReference
+    description: 'null'
+  - url: https://github.com/Portkey-AI/openapi
+    name: Portkey OpenAPI Specification
+    type: OpenAPI
+    description: 'null'
+  - url: https://github.com/Portkey-AI/gateway
+    name: Portkey AI Gateway - Open Source
+    type: GitHubOrg
+    description: 'null'
+  - url: https://github.com/Portkey-AI/portkey-python-sdk
+    name: Portkey Python SDK - GitHub
+    type: GitHubOrg
+    description: 'null'
+  - url: https://github.com/Portkey-AI/portkey-node-sdk
+    name: Portkey Node.js SDK - GitHub
+    type: GitHubOrg
+    description: 'null'
+  - url: https://pypi.org/project/portkey-ai/
+    name: portkey-ai - PyPI
+    type: PythonPackage
+    description: 'null'
+  - url: https://www.npmjs.com/package/portkey-ai
+    name: portkey-ai - npm
+    type: NodePackage
+    description: 'null'
+  - url: https://portkey.ai/docs/api-reference/portkey-sdk-client
+    name: Portkey SDK Client - Portkey Docs
+    type: SDK
+    description: 'null'
+  - url: https://portkey.ai/docs/support/developer-forum
+    name: Developer Forum - Portkey Docs
+    type: Forum
+    description: 'null'
+  - url: https://portkey.ai/features/security-compliance
+    name: Enterprise-grade Security and Compliance - Portkey
+    type: Security
+    description: 'null'
+  - url: https://portkey.ai/features/ai-gateway
+    name: Enterprise-grade AI Gateway - Portkey
+    type: Features
+    description: 'null'
+  - url: https://portkey.ai/features/observability
+    name: Full-stack Observability for AI Apps - Portkey
+    type: Observability
+    description: 'null'
+  - url: https://portkey.ai/features/guardrails
+    name: Safeguard Your AI Requests with Guardrails - Portkey
+    type: Guardrails
+    description: 'null'
+  - url: https://portkey.ai/docs/product/guardrails
+    name: Guardrails - Portkey Docs
+    type: Documentation
+    description: 'null'
+  - url: https://portkey.ai/docs/api-reference/inference-api/supported-providers
+    name: Supported Providers - Portkey Docs
+    type: Providers
+    description: 'null'
+  - url: https://www.linkedin.com/company/portkey-ai
+    name: Portkey AI on LinkedIn
+    type: LinkedIn
     description: 'null'
 created: '2025-08-19'
 modified: '2026-01-02'
