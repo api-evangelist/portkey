@@ -18,7 +18,8 @@ apis:
         type: Documentation
       - url: https://github.com/Portkey-AI/openapi
         type: OpenAPI
-      - url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+      - url: 
+          https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
         type: GettingStarted
     description: >-
       Portkey equips AI teams with everything they need to go to production -
@@ -132,7 +133,8 @@ common:
     name: Portkey Login
     type: Login
     description: 'null'
-  - url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - url: 
+      https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
     name: Getting Started with AI Gateway - Portkey Docs
     type: GettingStarted
     description: 'null'
@@ -210,9 +212,8 @@ position: Consumer
 segments:
   - Gateways
 description: >-
-  Portkey equips AI teams with everything they need to go to production -
-  Gateway, Observability, Guardrails, Governance, and Prompt Management, all in
-  one platform. 
+  Portkey equips AI teams with everything they need to go to production - Gateway,
+  Observability, Guardrails, Governance, and Prompt Management, all in one platform.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
