@@ -6,9 +6,9 @@ apis:
     name: Portkey
     tags:
       - AI Gateways
-      - Observability
-      - Guardrails
       - Governance
+      - Guardrails
+      - Observability
       - Prompt Management
     humanURL: ' https://portkey.ai/'
     properties:
@@ -18,8 +18,7 @@ apis:
         type: Documentation
       - url: https://github.com/Portkey-AI/openapi
         type: OpenAPI
-      - url: 
-          https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+      - url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
         type: GettingStarted
     description: >-
       Portkey equips AI teams with everything they need to go to production -
@@ -29,15 +28,15 @@ apis:
     name: Portkey Inference API
     tags:
       - AI Gateways
-      - Inference
+      - Assistants
+      - Audio
+      - Batch
       - Chat Completions
       - Completions
       - Embeddings
-      - Images
-      - Audio
-      - Assistants
       - Fine-Tuning
-      - Batch
+      - Images
+      - Inference
       - Moderations
     humanURL: https://portkey.ai/docs/product/ai-gateway/universal-api
     properties:
@@ -60,14 +59,14 @@ apis:
     tags:
       - Administration
       - Analytics
-      - Logs
-      - Virtual Keys
-      - Configs
-      - Users
-      - Workspaces
-      - Audit Logs
       - API Keys
+      - Audit Logs
+      - Configs
+      - Logs
       - Rate Limits
+      - Users
+      - Virtual Keys
+      - Workspaces
     humanURL: https://portkey.ai/docs/api-reference/admin-api/introduction
     properties:
       - url: https://portkey.ai/docs/api-reference/admin-api/introduction
@@ -84,11 +83,11 @@ apis:
 name: Portkey
 tags:
   - AI Gateways
-  - Observability
-  - Guardrails
-  - Governance
-  - Prompt Management
   - Gateways
+  - Governance
+  - Guardrails
+  - Observability
+  - Prompt Management
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
@@ -133,8 +132,7 @@ common:
     name: Portkey Login
     type: Login
     description: 'null'
-  - url: 
-      https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
     name: Getting Started with AI Gateway - Portkey Docs
     type: GettingStarted
     description: 'null'
