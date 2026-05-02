@@ -10,13 +10,13 @@ apis:
       - Guardrails
       - Observability
       - Prompt Management
-    humanURL: ' https://portkey.ai/'
+    humanURL: https://portkey.ai/
     properties:
-      - url: ' https://portkey.ai/'
+      - url: https://portkey.ai/docs/introduction/what-is-portkey
         type: Documentation
       - url: https://portkey.ai/docs/api-reference/inference-api/chat
-        type: Documentation
-      - url: https://github.com/Portkey-AI/openapi
+        type: APIReference
+      - url: openapi/portkey-openapi.yml
         type: OpenAPI
       - url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
         type: GettingStarted
@@ -39,14 +39,15 @@ apis:
       - Inference
       - Moderations
     humanURL: https://portkey.ai/docs/product/ai-gateway/universal-api
+    baseURL: https://api.portkey.ai/v1
     properties:
       - url: https://portkey.ai/docs/api-reference/inference-api/chat
-        type: Documentation
+        type: APIReference
       - url: https://portkey.ai/docs/api-reference/inference-api/completions
-        type: Documentation
+        type: APIReference
       - url: https://portkey.ai/docs/api-reference/inference-api/embeddings
-        type: Documentation
-      - url: https://github.com/Portkey-AI/openapi
+        type: APIReference
+      - url: openapi/portkey-openapi.yml
         type: OpenAPI
     description: >-
       Portkey Inference API provides a universal API for routing to 200+ LLMs
@@ -68,10 +69,11 @@ apis:
       - Virtual Keys
       - Workspaces
     humanURL: https://portkey.ai/docs/api-reference/admin-api/introduction
+    baseURL: https://api.portkey.ai/v1
     properties:
       - url: https://portkey.ai/docs/api-reference/admin-api/introduction
-        type: Documentation
-      - url: https://github.com/Portkey-AI/openapi
+        type: APIReference
+      - url: openapi/portkey-openapi.yml
         type: OpenAPI
     description: >-
       Portkey Admin API enables programmatic management of Portkey organizations
@@ -205,7 +207,7 @@ common:
     type: LinkedIn
     description: 'null'
 created: '2025-08-19'
-modified: '2026-01-02'
+modified: '2026-04-28'
 position: Consumer
 segments:
   - Gateways
