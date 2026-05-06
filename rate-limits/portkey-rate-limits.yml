@@ -4,97 +4,73 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Portkey
 providerId: portkey
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - AI Gateways
-  - Gateways
   - Governance
-  - Guardrails
   - Observability
-  - Prompt Management
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Portkey API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: >-
+  Portkey is an LLM gateway whose runtime quotas are dominated by the upstream
+  provider being proxied (OpenAI, Anthropic, Bedrock, etc.); Portkey itself
+  exposes plan-bound caps on recorded logs (10k/month on Developer, 100k/month
+  on Production with overage to 3M, 10M+ on Enterprise) rather than per-second
+  request throttling. Enterprise customers can configure granular budget and
+  rate limits per virtual key and workspace. Concrete numeric request-per-second
+  ceilings are not published on the public docs site at the time of writing.
+sources:
+  - https://portkey.ai/pricing
+  - https://portkey.ai/docs/api-reference/inference-api/introduction
+  - https://portkey.ai/docs/product/enterprise-offering/private-cloud-deployments
 responseCodes:
   throttled: 429
   quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Portkey
-      - Portkey Inference API
-      - Portkey Admin API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
+  - name: Developer plan recorded logs
+    scope: account
     metric: requests_per_month
-    limit: 1000
+    limit: 10000
     timeFrame: month
-    applies:
-      - Portkey
-      - Portkey Inference API
-      - Portkey Admin API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Portkey
-      - Portkey Inference API
-      - Portkey Admin API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
+    notes: Logs beyond cap are not recorded but requests still pass through.
+  - name: Production plan recorded logs (included)
+    scope: account
     metric: requests_per_month
     limit: 100000
     timeFrame: month
-    applies:
-      - Portkey
-      - Portkey Inference API
-      - Portkey Admin API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Portkey
-      - Portkey Inference API
-      - Portkey Admin API
+    notes: $9 per additional 100k requests up to 3M then contact sales.
+  - name: Production plan upper ceiling
+    scope: account
+    metric: requests_per_month
+    limit: 3000000
+    timeFrame: month
+    notes: Beyond 3M requests, account is moved to Enterprise discussion.
+  - name: Enterprise per-virtual-key rate limit
+    scope: virtual-key
+    metric: varies
+    limit: configurable per contract
+    notes: Enterprise admins can configure granular rate limits and budgets per virtual key, workspace, or service account.
+  - name: Upstream provider throttling
+    scope: upstream
+    metric: varies
+    limit: governed by the proxied LLM provider (OpenAI, Anthropic, Bedrock, etc.)
+    notes: Portkey passes through 429 responses from upstream LLM providers along with their Retry-After signaling.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Cap-and-drop logging
+    description: When recorded log quota is exceeded on Developer or Production tiers, requests still succeed but log records beyond the cap are dropped.
+  - name: Pass-through throttling
+    description: When the upstream LLM provider throttles, Portkey returns the upstream 429 with whatever Retry-After header the provider supplied.
+  - name: Granular enterprise limits
+    description: Enterprise tenants can scope budget and rate limits per virtual key, workspace, or environment for chargeback and blast-radius control.
+  - name: Backoff
+    description: Clients should implement exponential backoff with jitter on 429 and 5xx responses.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+notes: >-
+  Plan-level recorded-log caps come from the public pricing page. Portkey does
+  not publish a fixed per-second request-rate ceiling; runtime throttling is
+  governed by the proxied upstream LLM provider and by enterprise-configured
+  per-virtual-key limits. Marked reconciled=false because the per-second
+  numbers are not public.
