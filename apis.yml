@@ -116,7 +116,7 @@ common:
     description: 'null'
   - url: https://status.portkey.ai/
     name: Portkey AI status
-    type: Status
+    type: StatusPage
     description: 'null'
   - url: https://portkey.ai/pricing
     name: Portkey | Control Panel for Production AI
