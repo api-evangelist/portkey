@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — MCP Integrations > Metadata
+  description: 'Portkey API — MCP Integrations > Metadata. 1 operations. Lead operation: Get MCP Integration Metadata. Self-contained
+    Naftiko capability covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - MCP Integrations > Metadata
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-mcp-integrations-metadata
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — MCP Integrations > Metadata business capability. Self-contained, no shared references.
+    resources:
+    - name: mcp-integrations-mcpIntegrationId-metadata
+      path: /mcp-integrations/{mcpIntegrationId}/metadata
+      operations:
+      - name: mcpintegrationmetadataretrieve
+        method: GET
+        description: Get MCP Integration Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-mcp-integrations-metadata-rest
+    port: 8080
+    description: REST adapter for Portkey API — MCP Integrations > Metadata. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/mcp-integrations/{mcpintegrationid}/metadata
+      name: mcp-integrations-mcpintegrationid-metadata
+      description: REST surface for mcp-integrations-mcpIntegrationId-metadata.
+      operations:
+      - method: GET
+        name: mcpintegrationmetadataretrieve
+        description: Get MCP Integration Metadata
+        call: portkey-mcp-integrations-metadata.mcpintegrationmetadataretrieve
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-mcp-integrations-metadata-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — MCP Integrations > Metadata. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-mcp-integration-metadata
+      description: Get MCP Integration Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-mcp-integrations-metadata.mcpintegrationmetadataretrieve
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,382 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Workspaces
+  description: 'Portkey API — Workspaces. 8 operations. Lead operation: Create Workspace. Self-contained Naftiko capability
+    covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - Workspaces
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-workspaces
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Workspaces business capability. Self-contained, no shared references.
+    resources:
+    - name: admin-workspaces
+      path: /admin/workspaces
+      operations:
+      - name: post
+        method: POST
+        description: Create Workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: get
+        method: GET
+        description: Get All Workspaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page_size
+          in: query
+          type: integer
+        - name: current_page
+          in: query
+          type: integer
+        - name: name
+          in: query
+          type: string
+          description: Workspace name to filter results, case sensitive
+        - name: exact_name
+          in: query
+          type: string
+          description: Workspace name filter with strict check
+        - name: status
+          in: query
+          type: string
+          description: Workspace status to filter results, comma separated
+    - name: admin-workspaces-workspaceId
+      path: /admin/workspaces/{workspaceId}
+      operations:
+      - name: put
+        method: PUT
+        description: Update Workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspaceId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: get
+        method: GET
+        description: Get workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspaceId
+          in: path
+          type: string
+          required: true
+      - name: delete
+        method: DELETE
+        description: Delete a workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspaceId
+          in: path
+          type: string
+          required: true
+    - name: scim-workspaces
+      path: /scim/workspaces
+      operations:
+      - name: get
+        method: GET
+        description: List SCIM Group to Workspace Mappings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: query
+          type: string
+          description: Filter mappings by workspace ID or slug.
+        - name: scim_group_id
+          in: query
+          type: string
+          description: Filter mappings by SCIM group ID.
+        - name: role
+          in: query
+          type: string
+          description: Filter mappings by role.
+      - name: post
+        method: POST
+        description: Create SCIM Group to Workspace Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: scim-workspaces-scimWorkspaceGroupId
+      path: /scim/workspaces/{scimWorkspaceGroupId}
+      operations:
+      - name: delete
+        method: DELETE
+        description: Delete SCIM Group to Workspace Mapping
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: scimWorkspaceGroupId
+          in: path
+          type: string
+          description: ID of the SCIM workspace mapping to delete
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-workspaces-rest
+    port: 8080
+    description: REST adapter for Portkey API — Workspaces. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin/workspaces
+      name: admin-workspaces
+      description: REST surface for admin-workspaces.
+      operations:
+      - method: POST
+        name: post
+        description: Create Workspace
+        call: portkey-workspaces.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: get
+        description: Get All Workspaces
+        call: portkey-workspaces.get
+        with:
+          page_size: rest.page_size
+          current_page: rest.current_page
+          name: rest.name
+          exact_name: rest.exact_name
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/workspaces/{workspaceid}
+      name: admin-workspaces-workspaceid
+      description: REST surface for admin-workspaces-workspaceId.
+      operations:
+      - method: PUT
+        name: put
+        description: Update Workspace
+        call: portkey-workspaces.put
+        with:
+          workspaceId: rest.workspaceId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: get
+        description: Get workspace
+        call: portkey-workspaces.get
+        with:
+          workspaceId: rest.workspaceId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete a workspace
+        call: portkey-workspaces.delete
+        with:
+          workspaceId: rest.workspaceId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scim/workspaces
+      name: scim-workspaces
+      description: REST surface for scim-workspaces.
+      operations:
+      - method: GET
+        name: get
+        description: List SCIM Group to Workspace Mappings
+        call: portkey-workspaces.get
+        with:
+          workspace_id: rest.workspace_id
+          scim_group_id: rest.scim_group_id
+          role: rest.role
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post
+        description: Create SCIM Group to Workspace Mapping
+        call: portkey-workspaces.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scim/workspaces/{scimworkspacegroupid}
+      name: scim-workspaces-scimworkspacegroupid
+      description: REST surface for scim-workspaces-scimWorkspaceGroupId.
+      operations:
+      - method: DELETE
+        name: delete
+        description: Delete SCIM Group to Workspace Mapping
+        call: portkey-workspaces.delete
+        with:
+          scimWorkspaceGroupId: rest.scimWorkspaceGroupId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-workspaces-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Workspaces. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-workspace
+      description: Create Workspace
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-workspaces.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-workspaces
+      description: Get All Workspaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-workspaces.get
+      with:
+        page_size: tools.page_size
+        current_page: tools.current_page
+        name: tools.name
+        exact_name: tools.exact_name
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-workspace
+      description: Update Workspace
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-workspaces.put
+      with:
+        workspaceId: tools.workspaceId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-workspace
+      description: Get workspace
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-workspaces.get
+      with:
+        workspaceId: tools.workspaceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-workspace
+      description: Delete a workspace
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-workspaces.delete
+      with:
+        workspaceId: tools.workspaceId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-scim-group-workspace-mappings
+      description: List SCIM Group to Workspace Mappings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-workspaces.get
+      with:
+        workspace_id: tools.workspace_id
+        scim_group_id: tools.scim_group_id
+        role: tools.role
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-scim-group-workspace-mapping
+      description: Create SCIM Group to Workspace Mapping
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-workspaces.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-scim-group-workspace-mapping
+      description: Delete SCIM Group to Workspace Mapping
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-workspaces.delete
+      with:
+        scimWorkspaceGroupId: tools.scimWorkspaceGroupId
+      outputParameters:
+      - type: object
+        mapping: $.

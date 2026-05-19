@@ -1,0 +1,129 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Feedback
+  description: 'Portkey API — Feedback. 2 operations. Lead operation: Create new feedback. Self-contained Naftiko capability
+    covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - Feedback
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-feedback
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Feedback business capability. Self-contained, no shared references.
+    resources:
+    - name: feedback
+      path: /feedback
+      operations:
+      - name: createfeedback
+        method: POST
+        description: Create new feedback
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: feedback-id
+      path: /feedback/{id}
+      operations:
+      - name: updatefeedback
+        method: PUT
+        description: Updates existing feedback
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Feedback ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-feedback-rest
+    port: 8080
+    description: REST adapter for Portkey API — Feedback. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/feedback
+      name: feedback
+      description: REST surface for feedback.
+      operations:
+      - method: POST
+        name: createfeedback
+        description: Create new feedback
+        call: portkey-feedback.createfeedback
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/feedback/{id}
+      name: feedback-id
+      description: REST surface for feedback-id.
+      operations:
+      - method: PUT
+        name: updatefeedback
+        description: Updates existing feedback
+        call: portkey-feedback.updatefeedback
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-feedback-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Feedback. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-new-feedback
+      description: Create new feedback
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-feedback.createfeedback
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updates-existing-feedback
+      description: Updates existing feedback
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-feedback.updatefeedback
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

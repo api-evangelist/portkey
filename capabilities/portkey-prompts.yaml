@@ -1,0 +1,530 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Prompts
+  description: 'Portkey API — Prompts. 11 operations. Lead operation: Create a new prompt. Self-contained Naftiko capability
+    covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - Prompts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-prompts
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Prompts business capability. Self-contained, no shared references.
+    resources:
+    - name: prompts
+      path: /prompts
+      operations:
+      - name: createprompt
+        method: POST
+        description: Create a new prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listprompts
+        method: GET
+        description: List prompts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: collection_id
+          in: query
+          type: string
+        - name: workspace_id
+          in: query
+          type: string
+        - name: current_page
+          in: query
+          type: integer
+        - name: page_size
+          in: query
+          type: integer
+        - name: search
+          in: query
+          type: string
+    - name: prompts-promptId
+      path: /prompts/{promptId}
+      operations:
+      - name: getprompt
+        method: GET
+        description: Get a prompt by ID or slug
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promptId
+          in: path
+          type: string
+          required: true
+      - name: updateprompt
+        method: PUT
+        description: Update a prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promptId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteprompt
+        method: DELETE
+        description: Delete a prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promptId
+          in: path
+          type: string
+          required: true
+    - name: prompts-promptId-completions
+      path: /prompts/{promptId}/completions
+      operations:
+      - name: createpromptcompletion
+        method: POST
+        description: Prompts Completions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promptId
+          in: path
+          type: string
+          description: The unique identifier of the prompt template to use
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: prompts-promptId-makeDefault
+      path: /prompts/{promptId}/makeDefault
+      operations:
+      - name: updatepromptdefault
+        method: PUT
+        description: Set a version as the default for a prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promptId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: prompts-promptId-render
+      path: /prompts/{promptId}/render
+      operations:
+      - name: createpromptrender
+        method: POST
+        description: Prompts Render
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promptId
+          in: path
+          type: string
+          description: The unique identifier of the prompt template to render
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: prompts-promptId-versions
+      path: /prompts/{promptId}/versions
+      operations:
+      - name: getpromptversions
+        method: GET
+        description: Get all versions of a prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promptId
+          in: path
+          type: string
+          required: true
+    - name: prompts-promptId-versions-versionId
+      path: /prompts/{promptId}/versions/{versionId}
+      operations:
+      - name: getpromptbyversion
+        method: GET
+        description: Get a specific version of a prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promptId
+          in: path
+          type: string
+          required: true
+        - name: versionId
+          in: path
+          type: string
+          required: true
+      - name: updatepromptversion
+        method: PUT
+        description: Update a specific version of a prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: promptId
+          in: path
+          type: string
+          required: true
+        - name: versionId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-prompts-rest
+    port: 8080
+    description: REST adapter for Portkey API — Prompts. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/prompts
+      name: prompts
+      description: REST surface for prompts.
+      operations:
+      - method: POST
+        name: createprompt
+        description: Create a new prompt
+        call: portkey-prompts.createprompt
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listprompts
+        description: List prompts
+        call: portkey-prompts.listprompts
+        with:
+          collection_id: rest.collection_id
+          workspace_id: rest.workspace_id
+          current_page: rest.current_page
+          page_size: rest.page_size
+          search: rest.search
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/prompts/{promptid}
+      name: prompts-promptid
+      description: REST surface for prompts-promptId.
+      operations:
+      - method: GET
+        name: getprompt
+        description: Get a prompt by ID or slug
+        call: portkey-prompts.getprompt
+        with:
+          promptId: rest.promptId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateprompt
+        description: Update a prompt
+        call: portkey-prompts.updateprompt
+        with:
+          promptId: rest.promptId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteprompt
+        description: Delete a prompt
+        call: portkey-prompts.deleteprompt
+        with:
+          promptId: rest.promptId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/prompts/{promptid}/completions
+      name: prompts-promptid-completions
+      description: REST surface for prompts-promptId-completions.
+      operations:
+      - method: POST
+        name: createpromptcompletion
+        description: Prompts Completions
+        call: portkey-prompts.createpromptcompletion
+        with:
+          promptId: rest.promptId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/prompts/{promptid}/makedefault
+      name: prompts-promptid-makedefault
+      description: REST surface for prompts-promptId-makeDefault.
+      operations:
+      - method: PUT
+        name: updatepromptdefault
+        description: Set a version as the default for a prompt
+        call: portkey-prompts.updatepromptdefault
+        with:
+          promptId: rest.promptId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/prompts/{promptid}/render
+      name: prompts-promptid-render
+      description: REST surface for prompts-promptId-render.
+      operations:
+      - method: POST
+        name: createpromptrender
+        description: Prompts Render
+        call: portkey-prompts.createpromptrender
+        with:
+          promptId: rest.promptId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/prompts/{promptid}/versions
+      name: prompts-promptid-versions
+      description: REST surface for prompts-promptId-versions.
+      operations:
+      - method: GET
+        name: getpromptversions
+        description: Get all versions of a prompt
+        call: portkey-prompts.getpromptversions
+        with:
+          promptId: rest.promptId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/prompts/{promptid}/versions/{versionid}
+      name: prompts-promptid-versions-versionid
+      description: REST surface for prompts-promptId-versions-versionId.
+      operations:
+      - method: GET
+        name: getpromptbyversion
+        description: Get a specific version of a prompt
+        call: portkey-prompts.getpromptbyversion
+        with:
+          promptId: rest.promptId
+          versionId: rest.versionId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepromptversion
+        description: Update a specific version of a prompt
+        call: portkey-prompts.updatepromptversion
+        with:
+          promptId: rest.promptId
+          versionId: rest.versionId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-prompts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Prompts. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-new-prompt
+      description: Create a new prompt
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-prompts.createprompt
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-prompts
+      description: List prompts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-prompts.listprompts
+      with:
+        collection_id: tools.collection_id
+        workspace_id: tools.workspace_id
+        current_page: tools.current_page
+        page_size: tools.page_size
+        search: tools.search
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-prompt-id-slug
+      description: Get a prompt by ID or slug
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-prompts.getprompt
+      with:
+        promptId: tools.promptId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-prompt
+      description: Update a prompt
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-prompts.updateprompt
+      with:
+        promptId: tools.promptId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-prompt
+      description: Delete a prompt
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-prompts.deleteprompt
+      with:
+        promptId: tools.promptId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: prompts-completions
+      description: Prompts Completions
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-prompts.createpromptcompletion
+      with:
+        promptId: tools.promptId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-version-default-prompt
+      description: Set a version as the default for a prompt
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-prompts.updatepromptdefault
+      with:
+        promptId: tools.promptId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: prompts-render
+      description: Prompts Render
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-prompts.createpromptrender
+      with:
+        promptId: tools.promptId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-all-versions-prompt
+      description: Get all versions of a prompt
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-prompts.getpromptversions
+      with:
+        promptId: tools.promptId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-specific-version-prompt
+      description: Get a specific version of a prompt
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-prompts.getpromptbyversion
+      with:
+        promptId: tools.promptId
+        versionId: tools.versionId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-specific-version-prompt
+      description: Update a specific version of a prompt
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-prompts.updatepromptversion
+      with:
+        promptId: tools.promptId
+        versionId: tools.versionId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

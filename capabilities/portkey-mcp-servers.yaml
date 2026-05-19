@@ -1,0 +1,259 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — MCP Servers
+  description: 'Portkey API — MCP Servers. 6 operations. Lead operation: Create MCP Server. Self-contained Naftiko capability
+    covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - MCP Servers
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-mcp-servers
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — MCP Servers business capability. Self-contained, no shared references.
+    resources:
+    - name: mcp-servers
+      path: /mcp-servers
+      operations:
+      - name: mcpserverscreate
+        method: POST
+        description: Create MCP Server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: mcpserverslist
+        method: GET
+        description: List MCP Servers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: query
+          type: string
+          description: Workspace ID or slug. Required when using org admin API key; optional when API key is workspace-scoped.
+        - name: current_page
+          in: query
+          type: integer
+        - name: page_size
+          in: query
+          type: integer
+        - name: id
+          in: query
+          type: string
+          description: Filter by MCP Server ID(s), comma-separated
+        - name: search
+          in: query
+          type: string
+    - name: mcp-servers-mcpServerId
+      path: /mcp-servers/{mcpServerId}
+      operations:
+      - name: mcpserversretrieve
+        method: GET
+        description: Get MCP Server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: mcpserversupdate
+        method: PUT
+        description: Update MCP Server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: mcpserversdelete
+        method: DELETE
+        description: Delete MCP Server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: mcp-servers-mcpServerId-test
+      path: /mcp-servers/{mcpServerId}/test
+      operations:
+      - name: mcpserverstest
+        method: POST
+        description: Test MCP Server Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-mcp-servers-rest
+    port: 8080
+    description: REST adapter for Portkey API — MCP Servers. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/mcp-servers
+      name: mcp-servers
+      description: REST surface for mcp-servers.
+      operations:
+      - method: POST
+        name: mcpserverscreate
+        description: Create MCP Server
+        call: portkey-mcp-servers.mcpserverscreate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: mcpserverslist
+        description: List MCP Servers
+        call: portkey-mcp-servers.mcpserverslist
+        with:
+          workspace_id: rest.workspace_id
+          current_page: rest.current_page
+          page_size: rest.page_size
+          id: rest.id
+          search: rest.search
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/mcp-servers/{mcpserverid}
+      name: mcp-servers-mcpserverid
+      description: REST surface for mcp-servers-mcpServerId.
+      operations:
+      - method: GET
+        name: mcpserversretrieve
+        description: Get MCP Server
+        call: portkey-mcp-servers.mcpserversretrieve
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: mcpserversupdate
+        description: Update MCP Server
+        call: portkey-mcp-servers.mcpserversupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: mcpserversdelete
+        description: Delete MCP Server
+        call: portkey-mcp-servers.mcpserversdelete
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/mcp-servers/{mcpserverid}/test
+      name: mcp-servers-mcpserverid-test
+      description: REST surface for mcp-servers-mcpServerId-test.
+      operations:
+      - method: POST
+        name: mcpserverstest
+        description: Test MCP Server Connection
+        call: portkey-mcp-servers.mcpserverstest
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-mcp-servers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — MCP Servers. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-mcp-server
+      description: Create MCP Server
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-mcp-servers.mcpserverscreate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-mcp-servers
+      description: List MCP Servers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-mcp-servers.mcpserverslist
+      with:
+        workspace_id: tools.workspace_id
+        current_page: tools.current_page
+        page_size: tools.page_size
+        id: tools.id
+        search: tools.search
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-mcp-server
+      description: Get MCP Server
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-mcp-servers.mcpserversretrieve
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-mcp-server
+      description: Update MCP Server
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-mcp-servers.mcpserversupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-mcp-server
+      description: Delete MCP Server
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-mcp-servers.mcpserversdelete
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: test-mcp-server-connection
+      description: Test MCP Server Connection
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: portkey-mcp-servers.mcpserverstest
+      outputParameters:
+      - type: object
+        mapping: $.

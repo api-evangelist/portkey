@@ -1,0 +1,1173 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Assistants
+  description: 'Portkey API — Assistants. 23 operations. Lead operation: Returns a list of assistants.. Self-contained Naftiko
+    capability covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - Assistants
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-assistants
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Assistants business capability. Self-contained, no shared references.
+    resources:
+    - name: assistants
+      path: /assistants
+      operations:
+      - name: listassistants
+        method: GET
+        description: Returns a list of assistants.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default
+            is 20.
+        - name: order
+          in: query
+          type: string
+          description: Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending
+            order.
+        - name: after
+          in: query
+          type: string
+          description: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance,
+            if you make a list request and receive 100 objects, e
+        - name: before
+          in: query
+          type: string
+          description: 'A cursor for use in pagination. `before` is an object ID that defines your place in the list. For
+            instance, if you make a list request and receive 100 objects, '
+      - name: createassistant
+        method: POST
+        description: Create an assistant with a model and instructions.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: assistants-assistant_id
+      path: /assistants/{assistant_id}
+      operations:
+      - name: getassistant
+        method: GET
+        description: Retrieves an assistant.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: assistant_id
+          in: path
+          type: string
+          description: The ID of the assistant to retrieve.
+          required: true
+      - name: modifyassistant
+        method: POST
+        description: Modifies an assistant.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: assistant_id
+          in: path
+          type: string
+          description: The ID of the assistant to modify.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteassistant
+        method: DELETE
+        description: Delete an assistant.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: assistant_id
+          in: path
+          type: string
+          description: The ID of the assistant to delete.
+          required: true
+    - name: threads
+      path: /threads
+      operations:
+      - name: createthread
+        method: POST
+        description: Create a thread.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: threads-runs
+      path: /threads/runs
+      operations:
+      - name: createthreadandrun
+        method: POST
+        description: Create a thread and run it in one request.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: threads-thread_id
+      path: /threads/{thread_id}
+      operations:
+      - name: getthread
+        method: GET
+        description: Retrieves a thread.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread to retrieve.
+          required: true
+      - name: modifythread
+        method: POST
+        description: Modifies a thread.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread to modify. Only the `metadata` can be modified.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletethread
+        method: DELETE
+        description: Delete a thread.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread to delete.
+          required: true
+    - name: threads-thread_id-messages
+      path: /threads/{thread_id}/messages
+      operations:
+      - name: listmessages
+        method: GET
+        description: Returns a list of messages for a given thread.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) the messages belong
+            to.
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default
+            is 20.
+        - name: order
+          in: query
+          type: string
+          description: Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending
+            order.
+        - name: after
+          in: query
+          type: string
+          description: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance,
+            if you make a list request and receive 100 objects, e
+        - name: before
+          in: query
+          type: string
+          description: 'A cursor for use in pagination. `before` is an object ID that defines your place in the list. For
+            instance, if you make a list request and receive 100 objects, '
+        - name: run_id
+          in: query
+          type: string
+          description: Filter messages by the run ID that generated them.
+      - name: createmessage
+        method: POST
+        description: Create a message.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) to create a message
+            for.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: threads-thread_id-messages-message_id
+      path: /threads/{thread_id}/messages/{message_id}
+      operations:
+      - name: getmessage
+        method: GET
+        description: Retrieve a message.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) to which this message
+            belongs.
+          required: true
+        - name: message_id
+          in: path
+          type: string
+          description: The ID of the message to retrieve.
+          required: true
+      - name: modifymessage
+        method: POST
+        description: Modifies a message.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread to which this message belongs.
+          required: true
+        - name: message_id
+          in: path
+          type: string
+          description: The ID of the message to modify.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletemessage
+        method: DELETE
+        description: Deletes a message.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread to which this message belongs.
+          required: true
+        - name: message_id
+          in: path
+          type: string
+          description: The ID of the message to delete.
+          required: true
+    - name: threads-thread_id-runs
+      path: /threads/{thread_id}/runs
+      operations:
+      - name: listruns
+        method: GET
+        description: Returns a list of runs belonging to a thread.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread the run belongs to.
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default
+            is 20.
+        - name: order
+          in: query
+          type: string
+          description: Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending
+            order.
+        - name: after
+          in: query
+          type: string
+          description: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance,
+            if you make a list request and receive 100 objects, e
+        - name: before
+          in: query
+          type: string
+          description: 'A cursor for use in pagination. `before` is an object ID that defines your place in the list. For
+            instance, if you make a list request and receive 100 objects, '
+      - name: createrun
+        method: POST
+        description: Create a run.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread to run.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: threads-thread_id-runs-run_id
+      path: /threads/{thread_id}/runs/{run_id}
+      operations:
+      - name: getrun
+        method: GET
+        description: Retrieves a run.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was run.
+          required: true
+        - name: run_id
+          in: path
+          type: string
+          description: The ID of the run to retrieve.
+          required: true
+      - name: modifyrun
+        method: POST
+        description: Modifies a run.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was run.
+          required: true
+        - name: run_id
+          in: path
+          type: string
+          description: The ID of the run to modify.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: threads-thread_id-runs-run_id-cancel
+      path: /threads/{thread_id}/runs/{run_id}/cancel
+      operations:
+      - name: cancelrun
+        method: POST
+        description: Cancels a run that is `in_progress`.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread to which this run belongs.
+          required: true
+        - name: run_id
+          in: path
+          type: string
+          description: The ID of the run to cancel.
+          required: true
+    - name: threads-thread_id-runs-run_id-steps
+      path: /threads/{thread_id}/runs/{run_id}/steps
+      operations:
+      - name: listrunsteps
+        method: GET
+        description: Returns a list of run steps belonging to a run.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread the run and run steps belong to.
+          required: true
+        - name: run_id
+          in: path
+          type: string
+          description: The ID of the run the run steps belong to.
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default
+            is 20.
+        - name: order
+          in: query
+          type: string
+          description: Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending
+            order.
+        - name: after
+          in: query
+          type: string
+          description: A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance,
+            if you make a list request and receive 100 objects, e
+        - name: before
+          in: query
+          type: string
+          description: 'A cursor for use in pagination. `before` is an object ID that defines your place in the list. For
+            instance, if you make a list request and receive 100 objects, '
+    - name: threads-thread_id-runs-run_id-steps-step_id
+      path: /threads/{thread_id}/runs/{run_id}/steps/{step_id}
+      operations:
+      - name: getrunstep
+        method: GET
+        description: Retrieves a run step.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the thread to which the run and run step belongs.
+          required: true
+        - name: run_id
+          in: path
+          type: string
+          description: The ID of the run to which the run step belongs.
+          required: true
+        - name: step_id
+          in: path
+          type: string
+          description: The ID of the run step to retrieve.
+          required: true
+    - name: threads-thread_id-runs-run_id-submit_tool_outputs
+      path: /threads/{thread_id}/runs/{run_id}/submit_tool_outputs
+      operations:
+      - name: submittoolouputstorun
+        method: POST
+        description: 'When a run has the `status: "requires_action"` and `required_action.type` is `submit_tool_outputs`,
+          this endpoint can be used to submit the outputs from the tool calls once they''re all completed. All outputs must
+          be submitted in a single re'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) to which this run belongs.
+          required: true
+        - name: run_id
+          in: path
+          type: string
+          description: The ID of the run that requires the tool output submission.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-assistants-rest
+    port: 8080
+    description: REST adapter for Portkey API — Assistants. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/assistants
+      name: assistants
+      description: REST surface for assistants.
+      operations:
+      - method: GET
+        name: listassistants
+        description: Returns a list of assistants.
+        call: portkey-assistants.listassistants
+        with:
+          limit: rest.limit
+          order: rest.order
+          after: rest.after
+          before: rest.before
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createassistant
+        description: Create an assistant with a model and instructions.
+        call: portkey-assistants.createassistant
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/assistants/{assistant-id}
+      name: assistants-assistant-id
+      description: REST surface for assistants-assistant_id.
+      operations:
+      - method: GET
+        name: getassistant
+        description: Retrieves an assistant.
+        call: portkey-assistants.getassistant
+        with:
+          assistant_id: rest.assistant_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: modifyassistant
+        description: Modifies an assistant.
+        call: portkey-assistants.modifyassistant
+        with:
+          assistant_id: rest.assistant_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteassistant
+        description: Delete an assistant.
+        call: portkey-assistants.deleteassistant
+        with:
+          assistant_id: rest.assistant_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads
+      name: threads
+      description: REST surface for threads.
+      operations:
+      - method: POST
+        name: createthread
+        description: Create a thread.
+        call: portkey-assistants.createthread
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/runs
+      name: threads-runs
+      description: REST surface for threads-runs.
+      operations:
+      - method: POST
+        name: createthreadandrun
+        description: Create a thread and run it in one request.
+        call: portkey-assistants.createthreadandrun
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/{thread-id}
+      name: threads-thread-id
+      description: REST surface for threads-thread_id.
+      operations:
+      - method: GET
+        name: getthread
+        description: Retrieves a thread.
+        call: portkey-assistants.getthread
+        with:
+          thread_id: rest.thread_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: modifythread
+        description: Modifies a thread.
+        call: portkey-assistants.modifythread
+        with:
+          thread_id: rest.thread_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletethread
+        description: Delete a thread.
+        call: portkey-assistants.deletethread
+        with:
+          thread_id: rest.thread_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/{thread-id}/messages
+      name: threads-thread-id-messages
+      description: REST surface for threads-thread_id-messages.
+      operations:
+      - method: GET
+        name: listmessages
+        description: Returns a list of messages for a given thread.
+        call: portkey-assistants.listmessages
+        with:
+          thread_id: rest.thread_id
+          limit: rest.limit
+          order: rest.order
+          after: rest.after
+          before: rest.before
+          run_id: rest.run_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createmessage
+        description: Create a message.
+        call: portkey-assistants.createmessage
+        with:
+          thread_id: rest.thread_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/{thread-id}/messages/{message-id}
+      name: threads-thread-id-messages-message-id
+      description: REST surface for threads-thread_id-messages-message_id.
+      operations:
+      - method: GET
+        name: getmessage
+        description: Retrieve a message.
+        call: portkey-assistants.getmessage
+        with:
+          thread_id: rest.thread_id
+          message_id: rest.message_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: modifymessage
+        description: Modifies a message.
+        call: portkey-assistants.modifymessage
+        with:
+          thread_id: rest.thread_id
+          message_id: rest.message_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletemessage
+        description: Deletes a message.
+        call: portkey-assistants.deletemessage
+        with:
+          thread_id: rest.thread_id
+          message_id: rest.message_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/{thread-id}/runs
+      name: threads-thread-id-runs
+      description: REST surface for threads-thread_id-runs.
+      operations:
+      - method: GET
+        name: listruns
+        description: Returns a list of runs belonging to a thread.
+        call: portkey-assistants.listruns
+        with:
+          thread_id: rest.thread_id
+          limit: rest.limit
+          order: rest.order
+          after: rest.after
+          before: rest.before
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createrun
+        description: Create a run.
+        call: portkey-assistants.createrun
+        with:
+          thread_id: rest.thread_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/{thread-id}/runs/{run-id}
+      name: threads-thread-id-runs-run-id
+      description: REST surface for threads-thread_id-runs-run_id.
+      operations:
+      - method: GET
+        name: getrun
+        description: Retrieves a run.
+        call: portkey-assistants.getrun
+        with:
+          thread_id: rest.thread_id
+          run_id: rest.run_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: modifyrun
+        description: Modifies a run.
+        call: portkey-assistants.modifyrun
+        with:
+          thread_id: rest.thread_id
+          run_id: rest.run_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/{thread-id}/runs/{run-id}/cancel
+      name: threads-thread-id-runs-run-id-cancel
+      description: REST surface for threads-thread_id-runs-run_id-cancel.
+      operations:
+      - method: POST
+        name: cancelrun
+        description: Cancels a run that is `in_progress`.
+        call: portkey-assistants.cancelrun
+        with:
+          thread_id: rest.thread_id
+          run_id: rest.run_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/{thread-id}/runs/{run-id}/steps
+      name: threads-thread-id-runs-run-id-steps
+      description: REST surface for threads-thread_id-runs-run_id-steps.
+      operations:
+      - method: GET
+        name: listrunsteps
+        description: Returns a list of run steps belonging to a run.
+        call: portkey-assistants.listrunsteps
+        with:
+          thread_id: rest.thread_id
+          run_id: rest.run_id
+          limit: rest.limit
+          order: rest.order
+          after: rest.after
+          before: rest.before
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/{thread-id}/runs/{run-id}/steps/{step-id}
+      name: threads-thread-id-runs-run-id-steps-step-id
+      description: REST surface for threads-thread_id-runs-run_id-steps-step_id.
+      operations:
+      - method: GET
+        name: getrunstep
+        description: Retrieves a run step.
+        call: portkey-assistants.getrunstep
+        with:
+          thread_id: rest.thread_id
+          run_id: rest.run_id
+          step_id: rest.step_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/threads/{thread-id}/runs/{run-id}/submit-tool-outputs
+      name: threads-thread-id-runs-run-id-submit-tool-outputs
+      description: REST surface for threads-thread_id-runs-run_id-submit_tool_outputs.
+      operations:
+      - method: POST
+        name: submittoolouputstorun
+        description: 'When a run has the `status: "requires_action"` and `required_action.type` is `submit_tool_outputs`,
+          this endpoint can be used to submit the outputs from the tool calls once they''re all completed. All outputs must
+          be submitted in a single re'
+        call: portkey-assistants.submittoolouputstorun
+        with:
+          thread_id: rest.thread_id
+          run_id: rest.run_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-assistants-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Assistants. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: returns-list-assistants
+      description: Returns a list of assistants.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-assistants.listassistants
+      with:
+        limit: tools.limit
+        order: tools.order
+        after: tools.after
+        before: tools.before
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-assistant-model-and-instructions
+      description: Create an assistant with a model and instructions.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.createassistant
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieves-assistant
+      description: Retrieves an assistant.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-assistants.getassistant
+      with:
+        assistant_id: tools.assistant_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: modifies-assistant
+      description: Modifies an assistant.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.modifyassistant
+      with:
+        assistant_id: tools.assistant_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-assistant
+      description: Delete an assistant.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-assistants.deleteassistant
+      with:
+        assistant_id: tools.assistant_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-thread
+      description: Create a thread.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.createthread
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-thread-and-run-it
+      description: Create a thread and run it in one request.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.createthreadandrun
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieves-thread
+      description: Retrieves a thread.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-assistants.getthread
+      with:
+        thread_id: tools.thread_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: modifies-thread
+      description: Modifies a thread.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.modifythread
+      with:
+        thread_id: tools.thread_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-thread
+      description: Delete a thread.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-assistants.deletethread
+      with:
+        thread_id: tools.thread_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: returns-list-messages-given-thread
+      description: Returns a list of messages for a given thread.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-assistants.listmessages
+      with:
+        thread_id: tools.thread_id
+        limit: tools.limit
+        order: tools.order
+        after: tools.after
+        before: tools.before
+        run_id: tools.run_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-message
+      description: Create a message.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.createmessage
+      with:
+        thread_id: tools.thread_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-message
+      description: Retrieve a message.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-assistants.getmessage
+      with:
+        thread_id: tools.thread_id
+        message_id: tools.message_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: modifies-message
+      description: Modifies a message.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.modifymessage
+      with:
+        thread_id: tools.thread_id
+        message_id: tools.message_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletes-message
+      description: Deletes a message.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-assistants.deletemessage
+      with:
+        thread_id: tools.thread_id
+        message_id: tools.message_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: returns-list-runs-belonging-thread
+      description: Returns a list of runs belonging to a thread.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-assistants.listruns
+      with:
+        thread_id: tools.thread_id
+        limit: tools.limit
+        order: tools.order
+        after: tools.after
+        before: tools.before
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-run
+      description: Create a run.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.createrun
+      with:
+        thread_id: tools.thread_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieves-run
+      description: Retrieves a run.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-assistants.getrun
+      with:
+        thread_id: tools.thread_id
+        run_id: tools.run_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: modifies-run
+      description: Modifies a run.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.modifyrun
+      with:
+        thread_id: tools.thread_id
+        run_id: tools.run_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancels-run-that-is-progress
+      description: Cancels a run that is `in_progress`.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.cancelrun
+      with:
+        thread_id: tools.thread_id
+        run_id: tools.run_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: returns-list-run-steps-belonging
+      description: Returns a list of run steps belonging to a run.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-assistants.listrunsteps
+      with:
+        thread_id: tools.thread_id
+        run_id: tools.run_id
+        limit: tools.limit
+        order: tools.order
+        after: tools.after
+        before: tools.before
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieves-run-step
+      description: Retrieves a run step.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-assistants.getrunstep
+      with:
+        thread_id: tools.thread_id
+        run_id: tools.run_id
+        step_id: tools.step_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: when-run-has-status-requires
+      description: 'When a run has the `status: "requires_action"` and `required_action.type` is `submit_tool_outputs`, this
+        endpoint can be used to submit the outputs from the tool calls once they''re all completed. All outputs must be submitted
+        in a single re'
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-assistants.submittoolouputstorun
+      with:
+        thread_id: tools.thread_id
+        run_id: tools.run_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

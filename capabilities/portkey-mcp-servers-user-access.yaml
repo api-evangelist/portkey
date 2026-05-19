@@ -1,0 +1,124 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — MCP Servers > User Access
+  description: 'Portkey API — MCP Servers > User Access. 2 operations. Lead operation: List MCP Server User Access. Self-contained
+    Naftiko capability covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - MCP Servers > User Access
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-mcp-servers-user-access
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — MCP Servers > User Access business capability. Self-contained, no shared references.
+    resources:
+    - name: mcp-servers-mcpServerId-user-access
+      path: /mcp-servers/{mcpServerId}/user-access
+      operations:
+      - name: mcpserveruseraccesslist
+        method: GET
+        description: List MCP Server User Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+        - name: page_size
+          in: query
+          type: integer
+        - name: search
+          in: query
+          type: string
+          description: Search by user name or email
+      - name: mcpserveruseraccessbulkupdate
+        method: PUT
+        description: Bulk Update MCP Server User Access
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-mcp-servers-user-access-rest
+    port: 8080
+    description: REST adapter for Portkey API — MCP Servers > User Access. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/mcp-servers/{mcpserverid}/user-access
+      name: mcp-servers-mcpserverid-user-access
+      description: REST surface for mcp-servers-mcpServerId-user-access.
+      operations:
+      - method: GET
+        name: mcpserveruseraccesslist
+        description: List MCP Server User Access
+        call: portkey-mcp-servers-user-access.mcpserveruseraccesslist
+        with:
+          page: rest.page
+          page_size: rest.page_size
+          search: rest.search
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: mcpserveruseraccessbulkupdate
+        description: Bulk Update MCP Server User Access
+        call: portkey-mcp-servers-user-access.mcpserveruseraccessbulkupdate
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-mcp-servers-user-access-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — MCP Servers > User Access. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-mcp-server-user-access
+      description: List MCP Server User Access
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-mcp-servers-user-access.mcpserveruseraccesslist
+      with:
+        page: tools.page
+        page_size: tools.page_size
+        search: tools.search
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bulk-update-mcp-server-user
+      description: Bulk Update MCP Server User Access
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-mcp-servers-user-access.mcpserveruseraccessbulkupdate
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

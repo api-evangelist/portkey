@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Rerank
+  description: 'Portkey API — Rerank. 1 operations. Lead operation: Rerank. Self-contained Naftiko capability covering one
+    Portkey business surface.'
+  tags:
+  - Portkey
+  - Rerank
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-rerank
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Rerank business capability. Self-contained, no shared references.
+    resources:
+    - name: rerank
+      path: /rerank
+      operations:
+      - name: creatererank
+        method: POST
+        description: Rerank
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-rerank-rest
+    port: 8080
+    description: REST adapter for Portkey API — Rerank. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/rerank
+      name: rerank
+      description: REST surface for rerank.
+      operations:
+      - method: POST
+        name: creatererank
+        description: Rerank
+        call: portkey-rerank.creatererank
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-rerank-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Rerank. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: rerank
+      description: Rerank
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-rerank.creatererank
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

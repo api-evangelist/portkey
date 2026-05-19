@@ -1,0 +1,269 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Labels
+  description: 'Portkey API — Labels. 5 operations. Lead operation: Create a new label. Self-contained Naftiko capability
+    covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - Labels
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-labels
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Labels business capability. Self-contained, no shared references.
+    resources:
+    - name: labels
+      path: /labels
+      operations:
+      - name: createlabel
+        method: POST
+        description: Create a new label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listlabels
+        method: GET
+        description: List labels
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organisation_id
+          in: query
+          type: string
+          description: ID of the organisation
+        - name: workspace_id
+          in: query
+          type: string
+          description: ID or slug of the workspace
+        - name: search
+          in: query
+          type: string
+          description: Search query to filter labels by name
+        - name: current_page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of items per page
+    - name: labels-labelId
+      path: /labels/{labelId}
+      operations:
+      - name: getlabel
+        method: GET
+        description: Get a label by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: labelId
+          in: path
+          type: string
+          description: ID of the label to retrieve
+          required: true
+        - name: organisation_id
+          in: query
+          type: string
+          description: ID of the organisation
+        - name: workspace_id
+          in: query
+          type: string
+          description: ID or slug of the workspace
+      - name: updatelabel
+        method: PUT
+        description: Update a label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: labelId
+          in: path
+          type: string
+          description: ID of the label to update
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletelabel
+        method: DELETE
+        description: Delete a label
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: labelId
+          in: path
+          type: string
+          description: ID of the label to delete
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-labels-rest
+    port: 8080
+    description: REST adapter for Portkey API — Labels. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/labels
+      name: labels
+      description: REST surface for labels.
+      operations:
+      - method: POST
+        name: createlabel
+        description: Create a new label
+        call: portkey-labels.createlabel
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listlabels
+        description: List labels
+        call: portkey-labels.listlabels
+        with:
+          organisation_id: rest.organisation_id
+          workspace_id: rest.workspace_id
+          search: rest.search
+          current_page: rest.current_page
+          page_size: rest.page_size
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/labels/{labelid}
+      name: labels-labelid
+      description: REST surface for labels-labelId.
+      operations:
+      - method: GET
+        name: getlabel
+        description: Get a label by ID
+        call: portkey-labels.getlabel
+        with:
+          labelId: rest.labelId
+          organisation_id: rest.organisation_id
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatelabel
+        description: Update a label
+        call: portkey-labels.updatelabel
+        with:
+          labelId: rest.labelId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletelabel
+        description: Delete a label
+        call: portkey-labels.deletelabel
+        with:
+          labelId: rest.labelId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-labels-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Labels. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-new-label
+      description: Create a new label
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-labels.createlabel
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-labels
+      description: List labels
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-labels.listlabels
+      with:
+        organisation_id: tools.organisation_id
+        workspace_id: tools.workspace_id
+        search: tools.search
+        current_page: tools.current_page
+        page_size: tools.page_size
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-label-id
+      description: Get a label by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-labels.getlabel
+      with:
+        labelId: tools.labelId
+        organisation_id: tools.organisation_id
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-label
+      description: Update a label
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-labels.updatelabel
+      with:
+        labelId: tools.labelId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-label
+      description: Delete a label
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-labels.deletelabel
+      with:
+        labelId: tools.labelId
+      outputParameters:
+      - type: object
+        mapping: $.

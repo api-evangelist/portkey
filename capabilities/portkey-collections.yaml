@@ -1,0 +1,225 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Collections
+  description: 'Portkey API — Collections. 5 operations. Lead operation: Create a new collection. Self-contained Naftiko capability
+    covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - Collections
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-collections
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Collections business capability. Self-contained, no shared references.
+    resources:
+    - name: collections
+      path: /collections
+      operations:
+      - name: post
+        method: POST
+        description: Create a new collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: get
+        method: GET
+        description: List collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: query
+          type: string
+          description: ID or slug of the workspace
+          required: true
+        - name: current_page
+          in: query
+          type: integer
+          description: Page number for pagination (0-indexed)
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of items per page
+        - name: search
+          in: query
+          type: string
+          description: Search query to filter collections by name
+    - name: collections-collectionId
+      path: /collections/{collectionId}
+      operations:
+      - name: get
+        method: GET
+        description: Get collection details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: put
+        method: PUT
+        description: Update collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: delete
+        method: DELETE
+        description: Delete collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-collections-rest
+    port: 8080
+    description: REST adapter for Portkey API — Collections. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/collections
+      name: collections
+      description: REST surface for collections.
+      operations:
+      - method: POST
+        name: post
+        description: Create a new collection
+        call: portkey-collections.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: get
+        description: List collections
+        call: portkey-collections.get
+        with:
+          workspace_id: rest.workspace_id
+          current_page: rest.current_page
+          page_size: rest.page_size
+          search: rest.search
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/collections/{collectionid}
+      name: collections-collectionid
+      description: REST surface for collections-collectionId.
+      operations:
+      - method: GET
+        name: get
+        description: Get collection details
+        call: portkey-collections.get
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: put
+        description: Update collection
+        call: portkey-collections.put
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete collection
+        call: portkey-collections.delete
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-collections-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Collections. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-new-collection
+      description: Create a new collection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-collections.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-collections
+      description: List collections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-collections.get
+      with:
+        workspace_id: tools.workspace_id
+        current_page: tools.current_page
+        page_size: tools.page_size
+        search: tools.search
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-collection-details
+      description: Get collection details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-collections.get
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-collection
+      description: Update collection
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-collections.put
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-collection
+      description: Delete collection
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-collections.delete
+      outputParameters:
+      - type: object
+        mapping: $.

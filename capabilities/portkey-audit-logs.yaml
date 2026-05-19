@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Audit Logs
+  description: 'Portkey API — Audit Logs. 1 operations. Lead operation: Get Audit Logs. Self-contained Naftiko capability
+    covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - Audit Logs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-audit-logs
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Audit Logs business capability. Self-contained, no shared references.
+    resources:
+    - name: audit-logs
+      path: /audit-logs
+      operations:
+      - name: get
+        method: GET
+        description: Get Audit Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: start_time
+          in: query
+          type: string
+          description: Start time for filtering logs (ISO8601 format)
+          required: true
+        - name: end_time
+          in: query
+          type: string
+          description: End time for filtering logs (ISO8601 format)
+          required: true
+        - name: organisation_id
+          in: query
+          type: string
+          description: Organisation ID for filtering logs
+          required: true
+        - name: method
+          in: query
+          type: string
+          description: HTTP method for filtering logs
+        - name: uri
+          in: query
+          type: string
+          description: URI path for filtering logs
+        - name: request_id
+          in: query
+          type: string
+          description: Request ID for filtering logs
+        - name: user_id
+          in: query
+          type: string
+          description: User ID for filtering logs
+        - name: user_type
+          in: query
+          type: string
+          description: Type of user for filtering logs
+        - name: workspace_id
+          in: query
+          type: string
+          description: Workspace ID for filtering logs
+        - name: response_status_code
+          in: query
+          type: integer
+          description: HTTP response status code for filtering logs
+        - name: resource_type
+          in: query
+          type: string
+          description: Resource type for filtering logs
+        - name: action
+          in: query
+          type: string
+          description: Action type for filtering logs
+        - name: client_ip
+          in: query
+          type: string
+          description: Client IP address for filtering logs
+        - name: country
+          in: query
+          type: string
+          description: Country for filtering logs
+        - name: current_page
+          in: query
+          type: integer
+          description: Current page number for pagination
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of items per page
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-audit-logs-rest
+    port: 8080
+    description: REST adapter for Portkey API — Audit Logs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/audit-logs
+      name: audit-logs
+      description: REST surface for audit-logs.
+      operations:
+      - method: GET
+        name: get
+        description: Get Audit Logs
+        call: portkey-audit-logs.get
+        with:
+          start_time: rest.start_time
+          end_time: rest.end_time
+          organisation_id: rest.organisation_id
+          method: rest.method
+          uri: rest.uri
+          request_id: rest.request_id
+          user_id: rest.user_id
+          user_type: rest.user_type
+          workspace_id: rest.workspace_id
+          response_status_code: rest.response_status_code
+          resource_type: rest.resource_type
+          action: rest.action
+          client_ip: rest.client_ip
+          country: rest.country
+          current_page: rest.current_page
+          page_size: rest.page_size
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-audit-logs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Audit Logs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-audit-logs
+      description: Get Audit Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-audit-logs.get
+      with:
+        start_time: tools.start_time
+        end_time: tools.end_time
+        organisation_id: tools.organisation_id
+        method: tools.method
+        uri: tools.uri
+        request_id: tools.request_id
+        user_id: tools.user_id
+        user_type: tools.user_type
+        workspace_id: tools.workspace_id
+        response_status_code: tools.response_status_code
+        resource_type: tools.resource_type
+        action: tools.action
+        client_ip: tools.client_ip
+        country: tools.country
+        current_page: tools.current_page
+        page_size: tools.page_size
+      outputParameters:
+      - type: object
+        mapping: $.

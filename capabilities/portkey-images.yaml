@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Images
+  description: 'Portkey API — Images. 3 operations. Lead operation: Create Image Edit. Self-contained Naftiko capability covering
+    one Portkey business surface.'
+  tags:
+  - Portkey
+  - Images
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-images
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Images business capability. Self-contained, no shared references.
+    resources:
+    - name: images-edits
+      path: /images/edits
+      operations:
+      - name: createimageedit
+        method: POST
+        description: Create Image Edit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: images-generations
+      path: /images/generations
+      operations:
+      - name: createimage
+        method: POST
+        description: Create Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: images-variations
+      path: /images/variations
+      operations:
+      - name: createimagevariation
+        method: POST
+        description: Creates Image Variation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-images-rest
+    port: 8080
+    description: REST adapter for Portkey API — Images. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/images/edits
+      name: images-edits
+      description: REST surface for images-edits.
+      operations:
+      - method: POST
+        name: createimageedit
+        description: Create Image Edit
+        call: portkey-images.createimageedit
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/images/generations
+      name: images-generations
+      description: REST surface for images-generations.
+      operations:
+      - method: POST
+        name: createimage
+        description: Create Image
+        call: portkey-images.createimage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/images/variations
+      name: images-variations
+      description: REST surface for images-variations.
+      operations:
+      - method: POST
+        name: createimagevariation
+        description: Creates Image Variation
+        call: portkey-images.createimagevariation
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-images-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Images. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-image-edit
+      description: Create Image Edit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-images.createimageedit
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-image
+      description: Create Image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-images.createimage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: creates-image-variation
+      description: Creates Image Variation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-images.createimagevariation
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

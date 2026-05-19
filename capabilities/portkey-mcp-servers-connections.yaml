@@ -1,0 +1,137 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — MCP Servers > Connections
+  description: 'Portkey API — MCP Servers > Connections. 2 operations. Lead operation: List MCP Server Connections. Self-contained
+    Naftiko capability covering one Portkey business surface.'
+  tags:
+  - Portkey
+  - MCP Servers > Connections
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-mcp-servers-connections
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — MCP Servers > Connections business capability. Self-contained, no shared references.
+    resources:
+    - name: mcp-servers-mcpServerId-connections
+      path: /mcp-servers/{mcpServerId}/connections
+      operations:
+      - name: mcpserverconnectionslist
+        method: GET
+        description: List MCP Server Connections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: user_id
+          in: query
+          type: string
+          description: Optional. UUID of the user whose connections to list. If not provided, defaults to the current user
+            for user API keys, and returns all connections on the MCP se
+        - name: workspace_id
+          in: query
+          type: string
+          description: Workspace ID or slug. Required when using org admin API key; optional when API key is workspace-scoped.
+        - name: current_page
+          in: query
+          type: integer
+        - name: page_size
+          in: query
+          type: integer
+      - name: mcpserverconnectionsdelete
+        method: DELETE
+        description: Delete MCP Server Connection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: user_id
+          in: query
+          type: string
+          description: The UUID of the user to disconnect. Required when using a service API key; optional when using a user
+            API key (the user ID is derived from the key if not provid
+        - name: workspace_id
+          in: query
+          type: string
+          description: Workspace ID or slug. Required when using org admin API key; optional when API key is workspace-scoped.
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-mcp-servers-connections-rest
+    port: 8080
+    description: REST adapter for Portkey API — MCP Servers > Connections. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/mcp-servers/{mcpserverid}/connections
+      name: mcp-servers-mcpserverid-connections
+      description: REST surface for mcp-servers-mcpServerId-connections.
+      operations:
+      - method: GET
+        name: mcpserverconnectionslist
+        description: List MCP Server Connections
+        call: portkey-mcp-servers-connections.mcpserverconnectionslist
+        with:
+          user_id: rest.user_id
+          workspace_id: rest.workspace_id
+          current_page: rest.current_page
+          page_size: rest.page_size
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: mcpserverconnectionsdelete
+        description: Delete MCP Server Connection
+        call: portkey-mcp-servers-connections.mcpserverconnectionsdelete
+        with:
+          user_id: rest.user_id
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-mcp-servers-connections-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — MCP Servers > Connections. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-mcp-server-connections
+      description: List MCP Server Connections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-mcp-servers-connections.mcpserverconnectionslist
+      with:
+        user_id: tools.user_id
+        workspace_id: tools.workspace_id
+        current_page: tools.current_page
+        page_size: tools.page_size
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-mcp-server-connection
+      description: Delete MCP Server Connection
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-mcp-servers-connections.mcpserverconnectionsdelete
+      with:
+        user_id: tools.user_id
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.

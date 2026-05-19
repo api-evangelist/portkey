@@ -1,0 +1,306 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Portkey API — Api-Keys
+  description: 'Portkey API — Api-Keys. 6 operations. Lead operation: Get All. Self-contained Naftiko capability covering
+    one Portkey business surface.'
+  tags:
+  - Portkey
+  - Api-Keys
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    PORTKEY_API_KEY: PORTKEY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: portkey-api-keys
+    baseUri: https://api.portkey.ai/v1
+    description: Portkey API — Api-Keys business capability. Self-contained, no shared references.
+    resources:
+    - name: api-keys
+      path: /api-keys
+      operations:
+      - name: get
+        method: GET
+        description: Get All
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page_size
+          in: query
+          type: integer
+        - name: current_page
+          in: query
+          type: integer
+        - name: workspace_id
+          in: query
+          type: string
+    - name: api-keys-id
+      path: /api-keys/{id}
+      operations:
+      - name: put
+        method: PUT
+        description: Update API Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+      - name: get
+        method: GET
+        description: Get API Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+      - name: delete
+        method: DELETE
+        description: Remove an API Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: api-keys-id-rotate
+      path: /api-keys/{id}/rotate
+      operations:
+      - name: post
+        method: POST
+        description: Rotate API Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-keys-type-sub-type
+      path: /api-keys/{type}/{sub-type}
+      operations:
+      - name: post
+        method: POST
+        description: Create API Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: path
+          type: string
+          required: true
+        - name: sub-type
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.PORTKEY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: portkey-api-keys-rest
+    port: 8080
+    description: REST adapter for Portkey API — Api-Keys. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api-keys
+      name: api-keys
+      description: REST surface for api-keys.
+      operations:
+      - method: GET
+        name: get
+        description: Get All
+        call: portkey-api-keys.get
+        with:
+          page_size: rest.page_size
+          current_page: rest.current_page
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api-keys/{id}
+      name: api-keys-id
+      description: REST surface for api-keys-id.
+      operations:
+      - method: PUT
+        name: put
+        description: Update API Keys
+        call: portkey-api-keys.put
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: get
+        description: Get API Keys
+        call: portkey-api-keys.get
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Remove an API Key
+        call: portkey-api-keys.delete
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api-keys/{id}/rotate
+      name: api-keys-id-rotate
+      description: REST surface for api-keys-id-rotate.
+      operations:
+      - method: POST
+        name: post
+        description: Rotate API Key
+        call: portkey-api-keys.post
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api-keys/{type}/{sub-type}
+      name: api-keys-type-sub-type
+      description: REST surface for api-keys-type-sub-type.
+      operations:
+      - method: POST
+        name: post
+        description: Create API Keys
+        call: portkey-api-keys.post
+        with:
+          type: rest.type
+          sub-type: rest.sub-type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: portkey-api-keys-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Portkey API — Api-Keys. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-all
+      description: Get All
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-api-keys.get
+      with:
+        page_size: tools.page_size
+        current_page: tools.current_page
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-api-keys
+      description: Update API Keys
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: portkey-api-keys.put
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-api-keys
+      description: Get API Keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: portkey-api-keys.get
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-api-key
+      description: Remove an API Key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: portkey-api-keys.delete
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rotate-api-key
+      description: Rotate API Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-api-keys.post
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-api-keys
+      description: Create API Keys
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: portkey-api-keys.post
+      with:
+        type: tools.type
+        sub-type: tools.sub-type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
