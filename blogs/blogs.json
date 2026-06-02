@@ -2,12 +2,20 @@
   "repo": "portkey",
   "feeds": [
     {
-      "source": "https://portkey.ai/blog",
+      "source": "https://portkey.ai/blog/feed/",
       "feed_url": "https://portkey.ai/blog/feed/",
-      "title": "Portkey Blog",
-      "saved": 6
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://portkey.ai/blog",
+      "feed_url": "https://portkey.ai/blog/rss/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     }
   ],
-  "post_count": 17,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 18,
+  "fetched": "2026-06-01T23:35:02Z"
 }
