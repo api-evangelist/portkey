@@ -167,11 +167,11 @@ common:
     description: 'null'
   - url: https://portkey.ai/docs/api-reference/portkey-sdk-client
     name: Portkey SDK Client - Portkey Docs
-    type: SDK
+    type: SDKs
     description: 'null'
   - url: https://portkey.ai/docs/support/developer-forum
     name: Developer Forum - Portkey Docs
-    type: Forum
+    type: Forums
     description: 'null'
   - url: https://portkey.ai/features/security-compliance
     name: Enterprise-grade Security and Compliance - Portkey

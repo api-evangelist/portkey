@@ -2,8 +2,8 @@
   "repo": "portkey",
   "feeds": [
     {
-      "source": "https://portkey.ai/blog/feed/",
-      "feed_url": "https://portkey.ai/blog/feed/",
+      "source": "https://portkey.ai/blog/rss/",
+      "feed_url": "https://portkey.ai/blog/rss/",
       "title": "",
       "saved": 0,
       "method": "feed"
@@ -17,5 +17,5 @@
     }
   ],
   "post_count": 18,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:03:07Z"
 }
