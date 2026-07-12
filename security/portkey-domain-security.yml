@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: portkey.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  6 08:44:14 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: api.portkey.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 06:14:05 2026 GMT
+  hsts: null
+domains:
+- domain: portkey.ai
+  dnssec: true
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine

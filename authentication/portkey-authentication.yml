@@ -1,0 +1,45 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/portkey-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: Portkey-Key
+  type: apiKey
+  in: header
+  parameter: x-portkey-api-key
+  sources:
+  - openapi/portkey-openapi.yml
+- name: Virtual-Key
+  type: apiKey
+  in: header
+  parameter: x-portkey-virtual-key
+  sources:
+  - openapi/portkey-openapi.yml
+- name: Provider-Auth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/portkey-openapi.yml
+- name: Provider-Name
+  type: apiKey
+  in: header
+  parameter: x-portkey-provider
+  sources:
+  - openapi/portkey-openapi.yml
+- name: Config
+  type: apiKey
+  in: header
+  parameter: x-portkey-config
+  sources:
+  - openapi/portkey-openapi.yml
+- name: Custom-Host
+  type: apiKey
+  in: header
+  parameter: x-portkey-custom-host
+  sources:
+  - openapi/portkey-openapi.yml
