@@ -1,0 +1,1364 @@
+openapi: 3.0.0
+info:
+  title: Portkey Analytics > Graphs Integrations API
+  description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
+  version: 2.0.0
+  termsOfService: https://portkey.ai/terms
+  contact:
+    name: Portkey Developer Forum
+    url: https://portkey.wiki/community
+  license:
+    name: MIT
+    url: https://github.com/Portkey-AI/portkey-openapi/blob/master/LICENSE
+servers:
+- url: https://api.portkey.ai/v1
+  description: Portkey API Public Endpoint
+security:
+- Portkey-Key: []
+tags:
+- name: Integrations
+  description: Create, List, Retrieve, Update, and Delete your Portkey Integrations.
+paths:
+  /integrations:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_CONTROL_PLANE_URL
+      description: Self-Hosted Control Plane URL
+    get:
+      summary: List All Integrations
+      tags:
+      - Integrations
+      parameters:
+      - in: query
+        name: current_page
+        schema:
+          type: integer
+        description: Current page, defaults to 0
+      - in: query
+        name: page_size
+        schema:
+          type: integer
+        description: Page size, default to 100
+      - in: query
+        name: workspace_id
+        schema:
+          type: string
+        description: Filter integrations accessible by a specific workspace. When using workspace API keys, this value will be enforced based on the API key details
+      - in: query
+        name: type
+        schema:
+          type: string
+          enum:
+          - workspace
+          - organisation
+          - all
+          default: all
+        description: For type=workspace, the API will only return Workpace-Scoped integrations. For type=organisation, the API will only return Global (organisation level) integrations. For type=all, both types of integrations will be returned.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    enum:
+                    - list
+                  total:
+                    type: integer
+                    description: Total number of integrations
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IntegrationList'
+      x-code-samples:
+      - lang: python
+        label: Default
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n)\n\n# List integrations\nintegrations = portkey.integrations.list()\n\nprint(integrations)\n"
+      - lang: javascript
+        label: Default
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n})\n\nconst integrations = await portkey.integrations.list({})\nconsole.log(integrations);\n"
+      - lang: curl
+        label: Default
+        source: 'curl -X GET https://api.portkey.ai/v1/integrations \
+
+          -H "x-portkey-api-key: PORTKEY_API_KEY"
+
+          '
+      - lang: python
+        label: Self-Hosted
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n    base_url=\"SELF_HOSTED_CONTROL_PLANE_URL\"\n)\n\n# List integrations\nintegrations = portkey.integrations.list()\n\nprint(integrations)\n"
+      - lang: javascript
+        label: Self-Hosted
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst integrations = await portkey.integrations.list({})\nconsole.log(integrations);\n"
+      - lang: curl
+        label: Self-Hosted
+        source: 'curl -X GET SELF_HOSTED_CONTROL_PLANE_URL/integrations \
+
+          -H "x-portkey-api-key: PORTKEY_API_KEY"
+
+          '
+    post:
+      summary: Create a Integration
+      tags:
+      - Integrations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIntegrationRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: UUID
+                  slug:
+                    type: string
+      x-code-samples:
+      - lang: python
+        label: Default
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n)\n\n# Add a new integration\nintegration = portkey.integrations.create(\n    name=\"openai-production\",\n    ai_provider_id=\"openai\",\n    key=\"sk-...\"\n)\n\nprint(integration)\n"
+      - lang: javascript
+        label: Default
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n})\n\nconst integration = await portkey.integrations.create({\n    name:\"openai-production\",\n    ai_provider_id:\"openai\",\n    key:\"sk-...\",\n})\nconsole.log(integration);\n"
+      - lang: curl
+        label: Default
+        source: "curl -X POST https://api.portkey.ai/v1/integrations \\\n-H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n    \"name\": \"openai-production\",\n    \"ai_provider_id\": \"openai\",\n    \"key\": \"sk-...\"\n}'\n"
+      - lang: python
+        label: Self-Hosted
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n    base_url=\"SELF_HOSTED_CONTROL_PLANE_URL\"\n)\n\n# Add a new integration\nintegration = portkey.integrations.create(\n    name=\"openai-production\",\n    ai_provider_id=\"openai\",\n    key=\"sk-...\"\n)\n\nprint(integration)\n"
+      - lang: javascript
+        label: Self-Hosted
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst integration = await portkey.integrations.create({\n    name: \"openai-production\",\n    ai_provider_id: \"openai\",\n    key: \"sk-...\",\n})\nconsole.log(integration);\n"
+      - lang: curl
+        label: Self-Hosted
+        source: "curl -X POST SELF_HOSTED_CONTROL_PLANE_URL/integrations \\\n-H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n    \"name\": \"openai-production\",\n    \"ai_provider_id\": \"openai\",\n    \"key\": \"sk-...\"\n}'\n"
+  /integrations/{slug}:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_CONTROL_PLANE_URL
+      description: Self-Hosted Control Plane URL
+    get:
+      summary: Get a Integration
+      tags:
+      - Integrations
+      parameters:
+      - in: path
+        name: slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationDetailResponse'
+      x-code-samples:
+      - lang: python
+        label: Default
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n)\n\n# Get a specific virtual key\nvirtual_key = portkey.virtual_keys.retrieve(\n    slug='VIRTUAL_KEY_SLUG'\n)\n\nprint(virtual_key)\n"
+      - lang: javascript
+        label: Default
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n})\n\nconst vKey=await portkey.virtualKeys.retrieve({\n    slug:'VIRTUAL_KEY_SLUG'\n})\nconsole.log(vKey);\n"
+      - lang: curl
+        label: Default
+        source: 'curl -X GET https://api.portkey.ai/v1/virtual-keys/VIRTUAL_KEY_SLUG \
+
+          -H "x-portkey-api-key: PORTKEY_API_KEY"
+
+          '
+      - lang: curl
+        label: Self-Hosted
+        source: 'curl -X GET SELF_HOSTED_CONTROL_PLANE_URL/virtual-keys/VIRTUAL_KEY_SLUG \
+
+          -H "x-portkey-api-key: PORTKEY_API_KEY"
+
+          '
+      - lang: python
+        label: Self-Hosted
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n    base_url=\"SELF_HOSTED_CONTROL_PLANE_URL\"\n)\n\n# Get a specific virtual key\nvirtual_key = portkey.virtual_keys.retrieve(\n    slug='VIRTUAL_KEY_SLUG'\n)\n\nprint(virtual_key)\n"
+      - lang: javascript
+        label: Self-Hosted
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst vKey=await portkey.virtualKeys.retrieve({\n    slug:'VIRTUAL_KEY_SLUG'\n})\nconsole.log(vKey);\n"
+    put:
+      summary: Update a Integration
+      tags:
+      - Integrations
+      parameters:
+      - in: path
+        name: slug
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateIntegrationRequest'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+      x-code-samples:
+      - lang: python
+        label: Default
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n)\n\n# Update a specific integration\nintegration = portkey.integrations.update(\n    slug=\"INTEGRATION_SLUG',\n    name=\"updated-name\",\n    note=\"hello\"\n)\n\nprint(integration)\n"
+      - lang: javascript
+        label: Default
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n})\n\nconst integration = await portkey.integrations.update({\n    slug:\"INTEGRATION_SLUG\",\n    name:\"updated-name\",\n    note:\"hello\"\n})\nconsole.log(integration);\n"
+      - lang: curl
+        label: Default
+        source: "curl -X PUT \"https://api.portkey.ai/v1/integrations/INTEGRATION_SLUG\" \\\n-H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n    \"name\": \"updated-name\",\n    \"note\": \"hello\"\n}'\n"
+      - lang: curl
+        label: Self-Hosted
+        source: "curl -X PUT \"SELF_HOSTED_CONTROL_PLANE_URL/integrations/INTEGRATION_SLUG\" \\\n-H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n    \"name\": \"updated-name\",\n    \"note\": \"hello\"\n}'\n"
+      - lang: python
+        label: Self-Hosted
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n    base_url=\"SELF_HOSTED_CONTROL_PLANE_URL\"\n)\n\n# Update a specific integration\nintegration = portkey.integrations.update(\n    slug=\"INTEGRATION_SLUG',\n    name=\"updated-name\",\n    note=\"hello\"\n)\n\nprint(integration)\n"
+      - lang: javascript
+        label: Self-Hosted
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst integration = await portkey.integrations.update({\n    slug:'INTEGRATION_SLUG',\n    name:\"updated-name\",\n    note:\"hello\"\n})\nconsole.log(integration);\n"
+    delete:
+      summary: Delete a Integration
+      tags:
+      - Integrations
+      parameters:
+      - in: path
+        name: slug
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+      x-code-samples:
+      - lang: python
+        label: Default
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n)\n\n# Delete a specific integration\nresult = portkey.integrations.delete(\n    slug=\"INTEGRATION_SLUG\"\n)\n\nprint(result)\n"
+      - lang: javascript
+        label: Default
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n})\n\nconst result=await portkey.integrations.delete({\n    slug:'INTEGRATION_SLUG',\n})\nconsole.log(result);\n"
+      - lang: curl
+        label: Default
+        source: 'curl -X DELETE https://api.portkey.ai/v1/integrations/INTEGRATION_SLUG
+
+          '
+      - lang: curl
+        label: Self-Hosted
+        source: 'curl -X DELETE https://SELF_HOSTED_CONTROL_PLANE_URL/integrations/INTEGRATION_SLUG
+
+          '
+      - lang: python
+        label: Self-Hosted
+        source: "from portkey_ai import Portkey\n\n# Initialize the Portkey client\nportkey = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n    base_url=\"SELF_HOSTED_CONTROL_PLANE_URL\"\n)\n\n# Delete a specific integration\nresult = portkey.integrations.delete(\n    slug=\"INTEGRATION_SLUG\"\n)\n\nprint(result)\n"
+      - lang: javascript
+        label: Self-Hosted
+        source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst result=await portkey.integrations.delete({\n    slug:\"INTEGRATION_SLUG\",\n})\nconsole.log(result);\n"
+components:
+  schemas:
+    AzureAIConfiguration:
+      type: object
+      required:
+      - azure_foundry_url
+      - azure_auth_mode
+      properties:
+        azure_auth_mode:
+          type: string
+          enum:
+          - default
+          - entra
+          - managed
+          description: Authentication mode for Azure AI
+        azure_foundry_url:
+          type: string
+          description: Azure AI Foundry URL
+        azure_api_version:
+          type: string
+          maxLength: 30
+          description: Azure API version
+        azure_deployment_name:
+          type: string
+          description: Azure deployment name
+        azure_entra_tenant_id:
+          type: string
+          description: Azure AD tenant ID (required for entra auth)
+        azure_entra_client_id:
+          type: string
+          description: Azure AD client ID (required for entra auth)
+        azure_entra_client_secret:
+          type: string
+          description: Azure AD client secret (required for entra auth)
+        azure_managed_client_id:
+          type: string
+          description: Managed identity client ID (optional for managed auth)
+    AzureDeploymentConfig:
+      type: object
+      required:
+      - azure_api_version
+      - azure_deployment_name
+      - azure_model_slug
+      properties:
+        alias:
+          type: string
+          description: Alias for the deployment
+        azure_api_version:
+          type: string
+          maxLength: 30
+          description: Azure API version
+        azure_deployment_name:
+          type: string
+          description: Azure deployment name
+        is_default:
+          type: boolean
+          default: false
+          description: Whether this is the default deployment
+        azure_model_slug:
+          type: string
+          description: Azure model slug
+    SecretMapping:
+      type: object
+      required:
+      - target_field
+      - secret_reference_id
+      properties:
+        target_field:
+          type: string
+          description: 'The field on the entity to populate from the secret reference. Must be unique within the array.
+
+            - **Integrations**: `key` or `configurations.<field>` (e.g. `configurations.aws_secret_access_key`)
+
+            - **Virtual Keys**: `key` or `model_config.<field>` (e.g. `model_config.awsSecretAccessKey`)
+
+            '
+          example: key
+        secret_reference_id:
+          type: string
+          description: UUID or slug of the secret reference. Must belong to the same organisation and be accessible by the workspace.
+          example: my-aws-secret
+        secret_key:
+          type: string
+          nullable: true
+          description: Override the secret_key defined on the secret reference. Use to pick a specific key from a multi-value secret.
+    GlobalWorkspaceAccess:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether global workspace access is enabled. When enabled, the integration will be enabled for all workspaces that are created in future.
+        usage_limits:
+          type: array
+          nullable: true
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/UsageLimits'
+        rate_limits:
+          type: array
+          nullable: true
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/RateLimits'
+    UsageLimits:
+      type: object
+      properties:
+        credit_limit:
+          type: integer
+          description: Credit Limit. Used for tracking usage
+          minimum: 1
+          default: null
+        type:
+          type: string
+          description: Type of credit limit
+          enum:
+          - cost
+          - tokens
+        alert_threshold:
+          type: integer
+          description: Alert Threshold. Used for alerting when usage reaches more than this
+          minimum: 1
+          default: null
+        periodic_reset:
+          type: string
+          description: Reset the usage periodically.
+          enum:
+          - monthly
+          - weekly
+          nullable: true
+          example: monthly
+        periodic_reset_days:
+          type: integer
+          description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
+          minimum: 1
+          maximum: 365
+          nullable: true
+          example: 30
+        next_usage_reset_at:
+          type: string
+          format: date-time
+          description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
+          nullable: true
+          example: '2026-05-01T00:00:00Z'
+      example:
+        credit_limit: 10
+        periodic_reset: monthly
+        alert_threshold: 8
+    RateLimits:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - requests
+          - tokens
+        unit:
+          type: string
+          enum:
+          - rpd
+          - rph
+          - rpm
+        value:
+          type: integer
+    SageMakerConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/BedrockConfiguration'
+      - type: object
+        properties:
+          amzn_sagemaker_custom_attributes:
+            type: string
+            description: Custom attributes for SageMaker
+          amzn_sagemaker_target_model:
+            type: string
+            description: Target model for SageMaker
+          amzn_sagemaker_target_variant:
+            type: string
+            description: Target variant for SageMaker
+          amzn_sagemaker_target_container_hostname:
+            type: string
+            description: Target container hostname
+          amzn_sagemaker_inference_id:
+            type: string
+            description: Inference ID
+          amzn_sagemaker_enable_explanations:
+            type: string
+            description: Enable explanations
+          amzn_sagemaker_inference_component:
+            type: string
+            description: Inference component
+          amzn_sagemaker_session_id:
+            type: string
+            description: Session ID
+          amzn_sagemaker_model_name:
+            type: string
+            description: Model name
+    UpdateIntegrationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the integration
+          example: Production OpenAI
+        key:
+          type: string
+          description: API key for the provider (if required)
+          example: sk-...
+        description:
+          type: string
+          description: Optional description of the integration
+          example: Production OpenAI integration for customer-facing applications
+        configurations:
+          type: object
+          description: Provider-specific configuration object
+          oneOf:
+          - $ref: '#/components/schemas/OpenAIConfiguration'
+            title: OpenAI
+          - $ref: '#/components/schemas/AzureOpenAIConfiguration'
+            title: Azure OpenAI
+          - $ref: '#/components/schemas/BedrockConfiguration'
+            title: AWS Bedrock
+          - $ref: '#/components/schemas/VertexAIConfiguration'
+            title: Vertex AI
+          - $ref: '#/components/schemas/AzureAIConfiguration'
+            title: Azure AI
+          - $ref: '#/components/schemas/WorkersAIConfiguration'
+            title: Workers AI
+          - $ref: '#/components/schemas/SageMakerConfiguration'
+            title: AWS Sagemaker
+          - $ref: '#/components/schemas/HuggingFaceConfiguration'
+            title: Hugginface
+          - $ref: '#/components/schemas/CortexConfiguration'
+            title: Cortex
+          - $ref: '#/components/schemas/CustomHostConfiguration'
+            title: Custom Base URL
+        secret_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretMapping'
+          description: Dynamically resolve secrets from secret references at runtime. Valid target_field values are "key" or "configurations.<field>" (e.g. "configurations.aws_secret_access_key", "configurations.azure_entra_client_secret"). Each target_field must be unique.
+    AzureOpenAIConfiguration:
+      type: object
+      required:
+      - azure_resource_name
+      - azure_deployment_config
+      - azure_auth_mode
+      properties:
+        azure_auth_mode:
+          type: string
+          enum:
+          - default
+          - entra
+          - managed
+          description: Authentication mode for Azure
+        azure_resource_name:
+          type: string
+          description: Azure OpenAI resource name
+        azure_deployment_config:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/AzureDeploymentConfig'
+        azure_entra_tenant_id:
+          type: string
+          description: Azure AD tenant ID (required for entra auth)
+        azure_entra_client_id:
+          type: string
+          description: Azure AD client ID (required for entra auth)
+        azure_entra_client_secret:
+          type: string
+          description: Azure AD client secret (required for entra auth)
+        azure_managed_client_id:
+          type: string
+          description: Managed identity client ID (optional for managed auth)
+    BedrockConfiguration:
+      type: object
+      required:
+      - aws_auth_type
+      - aws_region
+      properties:
+        aws_auth_type:
+          type: string
+          enum:
+          - accessKey
+          - assumedRole
+          description: AWS authentication type
+        aws_region:
+          type: string
+          description: AWS region
+        aws_access_key_id:
+          type: string
+          description: AWS access key ID (required for accessKey auth)
+        aws_secret_access_key:
+          type: string
+          description: AWS secret access key (required for accessKey auth)
+        aws_role_arn:
+          type: string
+          description: AWS role ARN (required for assumedRole auth)
+        aws_external_id:
+          type: string
+          nullable: true
+          description: AWS external ID (optional for assumedRole auth)
+    CreateIntegrationRequest:
+      type: object
+      required:
+      - name
+      - ai_provider_id
+      properties:
+        name:
+          type: string
+          description: Human-readable name for the integration
+          example: Production OpenAI
+        slug:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]+$
+          description: URL-friendly identifier (auto-generated if not provided)
+          example: production-openai
+        ai_provider_id:
+          type: string
+          description: ID of the base AI provider
+          example: openai
+        key:
+          type: string
+          description: API key for the provider (if required)
+          example: sk-...
+        description:
+          type: string
+          description: Optional description of the integration
+          example: Production OpenAI integration for customer-facing applications
+        workspace_id:
+          type: string
+          description: Workspace ID (for workspace-scoped integrations)
+          example: ws-my-team-1234
+        configurations:
+          type: object
+          description: Provider-specific configuration object
+          oneOf:
+          - $ref: '#/components/schemas/OpenAIConfiguration'
+            title: OpenAI
+          - $ref: '#/components/schemas/AzureOpenAIConfiguration'
+            title: Azure OpenAI
+          - $ref: '#/components/schemas/BedrockConfiguration'
+            title: AWS Bedrock
+          - $ref: '#/components/schemas/VertexAIConfiguration'
+            title: Vertex AI
+          - $ref: '#/components/schemas/AzureAIConfiguration'
+            title: Azure AI
+          - $ref: '#/components/schemas/WorkersAIConfiguration'
+            title: Workers AI
+          - $ref: '#/components/schemas/SageMakerConfiguration'
+            title: AWS Sagemaker
+          - $ref: '#/components/schemas/HuggingFaceConfiguration'
+            title: Hugginface
+          - $ref: '#/components/schemas/CortexConfiguration'
+            title: Cortex
+          - $ref: '#/components/schemas/CustomHostConfiguration'
+            title: Custom Base URL
+        create_default_provider:
+          type: boolean
+          default: true
+          description: Whether to automatically create a default provider when creating a workspace-scoped integration. Defaults to true.
+        default_provider_slug:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]+$
+          maxLength: 255
+          description: Custom slug for the auto-created default provider. Only applicable for workspace-scoped integrations. If the slug already exists in the workspace, the request will fail with a validation error.
+        secret_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretMapping'
+          description: Dynamically resolve secrets from secret references at runtime. Valid target_field values are "key" or "configurations.<field>" (e.g. "configurations.aws_secret_access_key", "configurations.azure_entra_client_secret"). Each target_field must be unique. When "key" is mapped, the key body field can be omitted.
+    OpenAIConfiguration:
+      type: object
+      properties:
+        openai_organization:
+          type: string
+          description: OpenAI organization ID
+        openai_project:
+          type: string
+          description: OpenAI project ID
+    CustomHostConfiguration:
+      type: object
+      properties:
+        custom_host:
+          type: string
+          description: Custom host URL (can be used along with other provider specific configuration fields)
+        custom_headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom headers to send with requests (can be used along with other provider specific configuration fields)
+    CortexConfiguration:
+      type: object
+      required:
+      - snowflake_account
+      properties:
+        snowflake_account:
+          type: string
+          description: Snowflake account identifier
+    HuggingFaceConfiguration:
+      type: object
+      properties:
+        huggingface_base_url:
+          type: string
+          description: Custom Hugging Face base URL
+    IntegrationList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+        organisation_id:
+          type: string
+          format: UUID
+        ai_provider_id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+        created_at:
+          type: string
+          format: date-time
+        last_updated_at:
+          type: string
+          format: date-time
+          nullable: true
+        slug:
+          type: string
+        description:
+          type: string
+        object:
+          type: string
+          enum:
+          - integration
+    IntegrationDetailResponse:
+      allOf:
+      - $ref: '#/components/schemas/IntegrationList'
+      - type: object
+        properties:
+          masked_key:
+            type: string
+            description: Masked API key
+          configurations:
+            type: object
+            description: 'Provider-specific configuration object
+
+
+              **⚠️ Security Note - Response Masking:**
+
+              When retrieving integration details, sensitive fields are automatically masked:
+
+              - Sensitive fields get a `masked_` prefix (e.g., `client_secret` → `masked_client_secret`)
+
+              - Non-sensitive fields (IDs, URLs, regions, etc.) remain unchanged
+
+              '
+            oneOf:
+            - $ref: '#/components/schemas/OpenAIConfiguration'
+              title: OpenAI
+            - $ref: '#/components/schemas/AzureOpenAIConfiguration'
+              title: Azure OpenAI
+            - $ref: '#/components/schemas/BedrockConfiguration'
+              title: AWS Bedrock
+            - $ref: '#/components/schemas/VertexAIConfiguration'
+              title: Vertex AI
+            - $ref: '#/components/schemas/AzureAIConfiguration'
+              title: Azure AI
+            - $ref: '#/components/schemas/WorkersAIConfiguration'
+              title: Workers AI
+            - $ref: '#/components/schemas/SageMakerConfiguration'
+              title: AWS Sagemaker
+            - $ref: '#/components/schemas/HuggingFaceConfiguration'
+              title: Hugginface
+            - $ref: '#/components/schemas/CortexConfiguration'
+              title: Cortex
+            - $ref: '#/components/schemas/CustomHostConfiguration'
+              title: Custom Base URL
+          global_workspace_access_settings:
+            type: object
+            nullable: true
+            $ref: '#/components/schemas/GlobalWorkspaceAccess'
+            description: Global workspace access configuration
+          allow_all_models:
+            type: boolean
+            description: Whether new models will be enabled by default
+          workspace_count:
+            type: integer
+            description: Number of workspaces with access to this integration
+          secret_mappings:
+            type: array
+            items:
+              $ref: '#/components/schemas/SecretMapping'
+            description: Secret reference mappings for this integration. Valid target_field values are "key" or "configurations.<field>".
+    WorkersAIConfiguration:
+      type: object
+      required:
+      - workers_ai_account_id
+      properties:
+        workers_ai_account_id:
+          type: string
+          description: Cloudflare Workers AI account ID
+    VertexAIConfiguration:
+      type: object
+      required:
+      - vertex_auth_type
+      - vertex_region
+      properties:
+        vertex_auth_type:
+          type: string
+          enum:
+          - basic
+          - serviceAccount
+          description: Vertex AI authentication type
+        vertex_region:
+          type: string
+          description: GCP region
+        vertex_project_id:
+          type: string
+          description: GCP project ID (required for basic auth)
+        vertex_service_account_json:
+          type: object
+          description: Service account JSON (required for serviceAccount auth)
+  securitySchemes:
+    Portkey-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-api-key
+    Virtual-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-virtual-key
+    Provider-Auth:
+      type: http
+      scheme: bearer
+    Provider-Name:
+      type: apiKey
+      in: header
+      name: x-portkey-provider
+    Config:
+      type: apiKey
+      in: header
+      name: x-portkey-config
+    Custom-Host:
+      type: apiKey
+      in: header
+      name: x-portkey-custom-host
+x-server-groups:
+  ControlPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_CONTROL_PLANE_URL
+    description: Self-Hosted Control Plane URL
+  DataPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_GATEWAY_URL
+    description: Self-Hosted Gateway URL
+  PublicServers:
+  - url: https://api.portkey.ai
+    description: Portkey Public API (no auth required)
+x-mint:
+  mcp:
+    enabled: true
+    name: Portkey MCP
+    description: Official MCP Server for Portkey Docs & APIs
+x-code-samples:
+  navigationGroups:
+  - id: endpoints
+    title: Endpoints
+  - id: assistants
+    title: Assistants
+  - id: legacy
+    title: Legacy
+  groups:
+  - id: audio
+    title: Audio
+    description: 'Learn how to turn audio into text or text into audio.
+
+
+      Related guide: [Speech to text](https://platform.openai.com/docs/guides/speech-to-text)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createSpeech
+      path: createSpeech
+    - type: endpoint
+      key: createTranscription
+      path: createTranscription
+    - type: endpoint
+      key: createTranslation
+      path: createTranslation
+    - type: object
+      key: CreateTranscriptionResponseJson
+      path: json-object
+    - type: object
+      key: CreateTranscriptionResponseVerboseJson
+      path: verbose-json-object
+  - id: chat
+    title: Chat
+    description: 'Given a list of messages comprising a conversation, the model will return a response.
+
+
+      Related guide: [Chat Completions](https://platform.openai.com/docs/guides/text-generation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createChatCompletion
+      path: create
+    - type: object
+      key: CreateChatCompletionResponse
+      path: object
+    - type: object
+      key: CreateChatCompletionStreamResponse
+      path: streaming
+  - id: realtime
+    title: Realtime
+    description: 'WebSocket proxy for provider Realtime APIs (`GET` upgrade). Use `wss://` with the same `/v1` data-plane base as other gateway routes.
+
+
+      Related guide: [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: connectRealtime
+      path: connect
+  - id: embeddings
+    title: Embeddings
+    description: 'Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
+
+
+      Related guide: [Embeddings](https://platform.openai.com/docs/guides/embeddings)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createEmbedding
+      path: create
+    - type: object
+      key: Embedding
+      path: object
+  - id: rerank
+    title: Rerank
+    description: 'Rerank a list of documents based on their relevance to a query. Reranking improves search results by scoring documents based on semantic relevance rather than keyword matching.
+
+
+      Supported providers: Cohere, Voyage, Jina, Pinecone, Bedrock, Azure AI.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createRerank
+      path: create
+    - type: object
+      key: CreateRerankResponse
+      path: object
+  - id: fine-tuning
+    title: Fine-tuning
+    description: 'Manage fine-tuning jobs to tailor a model to your specific training data.
+
+
+      Related guide: [Fine-tune models](https://platform.openai.com/docs/guides/fine-tuning)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFineTuningJob
+      path: create
+    - type: endpoint
+      key: listPaginatedFineTuningJobs
+      path: list
+    - type: endpoint
+      key: listFineTuningEvents
+      path: list-events
+    - type: endpoint
+      key: listFineTuningJobCheckpoints
+      path: list-checkpoints
+    - type: endpoint
+      key: retrieveFineTuningJob
+      path: retrieve
+    - type: endpoint
+      key: cancelFineTuningJob
+      path: cancel
+    - type: object
+      key: FinetuneChatRequestInput
+      path: chat-input
+    - type: object
+      key: FinetuneCompletionRequestInput
+      path: completions-input
+    - type: object
+      key: FineTuningJob
+      path: object
+    - type: object
+      key: FineTuningJobEvent
+      path: event-object
+    - type: object
+      key: FineTuningJobCheckpoint
+      path: checkpoint-object
+  - id: batch
+    title: Batch
+    description: 'Create large batches of API requests for asynchronous processing. The Batch API returns completions within 24 hours for a 50% discount.
+
+
+      Related guide: [Batch](https://platform.openai.com/docs/guides/batch)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createBatch
+      path: create
+    - type: endpoint
+      key: retrieveBatch
+      path: retrieve
+    - type: endpoint
+      key: cancelBatch
+      path: cancel
+    - type: endpoint
+      key: listBatches
+      path: list
+    - type: object
+      key: Batch
+      path: object
+    - type: object
+      key: BatchRequestInput
+      path: request-input
+    - type: object
+      key: BatchRequestOutput
+      path: request-output
+  - id: files
+    title: Files
+    description: 'Files are used to upload documents that can be used with features like [Assistants](https://platform.openai.com/docs/api-reference/assistants), [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning), and [Batch API](https://platform.openai.com/docs/guides/batch).
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFile
+      path: create
+    - type: endpoint
+      key: listFiles
+      path: list
+    - type: endpoint
+      key: retrieveFile
+      path: retrieve
+    - type: endpoint
+      key: deleteFile
+      path: delete
+    - type: endpoint
+      key: downloadFile
+      path: retrieve-contents
+    - type: object
+      key: OpenAIFile
+      path: object
+  - id: images
+    title: Images
+    description: 'Given a prompt and/or an input image, the model will generate a new image.
+
+
+      Related guide: [Image generation](https://platform.openai.com/docs/guides/images)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createImage
+      path: create
+    - type: endpoint
+      key: createImageEdit
+      path: createEdit
+    - type: endpoint
+      key: createImageVariation
+      path: createVariation
+    - type: object
+      key: Image
+      path: object
+  - id: models
+    title: Models
+    description: 'List and describe the various models available in the API. You can refer to the [Models](https://platform.openai.com/docs/models) documentation to understand what models are available and the differences between them.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: listModels
+      path: list
+    - type: endpoint
+      key: retrieveModel
+      path: retrieve
+    - type: endpoint
+      key: deleteModel
+      path: delete
+    - type: object
+      key: Model
+      path: object
+  - id: moderations
+    title: Moderations
+    description: 'Given some input text, outputs if the model classifies it as potentially harmful across several categories.
+
+
+      Related guide: [Moderations](https://platform.openai.com/docs/guides/moderation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createModeration
+      path: create
+    - type: object
+      key: CreateModerationResponse
+      path: object
+  - id: assistants
+    title: Assistants
+    beta: true
+    description: 'Build assistants that can call models and use tools to perform tasks.
+
+
+      [Get started with the Assistants API](https://platform.openai.com/docs/assistants)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createAssistant
+      path: createAssistant
+    - type: endpoint
+      key: listAssistants
+      path: listAssistants
+    - type: endpoint
+      key: getAssistant
+      path: getAssistant
+    - type: endpoint
+      key: modifyAssistant
+      path: modifyAssistant
+    - type: endpoint
+      key: deleteAssistant
+      path: deleteAssistant
+    - type: object
+      key: AssistantObject
+      path: object
+  - id: threads
+    title: Threads
+    beta: true
+    description: 'Create threads that assistants can interact with.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createThread
+      path: createThread
+    - type: endpoint
+      key: getThread
+      path: getThread
+    - type: endpoint
+      key: modifyThread
+      path: modifyThread
+    - type: endpoint
+      key: deleteThread
+      path: deleteThread
+    - type: object
+      key: ThreadObject
+      path: object
+  - id: messages
+    title: Messages
+    beta: true
+    description: 'Create messages within threads
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createMessage
+      path: createMessage
+    - type: endpoint
+      key: listMessages
+      path: listMessages
+    - type: endpoint
+      key: getMessage
+      path: getMessage
+    - type: endpoint
+      key: modifyMessage
+      path: modifyMessage
+    - type: endpoint
+      key: deleteMessage
+      path: deleteMessage
+    - type: object
+      key: MessageObject
+      path: object
+  - id: runs
+    title: Runs
+    beta: true
+    description: 'Represents an execution run on a thread.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createRun
+      path: createRun
+    - type: endpoint
+      key: createThreadAndRun
+      path: createThreadAndRun
+    - type: endpoint
+      key: listRuns
+      path: listRuns
+    - type: endpoint
+      key: getRun
+      path: getRun
+    - type: endpoint
+      key: modifyRun
+      path: modifyRun
+    - type: endpoint
+      key: submitToolOuputsToRun
+      path: submitToolOutputs
+    - type: endpoint
+      key: cancelRun
+      path: cancelRun
+    - type: object
+      key: RunObject
+      path: object
+  - id: run-steps
+    title: Run Steps
+    beta: true
+    description: 'Represents the steps (model and tool calls) taken during the run.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: listRunSteps
+      path: listRunSteps
+    - type: endpoint
+      key: getRunStep
+      path: getRunStep
+    - type: object
+      key: RunStepObject
+      path: step-object
+  - id: vector-stores
+    title: Vector Stores
+    beta: true
+    description: 'Vector stores are used to store files for use by the `file_search` tool.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStore
+      path: create
+    - type: endpoint
+      key: listVectorStores
+      path: list
+    - type: endpoint
+      key: getVectorStore
+      path: retrieve
+    - type: endpoint
+      key: modifyVectorStore
+      path: modify
+    - type: endpoint
+      key: deleteVectorStore
+      path: delete
+    - type: object
+      key: VectorStoreObject
+      path: object
+  - id: vector-stores-files
+    title: Vector Store Files
+    beta: true
+    description: 'Vector store files represent files inside a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFile
+      path: createFile
+    - type: endpoint
+      key: listVectorStoreFiles
+      path: listFiles
+    - type: endpoint
+      key: getVectorStoreFile
+      path: getFile
+    - type: endpoint
+      key: deleteVectorStoreFile
+      path: deleteFile
+    - type: object
+      key: VectorStoreFileObject
+      path: file-object
+  - id: vector-stores-file-batches
+    title: Vector Store File Batches
+    beta: true
+    description: 'Vector store file batches represent operations to add multiple files to a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFileBatch
+      path: createBatch
+    - type: endpoint
+      key: getVectorStoreFileBatch
+      path: getBatch
+    - type: endpoint
+      key: cancelVectorStoreFileBatch
+      path: cancelBatch
+    - type: endpoint
+      key: listFilesInVectorStoreBatch
+      path: listBatchFiles
+    - type: object
+      key: VectorStoreFileBatchObject
+      path: batch-object
+  - id: assistants-streaming
+    title: Streaming
+    beta: true
+    description: 'Stream the result of executing a Run or resuming a Run after submitting tool outputs.
+
+
+      You can stream events from the [Create Thread and Run](https://platform.openai.com/docs/api-reference/runs/createThreadAndRun),
+
+      [Create Run](https://platform.openai.com/docs/api-reference/runs/createRun), and [Submit Tool Outputs](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs)
+
+      endpoints by passing `"stream": true`. The response will be a [Server-Sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) stream.
+
+
+      Our Node and Python SDKs provide helpful utilities to make streaming easy. Reference the
+
+      [Assistants API quickstart](https://platform.openai.com/docs/assistants/overview) to learn more.
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: object
+      key: MessageDeltaObject
+      path: message-delta-object
+    - type: object
+      key: RunStepDeltaObject
+      path: run-step-delta-object
+    - type: object
+      key: AssistantStreamEvent
+      path: events
+  - id: completions
+    title: Completions
+    legacy: true
+    navigationGroup: legacy
+    description: 'Given a prompt, the model will return one or more predicted completions along with the probabilities of alternative tokens at each position. Most developer should use our [Chat Completions API](https://platform.openai.com/docs/guides/text-generation/text-generation-models) to leverage our best and newest models.
+
+      '
+    sections:
+    - type: endpoint
+      key: createCompletion
+      path: create
+    - type: object
+      key: CreateCompletionResponse
+      path: object

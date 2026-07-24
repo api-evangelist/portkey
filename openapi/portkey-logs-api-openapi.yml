@@ -1,0 +1,1073 @@
+openapi: 3.0.0
+info:
+  title: Portkey Analytics > Graphs Logs API
+  description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
+  version: 2.0.0
+  termsOfService: https://portkey.ai/terms
+  contact:
+    name: Portkey Developer Forum
+    url: https://portkey.wiki/community
+  license:
+    name: MIT
+    url: https://github.com/Portkey-AI/portkey-openapi/blob/master/LICENSE
+servers:
+- url: https://api.portkey.ai/v1
+  description: Portkey API Public Endpoint
+security:
+- Portkey-Key: []
+tags:
+- name: Logs
+  description: Custom Logger to add external logs to Portkey.
+paths:
+  /logs:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_GATEWAY_URL
+      description: Self-Hosted Gateway URL
+    post:
+      summary: Insert New logs
+      tags:
+      - Logs
+      description: Submit one or more log entries
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/CustomLog'
+              - type: array
+                items:
+                  $ref: '#/components/schemas/CustomLog'
+      responses:
+        '200':
+          description: Successful response
+      x-code-samples:
+      - lang: python
+        label: Default
+        source: "from portkey_ai import Portkey\n\nportkey = Portkey(\n  api_key=\"PORTKEY_API_KEY\",\n)\n\nrequest = {\n  \"url\": \"https://api.someprovider.com/model/generate\",\n  \"method\": \"POST\",\n  \"headers\": {\"Content-Type\": \"application/json\"},\n  \"body\": {\"prompt\": \"What is AI?\"},\n}\nresponse = {\n  \"status\": 200,\n  \"headers\": {\"Content-Type\": \"application/json\"},\n  \"body\": {\"response\": \"AI stands for Artificial Intelligence...\"},\n  \"response_time\": 123,\n}\nmetadata = {\n  \"user_id\": \"123\",\n  \"user_name\": \"John Doe\",\n}\n\nresult = portkey.logs.create(request=request, response=response, metadata=metadata)\n\nprint(result)\n"
+      - lang: javascript
+        label: Default
+        source: "import Portkey from \"portkey-ai\";\n\nconst portkey = new Portkey({\n  apiKey:\"PORTKEY_API_KEY\"\n})\n\nasync function main() {\n  const request = {\n    url: \"https://api.someprovider.com/model/generate\",\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: { prompt: \"What is AI?\" },\n  };\n  const response = {\n    status: 200,\n    headers: { \"Content-Type\": \"application/json\" },\n    body: { response: \"AI stands for Artificial Intelligence...\" },\n    response_time: 123,\n  };\n  const metadata = {\n    user_id: \"123\",\n    user_name: \"John Doe\",\n  };\n  const result = await portkey.logs.create({\n    request: request,\n    response: response,\n    metadata: metadata,\n  });\n  console.log(result);\n}\n\nmain();\n"
+      - lang: curl
+        label: Default
+        source: "curl -X POST \"https://api.portkey.ai/v1/logs\" \\\n-H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"request\": {\n    \"url\": \"https://api.someprovider.com/model/generate\",\n    \"method\": \"POST\",\n    \"headers\": { \"Content-Type\": \"application/json\" },\n    \"body\": { \"prompt\": \"What is AI?\" }\n  },\n  \"response\": {\n    \"status\": 200,\n    \"headers\": { \"Content-Type\": \"application/json\" },\n    \"body\": { \"response\": \"AI stands for Artificial Intelligence...\" },\n    \"response_time\": 123\n  },\n  \"metadata\": {\n    \"user_id\": \"123\",\n    \"user_name\": \"John Doe\"\n  }\n}'\n"
+      - lang: curl
+        label: Self-Hosted
+        source: "curl -X POST \"SELF_HOSTED_GATEWAY_URL/logs\" \\\n-H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n  \"request\": {\n    \"url\": \"https://api.someprovider.com/model/generate\",\n    \"method\": \"POST\",\n    \"headers\": { \"Content-Type\": \"application/json\" },\n    \"body\": { \"prompt\": \"What is AI?\" }\n  },\n  \"response\": {\n    \"status\": 200,\n    \"headers\": { \"Content-Type\": \"application/json\" },\n    \"body\": { \"response\": \"AI stands for Artificial Intelligence...\" },\n    \"response_time\": 123\n  },\n  \"metadata\": {\n    \"user_id\": \"123\",\n    \"user_name\": \"John Doe\"\n  }\n}'\n"
+      - lang: python
+        label: Self-Hosted
+        source: "from portkey_ai import Portkey\n\nportkey = Portkey(\n  api_key=\"PORTKEY_API_KEY\",\n  base_url=\"SELF_HOSTED_GATEWAY_URL\"\n)\n\nrequest = {\n  \"url\": \"https://api.someprovider.com/model/generate\",\n  \"method\": \"POST\",\n  \"headers\": {\"Content-Type\": \"application/json\"},\n  \"body\": {\"prompt\": \"What is AI?\"},\n}\nresponse = {\n  \"status\": 200,\n  \"headers\": {\"Content-Type\": \"application/json\"},\n  \"body\": {\"response\": \"AI stands for Artificial Intelligence...\"},\n  \"response_time\": 123,\n}\nmetadata = {\n  \"user_id\": \"123\",\n  \"user_name\": \"John Doe\",\n}\n\nresult = portkey.logs.create(request=request, response=response, metadata=metadata)\n\nprint(result)\n"
+      - lang: javascript
+        label: Self-Hosted
+        source: "import Portkey from \"portkey-ai\";\n\nconst portkey = new Portkey({\n  apiKey:\"PORTKEY_API_KEY\",\n  baseUrl: \"SELF_HOSTED_GATEWAY_URL\"\n})\n\nasync function main() {\n  const request = {\n    url: \"https://api.someprovider.com/model/generate\",\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: { prompt: \"What is AI?\" },\n  };\n  const response = {\n    status: 200,\n    headers: { \"Content-Type\": \"application/json\" },\n    body: { response: \"AI stands for Artificial Intelligence...\" },\n    response_time: 123,\n  };\n  const metadata = {\n    user_id: \"123\",\n    user_name: \"John Doe\",\n  };\n  const result = await portkey.logs.create({\n    request: request,\n    response: response,\n    metadata: metadata,\n  });\n  console.log(result);\n}\n\nmain();\n"
+  /logs/{logId}:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_GATEWAY_URL
+      description: Self-Hosted Gateway URL
+    get:
+      tags:
+      - Logs
+      summary: Get a specific log
+      parameters:
+      - name: logId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogObject'
+components:
+  schemas:
+    AnalyticsMetrics:
+      type: object
+      description: Analytics metrics extracted from the log entry
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the log entry
+          example: 550e8400-e29b-41d4-a716-446655440000
+        organisation_id:
+          type: string
+          description: Organization identifier
+          example: org-123
+        organisation_name:
+          type: string
+          description: Organization name
+          example: Acme Corp
+        prompt_id:
+          type: string
+          description: Prompt identifier
+          example: prompt-789
+        prompt_version_id:
+          type: string
+          description: Prompt version identifier
+          example: prompt-v1
+        config_id:
+          type: string
+          description: Configuration identifier
+          example: config-123
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the log was created
+          example: '2024-01-15T10:30:00.000'
+        is_success:
+          type: boolean
+          description: Whether the request was successful (status code 200-299)
+          example: true
+        ai_org:
+          type: string
+          description: AI provider organization (e.g., openai, anthropic)
+          example: openai
+        ai_model:
+          type: string
+          description: AI model used
+          example: gpt-4o
+        req_units:
+          type: number
+          format: float
+          description: Request token units
+          example: 100
+        res_units:
+          type: number
+          format: float
+          description: Response token units
+          example: 50
+        total_units:
+          type: number
+          format: float
+          description: Total token units (req_units + res_units)
+          example: 150
+        cost:
+          type: number
+          format: float
+          description: Cost in the specified currency
+          example: 0.002
+        cost_currency:
+          type: string
+          description: Currency code for the cost
+          default: USD
+          example: USD
+        request_url:
+          type: string
+          format: uri
+          description: Sanitized request URL
+          example: https://api.openai.com/v1/chat/completions
+        request_method:
+          type: string
+          description: HTTP method
+          example: POST
+        response_status_code:
+          type: integer
+          format: int32
+          description: HTTP response status code
+          example: 200
+        response_time:
+          type: integer
+          format: int64
+          description: Response time in milliseconds
+          example: 1234
+        is_proxy_call:
+          type: boolean
+          description: Whether this was a proxy call
+          example: true
+        cache_status:
+          type: string
+          nullable: true
+          description: Cache status (e.g., HIT, MISS, DISABLED, SEMANTIC HIT)
+          example: MISS
+        cache_type:
+          type: string
+          nullable: true
+          description: Type of cache used
+          example: semantic
+        stream_mode:
+          type: integer
+          nullable: true
+          description: Whether streaming was enabled (1) or not (0)
+          example: 1
+        retry_success_count:
+          type: integer
+          description: Number of successful retries
+          example: 0
+        trace_id:
+          type: string
+          description: Distributed tracing trace ID
+          example: trace-123
+        span_id:
+          type: string
+          description: Distributed tracing span ID
+          example: span-456
+        span_name:
+          type: string
+          description: Name of the span
+          example: llm
+        parent_span_id:
+          type: string
+          description: Parent span ID in distributed tracing
+          example: span-789
+        mode:
+          type: string
+          description: Request mode (e.g., single, loadbalance, fallback)
+          example: single
+        virtual_key:
+          type: string
+          description: Virtual key identifier
+          example: vk-123
+        source:
+          type: string
+          description: Source of the request (e.g., rubeus, proxy)
+          example: rubeus
+        runtime:
+          type: string
+          description: Runtime environment
+          example: node
+        runtime_version:
+          type: string
+          description: Runtime version
+          example: 18.0.0
+        sdk_version:
+          type: string
+          description: SDK version
+          example: 1.0.0
+        config:
+          type: string
+          description: Configuration slug or ID
+          example: pc-config-123
+        internal_trace_id:
+          type: string
+          description: Internal trace ID for gateway tracking
+          example: internal-trace-123
+        last_used_option_index:
+          type: integer
+          description: Index of the last used option in the config
+          example: 0
+        config_version_id:
+          type: string
+          description: Configuration version identifier
+          example: config-v1
+        prompt_slug:
+          type: string
+          description: Prompt slug
+          example: my-prompt
+        workspace_slug:
+          type: string
+          nullable: true
+          description: Workspace slug
+          example: my-workspace
+        log_store_file_path_format:
+          type: string
+          description: Path format version for log storage
+          example: v1
+        metadata.key:
+          type: array
+          items:
+            type: string
+            nullable: true
+          description: Array of metadata keys
+          example:
+          - key1
+          - key2
+        metadata.value:
+          type: array
+          items:
+            type: string
+            nullable: true
+          description: Array of metadata values
+          example:
+          - value1
+          - value2
+        api_key_id:
+          type: string
+          description: API key identifier
+          example: api-key-123
+        request_parsing_time:
+          type: integer
+          format: int64
+          description: Time taken to parse the request in milliseconds
+          example: 5
+        pre_processing_time:
+          type: integer
+          format: int64
+          description: Time taken for pre-processing in milliseconds
+          example: 10
+        cache_processing_time:
+          type: integer
+          format: int64
+          description: Time taken for cache processing in milliseconds
+          example: 2
+        response_parsing_time:
+          type: integer
+          format: int64
+          description: Time taken to parse the response in milliseconds
+          example: 8
+        gateway_processing_time:
+          type: integer
+          format: int64
+          description: Total gateway processing time in milliseconds
+          example: 50
+        upstream_response_time:
+          type: integer
+          format: int64
+          description: Upstream provider response time in milliseconds
+          example: 1200
+    LogRequest:
+      type: object
+      required:
+      - url
+      - method
+      - portkeyHeaders
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Sanitized request URL
+          example: https://api.openai.com/v1/chat/completions
+        method:
+          type: string
+          description: HTTP method
+          enum:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+          - HEAD
+          example: POST
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Request headers (only present when debug logging is enabled)
+          example:
+            Content-Type: application/json
+            Authorization: Bearer hashed_value
+        body:
+          type: object
+          additionalProperties: true
+          description: Request body (only present when debug logging is enabled)
+        portkeyHeaders:
+          type: object
+          additionalProperties:
+            type: string
+          description: Portkey-specific headers
+          example:
+            x-portkey-trace-id: trace-123
+            x-portkey-span-id: span-456
+            x-portkey-metadata: '{"key":"value"}'
+    CustomLog:
+      type: object
+      properties:
+        request:
+          type: object
+          properties:
+            url:
+              type: string
+            method:
+              type: string
+            headers:
+              type: object
+              additionalProperties:
+                type: string
+            body:
+              type: object
+          required:
+          - url
+          - body
+        response:
+          type: object
+          properties:
+            status:
+              type: integer
+            headers:
+              type: object
+              additionalProperties:
+                type: string
+            body:
+              type: object
+            response_time:
+              type: integer
+          required:
+          - body
+        metadata:
+          type: object
+          properties:
+            trace_id:
+              type: string
+            span_id:
+              type: string
+            span_name:
+              type: string
+            additionalProperties:
+              type: string
+      required:
+      - request
+      - response
+    LogResponse:
+      type: object
+      required:
+      - status
+      - responseTime
+      - lastUsedOptionJsonPath
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: HTTP response status code
+          example: 200
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Response headers (only present when debug logging is enabled or request failed)
+          example:
+            Content-Type: application/json
+        body:
+          type: object
+          additionalProperties: true
+          description: Response body (only present when debug logging is enabled or request failed). May be redacted for certain embedding models.
+          example:
+            id: chatcmpl-123
+            object: chat.completion
+            created: 1677652288
+        responseTime:
+          type: integer
+          format: int64
+          description: Response time in milliseconds
+          example: 1234
+        lastUsedOptionJsonPath:
+          type: string
+          description: JSON path to the last used option in the config
+          example: $.config.options[0]
+    RequestResponseObject:
+      type: object
+      properties:
+        body:
+          type: object
+          additionalProperties: true
+          description: The body content
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Headers if present
+        url:
+          type: string
+          format: uri
+          description: URL if present
+        method:
+          type: string
+          description: HTTP method if present
+    LogObject:
+      type: object
+      required:
+      - _id
+      - request
+      - response
+      - organisation_id
+      - created_at
+      properties:
+        _id:
+          type: string
+          format: uuid
+          description: Unique identifier for the log entry
+          nullable: true
+          example: 550e8400-e29b-41d4-a716-446655440000
+        request:
+          $ref: '#/components/schemas/LogRequest'
+        response:
+          $ref: '#/components/schemas/LogResponse'
+        organisation_id:
+          type: string
+          description: Organization identifier
+          nullable: true
+          example: org-123
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the log was created
+          nullable: true
+          example: '2024-01-15T10:30:00.000Z'
+        metrics:
+          $ref: '#/components/schemas/AnalyticsMetrics'
+          description: Analytics metrics object containing detailed metrics about the request
+        finalUntransformedRequest:
+          $ref: '#/components/schemas/RequestResponseObject'
+          description: The original request before any transformations (only present when debug logging is enabled)
+        originalResponse:
+          $ref: '#/components/schemas/RequestResponseObject'
+          description: The original response from the provider (only present when debug logging is enabled or request failed)
+        transformedRequest:
+          $ref: '#/components/schemas/RequestResponseObject'
+          description: The request after transformations (only present when debug logging is enabled)
+  securitySchemes:
+    Portkey-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-api-key
+    Virtual-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-virtual-key
+    Provider-Auth:
+      type: http
+      scheme: bearer
+    Provider-Name:
+      type: apiKey
+      in: header
+      name: x-portkey-provider
+    Config:
+      type: apiKey
+      in: header
+      name: x-portkey-config
+    Custom-Host:
+      type: apiKey
+      in: header
+      name: x-portkey-custom-host
+x-server-groups:
+  ControlPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_CONTROL_PLANE_URL
+    description: Self-Hosted Control Plane URL
+  DataPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_GATEWAY_URL
+    description: Self-Hosted Gateway URL
+  PublicServers:
+  - url: https://api.portkey.ai
+    description: Portkey Public API (no auth required)
+x-mint:
+  mcp:
+    enabled: true
+    name: Portkey MCP
+    description: Official MCP Server for Portkey Docs & APIs
+x-code-samples:
+  navigationGroups:
+  - id: endpoints
+    title: Endpoints
+  - id: assistants
+    title: Assistants
+  - id: legacy
+    title: Legacy
+  groups:
+  - id: audio
+    title: Audio
+    description: 'Learn how to turn audio into text or text into audio.
+
+
+      Related guide: [Speech to text](https://platform.openai.com/docs/guides/speech-to-text)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createSpeech
+      path: createSpeech
+    - type: endpoint
+      key: createTranscription
+      path: createTranscription
+    - type: endpoint
+      key: createTranslation
+      path: createTranslation
+    - type: object
+      key: CreateTranscriptionResponseJson
+      path: json-object
+    - type: object
+      key: CreateTranscriptionResponseVerboseJson
+      path: verbose-json-object
+  - id: chat
+    title: Chat
+    description: 'Given a list of messages comprising a conversation, the model will return a response.
+
+
+      Related guide: [Chat Completions](https://platform.openai.com/docs/guides/text-generation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createChatCompletion
+      path: create
+    - type: object
+      key: CreateChatCompletionResponse
+      path: object
+    - type: object
+      key: CreateChatCompletionStreamResponse
+      path: streaming
+  - id: realtime
+    title: Realtime
+    description: 'WebSocket proxy for provider Realtime APIs (`GET` upgrade). Use `wss://` with the same `/v1` data-plane base as other gateway routes.
+
+
+      Related guide: [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: connectRealtime
+      path: connect
+  - id: embeddings
+    title: Embeddings
+    description: 'Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
+
+
+      Related guide: [Embeddings](https://platform.openai.com/docs/guides/embeddings)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createEmbedding
+      path: create
+    - type: object
+      key: Embedding
+      path: object
+  - id: rerank
+    title: Rerank
+    description: 'Rerank a list of documents based on their relevance to a query. Reranking improves search results by scoring documents based on semantic relevance rather than keyword matching.
+
+
+      Supported providers: Cohere, Voyage, Jina, Pinecone, Bedrock, Azure AI.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createRerank
+      path: create
+    - type: object
+      key: CreateRerankResponse
+      path: object
+  - id: fine-tuning
+    title: Fine-tuning
+    description: 'Manage fine-tuning jobs to tailor a model to your specific training data.
+
+
+      Related guide: [Fine-tune models](https://platform.openai.com/docs/guides/fine-tuning)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFineTuningJob
+      path: create
+    - type: endpoint
+      key: listPaginatedFineTuningJobs
+      path: list
+    - type: endpoint
+      key: listFineTuningEvents
+      path: list-events
+    - type: endpoint
+      key: listFineTuningJobCheckpoints
+      path: list-checkpoints
+    - type: endpoint
+      key: retrieveFineTuningJob
+      path: retrieve
+    - type: endpoint
+      key: cancelFineTuningJob
+      path: cancel
+    - type: object
+      key: FinetuneChatRequestInput
+      path: chat-input
+    - type: object
+      key: FinetuneCompletionRequestInput
+      path: completions-input
+    - type: object
+      key: FineTuningJob
+      path: object
+    - type: object
+      key: FineTuningJobEvent
+      path: event-object
+    - type: object
+      key: FineTuningJobCheckpoint
+      path: checkpoint-object
+  - id: batch
+    title: Batch
+    description: 'Create large batches of API requests for asynchronous processing. The Batch API returns completions within 24 hours for a 50% discount.
+
+
+      Related guide: [Batch](https://platform.openai.com/docs/guides/batch)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createBatch
+      path: create
+    - type: endpoint
+      key: retrieveBatch
+      path: retrieve
+    - type: endpoint
+      key: cancelBatch
+      path: cancel
+    - type: endpoint
+      key: listBatches
+      path: list
+    - type: object
+      key: Batch
+      path: object
+    - type: object
+      key: BatchRequestInput
+      path: request-input
+    - type: object
+      key: BatchRequestOutput
+      path: request-output
+  - id: files
+    title: Files
+    description: 'Files are used to upload documents that can be used with features like [Assistants](https://platform.openai.com/docs/api-reference/assistants), [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning), and [Batch API](https://platform.openai.com/docs/guides/batch).
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFile
+      path: create
+    - type: endpoint
+      key: listFiles
+      path: list
+    - type: endpoint
+      key: retrieveFile
+      path: retrieve
+    - type: endpoint
+      key: deleteFile
+      path: delete
+    - type: endpoint
+      key: downloadFile
+      path: retrieve-contents
+    - type: object
+      key: OpenAIFile
+      path: object
+  - id: images
+    title: Images
+    description: 'Given a prompt and/or an input image, the model will generate a new image.
+
+
+      Related guide: [Image generation](https://platform.openai.com/docs/guides/images)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createImage
+      path: create
+    - type: endpoint
+      key: createImageEdit
+      path: createEdit
+    - type: endpoint
+      key: createImageVariation
+      path: createVariation
+    - type: object
+      key: Image
+      path: object
+  - id: models
+    title: Models
+    description: 'List and describe the various models available in the API. You can refer to the [Models](https://platform.openai.com/docs/models) documentation to understand what models are available and the differences between them.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: listModels
+      path: list
+    - type: endpoint
+      key: retrieveModel
+      path: retrieve
+    - type: endpoint
+      key: deleteModel
+      path: delete
+    - type: object
+      key: Model
+      path: object
+  - id: moderations
+    title: Moderations
+    description: 'Given some input text, outputs if the model classifies it as potentially harmful across several categories.
+
+
+      Related guide: [Moderations](https://platform.openai.com/docs/guides/moderation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createModeration
+      path: create
+    - type: object
+      key: CreateModerationResponse
+      path: object
+  - id: assistants
+    title: Assistants
+    beta: true
+    description: 'Build assistants that can call models and use tools to perform tasks.
+
+
+      [Get started with the Assistants API](https://platform.openai.com/docs/assistants)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createAssistant
+      path: createAssistant
+    - type: endpoint
+      key: listAssistants
+      path: listAssistants
+    - type: endpoint
+      key: getAssistant
+      path: getAssistant
+    - type: endpoint
+      key: modifyAssistant
+      path: modifyAssistant
+    - type: endpoint
+      key: deleteAssistant
+      path: deleteAssistant
+    - type: object
+      key: AssistantObject
+      path: object
+  - id: threads
+    title: Threads
+    beta: true
+    description: 'Create threads that assistants can interact with.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createThread
+      path: createThread
+    - type: endpoint
+      key: getThread
+      path: getThread
+    - type: endpoint
+      key: modifyThread
+      path: modifyThread
+    - type: endpoint
+      key: deleteThread
+      path: deleteThread
+    - type: object
+      key: ThreadObject
+      path: object
+  - id: messages
+    title: Messages
+    beta: true
+    description: 'Create messages within threads
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createMessage
+      path: createMessage
+    - type: endpoint
+      key: listMessages
+      path: listMessages
+    - type: endpoint
+      key: getMessage
+      path: getMessage
+    - type: endpoint
+      key: modifyMessage
+      path: modifyMessage
+    - type: endpoint
+      key: deleteMessage
+      path: deleteMessage
+    - type: object
+      key: MessageObject
+      path: object
+  - id: runs
+    title: Runs
+    beta: true
+    description: 'Represents an execution run on a thread.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createRun
+      path: createRun
+    - type: endpoint
+      key: createThreadAndRun
+      path: createThreadAndRun
+    - type: endpoint
+      key: listRuns
+      path: listRuns
+    - type: endpoint
+      key: getRun
+      path: getRun
+    - type: endpoint
+      key: modifyRun
+      path: modifyRun
+    - type: endpoint
+      key: submitToolOuputsToRun
+      path: submitToolOutputs
+    - type: endpoint
+      key: cancelRun
+      path: cancelRun
+    - type: object
+      key: RunObject
+      path: object
+  - id: run-steps
+    title: Run Steps
+    beta: true
+    description: 'Represents the steps (model and tool calls) taken during the run.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: listRunSteps
+      path: listRunSteps
+    - type: endpoint
+      key: getRunStep
+      path: getRunStep
+    - type: object
+      key: RunStepObject
+      path: step-object
+  - id: vector-stores
+    title: Vector Stores
+    beta: true
+    description: 'Vector stores are used to store files for use by the `file_search` tool.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStore
+      path: create
+    - type: endpoint
+      key: listVectorStores
+      path: list
+    - type: endpoint
+      key: getVectorStore
+      path: retrieve
+    - type: endpoint
+      key: modifyVectorStore
+      path: modify
+    - type: endpoint
+      key: deleteVectorStore
+      path: delete
+    - type: object
+      key: VectorStoreObject
+      path: object
+  - id: vector-stores-files
+    title: Vector Store Files
+    beta: true
+    description: 'Vector store files represent files inside a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFile
+      path: createFile
+    - type: endpoint
+      key: listVectorStoreFiles
+      path: listFiles
+    - type: endpoint
+      key: getVectorStoreFile
+      path: getFile
+    - type: endpoint
+      key: deleteVectorStoreFile
+      path: deleteFile
+    - type: object
+      key: VectorStoreFileObject
+      path: file-object
+  - id: vector-stores-file-batches
+    title: Vector Store File Batches
+    beta: true
+    description: 'Vector store file batches represent operations to add multiple files to a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFileBatch
+      path: createBatch
+    - type: endpoint
+      key: getVectorStoreFileBatch
+      path: getBatch
+    - type: endpoint
+      key: cancelVectorStoreFileBatch
+      path: cancelBatch
+    - type: endpoint
+      key: listFilesInVectorStoreBatch
+      path: listBatchFiles
+    - type: object
+      key: VectorStoreFileBatchObject
+      path: batch-object
+  - id: assistants-streaming
+    title: Streaming
+    beta: true
+    description: 'Stream the result of executing a Run or resuming a Run after submitting tool outputs.
+
+
+      You can stream events from the [Create Thread and Run](https://platform.openai.com/docs/api-reference/runs/createThreadAndRun),
+
+      [Create Run](https://platform.openai.com/docs/api-reference/runs/createRun), and [Submit Tool Outputs](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs)
+
+      endpoints by passing `"stream": true`. The response will be a [Server-Sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) stream.
+
+
+      Our Node and Python SDKs provide helpful utilities to make streaming easy. Reference the
+
+      [Assistants API quickstart](https://platform.openai.com/docs/assistants/overview) to learn more.
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: object
+      key: MessageDeltaObject
+      path: message-delta-object
+    - type: object
+      key: RunStepDeltaObject
+      path: run-step-delta-object
+    - type: object
+      key: AssistantStreamEvent
+      path: events
+  - id: completions
+    title: Completions
+    legacy: true
+    navigationGroup: legacy
+    description: 'Given a prompt, the model will return one or more predicted completions along with the probabilities of alternative tokens at each position. Most developer should use our [Chat Completions API](https://platform.openai.com/docs/guides/text-generation/text-generation-models) to leverage our best and newest models.
+
+      '
+    sections:
+    - type: endpoint
+      key: createCompletion
+      path: create
+    - type: object
+      key: CreateCompletionResponse
+      path: object

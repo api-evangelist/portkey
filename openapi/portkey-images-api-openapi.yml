@@ -1,0 +1,963 @@
+openapi: 3.0.0
+info:
+  title: Portkey Analytics > Graphs Images API
+  description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
+  version: 2.0.0
+  termsOfService: https://portkey.ai/terms
+  contact:
+    name: Portkey Developer Forum
+    url: https://portkey.wiki/community
+  license:
+    name: MIT
+    url: https://github.com/Portkey-AI/portkey-openapi/blob/master/LICENSE
+servers:
+- url: https://api.portkey.ai/v1
+  description: Portkey API Public Endpoint
+security:
+- Portkey-Key: []
+tags:
+- name: Images
+  description: Given a prompt and/or an input image, the model will generate a new image.
+paths:
+  /images/generations:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_GATEWAY_URL
+      description: Self-Hosted Gateway URL
+    post:
+      operationId: createImage
+      tags:
+      - Images
+      summary: Create Image
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateImageRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesResponse'
+      security:
+      - Portkey-Key: []
+        Virtual-Key: []
+      - Portkey-Key: []
+        Provider-Auth: []
+        Provider-Name: []
+      - Portkey-Key: []
+        Config: []
+      - Portkey-Key: []
+        Provider-Auth: []
+        Provider-Name: []
+        Custom-Host: []
+      x-code-samples:
+      - lang: curl
+        label: Default
+        source: "curl https://api.portkey.ai/v1/images/generations \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-portkey-api-key: $PORTKEY_API_KEY\" \\\n  -H \"x-portkey-virtual-key: $PORTKEY_PROVIDER_VIRTUAL_KEY\" \\\n  -d '{\n    \"model\": \"dall-e-3\",\n    \"prompt\": \"A cute baby sea otter\",\n    \"n\": 1,\n    \"size\": \"1024x1024\"\n  }'\n"
+      - lang: python
+        label: Default
+        source: "from portkey_ai import Portkey\n\nclient = Portkey(\n  api_key = \"PORTKEY_API_KEY\",\n  virtual_key = \"PROVIDER_VIRTUAL_KEY\"\n)\n\nclient.images.generate(\n  model=\"dall-e-3\",\n  prompt=\"A cute baby sea otter\",\n  n=1,\n  size=\"1024x1024\"\n)\n"
+      - lang: javascript
+        label: Default
+        source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY'\n});\n\nasync function main() {\n  const image = await client.images.generate({ model: \"dall-e-3\", prompt: \"A cute baby sea otter\" });\n\n  console.log(image.data);\n}\nmain();\n"
+      - lang: curl
+        label: Self-Hosted
+        source: "curl -X POST \"SELF_HOSTED_GATEWAY_URL/images/generations\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-portkey-api-key: $PORTKEY_API_KEY\" \\\n  -H \"x-portkey-virtual-key: $PORTKEY_PROVIDER_VIRTUAL_KEY\" \\\n  -d '{\n    \"model\": \"dall-e-3\",\n    \"prompt\": \"A cute baby sea otter\",\n    \"n\": 1,\n    \"size\": \"1024x1024\"\n  }'\n"
+      - lang: python
+        label: Self-Hosted
+        source: "from portkey_ai import Portkey\n\nclient = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n    virtual_key=\"PROVIDER_VIRTUAL_KEY\",\n    base_url=\"SELF_HOSTED_GATEWAY_URL\"\n)\n\nimage = client.images.generate(\n    model=\"dall-e-3\",\n    prompt=\"A cute baby sea otter\",\n    n=1,\n    size=\"1024x1024\"\n)\n\nprint(image.data)\n"
+      - lang: javascript
+        label: Self-Hosted
+        source: "import Portkey from 'portkey-ai';\n\nconst portkey = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY',\n  baseURL: 'SELF_HOSTED_GATEWAY_URL'\n});\n\nconst image = await portkey.images.generate({\n  model: \"dall-e-3\",\n  prompt: \"A cute baby sea otter\",\n  n: 1,\n  size: \"1024x1024\"\n});\n\nconsole.log(image.data);\n"
+  /images/edits:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_GATEWAY_URL
+      description: Self-Hosted Gateway URL
+    post:
+      operationId: createImageEdit
+      tags:
+      - Images
+      summary: Create Image Edit
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateImageEditRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesResponse'
+      security:
+      - Portkey-Key: []
+        Virtual-Key: []
+      - Portkey-Key: []
+        Provider-Auth: []
+        Provider-Name: []
+      - Portkey-Key: []
+        Config: []
+      - Portkey-Key: []
+        Provider-Auth: []
+        Provider-Name: []
+        Custom-Host: []
+      x-code-samples:
+      - lang: curl
+        label: Default
+        source: "curl https://api.portkey.ai/v1/images/edits \\\n  -H \"x-portkey-api-key: $PORTKEY_API_KEY\" \\\n  -H \"x-portkey-virtual-key: $PORTKEY_PROVIDER_VIRTUAL_KEY\" \\\n  -F image=\"@otter.png\" \\\n  -F mask=\"@mask.png\" \\\n  -F prompt=\"A cute baby sea otter wearing a beret\" \\\n  -F n=2 \\\n  -F size=\"1024x1024\"\n"
+      - lang: python
+        label: Default
+        source: "from portkey_ai import Portkey\n\nclient = Portkey(\n  api_key = \"PORTKEY_API_KEY\",\n  virtual_key = \"PROVIDER_VIRTUAL_KEY\"\n)\n\nclient.images.edit(\n  image=open(\"otter.png\", \"rb\"),\n  mask=open(\"mask.png\", \"rb\"),\n  prompt=\"A cute baby sea otter wearing a beret\",\n  n=2,\n  size=\"1024x1024\"\n)\n"
+      - lang: javascript
+        label: Default
+        source: "import fs from \"fs\";\nimport Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY'\n});\n\nasync function main() {\n  const image = await client.images.edit({\n    image: fs.createReadStream(\"otter.png\"),\n    mask: fs.createReadStream(\"mask.png\"),\n    prompt: \"A cute baby sea otter wearing a beret\",\n  });\n\n  console.log(image.data);\n}\nmain();\n"
+      - lang: curl
+        label: Self-Hosted
+        source: "curl -X POST \"SELF_HOSTED_GATEWAY_URL/images/edits\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-portkey-api-key: $PORTKEY_API_KEY\" \\\n  -H \"x-portkey-virtual-key: $PORTKEY_PROVIDER_VIRTUAL_KEY\" \\\n  -d '{\n    \"image\": \"@otter.png\",\n    \"mask\": \"@mask.png\",\n    \"prompt\": \"A cute baby sea otter wearing a beret\",\n    \"n\": 2,\n    \"size\": \"1024x1024\"\n  }'\n"
+      - lang: python
+        label: Self-Hosted
+        source: "from portkey_ai import Portkey\n\nclient = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n    virtual_key=\"PROVIDER_VIRTUAL_KEY\",\n    base_url=\"SELF_HOSTED_GATEWAY_URL\"\n)\n\nimage = client.images.edit(\n    image=open(\"otter.png\", \"rb\"),\n    mask=open(\"mask.png\", \"rb\"),\n    prompt=\"A cute baby sea otter wearing a beret\",\n    n=2,\n    size=\"1024x1024\"\n)\n\nprint(image.data)\n"
+      - lang: javascript
+        label: Self-Hosted
+        source: "import fs from \"fs\";\nimport Portkey from 'portkey-ai';\n\nconst portkey = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY',\n  baseURL: 'SELF_HOSTED_GATEWAY_URL'\n});\n\nasync function main() {\n  const image = await portkey.images.edit({\n    image: fs.createReadStream(\"otter.png\"),\n    mask: fs.createReadStream(\"mask.png\"),\n    prompt: \"A cute baby sea otter wearing a beret\",\n  });\n\n  console.log(image.data);\n}\nmain();\n"
+  /images/variations:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_GATEWAY_URL
+      description: Self-Hosted Gateway URL
+    post:
+      operationId: createImageVariation
+      tags:
+      - Images
+      summary: Creates Image Variation
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateImageVariationRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesResponse'
+      security:
+      - Portkey-Key: []
+        Virtual-Key: []
+      - Portkey-Key: []
+        Provider-Auth: []
+        Provider-Name: []
+      - Portkey-Key: []
+        Config: []
+      - Portkey-Key: []
+        Provider-Auth: []
+        Provider-Name: []
+        Custom-Host: []
+      x-code-samples:
+      - lang: curl
+        label: Default
+        source: "curl https://api.portkey.ai/v1/images/variations \\\n  -H \"x-portkey-api-key: $PORTKEY_API_KEY\" \\\n  -H \"x-portkey-virtual-key: $PORTKEY_PROVIDER_VIRTUAL_KEY\" \\\n  -F image=\"@otter.png\" \\\n  -F n=2 \\\n  -F size=\"1024x1024\"\n"
+      - lang: python
+        label: Default
+        source: "from portkey_ai import Portkey\n\nclient = Portkey(\n  api_key = \"PORTKEY_API_KEY\",\n  virtual_key = \"PROVIDER_VIRTUAL_KEY\"\n)\n\nresponse = client.images.create_variation(\n  image=open(\"image_edit_original.png\", \"rb\"),\n  n=2,\n  size=\"1024x1024\"\n)\n"
+      - lang: javascript
+        label: Default
+        source: "import fs from \"fs\";\nimport Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY'\n});\n\nasync function main() {\n  const image = await client.images.createVariation({\n    image: fs.createReadStream(\"otter.png\"),\n  });\n\n  console.log(image.data);\n}\nmain();\n"
+      - lang: curl
+        label: Self-Hosted
+        source: "curl -X POST \"SELF_HOSTED_GATEWAY_URL/images/variations\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"x-portkey-api-key: $PORTKEY_API_KEY\" \\\n  -H \"x-portkey-virtual-key: $PORTKEY_PROVIDER_VIRTUAL_KEY\" \\\n  -d '{\n    \"image\": \"@otter.png\",\n    \"n\": 2,\n    \"size\": \"1024x1024\"\n  }'\n"
+      - lang: python
+        label: Self-Hosted
+        source: "from portkey_ai import Portkey\n\nclient = Portkey(\n    api_key=\"PORTKEY_API_KEY\",\n    virtual_key=\"PROVIDER_VIRTUAL_KEY\",\n    base_url=\"SELF_HOSTED_GATEWAY_URL\"\n)\n\nimage = client.images.create_variation(\n    image=open(\"otter.png\", \"rb\"),\n    n=2,\n    size=\"1024x1024\"\n)\n\nprint(image.data)\n"
+      - lang: javascript
+        label: Self-Hosted
+        source: "import fs from \"fs\";\nimport Portkey from 'portkey-ai';\n\nconst portkey = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY',\n  baseURL: 'SELF_HOSTED_GATEWAY_URL'\n});\n\nasync function main() {\n  const image = await portkey.images.createVariation({\n    image: fs.createReadStream(\"otter.png\"),\n  });\n\n  console.log(image.data);\n}\nmain();\n"
+components:
+  schemas:
+    CreateImageRequest:
+      type: object
+      properties:
+        prompt:
+          description: A text description of the desired image(s). The maximum length is 1000 characters for `dall-e-2` and 4000 characters for `dall-e-3`.
+          type: string
+          example: A cute baby sea otter
+        model:
+          anyOf:
+          - type: string
+          - type: string
+            enum:
+            - dall-e-2
+            - dall-e-3
+          x-oaiTypeLabel: string
+          default: dall-e-2
+          example: dall-e-3
+          nullable: true
+          description: The model to use for image generation.
+        n:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 1
+          example: 1
+          nullable: true
+          description: The number of images to generate. Must be between 1 and 10. For `dall-e-3`, only `n=1` is supported.
+        quality:
+          type: string
+          enum:
+          - standard
+          - hd
+          default: standard
+          example: standard
+          description: The quality of the image that will be generated. `hd` creates images with finer details and greater consistency across the image. This param is only supported for `dall-e-3`.
+        response_format:
+          type: string
+          enum:
+          - url
+          - b64_json
+          default: url
+          example: url
+          nullable: true
+          description: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated.
+        size:
+          type: string
+          enum:
+          - 256x256
+          - 512x512
+          - 1024x1024
+          - 1792x1024
+          - 1024x1792
+          default: 1024x1024
+          example: 1024x1024
+          nullable: true
+          description: The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024` for `dall-e-2`. Must be one of `1024x1024`, `1792x1024`, or `1024x1792` for `dall-e-3` models.
+        style:
+          type: string
+          enum:
+          - vivid
+          - natural
+          default: vivid
+          example: vivid
+          nullable: true
+          description: The style of the generated images. Must be one of `vivid` or `natural`. Vivid causes the model to lean towards generating hyper-real and dramatic images. Natural causes the model to produce more natural, less hyper-real looking images. This param is only supported for `dall-e-3`.
+        user:
+          type: string
+          example: user-1234
+          description: 'A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
+
+            '
+      required:
+      - prompt
+    CreateImageVariationRequest:
+      type: object
+      properties:
+        image:
+          description: The image to use as the basis for the variation(s). Must be a valid PNG file, less than 4MB, and square.
+          type: string
+          format: binary
+        model:
+          anyOf:
+          - type: string
+          - type: string
+            enum:
+            - dall-e-2
+          x-oaiTypeLabel: string
+          default: dall-e-2
+          example: dall-e-2
+          nullable: true
+          description: The model to use for image generation. Only `dall-e-2` is supported at this time.
+        n:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 1
+          example: 1
+          nullable: true
+          description: The number of images to generate. Must be between 1 and 10. For `dall-e-3`, only `n=1` is supported.
+        response_format:
+          type: string
+          enum:
+          - url
+          - b64_json
+          default: url
+          example: url
+          nullable: true
+          description: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated.
+        size:
+          type: string
+          enum:
+          - 256x256
+          - 512x512
+          - 1024x1024
+          default: 1024x1024
+          example: 1024x1024
+          nullable: true
+          description: The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.
+        user:
+          type: string
+          example: user-1234
+          description: 'A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
+
+            '
+      required:
+      - image
+    Image:
+      type: object
+      description: Represents the url or the content of an image generated by the Portkey API.
+      properties:
+        b64_json:
+          type: string
+          description: The base64-encoded JSON of the generated image, if `response_format` is `b64_json`.
+        url:
+          type: string
+          description: The URL of the generated image, if `response_format` is `url` (default).
+        revised_prompt:
+          type: string
+          description: The prompt that was used to generate the image, if there was any revision to the prompt.
+      x-code-samples:
+        name: The image object
+        example: "{\n  \"url\": \"...\",\n  \"revised_prompt\": \"...\"\n}\n"
+    ImagesResponse:
+      properties:
+        created:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+      required:
+      - created
+      - data
+    CreateImageEditRequest:
+      type: object
+      properties:
+        image:
+          description: The image to edit. Must be a valid PNG file, less than 4MB, and square. If mask is not provided, image must have transparency, which will be used as the mask.
+          type: string
+          format: binary
+        prompt:
+          description: A text description of the desired image(s). The maximum length is 1000 characters.
+          type: string
+          example: A cute baby sea otter wearing a beret
+        mask:
+          description: An additional image whose fully transparent areas (e.g. where alpha is zero) indicate where `image` should be edited. Must be a valid PNG file, less than 4MB, and have the same dimensions as `image`.
+          type: string
+          format: binary
+        model:
+          anyOf:
+          - type: string
+          - type: string
+            enum:
+            - dall-e-2
+          x-oaiTypeLabel: string
+          default: dall-e-2
+          example: dall-e-2
+          nullable: true
+          description: The model to use for image generation. Only `dall-e-2` is supported at this time.
+        n:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 1
+          example: 1
+          nullable: true
+          description: The number of images to generate. Must be between 1 and 10.
+        size:
+          type: string
+          enum:
+          - 256x256
+          - 512x512
+          - 1024x1024
+          default: 1024x1024
+          example: 1024x1024
+          nullable: true
+          description: The size of the generated images. Must be one of `256x256`, `512x512`, or `1024x1024`.
+        response_format:
+          type: string
+          enum:
+          - url
+          - b64_json
+          default: url
+          example: url
+          nullable: true
+          description: The format in which the generated images are returned. Must be one of `url` or `b64_json`. URLs are only valid for 60 minutes after the image has been generated.
+        user:
+          type: string
+          example: user-1234
+          description: 'A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
+
+            '
+      required:
+      - prompt
+      - image
+  securitySchemes:
+    Portkey-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-api-key
+    Virtual-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-virtual-key
+    Provider-Auth:
+      type: http
+      scheme: bearer
+    Provider-Name:
+      type: apiKey
+      in: header
+      name: x-portkey-provider
+    Config:
+      type: apiKey
+      in: header
+      name: x-portkey-config
+    Custom-Host:
+      type: apiKey
+      in: header
+      name: x-portkey-custom-host
+x-server-groups:
+  ControlPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_CONTROL_PLANE_URL
+    description: Self-Hosted Control Plane URL
+  DataPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_GATEWAY_URL
+    description: Self-Hosted Gateway URL
+  PublicServers:
+  - url: https://api.portkey.ai
+    description: Portkey Public API (no auth required)
+x-mint:
+  mcp:
+    enabled: true
+    name: Portkey MCP
+    description: Official MCP Server for Portkey Docs & APIs
+x-code-samples:
+  navigationGroups:
+  - id: endpoints
+    title: Endpoints
+  - id: assistants
+    title: Assistants
+  - id: legacy
+    title: Legacy
+  groups:
+  - id: audio
+    title: Audio
+    description: 'Learn how to turn audio into text or text into audio.
+
+
+      Related guide: [Speech to text](https://platform.openai.com/docs/guides/speech-to-text)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createSpeech
+      path: createSpeech
+    - type: endpoint
+      key: createTranscription
+      path: createTranscription
+    - type: endpoint
+      key: createTranslation
+      path: createTranslation
+    - type: object
+      key: CreateTranscriptionResponseJson
+      path: json-object
+    - type: object
+      key: CreateTranscriptionResponseVerboseJson
+      path: verbose-json-object
+  - id: chat
+    title: Chat
+    description: 'Given a list of messages comprising a conversation, the model will return a response.
+
+
+      Related guide: [Chat Completions](https://platform.openai.com/docs/guides/text-generation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createChatCompletion
+      path: create
+    - type: object
+      key: CreateChatCompletionResponse
+      path: object
+    - type: object
+      key: CreateChatCompletionStreamResponse
+      path: streaming
+  - id: realtime
+    title: Realtime
+    description: 'WebSocket proxy for provider Realtime APIs (`GET` upgrade). Use `wss://` with the same `/v1` data-plane base as other gateway routes.
+
+
+      Related guide: [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: connectRealtime
+      path: connect
+  - id: embeddings
+    title: Embeddings
+    description: 'Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
+
+
+      Related guide: [Embeddings](https://platform.openai.com/docs/guides/embeddings)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createEmbedding
+      path: create
+    - type: object
+      key: Embedding
+      path: object
+  - id: rerank
+    title: Rerank
+    description: 'Rerank a list of documents based on their relevance to a query. Reranking improves search results by scoring documents based on semantic relevance rather than keyword matching.
+
+
+      Supported providers: Cohere, Voyage, Jina, Pinecone, Bedrock, Azure AI.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createRerank
+      path: create
+    - type: object
+      key: CreateRerankResponse
+      path: object
+  - id: fine-tuning
+    title: Fine-tuning
+    description: 'Manage fine-tuning jobs to tailor a model to your specific training data.
+
+
+      Related guide: [Fine-tune models](https://platform.openai.com/docs/guides/fine-tuning)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFineTuningJob
+      path: create
+    - type: endpoint
+      key: listPaginatedFineTuningJobs
+      path: list
+    - type: endpoint
+      key: listFineTuningEvents
+      path: list-events
+    - type: endpoint
+      key: listFineTuningJobCheckpoints
+      path: list-checkpoints
+    - type: endpoint
+      key: retrieveFineTuningJob
+      path: retrieve
+    - type: endpoint
+      key: cancelFineTuningJob
+      path: cancel
+    - type: object
+      key: FinetuneChatRequestInput
+      path: chat-input
+    - type: object
+      key: FinetuneCompletionRequestInput
+      path: completions-input
+    - type: object
+      key: FineTuningJob
+      path: object
+    - type: object
+      key: FineTuningJobEvent
+      path: event-object
+    - type: object
+      key: FineTuningJobCheckpoint
+      path: checkpoint-object
+  - id: batch
+    title: Batch
+    description: 'Create large batches of API requests for asynchronous processing. The Batch API returns completions within 24 hours for a 50% discount.
+
+
+      Related guide: [Batch](https://platform.openai.com/docs/guides/batch)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createBatch
+      path: create
+    - type: endpoint
+      key: retrieveBatch
+      path: retrieve
+    - type: endpoint
+      key: cancelBatch
+      path: cancel
+    - type: endpoint
+      key: listBatches
+      path: list
+    - type: object
+      key: Batch
+      path: object
+    - type: object
+      key: BatchRequestInput
+      path: request-input
+    - type: object
+      key: BatchRequestOutput
+      path: request-output
+  - id: files
+    title: Files
+    description: 'Files are used to upload documents that can be used with features like [Assistants](https://platform.openai.com/docs/api-reference/assistants), [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning), and [Batch API](https://platform.openai.com/docs/guides/batch).
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFile
+      path: create
+    - type: endpoint
+      key: listFiles
+      path: list
+    - type: endpoint
+      key: retrieveFile
+      path: retrieve
+    - type: endpoint
+      key: deleteFile
+      path: delete
+    - type: endpoint
+      key: downloadFile
+      path: retrieve-contents
+    - type: object
+      key: OpenAIFile
+      path: object
+  - id: images
+    title: Images
+    description: 'Given a prompt and/or an input image, the model will generate a new image.
+
+
+      Related guide: [Image generation](https://platform.openai.com/docs/guides/images)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createImage
+      path: create
+    - type: endpoint
+      key: createImageEdit
+      path: createEdit
+    - type: endpoint
+      key: createImageVariation
+      path: createVariation
+    - type: object
+      key: Image
+      path: object
+  - id: models
+    title: Models
+    description: 'List and describe the various models available in the API. You can refer to the [Models](https://platform.openai.com/docs/models) documentation to understand what models are available and the differences between them.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: listModels
+      path: list
+    - type: endpoint
+      key: retrieveModel
+      path: retrieve
+    - type: endpoint
+      key: deleteModel
+      path: delete
+    - type: object
+      key: Model
+      path: object
+  - id: moderations
+    title: Moderations
+    description: 'Given some input text, outputs if the model classifies it as potentially harmful across several categories.
+
+
+      Related guide: [Moderations](https://platform.openai.com/docs/guides/moderation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createModeration
+      path: create
+    - type: object
+      key: CreateModerationResponse
+      path: object
+  - id: assistants
+    title: Assistants
+    beta: true
+    description: 'Build assistants that can call models and use tools to perform tasks.
+
+
+      [Get started with the Assistants API](https://platform.openai.com/docs/assistants)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createAssistant
+      path: createAssistant
+    - type: endpoint
+      key: listAssistants
+      path: listAssistants
+    - type: endpoint
+      key: getAssistant
+      path: getAssistant
+    - type: endpoint
+      key: modifyAssistant
+      path: modifyAssistant
+    - type: endpoint
+      key: deleteAssistant
+      path: deleteAssistant
+    - type: object
+      key: AssistantObject
+      path: object
+  - id: threads
+    title: Threads
+    beta: true
+    description: 'Create threads that assistants can interact with.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createThread
+      path: createThread
+    - type: endpoint
+      key: getThread
+      path: getThread
+    - type: endpoint
+      key: modifyThread
+      path: modifyThread
+    - type: endpoint
+      key: deleteThread
+      path: deleteThread
+    - type: object
+      key: ThreadObject
+      path: object
+  - id: messages
+    title: Messages
+    beta: true
+    description: 'Create messages within threads
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createMessage
+      path: createMessage
+    - type: endpoint
+      key: listMessages
+      path: listMessages
+    - type: endpoint
+      key: getMessage
+      path: getMessage
+    - type: endpoint
+      key: modifyMessage
+      path: modifyMessage
+    - type: endpoint
+      key: deleteMessage
+      path: deleteMessage
+    - type: object
+      key: MessageObject
+      path: object
+  - id: runs
+    title: Runs
+    beta: true
+    description: 'Represents an execution run on a thread.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createRun
+      path: createRun
+    - type: endpoint
+      key: createThreadAndRun
+      path: createThreadAndRun
+    - type: endpoint
+      key: listRuns
+      path: listRuns
+    - type: endpoint
+      key: getRun
+      path: getRun
+    - type: endpoint
+      key: modifyRun
+      path: modifyRun
+    - type: endpoint
+      key: submitToolOuputsToRun
+      path: submitToolOutputs
+    - type: endpoint
+      key: cancelRun
+      path: cancelRun
+    - type: object
+      key: RunObject
+      path: object
+  - id: run-steps
+    title: Run Steps
+    beta: true
+    description: 'Represents the steps (model and tool calls) taken during the run.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: listRunSteps
+      path: listRunSteps
+    - type: endpoint
+      key: getRunStep
+      path: getRunStep
+    - type: object
+      key: RunStepObject
+      path: step-object
+  - id: vector-stores
+    title: Vector Stores
+    beta: true
+    description: 'Vector stores are used to store files for use by the `file_search` tool.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStore
+      path: create
+    - type: endpoint
+      key: listVectorStores
+      path: list
+    - type: endpoint
+      key: getVectorStore
+      path: retrieve
+    - type: endpoint
+      key: modifyVectorStore
+      path: modify
+    - type: endpoint
+      key: deleteVectorStore
+      path: delete
+    - type: object
+      key: VectorStoreObject
+      path: object
+  - id: vector-stores-files
+    title: Vector Store Files
+    beta: true
+    description: 'Vector store files represent files inside a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFile
+      path: createFile
+    - type: endpoint
+      key: listVectorStoreFiles
+      path: listFiles
+    - type: endpoint
+      key: getVectorStoreFile
+      path: getFile
+    - type: endpoint
+      key: deleteVectorStoreFile
+      path: deleteFile
+    - type: object
+      key: VectorStoreFileObject
+      path: file-object
+  - id: vector-stores-file-batches
+    title: Vector Store File Batches
+    beta: true
+    description: 'Vector store file batches represent operations to add multiple files to a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFileBatch
+      path: createBatch
+    - type: endpoint
+      key: getVectorStoreFileBatch
+      path: getBatch
+    - type: endpoint
+      key: cancelVectorStoreFileBatch
+      path: cancelBatch
+    - type: endpoint
+      key: listFilesInVectorStoreBatch
+      path: listBatchFiles
+    - type: object
+      key: VectorStoreFileBatchObject
+      path: batch-object
+  - id: assistants-streaming
+    title: Streaming
+    beta: true
+    description: 'Stream the result of executing a Run or resuming a Run after submitting tool outputs.
+
+
+      You can stream events from the [Create Thread and Run](https://platform.openai.com/docs/api-reference/runs/createThreadAndRun),
+
+      [Create Run](https://platform.openai.com/docs/api-reference/runs/createRun), and [Submit Tool Outputs](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs)
+
+      endpoints by passing `"stream": true`. The response will be a [Server-Sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) stream.
+
+
+      Our Node and Python SDKs provide helpful utilities to make streaming easy. Reference the
+
+      [Assistants API quickstart](https://platform.openai.com/docs/assistants/overview) to learn more.
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: object
+      key: MessageDeltaObject
+      path: message-delta-object
+    - type: object
+      key: RunStepDeltaObject
+      path: run-step-delta-object
+    - type: object
+      key: AssistantStreamEvent
+      path: events
+  - id: completions
+    title: Completions
+    legacy: true
+    navigationGroup: legacy
+    description: 'Given a prompt, the model will return one or more predicted completions along with the probabilities of alternative tokens at each position. Most developer should use our [Chat Completions API](https://platform.openai.com/docs/guides/text-generation/text-generation-models) to leverage our best and newest models.
+
+      '
+    sections:
+    - type: endpoint
+      key: createCompletion
+      path: create
+    - type: object
+      key: CreateCompletionResponse
+      path: object

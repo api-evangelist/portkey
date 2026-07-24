@@ -1,0 +1,1203 @@
+openapi: 3.0.0
+info:
+  title: Portkey Analytics > Graphs Usage Limits Policies API
+  description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
+  version: 2.0.0
+  termsOfService: https://portkey.ai/terms
+  contact:
+    name: Portkey Developer Forum
+    url: https://portkey.wiki/community
+  license:
+    name: MIT
+    url: https://github.com/Portkey-AI/portkey-openapi/blob/master/LICENSE
+servers:
+- url: https://api.portkey.ai/v1
+  description: Portkey API Public Endpoint
+security:
+- Portkey-Key: []
+tags:
+- name: Usage Limits Policies
+  description: Manage usage limits policies to control total usage over time
+paths:
+  /policies/usage-limits:
+    post:
+      tags:
+      - Usage Limits Policies
+      summary: Create Usage Limits Policy
+      description: Create a new usage limits policy to control total usage (cost or tokens) over a period.
+      operationId: createUsageLimitsPolicy
+      security:
+      - Portkey-Key: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUsageLimitsPolicyRequest'
+            examples:
+              monthlyCostLimit:
+                summary: Monthly Cost Limit per API Key
+                value:
+                  name: Monthly Cost Limit per API Key
+                  conditions:
+                  - key: workspace_id
+                    value: workspace-123
+                  group_by:
+                  - key: api_key
+                  type: cost
+                  credit_limit: 1000.0
+                  alert_threshold: 800.0
+                  periodic_reset: monthly
+              tokenLimit:
+                summary: Token Limit per User
+                value:
+                  name: Token Limit per User
+                  conditions:
+                  - key: workspace_id
+                    value: workspace-123
+                  group_by:
+                  - key: metadata.user_id
+                  type: tokens
+                  credit_limit: 1000000
+                  periodic_reset: weekly
+      responses:
+        '200':
+          description: Policy created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePolicyResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Policy not found
+        '500':
+          description: Server error
+    get:
+      tags:
+      - Usage Limits Policies
+      summary: List Usage Limits Policies
+      description: List all usage limits policies with optional filtering.
+      operationId: listUsageLimitsPolicies
+      security:
+      - Portkey-Key: []
+      parameters:
+      - $ref: '#/components/parameters/WorkspaceIdQuery'
+      - name: status
+        in: query
+        description: Filter by status
+        required: false
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+          default: active
+      - name: type
+        in: query
+        description: Filter by policy type
+        required: false
+        schema:
+          type: string
+          enum:
+          - cost
+          - tokens
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/CurrentPage'
+      responses:
+        '200':
+          description: List of usage limits policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageLimitsPolicyListResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Policy not found
+        '500':
+          description: Server error
+  /policies/usage-limits/{policyUsageLimitsId}:
+    get:
+      tags:
+      - Usage Limits Policies
+      summary: Get Usage Limits Policy
+      description: Get a single usage limits policy by ID.
+      operationId: getUsageLimitsPolicy
+      security:
+      - Portkey-Key: []
+      parameters:
+      - $ref: '#/components/parameters/PolicyUsageLimitsId'
+      - name: status
+        in: query
+        description: Filter by status
+        required: false
+        schema:
+          type: string
+          enum:
+          - active
+          - archived
+          default: active
+      - name: include_usage
+        in: query
+        description: Include usage information for each value key
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Usage limits policy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageLimitsPolicyResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Policy not found
+        '500':
+          description: Server error
+    put:
+      tags:
+      - Usage Limits Policies
+      summary: Update Usage Limits Policy
+      description: Update an existing usage limits policy.
+      operationId: updateUsageLimitsPolicy
+      security:
+      - Portkey-Key: []
+      parameters:
+      - $ref: '#/components/parameters/PolicyUsageLimitsId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUsageLimitsPolicyRequest'
+            example:
+              credit_limit: 2000.0
+              alert_threshold: 1500.0
+              reset_usage_for_value: api-key-123
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Policy not found
+        '500':
+          description: Server error
+    delete:
+      tags:
+      - Usage Limits Policies
+      summary: Delete Usage Limits Policy
+      description: Archive (soft delete) a usage limits policy.
+      operationId: deleteUsageLimitsPolicy
+      security:
+      - Portkey-Key: []
+      parameters:
+      - $ref: '#/components/parameters/PolicyUsageLimitsId'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Policy not found
+        '500':
+          description: Server error
+  /policies/usage-limits/{policyUsageLimitsId}/entities:
+    get:
+      tags:
+      - Usage Limits Policies
+      summary: List Usage Limits Policy Entities
+      description: List entities tracked by a usage limits policy with their current usage.
+      operationId: listUsageLimitsPolicyEntities
+      security:
+      - Portkey-Key: []
+      parameters:
+      - $ref: '#/components/parameters/PolicyUsageLimitsId'
+      - name: status
+        in: query
+        description: Filter by entity usage status
+        required: false
+        schema:
+          type: string
+          enum:
+          - active
+          - exhausted
+      - name: search
+        in: query
+        description: Filter entities by value key
+        required: false
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        description: Number of items per page
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      - $ref: '#/components/parameters/CurrentPage'
+      responses:
+        '200':
+          description: List of entities for the policy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageLimitsPolicyEntityListResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Policy not found
+        '500':
+          description: Server error
+  /policies/usage-limits/{policyUsageLimitsId}/entities/{entityId}/reset:
+    put:
+      tags:
+      - Usage Limits Policies
+      summary: Reset Usage Limits Policy Entity
+      description: Reset the current usage for a specific entity in a usage limits policy.
+      operationId: resetUsageLimitsPolicyEntity
+      security:
+      - Portkey-Key: []
+      parameters:
+      - $ref: '#/components/parameters/PolicyUsageLimitsId'
+      - $ref: '#/components/parameters/UsageLimitsPolicyEntityId'
+      responses:
+        '200':
+          description: Entity usage reset successfully
+          content:
+            application/json:
+              schema:
+                type: object
+              example: {}
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Policy or entity not found
+        '500':
+          description: Server error
+components:
+  parameters:
+    PolicyUsageLimitsId:
+      name: policyUsageLimitsId
+      in: path
+      required: true
+      description: Usage limits policy UUID
+      schema:
+        type: string
+        format: uuid
+    WorkspaceIdQuery:
+      name: workspace_id
+      in: query
+      required: false
+      description: Workspace ID or slug
+      schema:
+        type: string
+    CurrentPage:
+      in: query
+      name: current_page
+      schema:
+        type: integer
+        minimum: 0
+      description: Current page number
+    PageSize:
+      in: query
+      name: page_size
+      schema:
+        type: integer
+        minimum: 0
+      description: Number of items per page
+    UsageLimitsPolicyEntityId:
+      name: entityId
+      in: path
+      required: true
+      description: Usage limits policy entity ID
+      schema:
+        type: string
+  schemas:
+    UpdateUsageLimitsPolicyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Policy name
+        credit_limit:
+          type: number
+          minimum: 0
+          description: Maximum usage allowed
+        alert_threshold:
+          type: number
+          nullable: true
+          minimum: 0
+          description: Threshold at which to send alerts. Must be less than credit_limit.
+        periodic_reset:
+          type: string
+          nullable: true
+          enum:
+          - monthly
+          - weekly
+          description: Reset period. Set to null to remove periodic reset.
+        reset_usage_for_value:
+          type: string
+          description: Reset usage for a specific value key (e.g., API key). This will reset the usage counter for that key to 0.
+    CreateUsageLimitsPolicyRequest:
+      type: object
+      required:
+      - conditions
+      - group_by
+      - type
+      - credit_limit
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Policy name
+          example: Monthly Cost Limit
+        conditions:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Condition'
+          description: Array of conditions that define which requests the policy applies to
+        group_by:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/GroupBy'
+          description: Array of group by fields that define how usage is aggregated
+        type:
+          type: string
+          enum:
+          - cost
+          - tokens
+          description: Policy type
+        credit_limit:
+          type: number
+          minimum: 0
+          description: Maximum usage allowed
+        alert_threshold:
+          type: number
+          nullable: true
+          minimum: 0
+          description: Threshold at which to send alerts. Must be less than credit_limit.
+        periodic_reset:
+          type: string
+          nullable: true
+          enum:
+          - monthly
+          - weekly
+          description: Reset period. If not provided, limit is cumulative.
+        workspace_id:
+          type: string
+          description: Workspace ID or slug. Required if not using API key authentication.
+        organisation_id:
+          type: string
+          format: uuid
+          description: Organization ID. Required if not using API key authentication.
+    UsageLimitsPolicy:
+      type: object
+      required:
+      - id
+      - type
+      - status
+      - workspace_id
+      - organisation_id
+      - created_at
+      - last_updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Policy UUID
+        name:
+          type: string
+          nullable: true
+          description: Policy name
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
+          description: Array of conditions
+        group_by:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupBy'
+          description: Array of group by fields
+        type:
+          type: string
+          enum:
+          - cost
+          - tokens
+          description: Policy type
+        credit_limit:
+          type: number
+          description: Maximum usage allowed
+        alert_threshold:
+          type: number
+          nullable: true
+          description: Alert threshold
+        periodic_reset:
+          type: string
+          nullable: true
+          enum:
+          - monthly
+          - weekly
+          description: Reset period
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+          description: Policy status
+        workspace_id:
+          type: string
+          format: uuid
+          description: Workspace UUID
+        organisation_id:
+          type: string
+          format: uuid
+          description: Organization UUID
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        last_updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        value_key_usage_map:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ValueKeyUsage'
+          description: Map of value keys to usage information (only included when include_usage=true)
+    UsageLimitsPolicyEntityListResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageLimitsPolicyEntity'
+        total:
+          type: integer
+          description: Total number of entities
+    ValueKeyUsage:
+      type: object
+      properties:
+        current_usage:
+          type: number
+          description: Current usage value
+        status:
+          type: string
+          enum:
+          - active
+          - exhausted
+          description: Usage status
+        is_threshold_alerts_sent:
+          type: boolean
+          description: Whether threshold alerts have been sent
+        is_exhausted_alerts_sent:
+          type: boolean
+          description: Whether exhausted alerts have been sent
+    GroupBy:
+      type: object
+      required:
+      - key
+      properties:
+        key:
+          type: string
+          description: 'Group by key. Valid values:
+
+            - `api_key` - Group by API key
+
+            - `organisation_id` - Group by organization
+
+            - `workspace_id` - Group by workspace
+
+            - `metadata.*` - Group by custom metadata fields
+
+            '
+          example: api_key
+    CreatePolicyResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Created policy UUID
+        object:
+          type: string
+          description: Resource type
+          example: policy_usage_limits
+    UsageLimitsPolicyResponse:
+      allOf:
+      - $ref: '#/components/schemas/UsageLimitsPolicy'
+      - type: object
+        properties:
+          object:
+            type: string
+            example: policy_usage_limits
+    UsageLimitsPolicyListResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageLimitsPolicy'
+        total:
+          type: integer
+          description: Total number of policies
+    Condition:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+          description: 'Condition key. Valid values:
+
+            - `api_key` - Apply to a specific API key
+
+            - `organisation_id` - Apply to an organization
+
+            - `workspace_id` - Apply to a workspace
+
+            - `metadata.*` - Apply based on custom metadata fields (e.g., `metadata.user_id`, `metadata.team`)
+
+            '
+          example: workspace_id
+        value:
+          type: string
+          description: Condition value
+          example: workspace-123
+    UsageLimitsPolicyEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Entity ID
+        value_key:
+          type: string
+          description: The value key identifying the entity (e.g. metadata._user:username)
+        current_usage:
+          type: number
+          description: Current usage value for this entity
+  securitySchemes:
+    Portkey-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-api-key
+    Virtual-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-virtual-key
+    Provider-Auth:
+      type: http
+      scheme: bearer
+    Provider-Name:
+      type: apiKey
+      in: header
+      name: x-portkey-provider
+    Config:
+      type: apiKey
+      in: header
+      name: x-portkey-config
+    Custom-Host:
+      type: apiKey
+      in: header
+      name: x-portkey-custom-host
+x-server-groups:
+  ControlPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_CONTROL_PLANE_URL
+    description: Self-Hosted Control Plane URL
+  DataPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_GATEWAY_URL
+    description: Self-Hosted Gateway URL
+  PublicServers:
+  - url: https://api.portkey.ai
+    description: Portkey Public API (no auth required)
+x-mint:
+  mcp:
+    enabled: true
+    name: Portkey MCP
+    description: Official MCP Server for Portkey Docs & APIs
+x-code-samples:
+  navigationGroups:
+  - id: endpoints
+    title: Endpoints
+  - id: assistants
+    title: Assistants
+  - id: legacy
+    title: Legacy
+  groups:
+  - id: audio
+    title: Audio
+    description: 'Learn how to turn audio into text or text into audio.
+
+
+      Related guide: [Speech to text](https://platform.openai.com/docs/guides/speech-to-text)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createSpeech
+      path: createSpeech
+    - type: endpoint
+      key: createTranscription
+      path: createTranscription
+    - type: endpoint
+      key: createTranslation
+      path: createTranslation
+    - type: object
+      key: CreateTranscriptionResponseJson
+      path: json-object
+    - type: object
+      key: CreateTranscriptionResponseVerboseJson
+      path: verbose-json-object
+  - id: chat
+    title: Chat
+    description: 'Given a list of messages comprising a conversation, the model will return a response.
+
+
+      Related guide: [Chat Completions](https://platform.openai.com/docs/guides/text-generation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createChatCompletion
+      path: create
+    - type: object
+      key: CreateChatCompletionResponse
+      path: object
+    - type: object
+      key: CreateChatCompletionStreamResponse
+      path: streaming
+  - id: realtime
+    title: Realtime
+    description: 'WebSocket proxy for provider Realtime APIs (`GET` upgrade). Use `wss://` with the same `/v1` data-plane base as other gateway routes.
+
+
+      Related guide: [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: connectRealtime
+      path: connect
+  - id: embeddings
+    title: Embeddings
+    description: 'Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
+
+
+      Related guide: [Embeddings](https://platform.openai.com/docs/guides/embeddings)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createEmbedding
+      path: create
+    - type: object
+      key: Embedding
+      path: object
+  - id: rerank
+    title: Rerank
+    description: 'Rerank a list of documents based on their relevance to a query. Reranking improves search results by scoring documents based on semantic relevance rather than keyword matching.
+
+
+      Supported providers: Cohere, Voyage, Jina, Pinecone, Bedrock, Azure AI.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createRerank
+      path: create
+    - type: object
+      key: CreateRerankResponse
+      path: object
+  - id: fine-tuning
+    title: Fine-tuning
+    description: 'Manage fine-tuning jobs to tailor a model to your specific training data.
+
+
+      Related guide: [Fine-tune models](https://platform.openai.com/docs/guides/fine-tuning)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFineTuningJob
+      path: create
+    - type: endpoint
+      key: listPaginatedFineTuningJobs
+      path: list
+    - type: endpoint
+      key: listFineTuningEvents
+      path: list-events
+    - type: endpoint
+      key: listFineTuningJobCheckpoints
+      path: list-checkpoints
+    - type: endpoint
+      key: retrieveFineTuningJob
+      path: retrieve
+    - type: endpoint
+      key: cancelFineTuningJob
+      path: cancel
+    - type: object
+      key: FinetuneChatRequestInput
+      path: chat-input
+    - type: object
+      key: FinetuneCompletionRequestInput
+      path: completions-input
+    - type: object
+      key: FineTuningJob
+      path: object
+    - type: object
+      key: FineTuningJobEvent
+      path: event-object
+    - type: object
+      key: FineTuningJobCheckpoint
+      path: checkpoint-object
+  - id: batch
+    title: Batch
+    description: 'Create large batches of API requests for asynchronous processing. The Batch API returns completions within 24 hours for a 50% discount.
+
+
+      Related guide: [Batch](https://platform.openai.com/docs/guides/batch)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createBatch
+      path: create
+    - type: endpoint
+      key: retrieveBatch
+      path: retrieve
+    - type: endpoint
+      key: cancelBatch
+      path: cancel
+    - type: endpoint
+      key: listBatches
+      path: list
+    - type: object
+      key: Batch
+      path: object
+    - type: object
+      key: BatchRequestInput
+      path: request-input
+    - type: object
+      key: BatchRequestOutput
+      path: request-output
+  - id: files
+    title: Files
+    description: 'Files are used to upload documents that can be used with features like [Assistants](https://platform.openai.com/docs/api-reference/assistants), [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning), and [Batch API](https://platform.openai.com/docs/guides/batch).
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFile
+      path: create
+    - type: endpoint
+      key: listFiles
+      path: list
+    - type: endpoint
+      key: retrieveFile
+      path: retrieve
+    - type: endpoint
+      key: deleteFile
+      path: delete
+    - type: endpoint
+      key: downloadFile
+      path: retrieve-contents
+    - type: object
+      key: OpenAIFile
+      path: object
+  - id: images
+    title: Images
+    description: 'Given a prompt and/or an input image, the model will generate a new image.
+
+
+      Related guide: [Image generation](https://platform.openai.com/docs/guides/images)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createImage
+      path: create
+    - type: endpoint
+      key: createImageEdit
+      path: createEdit
+    - type: endpoint
+      key: createImageVariation
+      path: createVariation
+    - type: object
+      key: Image
+      path: object
+  - id: models
+    title: Models
+    description: 'List and describe the various models available in the API. You can refer to the [Models](https://platform.openai.com/docs/models) documentation to understand what models are available and the differences between them.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: listModels
+      path: list
+    - type: endpoint
+      key: retrieveModel
+      path: retrieve
+    - type: endpoint
+      key: deleteModel
+      path: delete
+    - type: object
+      key: Model
+      path: object
+  - id: moderations
+    title: Moderations
+    description: 'Given some input text, outputs if the model classifies it as potentially harmful across several categories.
+
+
+      Related guide: [Moderations](https://platform.openai.com/docs/guides/moderation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createModeration
+      path: create
+    - type: object
+      key: CreateModerationResponse
+      path: object
+  - id: assistants
+    title: Assistants
+    beta: true
+    description: 'Build assistants that can call models and use tools to perform tasks.
+
+
+      [Get started with the Assistants API](https://platform.openai.com/docs/assistants)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createAssistant
+      path: createAssistant
+    - type: endpoint
+      key: listAssistants
+      path: listAssistants
+    - type: endpoint
+      key: getAssistant
+      path: getAssistant
+    - type: endpoint
+      key: modifyAssistant
+      path: modifyAssistant
+    - type: endpoint
+      key: deleteAssistant
+      path: deleteAssistant
+    - type: object
+      key: AssistantObject
+      path: object
+  - id: threads
+    title: Threads
+    beta: true
+    description: 'Create threads that assistants can interact with.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createThread
+      path: createThread
+    - type: endpoint
+      key: getThread
+      path: getThread
+    - type: endpoint
+      key: modifyThread
+      path: modifyThread
+    - type: endpoint
+      key: deleteThread
+      path: deleteThread
+    - type: object
+      key: ThreadObject
+      path: object
+  - id: messages
+    title: Messages
+    beta: true
+    description: 'Create messages within threads
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createMessage
+      path: createMessage
+    - type: endpoint
+      key: listMessages
+      path: listMessages
+    - type: endpoint
+      key: getMessage
+      path: getMessage
+    - type: endpoint
+      key: modifyMessage
+      path: modifyMessage
+    - type: endpoint
+      key: deleteMessage
+      path: deleteMessage
+    - type: object
+      key: MessageObject
+      path: object
+  - id: runs
+    title: Runs
+    beta: true
+    description: 'Represents an execution run on a thread.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createRun
+      path: createRun
+    - type: endpoint
+      key: createThreadAndRun
+      path: createThreadAndRun
+    - type: endpoint
+      key: listRuns
+      path: listRuns
+    - type: endpoint
+      key: getRun
+      path: getRun
+    - type: endpoint
+      key: modifyRun
+      path: modifyRun
+    - type: endpoint
+      key: submitToolOuputsToRun
+      path: submitToolOutputs
+    - type: endpoint
+      key: cancelRun
+      path: cancelRun
+    - type: object
+      key: RunObject
+      path: object
+  - id: run-steps
+    title: Run Steps
+    beta: true
+    description: 'Represents the steps (model and tool calls) taken during the run.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: listRunSteps
+      path: listRunSteps
+    - type: endpoint
+      key: getRunStep
+      path: getRunStep
+    - type: object
+      key: RunStepObject
+      path: step-object
+  - id: vector-stores
+    title: Vector Stores
+    beta: true
+    description: 'Vector stores are used to store files for use by the `file_search` tool.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStore
+      path: create
+    - type: endpoint
+      key: listVectorStores
+      path: list
+    - type: endpoint
+      key: getVectorStore
+      path: retrieve
+    - type: endpoint
+      key: modifyVectorStore
+      path: modify
+    - type: endpoint
+      key: deleteVectorStore
+      path: delete
+    - type: object
+      key: VectorStoreObject
+      path: object
+  - id: vector-stores-files
+    title: Vector Store Files
+    beta: true
+    description: 'Vector store files represent files inside a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFile
+      path: createFile
+    - type: endpoint
+      key: listVectorStoreFiles
+      path: listFiles
+    - type: endpoint
+      key: getVectorStoreFile
+      path: getFile
+    - type: endpoint
+      key: deleteVectorStoreFile
+      path: deleteFile
+    - type: object
+      key: VectorStoreFileObject
+      path: file-object
+  - id: vector-stores-file-batches
+    title: Vector Store File Batches
+    beta: true
+    description: 'Vector store file batches represent operations to add multiple files to a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFileBatch
+      path: createBatch
+    - type: endpoint
+      key: getVectorStoreFileBatch
+      path: getBatch
+    - type: endpoint
+      key: cancelVectorStoreFileBatch
+      path: cancelBatch
+    - type: endpoint
+      key: listFilesInVectorStoreBatch
+      path: listBatchFiles
+    - type: object
+      key: VectorStoreFileBatchObject
+      path: batch-object
+  - id: assistants-streaming
+    title: Streaming
+    beta: true
+    description: 'Stream the result of executing a Run or resuming a Run after submitting tool outputs.
+
+
+      You can stream events from the [Create Thread and Run](https://platform.openai.com/docs/api-reference/runs/createThreadAndRun),
+
+      [Create Run](https://platform.openai.com/docs/api-reference/runs/createRun), and [Submit Tool Outputs](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs)
+
+      endpoints by passing `"stream": true`. The response will be a [Server-Sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) stream.
+
+
+      Our Node and Python SDKs provide helpful utilities to make streaming easy. Reference the
+
+      [Assistants API quickstart](https://platform.openai.com/docs/assistants/overview) to learn more.
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: object
+      key: MessageDeltaObject
+      path: message-delta-object
+    - type: object
+      key: RunStepDeltaObject
+      path: run-step-delta-object
+    - type: object
+      key: AssistantStreamEvent
+      path: events
+  - id: completions
+    title: Completions
+    legacy: true
+    navigationGroup: legacy
+    description: 'Given a prompt, the model will return one or more predicted completions along with the probabilities of alternative tokens at each position. Most developer should use our [Chat Completions API](https://platform.openai.com/docs/guides/text-generation/text-generation-models) to leverage our best and newest models.
+
+      '
+    sections:
+    - type: endpoint
+      key: createCompletion
+      path: create
+    - type: object
+      key: CreateCompletionResponse
+      path: object

@@ -1,0 +1,1006 @@
+openapi: 3.0.0
+info:
+  title: Portkey Analytics > Graphs Analytics > Groups API
+  description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
+  version: 2.0.0
+  termsOfService: https://portkey.ai/terms
+  contact:
+    name: Portkey Developer Forum
+    url: https://portkey.wiki/community
+  license:
+    name: MIT
+    url: https://github.com/Portkey-AI/portkey-openapi/blob/master/LICENSE
+servers:
+- url: https://api.portkey.ai/v1
+  description: Portkey API Public Endpoint
+security:
+- Portkey-Key: []
+tags:
+- name: Analytics > Groups
+  description: Get grouped metrics for the selected time bucket.
+paths:
+  /analytics/groups/users:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_CONTROL_PLANE_URL
+      description: Self-Hosted Control Plane URL
+    get:
+      tags:
+      - Analytics > Groups
+      summary: Get metadata users grouped data.
+      parameters:
+      - $ref: '#/components/parameters/WorkspaceSlug'
+      - $ref: '#/components/parameters/TimeOfGenerationMin'
+      - $ref: '#/components/parameters/TimeOfGenerationMax'
+      - $ref: '#/components/parameters/TotalUnitsMin'
+      - $ref: '#/components/parameters/TotalUnitsMax'
+      - $ref: '#/components/parameters/CostMin'
+      - $ref: '#/components/parameters/CostMax'
+      - $ref: '#/components/parameters/PromptTokenMin'
+      - $ref: '#/components/parameters/PromptTokenMax'
+      - $ref: '#/components/parameters/CompletionTokenMin'
+      - $ref: '#/components/parameters/CompletionTokenMax'
+      - $ref: '#/components/parameters/StatusCode'
+      - $ref: '#/components/parameters/WeightedFeedbackMin'
+      - $ref: '#/components/parameters/WeightedFeedbackMax'
+      - $ref: '#/components/parameters/VirtualKeys'
+      - $ref: '#/components/parameters/Configs'
+      - $ref: '#/components/parameters/ApiKeyIds'
+      - $ref: '#/components/parameters/CurrentPage'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Metadata'
+      - $ref: '#/components/parameters/AiOrgModel'
+      - $ref: '#/components/parameters/TraceId'
+      - $ref: '#/components/parameters/SpanId'
+      - $ref: '#/components/parameters/PromptSlug'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    enum:
+                    - list
+                  total:
+                    type: integer
+                    description: Total records present across all pages
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        user:
+                          type: string
+                          description: The user for which the data is calculated
+                        requests:
+                          type: string
+                          description: Total requests made by this user
+                        cost:
+                          type: string
+                          description: Total cost in cents for the requests made by this user
+                        object:
+                          type: string
+                          description: The type of object being returned
+                          enum:
+                          - analytics-group
+                required:
+                - total
+                - object
+                - data
+  /analytics/groups/ai-models:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_CONTROL_PLANE_URL
+      description: Self-Hosted Control Plane URL
+    get:
+      tags:
+      - Analytics > Groups
+      summary: Get ai model grouped data.
+      parameters:
+      - $ref: '#/components/parameters/WorkspaceSlug'
+      - $ref: '#/components/parameters/TimeOfGenerationMin'
+      - $ref: '#/components/parameters/TimeOfGenerationMax'
+      - $ref: '#/components/parameters/TotalUnitsMin'
+      - $ref: '#/components/parameters/TotalUnitsMax'
+      - $ref: '#/components/parameters/CostMin'
+      - $ref: '#/components/parameters/CostMax'
+      - $ref: '#/components/parameters/PromptTokenMin'
+      - $ref: '#/components/parameters/PromptTokenMax'
+      - $ref: '#/components/parameters/CompletionTokenMin'
+      - $ref: '#/components/parameters/CompletionTokenMax'
+      - $ref: '#/components/parameters/StatusCode'
+      - $ref: '#/components/parameters/WeightedFeedbackMin'
+      - $ref: '#/components/parameters/WeightedFeedbackMax'
+      - $ref: '#/components/parameters/VirtualKeys'
+      - $ref: '#/components/parameters/Configs'
+      - $ref: '#/components/parameters/ApiKeyIds'
+      - $ref: '#/components/parameters/CurrentPage'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Metadata'
+      - $ref: '#/components/parameters/AiOrgModel'
+      - $ref: '#/components/parameters/TraceId'
+      - $ref: '#/components/parameters/SpanId'
+      - $ref: '#/components/parameters/PromptSlug'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    enum:
+                    - list
+                  total:
+                    type: integer
+                    description: Total records present across all pages
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ai_model:
+                          type: string
+                          description: The ai model for which the data is calculated
+                        requests:
+                          type: string
+                          description: Total requests made for this ai model
+                        object:
+                          type: string
+                          description: The type of object being returned
+                          enum:
+                          - analytics-group
+                required:
+                - total
+                - object
+                - data
+  /analytics/groups/metadata/{metadataKey}:
+    servers:
+    - url: https://api.portkey.ai/v1
+      description: Portkey API Public Endpoint
+    - url: SELF_HOSTED_CONTROL_PLANE_URL
+      description: Self-Hosted Control Plane URL
+    get:
+      tags:
+      - Analytics > Groups
+      summary: Get metadata key based grouped data.
+      parameters:
+      - name: metadataKey
+        in: path
+        schema:
+          type: string
+        required: true
+      - $ref: '#/components/parameters/WorkspaceSlug'
+      - $ref: '#/components/parameters/TimeOfGenerationMin'
+      - $ref: '#/components/parameters/TimeOfGenerationMax'
+      - $ref: '#/components/parameters/TotalUnitsMin'
+      - $ref: '#/components/parameters/TotalUnitsMax'
+      - $ref: '#/components/parameters/CostMin'
+      - $ref: '#/components/parameters/CostMax'
+      - $ref: '#/components/parameters/PromptTokenMin'
+      - $ref: '#/components/parameters/PromptTokenMax'
+      - $ref: '#/components/parameters/CompletionTokenMin'
+      - $ref: '#/components/parameters/CompletionTokenMax'
+      - $ref: '#/components/parameters/StatusCode'
+      - $ref: '#/components/parameters/WeightedFeedbackMin'
+      - $ref: '#/components/parameters/WeightedFeedbackMax'
+      - $ref: '#/components/parameters/VirtualKeys'
+      - $ref: '#/components/parameters/Configs'
+      - $ref: '#/components/parameters/ApiKeyIds'
+      - $ref: '#/components/parameters/CurrentPage'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Metadata'
+      - $ref: '#/components/parameters/AiOrgModel'
+      - $ref: '#/components/parameters/TraceId'
+      - $ref: '#/components/parameters/SpanId'
+      - $ref: '#/components/parameters/PromptSlug'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  object:
+                    type: string
+                    enum:
+                    - list
+                  total:
+                    type: integer
+                    description: Total records present across all pages
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        metadata_value:
+                          type: string
+                          description: Value of the metadata on which grouping has been done
+                        requests:
+                          type: integer
+                          description: Total requests made with this metadata
+                        cost:
+                          type: integer
+                          description: Total cost for all requests made with this metadata
+                        avg_tokens:
+                          type: integer
+                          description: Average tokens per request for all requests made with this metadata
+                        avg_weighted_feedback:
+                          type: integer
+                          description: Average weighted feedback for all requests made with this metadata
+                        requests_with_feedback:
+                          type: integer
+                          description: Total requests with feedback
+                        last_seen:
+                          type: string
+                          format: date-time
+                          description: The last seen timestamp for this metadata
+                        object:
+                          type: string
+                          description: The type of object being returned
+                          enum:
+                          - analytics-group
+                required:
+                - total
+                - object
+                - data
+components:
+  parameters:
+    PromptTokenMin:
+      in: query
+      name: prompt_token_min
+      schema:
+        type: integer
+        minimum: 0
+      description: Minimum number of prompt tokens
+    WeightedFeedbackMax:
+      in: query
+      name: weighted_feedback_max
+      schema:
+        type: number
+        minimum: -10
+        maximum: 10
+      description: Maximum weighted feedback score
+    TotalUnitsMax:
+      in: query
+      name: total_units_max
+      schema:
+        type: integer
+        minimum: 0
+      description: Maximum total units (tokens)
+    Metadata:
+      in: query
+      name: metadata
+      schema:
+        type: string
+      description: Stringifed json object with key value metadata pairs
+      example: '{"_user":"user_1", "env": "staging"}'
+    CurrentPage:
+      in: query
+      name: current_page
+      schema:
+        type: integer
+        minimum: 0
+      description: Current page number
+    VirtualKeys:
+      in: query
+      name: virtual_keys
+      schema:
+        type: string
+      description: Comma separated virtual key slugs
+      example: vk-slug-1,vk-slug-2
+    WeightedFeedbackMin:
+      in: query
+      name: weighted_feedback_min
+      schema:
+        type: number
+        minimum: -10
+        maximum: 10
+      description: Minimum weighted feedback score
+    TimeOfGenerationMax:
+      in: query
+      name: time_of_generation_max
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2026-02-24T14:20:31+05:30'
+      description: Maximum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM).
+    CompletionTokenMax:
+      in: query
+      name: completion_token_max
+      schema:
+        type: integer
+        minimum: 0
+      description: Maximum number of completion tokens
+    ApiKeyIds:
+      in: query
+      name: api_key_ids
+      schema:
+        type: string
+      description: Comma separated API key UUIDs
+      example: 765768a9-b4ec-4694-962c-d55f40cdb0dc,7c22af5a-8119-46b8-8d9b-bad3ad382387
+    StatusCode:
+      in: query
+      name: status_code
+      schema:
+        type: string
+      description: Comma separated response status codes
+      example: 401,403
+    Configs:
+      in: query
+      name: configs
+      schema:
+        type: string
+      description: Comma separated config slugs
+      example: pc-config-slug-1,pc-config-slug-2
+    TraceId:
+      in: query
+      name: trace_id
+      schema:
+        type: string
+      description: Comma separated trace IDs
+      example: my-unique-trace-1,my-unique-trace-2
+    CompletionTokenMin:
+      in: query
+      name: completion_token_min
+      schema:
+        type: integer
+        minimum: 0
+      description: Minimum number of completion tokens
+    PromptSlug:
+      in: query
+      name: prompt_slug
+      schema:
+        type: string
+      description: Comma separated prompt slugs
+      example: prompt-slug-1,prompt-slug-2
+    TotalUnitsMin:
+      in: query
+      name: total_units_min
+      schema:
+        type: integer
+        minimum: 0
+      description: Minimum total units (tokens)
+    SpanId:
+      in: query
+      name: span_id
+      schema:
+        type: string
+      description: Comma separated span IDs
+      example: my-unique-span-1,my-unique-span-2
+    WorkspaceSlug:
+      in: query
+      name: workspace_slug
+      required: true
+      schema:
+        type: string
+      description: Workspace slug filter. If a workspace API key is being used, this filter will not be taken into consideration. If an organisation API key is used and no workspace slug is passed, default workspace will be used.
+    TimeOfGenerationMin:
+      in: query
+      name: time_of_generation_min
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2026-02-23T14:20:31+05:30'
+      description: Minimum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM).
+    PageSize:
+      in: query
+      name: page_size
+      schema:
+        type: integer
+        minimum: 0
+      description: Number of items per page
+    AiOrgModel:
+      in: query
+      name: ai_org_model
+      schema:
+        type: string
+      description: Comma separated ai provider and model combination. Double underscore (__) should be used as a separator for each provider and model combination
+      example: openai__gpt-3.5-turbo,azure-openai__gpt-35-turbo
+    CostMax:
+      in: query
+      name: cost_max
+      schema:
+        type: number
+        minimum: 0
+      description: Maximum cost (in cents)
+    CostMin:
+      in: query
+      name: cost_min
+      schema:
+        type: number
+        minimum: 0
+      description: Minimum cost (in cents)
+    PromptTokenMax:
+      in: query
+      name: prompt_token_max
+      schema:
+        type: integer
+        minimum: 0
+      description: Maximum number of prompt tokens
+  securitySchemes:
+    Portkey-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-api-key
+    Virtual-Key:
+      type: apiKey
+      in: header
+      name: x-portkey-virtual-key
+    Provider-Auth:
+      type: http
+      scheme: bearer
+    Provider-Name:
+      type: apiKey
+      in: header
+      name: x-portkey-provider
+    Config:
+      type: apiKey
+      in: header
+      name: x-portkey-config
+    Custom-Host:
+      type: apiKey
+      in: header
+      name: x-portkey-custom-host
+x-server-groups:
+  ControlPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_CONTROL_PLANE_URL
+    description: Self-Hosted Control Plane URL
+  DataPlaneServers:
+  - url: https://api.portkey.ai/v1
+    description: Portkey API Public Endpoint
+  - url: SELF_HOSTED_GATEWAY_URL
+    description: Self-Hosted Gateway URL
+  PublicServers:
+  - url: https://api.portkey.ai
+    description: Portkey Public API (no auth required)
+x-mint:
+  mcp:
+    enabled: true
+    name: Portkey MCP
+    description: Official MCP Server for Portkey Docs & APIs
+x-code-samples:
+  navigationGroups:
+  - id: endpoints
+    title: Endpoints
+  - id: assistants
+    title: Assistants
+  - id: legacy
+    title: Legacy
+  groups:
+  - id: audio
+    title: Audio
+    description: 'Learn how to turn audio into text or text into audio.
+
+
+      Related guide: [Speech to text](https://platform.openai.com/docs/guides/speech-to-text)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createSpeech
+      path: createSpeech
+    - type: endpoint
+      key: createTranscription
+      path: createTranscription
+    - type: endpoint
+      key: createTranslation
+      path: createTranslation
+    - type: object
+      key: CreateTranscriptionResponseJson
+      path: json-object
+    - type: object
+      key: CreateTranscriptionResponseVerboseJson
+      path: verbose-json-object
+  - id: chat
+    title: Chat
+    description: 'Given a list of messages comprising a conversation, the model will return a response.
+
+
+      Related guide: [Chat Completions](https://platform.openai.com/docs/guides/text-generation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createChatCompletion
+      path: create
+    - type: object
+      key: CreateChatCompletionResponse
+      path: object
+    - type: object
+      key: CreateChatCompletionStreamResponse
+      path: streaming
+  - id: realtime
+    title: Realtime
+    description: 'WebSocket proxy for provider Realtime APIs (`GET` upgrade). Use `wss://` with the same `/v1` data-plane base as other gateway routes.
+
+
+      Related guide: [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: connectRealtime
+      path: connect
+  - id: embeddings
+    title: Embeddings
+    description: 'Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
+
+
+      Related guide: [Embeddings](https://platform.openai.com/docs/guides/embeddings)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createEmbedding
+      path: create
+    - type: object
+      key: Embedding
+      path: object
+  - id: rerank
+    title: Rerank
+    description: 'Rerank a list of documents based on their relevance to a query. Reranking improves search results by scoring documents based on semantic relevance rather than keyword matching.
+
+
+      Supported providers: Cohere, Voyage, Jina, Pinecone, Bedrock, Azure AI.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createRerank
+      path: create
+    - type: object
+      key: CreateRerankResponse
+      path: object
+  - id: fine-tuning
+    title: Fine-tuning
+    description: 'Manage fine-tuning jobs to tailor a model to your specific training data.
+
+
+      Related guide: [Fine-tune models](https://platform.openai.com/docs/guides/fine-tuning)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFineTuningJob
+      path: create
+    - type: endpoint
+      key: listPaginatedFineTuningJobs
+      path: list
+    - type: endpoint
+      key: listFineTuningEvents
+      path: list-events
+    - type: endpoint
+      key: listFineTuningJobCheckpoints
+      path: list-checkpoints
+    - type: endpoint
+      key: retrieveFineTuningJob
+      path: retrieve
+    - type: endpoint
+      key: cancelFineTuningJob
+      path: cancel
+    - type: object
+      key: FinetuneChatRequestInput
+      path: chat-input
+    - type: object
+      key: FinetuneCompletionRequestInput
+      path: completions-input
+    - type: object
+      key: FineTuningJob
+      path: object
+    - type: object
+      key: FineTuningJobEvent
+      path: event-object
+    - type: object
+      key: FineTuningJobCheckpoint
+      path: checkpoint-object
+  - id: batch
+    title: Batch
+    description: 'Create large batches of API requests for asynchronous processing. The Batch API returns completions within 24 hours for a 50% discount.
+
+
+      Related guide: [Batch](https://platform.openai.com/docs/guides/batch)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createBatch
+      path: create
+    - type: endpoint
+      key: retrieveBatch
+      path: retrieve
+    - type: endpoint
+      key: cancelBatch
+      path: cancel
+    - type: endpoint
+      key: listBatches
+      path: list
+    - type: object
+      key: Batch
+      path: object
+    - type: object
+      key: BatchRequestInput
+      path: request-input
+    - type: object
+      key: BatchRequestOutput
+      path: request-output
+  - id: files
+    title: Files
+    description: 'Files are used to upload documents that can be used with features like [Assistants](https://platform.openai.com/docs/api-reference/assistants), [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning), and [Batch API](https://platform.openai.com/docs/guides/batch).
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createFile
+      path: create
+    - type: endpoint
+      key: listFiles
+      path: list
+    - type: endpoint
+      key: retrieveFile
+      path: retrieve
+    - type: endpoint
+      key: deleteFile
+      path: delete
+    - type: endpoint
+      key: downloadFile
+      path: retrieve-contents
+    - type: object
+      key: OpenAIFile
+      path: object
+  - id: images
+    title: Images
+    description: 'Given a prompt and/or an input image, the model will generate a new image.
+
+
+      Related guide: [Image generation](https://platform.openai.com/docs/guides/images)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createImage
+      path: create
+    - type: endpoint
+      key: createImageEdit
+      path: createEdit
+    - type: endpoint
+      key: createImageVariation
+      path: createVariation
+    - type: object
+      key: Image
+      path: object
+  - id: models
+    title: Models
+    description: 'List and describe the various models available in the API. You can refer to the [Models](https://platform.openai.com/docs/models) documentation to understand what models are available and the differences between them.
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: listModels
+      path: list
+    - type: endpoint
+      key: retrieveModel
+      path: retrieve
+    - type: endpoint
+      key: deleteModel
+      path: delete
+    - type: object
+      key: Model
+      path: object
+  - id: moderations
+    title: Moderations
+    description: 'Given some input text, outputs if the model classifies it as potentially harmful across several categories.
+
+
+      Related guide: [Moderations](https://platform.openai.com/docs/guides/moderation)
+
+      '
+    navigationGroup: endpoints
+    sections:
+    - type: endpoint
+      key: createModeration
+      path: create
+    - type: object
+      key: CreateModerationResponse
+      path: object
+  - id: assistants
+    title: Assistants
+    beta: true
+    description: 'Build assistants that can call models and use tools to perform tasks.
+
+
+      [Get started with the Assistants API](https://platform.openai.com/docs/assistants)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createAssistant
+      path: createAssistant
+    - type: endpoint
+      key: listAssistants
+      path: listAssistants
+    - type: endpoint
+      key: getAssistant
+      path: getAssistant
+    - type: endpoint
+      key: modifyAssistant
+      path: modifyAssistant
+    - type: endpoint
+      key: deleteAssistant
+      path: deleteAssistant
+    - type: object
+      key: AssistantObject
+      path: object
+  - id: threads
+    title: Threads
+    beta: true
+    description: 'Create threads that assistants can interact with.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createThread
+      path: createThread
+    - type: endpoint
+      key: getThread
+      path: getThread
+    - type: endpoint
+      key: modifyThread
+      path: modifyThread
+    - type: endpoint
+      key: deleteThread
+      path: deleteThread
+    - type: object
+      key: ThreadObject
+      path: object
+  - id: messages
+    title: Messages
+    beta: true
+    description: 'Create messages within threads
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createMessage
+      path: createMessage
+    - type: endpoint
+      key: listMessages
+      path: listMessages
+    - type: endpoint
+      key: getMessage
+      path: getMessage
+    - type: endpoint
+      key: modifyMessage
+      path: modifyMessage
+    - type: endpoint
+      key: deleteMessage
+      path: deleteMessage
+    - type: object
+      key: MessageObject
+      path: object
+  - id: runs
+    title: Runs
+    beta: true
+    description: 'Represents an execution run on a thread.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createRun
+      path: createRun
+    - type: endpoint
+      key: createThreadAndRun
+      path: createThreadAndRun
+    - type: endpoint
+      key: listRuns
+      path: listRuns
+    - type: endpoint
+      key: getRun
+      path: getRun
+    - type: endpoint
+      key: modifyRun
+      path: modifyRun
+    - type: endpoint
+      key: submitToolOuputsToRun
+      path: submitToolOutputs
+    - type: endpoint
+      key: cancelRun
+      path: cancelRun
+    - type: object
+      key: RunObject
+      path: object
+  - id: run-steps
+    title: Run Steps
+    beta: true
+    description: 'Represents the steps (model and tool calls) taken during the run.
+
+
+      Related guide: [Assistants](https://platform.openai.com/docs/assistants/overview)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: listRunSteps
+      path: listRunSteps
+    - type: endpoint
+      key: getRunStep
+      path: getRunStep
+    - type: object
+      key: RunStepObject
+      path: step-object
+  - id: vector-stores
+    title: Vector Stores
+    beta: true
+    description: 'Vector stores are used to store files for use by the `file_search` tool.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStore
+      path: create
+    - type: endpoint
+      key: listVectorStores
+      path: list
+    - type: endpoint
+      key: getVectorStore
+      path: retrieve
+    - type: endpoint
+      key: modifyVectorStore
+      path: modify
+    - type: endpoint
+      key: deleteVectorStore
+      path: delete
+    - type: object
+      key: VectorStoreObject
+      path: object
+  - id: vector-stores-files
+    title: Vector Store Files
+    beta: true
+    description: 'Vector store files represent files inside a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFile
+      path: createFile
+    - type: endpoint
+      key: listVectorStoreFiles
+      path: listFiles
+    - type: endpoint
+      key: getVectorStoreFile
+      path: getFile
+    - type: endpoint
+      key: deleteVectorStoreFile
+      path: deleteFile
+    - type: object
+      key: VectorStoreFileObject
+      path: file-object
+  - id: vector-stores-file-batches
+    title: Vector Store File Batches
+    beta: true
+    description: 'Vector store file batches represent operations to add multiple files to a vector store.
+
+
+      Related guide: [File Search](https://platform.openai.com/docs/assistants/tools/file-search)
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: endpoint
+      key: createVectorStoreFileBatch
+      path: createBatch
+    - type: endpoint
+      key: getVectorStoreFileBatch
+      path: getBatch
+    - type: endpoint
+      key: cancelVectorStoreFileBatch
+      path: cancelBatch
+    - type: endpoint
+      key: listFilesInVectorStoreBatch
+      path: listBatchFiles
+    - type: object
+      key: VectorStoreFileBatchObject
+      path: batch-object
+  - id: assistants-streaming
+    title: Streaming
+    beta: true
+    description: 'Stream the result of executing a Run or resuming a Run after submitting tool outputs.
+
+
+      You can stream events from the [Create Thread and Run](https://platform.openai.com/docs/api-reference/runs/createThreadAndRun),
+
+      [Create Run](https://platform.openai.com/docs/api-reference/runs/createRun), and [Submit Tool Outputs](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs)
+
+      endpoints by passing `"stream": true`. The response will be a [Server-Sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html#server-sent-events) stream.
+
+
+      Our Node and Python SDKs provide helpful utilities to make streaming easy. Reference the
+
+      [Assistants API quickstart](https://platform.openai.com/docs/assistants/overview) to learn more.
+
+      '
+    navigationGroup: assistants
+    sections:
+    - type: object
+      key: MessageDeltaObject
+      path: message-delta-object
+    - type: object
+      key: RunStepDeltaObject
+      path: run-step-delta-object
+    - type: object
+      key: AssistantStreamEvent
+      path: events
+  - id: completions
+    title: Completions
+    legacy: true
+    navigationGroup: legacy
+    description: 'Given a prompt, the model will return one or more predicted completions along with the probabilities of alternative tokens at each position. Most developer should use our [Chat Completions API](https://platform.openai.com/docs/guides/text-generation/text-generation-models) to leverage our best and newest models.
+
+      '
+    sections:
+    - type: endpoint
+      key: createCompletion
+      path: create
+    - type: object
+      key: CreateCompletionResponse
+      path: object
