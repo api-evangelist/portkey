@@ -1,82 +1,1138 @@
 aid: portkey
 url: https://raw.githubusercontent.com/api-evangelist/portkey/refs/heads/main/apis.yml
 apis:
-  - aid: portkey:portkey
-    name: Portkey
-    tags:
-      - AI Gateways
-      - Governance
-      - Guardrails
-      - Observability
-      - Prompt Management
-    humanURL: https://portkey.ai/
-    properties:
-      - url: https://portkey.ai/docs/introduction/what-is-portkey
-        type: Documentation
-      - url: https://portkey.ai/docs/api-reference/inference-api/chat
-        type: APIReference
-      - url: openapi/portkey-openapi.yml
-        type: OpenAPI
-      - url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
-        type: GettingStarted
-    description: >-
-      Portkey equips AI teams with everything they need to go to production - Gateway, Observability, Guardrails,
-      Governance, and Prompt Management, all in one platform.
-  - aid: portkey:portkey-inference-api
-    name: Portkey Inference API
-    tags:
-      - AI Gateways
-      - Assistants
-      - Audio
-      - Batch
-      - Chat Completions
-      - Completions
-      - Embeddings
-      - Fine-Tuning
-      - Images
-      - Inference
-      - Moderations
-    humanURL: https://portkey.ai/docs/product/ai-gateway/universal-api
-    baseURL: https://api.portkey.ai/v1
-    properties:
-      - url: https://portkey.ai/docs/api-reference/inference-api/chat
-        type: APIReference
-      - url: https://portkey.ai/docs/api-reference/inference-api/completions
-        type: APIReference
-      - url: https://portkey.ai/docs/api-reference/inference-api/embeddings
-        type: APIReference
-      - url: openapi/portkey-openapi.yml
-        type: OpenAPI
-    description: >-
-      Portkey Inference API provides a universal API for routing to 200+ LLMs across chat completions, completions,
-      embeddings, images, audio, assistants, fine-tuning, batch processing, and moderations endpoints with a single
-      unified interface. Supports OpenAI, Anthropic, and Portkey API formats with automatic translation between
-      providers.
-  - aid: portkey:portkey-admin-api
-    name: Portkey Admin API
-    tags:
-      - Administration
-      - Analytics
-      - API Keys
-      - Audit Logs
-      - Configs
-      - Logs
-      - Rate Limits
-      - Users
-      - Virtual Keys
-      - Workspaces
-    humanURL: https://portkey.ai/docs/api-reference/admin-api/introduction
-    baseURL: https://api.portkey.ai/v1
-    properties:
-      - url: https://portkey.ai/docs/api-reference/admin-api/introduction
-        type: APIReference
-      - url: openapi/portkey-openapi.yml
-        type: OpenAPI
-    description: >-
-      Portkey Admin API enables programmatic management of Portkey organizations and workspaces, including resource
-      management for configs, virtual keys, and API keys, analytics and monitoring for usage statistics and performance
-      trends, and user and workspace administration for managing accounts, permissions, and team membership. Includes
-      audit logging of all administrative operations.
+- aid: portkey:portkey-analytics-graphs-api
+  name: Portkey Analytics > Graphs API
+  description: Get data points for graphical representation.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Analytics > Graphs
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-analytics-graphs-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-analytics-groups-api
+  name: Portkey Analytics > Groups API
+  description: Get grouped metrics for the selected time bucket.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Analytics > Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-analytics-groups-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-analytics-summary-api
+  name: Portkey Analytics > Summary API
+  description: Get overall summary for the selected time bucket.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Analytics > Summary
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-analytics-summary-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-api-keys-api
+  name: Portkey Api-Keys API
+  description: Create, List, Retrieve, Update, and Delete your Portkey API keys.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Api-Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-api-keys-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-assistants-api
+  name: Portkey Assistants API
+  description: Build Assistants that can call models and use tools.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Assistants
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-assistants-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-audio-api
+  name: Portkey Audio API
+  description: Turn audio into text or text into audio.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Audio
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-audio-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-audit-logs-api
+  name: Portkey Audit Logs API
+  description: Get audit logs for your Portkey account.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Audit Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-audit-logs-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-batch-api
+  name: Portkey Batch API
+  description: Create large batches of API requests to run asynchronously.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-batch-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-chat-api
+  name: Portkey Chat API
+  description: Given a list of messages comprising a conversation, the model will return a response.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-chat-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-collections-api
+  name: Portkey Collections API
+  description: Create, List, Retrieve, Update, and Delete collections of prompts.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-collections-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-completions-api
+  name: Portkey Completions API
+  description: >-
+    Given a prompt, the model will return one or more predicted completions, and can also return the probabilities
+    of alternative tokens at each position.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-completions-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-configs-api
+  name: Portkey Configs API
+  description: Create, List, Retrieve, and Update your Portkey Configs.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Configs
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-configs-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-embeddings-api
+  name: Portkey Embeddings API
+  description: >-
+    Get a vector representation of a given input that can be easily consumed by machine learning models
+    and algorithms.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Embeddings
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-embeddings-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-feedback-api
+  name: Portkey Feedback API
+  description: Send and Update any feedback.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Feedback
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-feedback-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-files-api
+  name: Portkey Files API
+  description: >-
+    Files are used to upload documents that can be used with features like Assistants and Fine-tuning.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-files-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-fine-tuning-api
+  name: Portkey Fine-tuning API
+  description: Manage fine-tuning jobs to tailor a model to your specific training data.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Fine-tuning
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-fine-tuning-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-finetune-api
+  name: Portkey Finetune API
+  description: The Finetune API from Portkey — 1 operation(s) for finetune.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Finetune
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-finetune-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-guardrails-api
+  name: Portkey Guardrails API
+  description: Create, List, Retrieve, Update, and Delete prompt Guardrails.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Guardrails
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-guardrails-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-images-api
+  name: Portkey Images API
+  description: Given a prompt and/or an input image, the model will generate a new image.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-images-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-integrations-api
+  name: Portkey Integrations API
+  description: Create, List, Retrieve, Update, and Delete your Portkey Integrations.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-integrations-models-api
+  name: Portkey Integrations > Models API
+  description: Manage model access for your Portkey Integrations.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Integrations > Models
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-integrations-models-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-integrations-workspaces-api
+  name: Portkey Integrations > Workspaces API
+  description: Manage workspace access for your Portkey Integrations.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Integrations > Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-integrations-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-labels-api
+  name: Portkey Labels API
+  description: Create, List, Retrieve, Update, and Delete labels.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Labels
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-labels-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-logs-api
+  name: Portkey Logs API
+  description: Custom Logger to add external logs to Portkey.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-logs-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-logs-export-api
+  name: Portkey Logs Export API
+  description: Exports logs service.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Logs Export
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-logs-export-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-mcp-integrations-api
+  name: Portkey MCP Integrations API
+  description: Create, List, Retrieve, Update, and Delete MCP Integrations.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - MCP Integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-mcp-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-mcp-integrations-capabilities-api
+  name: Portkey MCP Integrations > Capabilities API
+  description: List and manage capabilities for MCP Integrations.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - MCP Integrations > Capabilities
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-mcp-integrations-capabilities-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-mcp-integrations-metadata-api
+  name: Portkey MCP Integrations > Metadata API
+  description: Get MCP Integration metadata and sync info.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - MCP Integrations > Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-mcp-integrations-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-mcp-integrations-workspaces-api
+  name: Portkey MCP Integrations > Workspaces API
+  description: Manage workspace access for MCP Integrations.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - MCP Integrations > Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-mcp-integrations-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-mcp-servers-api
+  name: Portkey MCP Servers API
+  description: >-
+    Create, List, Retrieve, Update, and Delete MCP Servers (workspace instances of MCP Integrations).
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - MCP Servers
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-mcp-servers-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-mcp-servers-capabilities-api
+  name: Portkey MCP Servers > Capabilities API
+  description: List and manage capabilities for MCP Servers.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - MCP Servers > Capabilities
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-mcp-servers-capabilities-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-mcp-servers-connections-api
+  name: Portkey MCP Servers > Connections API
+  description: List and manage user connections for MCP Servers.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - MCP Servers > Connections
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-mcp-servers-connections-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-mcp-servers-user-access-api
+  name: Portkey MCP Servers > User Access API
+  description: List and manage user access for MCP Servers.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - MCP Servers > User Access
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-mcp-servers-user-access-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-model-pricing-api
+  name: Portkey Model Pricing API
+  description: Model pricing configurations for 2300+ LLMs across 40+ providers
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Model Pricing
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-model-pricing-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-models-api
+  name: Portkey Models API
+  description: List and describe the various models available in the API.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-models-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-moderations-api
+  name: Portkey Moderations API
+  description: Given a input text, outputs if the model classifies it as potentially harmful.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Moderations
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-moderations-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-promptpartials-api
+  name: Portkey PromptPartials API
+  description: Create, List, Retrieve, Update, and Delete prompt partials.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - PromptPartials
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-promptpartials-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-prompts-api
+  name: Portkey Prompts API
+  description: >-
+    Given a prompt template ID and variables, will run the saved prompt template and return a response.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Prompts
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-prompts-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-providers-api
+  name: Portkey Providers API
+  description: Create, List, Retrieve, Update, and Delete your Portkey Providers.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-providers-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-rate-limits-policies-api
+  name: Portkey Rate Limits Policies API
+  description: Manage rate limits policies to control request or token rates
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Rate Limits Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-rate-limits-policies-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-realtime-api
+  name: Portkey Realtime API
+  description: WebSocket proxy for provider Realtime APIs
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Realtime
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-realtime-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-rerank-api
+  name: Portkey Rerank API
+  description: >-
+    Rerank a list of documents based on their relevance to a query. Supported providers include Cohere,
+    Voyage, Jina, Pinecone, Bedrock, and Azure AI.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Rerank
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-rerank-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-responses-api
+  name: Portkey Responses API
+  description: The Responses API from Portkey — 3 operation(s) for responses.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Responses
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-responses-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-secret-references-api
+  name: Portkey Secret-References API
+  description: >-
+    Create, List, Retrieve, Update, and Delete secret references to external secret managers.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Secret-References
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-secret-references-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-usage-limits-policies-api
+  name: Portkey Usage Limits Policies API
+  description: Manage usage limits policies to control total usage over time
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Usage Limits Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-usage-limits-policies-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-user-invites-api
+  name: Portkey User-invites API
+  description: Create and manage user invites.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - User-invites
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-user-invites-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-users-api
+  name: Portkey Users API
+  description: Create and manage users.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-users-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-vector-stores-api
+  name: Portkey Vector Stores API
+  description: The Vector Stores API from Portkey — 8 operation(s) for vector stores.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Vector Stores
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-vector-stores-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-virtual-keys-api
+  name: Portkey Virtual-keys API
+  description: Create, List, Retrieve, Update, and Delete your Portkey Virtual keys.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Virtual-keys
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-virtual-keys-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-workspaces-api
+  name: Portkey Workspaces API
+  description: Create and manage workspaces.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-workspaces-members-api
+  name: Portkey Workspaces > Members API
+  description: Create and manage workspace members.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Workspaces > Members
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-workspaces-members-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
 name: Portkey
 tags:
   - AI Gateways
@@ -86,7 +1142,20 @@ tags:
   - Observability
   - Prompt Management
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/portkey.png
 access: 3rd-Party
 common:
   - type: AgenticAccess
