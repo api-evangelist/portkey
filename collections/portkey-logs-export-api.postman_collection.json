@@ -1,0 +1,762 @@
+{
+  "item": [
+    {
+      "id": "7efb0dd0-8325-4f93-8878-4ad16425b5af",
+      "name": "Logs Export",
+      "description": {
+        "content": "Exports logs service.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a55b66c-a47f-4149-84a2-0e51472620f2",
+          "name": "Get a specific logs export",
+          "request": {
+            "name": "Get a specific logs export",
+            "description": {},
+            "url": {
+              "path": [
+                "logs",
+                "exports",
+                ":exportId"
+              ],
+              "host": [
+                "{{logs-exports-exportId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "exportId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f624dde-f093-43e6-b964-246dceeca68b",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs",
+                    "exports",
+                    ":exportId"
+                  ],
+                  "host": [
+                    "{{logs-exports-exportId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "exportId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"0de257bb-940e-a9be-85cd-eb1fd86d2054\",\n  \"organisation_id\": \"cba89ad9-98d6-13cf-f9d8-34505aaf825e\",\n  \"filters\": {\n    \"time_of_generation_min\": \"1998-11-21T14:43:26.647Z\",\n    \"time_of_generation_max\": \"2014-05-15T18:55:09.428Z\",\n    \"total_units_min\": 1960,\n    \"total_units_max\": 2474,\n    \"cost_min\": 2083.373168511339,\n    \"cost_max\": 7871.184853250615,\n    \"ai_model\": \"string\",\n    \"prompt_token_min\": 9935,\n    \"prompt_token_max\": 2162,\n    \"completion_token_min\": 1834,\n    \"completion_token_max\": 2412,\n    \"status_code\": \"string\",\n    \"metadata\": {\n      \"key_0\": false,\n      \"key_1\": true,\n      \"key_2\": \"string\"\n    },\n    \"ai_org_model\": \"openai__gpt-3.5-turbo, anthropic__claude-2.1\",\n    \"weighted_feedback_min\": 4300.857669866983,\n    \"weighted_feedback_max\": 8033.99119022272,\n    \"virtual_keys\": \"string\",\n    \"trace_id\": \"string\",\n    \"configs\": \"string\",\n    \"workspace_slug\": \"string\",\n    \"prompt_slug\": \"string\",\n    \"page_size\": 50000,\n    \"current_page\": 0\n  },\n  \"requested_data\": [\n    \"mode\",\n    \"response_status_code\"\n  ],\n  \"status\": \"draft\",\n  \"description\": \"string\",\n  \"created_at\": \"2020-07-01T00:34:20.927Z\",\n  \"last_updated_at\": \"2023-07-23T19:56:03.588Z\",\n  \"created_by\": \"da517612-983c-a691-08ea-18cddeb45679\",\n  \"workspace_id\": \"82d2982a-be8f-d419-5099-2de86f800142\",\n  \"object\": \"export\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f9e31a6-94c5-441c-a2ed-7c3157f6b7d5",
+          "name": "Update a logs export",
+          "request": {
+            "name": "Update a logs export",
+            "description": {},
+            "url": {
+              "path": [
+                "logs",
+                "exports",
+                ":exportId"
+              ],
+              "host": [
+                "{{logs-exports-exportId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "exportId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": {\n    \"time_of_generation_min\": \"<dateTime>\",\n    \"time_of_generation_max\": \"<dateTime>\",\n    \"total_units_min\": \"<integer>\",\n    \"total_units_max\": \"<integer>\",\n    \"cost_min\": \"<number>\",\n    \"cost_max\": \"<number>\",\n    \"ai_model\": \"<string>\",\n    \"prompt_token_min\": \"<integer>\",\n    \"prompt_token_max\": \"<integer>\",\n    \"completion_token_min\": \"<integer>\",\n    \"completion_token_max\": \"<integer>\",\n    \"status_code\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": 43.0338309536582\n    },\n    \"ai_org_model\": \"<string>\",\n    \"weighted_feedback_min\": \"<number>\",\n    \"weighted_feedback_max\": \"<number>\",\n    \"virtual_keys\": \"<string>\",\n    \"trace_id\": \"<string>\",\n    \"configs\": \"<string>\",\n    \"workspace_slug\": \"<string>\",\n    \"prompt_slug\": \"<string>\",\n    \"page_size\": \"<number>\",\n    \"current_page\": \"<number>\"\n  },\n  \"workspace_id\": \"<string>\",\n  \"requested_data\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7f03e927-f149-4487-810f-5d0a34bf904b",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs",
+                    "exports",
+                    ":exportId"
+                  ],
+                  "host": [
+                    "{{logs-exports-exportId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "exportId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": {\n    \"time_of_generation_min\": \"<dateTime>\",\n    \"time_of_generation_max\": \"<dateTime>\",\n    \"total_units_min\": \"<integer>\",\n    \"total_units_max\": \"<integer>\",\n    \"cost_min\": \"<number>\",\n    \"cost_max\": \"<number>\",\n    \"ai_model\": \"<string>\",\n    \"prompt_token_min\": \"<integer>\",\n    \"prompt_token_max\": \"<integer>\",\n    \"completion_token_min\": \"<integer>\",\n    \"completion_token_max\": \"<integer>\",\n    \"status_code\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": 7344.5630443340015,\n      \"key_1\": 7740.794408485968\n    },\n    \"ai_org_model\": \"openai__gpt-3.5-turbo, anthropic__claude-2.1\",\n    \"weighted_feedback_min\": \"<number>\",\n    \"weighted_feedback_max\": \"<number>\",\n    \"virtual_keys\": \"<string>\",\n    \"trace_id\": \"<string>\",\n    \"configs\": \"<string>\",\n    \"workspace_slug\": \"<string>\",\n    \"prompt_slug\": \"<string>\",\n    \"page_size\": 50000,\n    \"current_page\": 0\n  },\n  \"workspace_id\": \"<string>\",\n  \"requested_data\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"f6fadefc-31ea-3202-f561-cd03eb01bdfb\",\n  \"total\": 5535,\n  \"object\": \"export\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d066c3d2-4207-4546-ba02-18b83724b2e2",
+          "name": "Get all logs exports",
+          "request": {
+            "name": "Get all logs exports",
+            "description": {},
+            "url": {
+              "path": [
+                "logs",
+                "exports"
+              ],
+              "host": [
+                "{{logs-exports-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "200aad2f-2234-4a67-8cd4-79557dc6a6a2",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs",
+                    "exports"
+                  ],
+                  "host": [
+                    "{{logs-exports-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"total\": 22,\n  \"data\": [\n    {\n      \"id\": \"67cfa610-2339-8898-42d6-63c7b6dfc75f\",\n      \"organisation_id\": \"2d8979c6-d030-94e3-4c5f-866836357903\",\n      \"filters\": {\n        \"time_of_generation_min\": \"<dateTime>\",\n        \"time_of_generation_max\": \"<dateTime>\",\n        \"total_units_min\": \"<integer>\",\n        \"total_units_max\": \"<integer>\",\n        \"cost_min\": \"<number>\",\n        \"cost_max\": \"<number>\",\n        \"ai_model\": \"<string>\",\n        \"prompt_token_min\": \"<integer>\",\n        \"prompt_token_max\": \"<integer>\",\n        \"completion_token_min\": \"<integer>\",\n        \"completion_token_max\": \"<integer>\",\n        \"status_code\": \"<string>\",\n        \"metadata\": {\n          \"key_0\": \"string\"\n        },\n        \"ai_org_model\": \"openai__gpt-3.5-turbo, anthropic__claude-2.1\",\n        \"weighted_feedback_min\": \"<number>\",\n        \"weighted_feedback_max\": \"<number>\",\n        \"virtual_keys\": \"<string>\",\n        \"trace_id\": \"<string>\",\n        \"configs\": \"<string>\",\n        \"workspace_slug\": \"<string>\",\n        \"prompt_slug\": \"<string>\",\n        \"page_size\": 50000,\n        \"current_page\": 0\n      },\n      \"requested_data\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"status\": \"failed\",\n      \"description\": \"string\",\n      \"created_at\": \"1977-12-19T21:20:09.669Z\",\n      \"last_updated_at\": \"1994-03-14T18:48:57.504Z\",\n      \"created_by\": \"2da16de5-a184-472d-be50-ee465f74edeb\",\n      \"workspace_id\": \"e7f19fb1-091f-fe42-fbe9-71ac3c95e868\",\n      \"object\": \"export\"\n    },\n    {\n      \"id\": \"c1d854cf-6cfa-d662-2e9b-bfcb5bebcfdf\",\n      \"organisation_id\": \"6c79ab9e-e8dc-a893-5cf5-feda0900bd49\",\n      \"filters\": {\n        \"time_of_generation_min\": \"<dateTime>\",\n        \"time_of_generation_max\": \"<dateTime>\",\n        \"total_units_min\": \"<integer>\",\n        \"total_units_max\": \"<integer>\",\n        \"cost_min\": \"<number>\",\n        \"cost_max\": \"<number>\",\n        \"ai_model\": \"<string>\",\n        \"prompt_token_min\": \"<integer>\",\n        \"prompt_token_max\": \"<integer>\",\n        \"completion_token_min\": \"<integer>\",\n        \"completion_token_max\": \"<integer>\",\n        \"status_code\": \"<string>\",\n        \"metadata\": {\n          \"key_0\": 8717.941435087829\n        },\n        \"ai_org_model\": \"openai__gpt-3.5-turbo, anthropic__claude-2.1\",\n        \"weighted_feedback_min\": \"<number>\",\n        \"weighted_feedback_max\": \"<number>\",\n        \"virtual_keys\": \"<string>\",\n        \"trace_id\": \"<string>\",\n        \"configs\": \"<string>\",\n        \"workspace_slug\": \"<string>\",\n        \"prompt_slug\": \"<string>\",\n        \"page_size\": 50000,\n        \"current_page\": 0\n      },\n      \"requested_data\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"status\": \"success\",\n      \"description\": \"string\",\n      \"created_at\": \"1951-01-11T15:23:08.052Z\",\n      \"last_updated_at\": \"2001-05-05T03:57:08.472Z\",\n      \"created_by\": \"2087debf-8e8f-4e6c-daa2-41edfcf3d085\",\n      \"workspace_id\": \"f80d3045-60c2-1c43-ae9d-9f97854e961c\",\n      \"object\": \"export\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7beea2e7-24ad-46ca-a491-3aabec5fa4f2",
+          "name": "Create log export",
+          "request": {
+            "name": "Create log export",
+            "description": {},
+            "url": {
+              "path": [
+                "logs",
+                "exports"
+              ],
+              "host": [
+                "{{logs-exports-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": {\n    \"time_of_generation_min\": \"<dateTime>\",\n    \"time_of_generation_max\": \"<dateTime>\",\n    \"total_units_min\": \"<integer>\",\n    \"total_units_max\": \"<integer>\",\n    \"cost_min\": \"<number>\",\n    \"cost_max\": \"<number>\",\n    \"ai_model\": \"<string>\",\n    \"prompt_token_min\": \"<integer>\",\n    \"prompt_token_max\": \"<integer>\",\n    \"completion_token_min\": \"<integer>\",\n    \"completion_token_max\": \"<integer>\",\n    \"status_code\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": \"string\"\n    },\n    \"ai_org_model\": \"<string>\",\n    \"weighted_feedback_min\": \"<number>\",\n    \"weighted_feedback_max\": \"<number>\",\n    \"virtual_keys\": \"<string>\",\n    \"trace_id\": \"<string>\",\n    \"configs\": \"<string>\",\n    \"workspace_slug\": \"<string>\",\n    \"prompt_slug\": \"<string>\",\n    \"page_size\": \"<number>\",\n    \"current_page\": \"<number>\"\n  },\n  \"requested_data\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workspace_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f9feed9d-8027-485c-b284-58eb2ac98ee0",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs",
+                    "exports"
+                  ],
+                  "host": [
+                    "{{logs-exports-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": {\n    \"time_of_generation_min\": \"<dateTime>\",\n    \"time_of_generation_max\": \"<dateTime>\",\n    \"total_units_min\": \"<integer>\",\n    \"total_units_max\": \"<integer>\",\n    \"cost_min\": \"<number>\",\n    \"cost_max\": \"<number>\",\n    \"ai_model\": \"<string>\",\n    \"prompt_token_min\": \"<integer>\",\n    \"prompt_token_max\": \"<integer>\",\n    \"completion_token_min\": \"<integer>\",\n    \"completion_token_max\": \"<integer>\",\n    \"status_code\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": true,\n      \"key_1\": 5222,\n      \"key_2\": 6926.33527629768,\n      \"key_3\": \"string\"\n    },\n    \"ai_org_model\": \"openai__gpt-3.5-turbo, anthropic__claude-2.1\",\n    \"weighted_feedback_min\": \"<number>\",\n    \"weighted_feedback_max\": \"<number>\",\n    \"virtual_keys\": \"<string>\",\n    \"trace_id\": \"<string>\",\n    \"configs\": \"<string>\",\n    \"workspace_slug\": \"<string>\",\n    \"prompt_slug\": \"<string>\",\n    \"page_size\": 50000,\n    \"current_page\": 0\n  },\n  \"requested_data\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"workspace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"f6fadefc-31ea-3202-f561-cd03eb01bdfb\",\n  \"total\": 5535,\n  \"object\": \"export\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6bc10398-0f2c-4b53-ba7b-9475448917f8",
+          "name": "Start log export",
+          "request": {
+            "name": "Start log export",
+            "description": {},
+            "url": {
+              "path": [
+                "logs",
+                "exports",
+                ":exportId",
+                "start"
+              ],
+              "host": [
+                "{{logs-exports-exportId-start-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "exportId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16188bed-1871-4414-bd0a-b02f91e07543",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs",
+                    "exports",
+                    ":exportId",
+                    "start"
+                  ],
+                  "host": [
+                    "{{logs-exports-exportId-start-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "exportId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"object\": \"export\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79108098-3e9a-43d4-a3d7-e80612943651",
+          "name": "Cancel log export",
+          "request": {
+            "name": "Cancel log export",
+            "description": {},
+            "url": {
+              "path": [
+                "logs",
+                "exports",
+                ":exportId",
+                "cancel"
+              ],
+              "host": [
+                "{{logs-exports-exportId-cancel-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "exportId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e28d5735-30b8-4ad5-adec-0fd9bb1d06ed",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs",
+                    "exports",
+                    ":exportId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{logs-exports-exportId-cancel-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "exportId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"object\": \"export\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf4c7bff-1a95-48be-ad95-ad5dad7d3394",
+          "name": "Download log export",
+          "request": {
+            "name": "Download log export",
+            "description": {},
+            "url": {
+              "path": [
+                "logs",
+                "exports",
+                ":exportId",
+                "download"
+              ],
+              "host": [
+                "{{logs-exports-exportId-download-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "exportId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56759447-5ec4-4885-ba76-8793ef17fe34",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs",
+                    "exports",
+                    ":exportId",
+                    "download"
+                  ],
+                  "host": [
+                    "{{logs-exports-exportId-download-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "exportId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"signed_url\": \"https://TXDdlYXwwhVL.jywkZtSa+0TYiqWEWqKVoKcdZq9tHo7Nz.Mq9YrDqccJu9Lop.HrXH9Ex4RK2ZYTWyGhN7\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "logs-exports-exportId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "logs-exports-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "logs-exports-exportId-start-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "logs-exports-exportId-cancel-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "logs-exports-exportId-download-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6a9c5849-ba14-487c-8a89-ca6378bf28e2",
+    "name": "Portkey Analytics > Graphs Logs Export API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

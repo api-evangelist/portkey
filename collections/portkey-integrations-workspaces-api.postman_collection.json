@@ -1,0 +1,266 @@
+{
+  "item": [
+    {
+      "id": "fc759e9b-f9e3-41f7-8001-c9ececa25af9",
+      "name": "Integrations > Workspaces",
+      "description": {
+        "content": "Manage workspace access for your Portkey Integrations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9fcd9abc-bf8c-47c2-889b-d06087df8a5f",
+          "name": "List integration workspace access",
+          "request": {
+            "name": "List integration workspace access",
+            "description": {
+              "content": "Retrieves workspace access configuration for an integration, including usage limits and rate limits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                ":slug",
+                "workspaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "460ab84e-6d34-47e2-8dd4-ff9de2b029be",
+              "name": "List of workspace access configurations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    ":slug",
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 4843,\n  \"workspaces\": [\n    {\n      \"id\": \"ws-my-team-1234\",\n      \"enabled\": false,\n      \"usage_limits\": [\n        {\n          \"credit_limit\": 10,\n          \"periodic_reset\": \"monthly\",\n          \"alert_threshold\": 8\n        },\n        {\n          \"credit_limit\": 10,\n          \"periodic_reset\": \"monthly\",\n          \"alert_threshold\": 8\n        }\n      ],\n      \"rate_limits\": [\n        {\n          \"type\": \"requests\",\n          \"unit\": \"rpd\",\n          \"value\": 1124\n        },\n        {\n          \"type\": \"requests\",\n          \"unit\": \"rph\",\n          \"value\": 473\n        }\n      ]\n    },\n    {\n      \"id\": \"ws-my-team-1234\",\n      \"enabled\": false,\n      \"usage_limits\": [\n        {\n          \"credit_limit\": 10,\n          \"periodic_reset\": \"monthly\",\n          \"alert_threshold\": 8\n        },\n        {\n          \"credit_limit\": 10,\n          \"periodic_reset\": \"monthly\",\n          \"alert_threshold\": 8\n        }\n      ],\n      \"rate_limits\": [\n        {\n          \"type\": \"requests\",\n          \"unit\": \"rpm\",\n          \"value\": 616\n        },\n        {\n          \"type\": \"tokens\",\n          \"unit\": \"rph\",\n          \"value\": 8901\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2cf072b-fde7-4c4c-a9e8-3926bb17e4ca",
+          "name": "Bulk update workspace access",
+          "request": {
+            "name": "Bulk update workspace access",
+            "description": {
+              "content": "Updates workspace access permissions, usage limits, and rate limits for an integration.\nCan configure global workspace access or per-workspace settings.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                ":slug",
+                "workspaces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaces\": [\n    {\n      \"id\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"usage_limits\": [\n        {\n          \"credit_limit\": null,\n          \"type\": \"<string>\",\n          \"alert_threshold\": null,\n          \"periodic_reset\": \"<string>\",\n          \"periodic_reset_days\": \"<integer>\",\n          \"next_usage_reset_at\": \"<dateTime>\"\n        }\n      ],\n      \"rate_limits\": [\n        {\n          \"type\": \"<string>\",\n          \"unit\": \"<string>\",\n          \"value\": \"<integer>\"\n        }\n      ],\n      \"reset_usage\": \"<boolean>\",\n      \"create_default_provider\": \"<boolean>\",\n      \"default_provider_slug\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"usage_limits\": [\n        {\n          \"credit_limit\": null,\n          \"type\": \"<string>\",\n          \"alert_threshold\": null,\n          \"periodic_reset\": \"<string>\",\n          \"periodic_reset_days\": \"<integer>\",\n          \"next_usage_reset_at\": \"<dateTime>\"\n        }\n      ],\n      \"rate_limits\": [\n        {\n          \"type\": \"<string>\",\n          \"unit\": \"<string>\",\n          \"value\": \"<integer>\"\n        }\n      ],\n      \"reset_usage\": \"<boolean>\",\n      \"create_default_provider\": \"<boolean>\",\n      \"default_provider_slug\": \"<string>\"\n    }\n  ],\n  \"global_workspace_access\": {\n    \"enabled\": \"<boolean>\",\n    \"usage_limits\": [\n      {\n        \"credit_limit\": null,\n        \"type\": \"<string>\",\n        \"alert_threshold\": null,\n        \"periodic_reset\": \"<string>\",\n        \"periodic_reset_days\": \"<integer>\",\n        \"next_usage_reset_at\": \"<dateTime>\"\n      }\n    ],\n    \"rate_limits\": [\n      {\n        \"type\": \"<string>\",\n        \"unit\": \"<string>\",\n        \"value\": \"<integer>\"\n      }\n    ]\n  },\n  \"override_existing_workspace_access\": \"<boolean>\",\n  \"create_default_provider\": true,\n  \"default_provider_slug\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "350c2f99-a737-4058-8be0-ef7652bb3a14",
+              "name": "Workspace access updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    ":slug",
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaces\": [\n    {\n      \"id\": \"ws-my-team-1234\",\n      \"enabled\": \"<boolean>\",\n      \"usage_limits\": [\n        {\n          \"credit_limit\": 10,\n          \"periodic_reset\": \"monthly\",\n          \"alert_threshold\": 8\n        }\n      ],\n      \"rate_limits\": [\n        {\n          \"type\": \"<string>\",\n          \"unit\": \"<string>\",\n          \"value\": \"<integer>\"\n        }\n      ],\n      \"reset_usage\": \"<boolean>\",\n      \"create_default_provider\": \"<boolean>\",\n      \"default_provider_slug\": \"<string>\"\n    },\n    {\n      \"id\": \"ws-my-team-1234\",\n      \"enabled\": \"<boolean>\",\n      \"usage_limits\": [\n        {\n          \"credit_limit\": 10,\n          \"periodic_reset\": \"monthly\",\n          \"alert_threshold\": 8\n        }\n      ],\n      \"rate_limits\": [\n        {\n          \"type\": \"<string>\",\n          \"unit\": \"<string>\",\n          \"value\": \"<integer>\"\n        }\n      ],\n      \"reset_usage\": \"<boolean>\",\n      \"create_default_provider\": \"<boolean>\",\n      \"default_provider_slug\": \"<string>\"\n    }\n  ],\n  \"global_workspace_access\": {\n    \"enabled\": \"<boolean>\",\n    \"usage_limits\": [\n      {\n        \"credit_limit\": 10,\n        \"periodic_reset\": \"monthly\",\n        \"alert_threshold\": 8\n      }\n    ],\n    \"rate_limits\": [\n      {\n        \"type\": \"<string>\",\n        \"unit\": \"<string>\",\n        \"value\": \"<integer>\"\n      }\n    ]\n  },\n  \"override_existing_workspace_access\": \"<boolean>\",\n  \"create_default_provider\": true,\n  \"default_provider_slug\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bcfb34b1-0e69-4439-a666-427c96717ff2",
+    "name": "Portkey Analytics > Graphs Integrations > Workspaces API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

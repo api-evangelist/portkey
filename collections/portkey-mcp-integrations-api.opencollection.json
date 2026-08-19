@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs MCP Integrations API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MCP Integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List MCP Integrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/mcp-integrations",
+            "params": [
+              {
+                "name": "organisation_id",
+                "value": "",
+                "type": "query",
+                "description": "Organisation ID (required when using org admin API key)"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List MCP Integrations for the organisation or workspace. Requires organisation_id (when using org admin API key) or x-portkey-api-key header."
+        },
+        {
+          "info": {
+            "name": "Create MCP Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/mcp-integrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new MCP Integration. Requires either organisation_id (with admin API key) or workspace_id in body."
+        },
+        {
+          "info": {
+            "name": "Get MCP Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/mcp-integrations/:mcpIntegrationId",
+            "params": [
+              {
+                "name": "mcpIntegrationId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Integration ID (UUID) or slug"
+              }
+            ]
+          },
+          "docs": "Get MCP Integration"
+        },
+        {
+          "info": {
+            "name": "Update MCP Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/mcp-integrations/:mcpIntegrationId",
+            "params": [
+              {
+                "name": "mcpIntegrationId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Integration ID (UUID) or slug"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update MCP Integration"
+        },
+        {
+          "info": {
+            "name": "Delete MCP Integration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/mcp-integrations/:mcpIntegrationId",
+            "params": [
+              {
+                "name": "mcpIntegrationId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Integration ID (UUID) or slug"
+              }
+            ]
+          },
+          "docs": "Delete MCP Integration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

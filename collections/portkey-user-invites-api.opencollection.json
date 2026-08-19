@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs User-invites API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User-invites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Invites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/admin/users/invites",
+            "params": [
+              {
+                "name": "pageSize",
+                "value": "1",
+                "type": "query"
+              },
+              {
+                "name": "currentPage",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "role",
+                "value": "admin",
+                "type": "query"
+              },
+              {
+                "name": "email",
+                "value": "foo@bar.com",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "pending",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get All Invites"
+        },
+        {
+          "info": {
+            "name": "Invite User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/admin/users/invites",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send an invite to user for your organization"
+        },
+        {
+          "info": {
+            "name": "Get Invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/admin/users/invites/:inviteId",
+            "params": [
+              {
+                "name": "inviteId",
+                "value": "",
+                "type": "path",
+                "description": "string"
+              }
+            ]
+          },
+          "docs": "Get Invite"
+        },
+        {
+          "info": {
+            "name": "Delete Invite By ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/admin/users/invites/:inviteId",
+            "params": [
+              {
+                "name": "inviteId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete Invite By ID"
+        },
+        {
+          "info": {
+            "name": "Resend Invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/admin/users/invites/:inviteId/resend",
+            "params": [
+              {
+                "name": "inviteId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Resend an invite to user for your organization"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

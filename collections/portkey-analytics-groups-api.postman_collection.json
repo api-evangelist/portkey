@@ -1,0 +1,1045 @@
+{
+  "item": [
+    {
+      "id": "9ef2dc3e-8a89-4061-8c76-da07a76f8516",
+      "name": "Analytics > Groups",
+      "description": {
+        "content": "Get grouped metrics for the selected time bucket.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "98d5f3ca-8a61-45b7-a059-7dc7ab33338b",
+          "name": "Get metadata users grouped data.",
+          "request": {
+            "name": "Get metadata users grouped data.",
+            "description": {},
+            "url": {
+              "path": [
+                "analytics",
+                "groups",
+                "users"
+              ],
+              "host": [
+                "{{analytics-groups-users-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspace_slug",
+                  "value": "<string>",
+                  "description": "(Required) Workspace slug filter. If a workspace API key is being used, this filter will not be taken into consideration. If an organisation API key is used and no workspace slug is passed, default workspace will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_of_generation_min",
+                  "value": "<dateTime>",
+                  "description": "(Required) Minimum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM)."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_of_generation_max",
+                  "value": "<dateTime>",
+                  "description": "(Required) Maximum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM)."
+                },
+                {
+                  "disabled": false,
+                  "key": "total_units_min",
+                  "value": "<integer>",
+                  "description": "Minimum total units (tokens)"
+                },
+                {
+                  "disabled": false,
+                  "key": "total_units_max",
+                  "value": "<integer>",
+                  "description": "Maximum total units (tokens)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cost_min",
+                  "value": "<number>",
+                  "description": "Minimum cost (in cents)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cost_max",
+                  "value": "<number>",
+                  "description": "Maximum cost (in cents)"
+                },
+                {
+                  "disabled": false,
+                  "key": "prompt_token_min",
+                  "value": "<integer>",
+                  "description": "Minimum number of prompt tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "prompt_token_max",
+                  "value": "<integer>",
+                  "description": "Maximum number of prompt tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "completion_token_min",
+                  "value": "<integer>",
+                  "description": "Minimum number of completion tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "completion_token_max",
+                  "value": "<integer>",
+                  "description": "Maximum number of completion tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "status_code",
+                  "value": "<string>",
+                  "description": "Comma separated response status codes"
+                },
+                {
+                  "disabled": false,
+                  "key": "weighted_feedback_min",
+                  "value": "<number>",
+                  "description": "Minimum weighted feedback score"
+                },
+                {
+                  "disabled": false,
+                  "key": "weighted_feedback_max",
+                  "value": "<number>",
+                  "description": "Maximum weighted feedback score"
+                },
+                {
+                  "disabled": false,
+                  "key": "virtual_keys",
+                  "value": "<string>",
+                  "description": "Comma separated virtual key slugs"
+                },
+                {
+                  "disabled": false,
+                  "key": "configs",
+                  "value": "<string>",
+                  "description": "Comma separated config slugs"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key_ids",
+                  "value": "<string>",
+                  "description": "Comma separated API key UUIDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<integer>",
+                  "description": "Current page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "metadata",
+                  "value": "<string>",
+                  "description": "Stringifed json object with key value metadata pairs"
+                },
+                {
+                  "disabled": false,
+                  "key": "ai_org_model",
+                  "value": "<string>",
+                  "description": "Comma separated ai provider and model combination. Double underscore (__) should be used as a separator for each provider and model combination"
+                },
+                {
+                  "disabled": false,
+                  "key": "trace_id",
+                  "value": "<string>",
+                  "description": "Comma separated trace IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "span_id",
+                  "value": "<string>",
+                  "description": "Comma separated span IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "prompt_slug",
+                  "value": "<string>",
+                  "description": "Comma separated prompt slugs"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b164d7e0-6e92-4908-b56e-473470fdbbb4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "groups",
+                    "users"
+                  ],
+                  "host": [
+                    "{{analytics-groups-users-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_of_generation_min",
+                      "value": "2026-02-23T14:20:31+05:30"
+                    },
+                    {
+                      "key": "time_of_generation_max",
+                      "value": "2026-02-24T14:20:31+05:30"
+                    },
+                    {
+                      "key": "total_units_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "total_units_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cost_min",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "cost_max",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "prompt_token_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "prompt_token_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "completion_token_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "completion_token_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status_code",
+                      "value": "401,403"
+                    },
+                    {
+                      "key": "weighted_feedback_min",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "weighted_feedback_max",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "virtual_keys",
+                      "value": "vk-slug-1,vk-slug-2"
+                    },
+                    {
+                      "key": "configs",
+                      "value": "pc-config-slug-1,pc-config-slug-2"
+                    },
+                    {
+                      "key": "api_key_ids",
+                      "value": "765768a9-b4ec-4694-962c-d55f40cdb0dc,7c22af5a-8119-46b8-8d9b-bad3ad382387"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "metadata",
+                      "value": "{\"_user\":\"user_1\", \"env\": \"staging\"}"
+                    },
+                    {
+                      "key": "ai_org_model",
+                      "value": "openai__gpt-3.5-turbo,azure-openai__gpt-35-turbo"
+                    },
+                    {
+                      "key": "trace_id",
+                      "value": "my-unique-trace-1,my-unique-trace-2"
+                    },
+                    {
+                      "key": "span_id",
+                      "value": "my-unique-span-1,my-unique-span-2"
+                    },
+                    {
+                      "key": "prompt_slug",
+                      "value": "prompt-slug-1,prompt-slug-2"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 8449,\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"user\": \"string\",\n      \"requests\": \"string\",\n      \"cost\": \"string\",\n      \"object\": \"analytics-group\"\n    },\n    {\n      \"user\": \"string\",\n      \"requests\": \"string\",\n      \"cost\": \"string\",\n      \"object\": \"analytics-group\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d32f760a-8bdf-4138-84df-be6dad6ab897",
+          "name": "Get ai model grouped data.",
+          "request": {
+            "name": "Get ai model grouped data.",
+            "description": {},
+            "url": {
+              "path": [
+                "analytics",
+                "groups",
+                "ai-models"
+              ],
+              "host": [
+                "{{analytics-groups-ai-models-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspace_slug",
+                  "value": "<string>",
+                  "description": "(Required) Workspace slug filter. If a workspace API key is being used, this filter will not be taken into consideration. If an organisation API key is used and no workspace slug is passed, default workspace will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_of_generation_min",
+                  "value": "<dateTime>",
+                  "description": "(Required) Minimum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM)."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_of_generation_max",
+                  "value": "<dateTime>",
+                  "description": "(Required) Maximum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM)."
+                },
+                {
+                  "disabled": false,
+                  "key": "total_units_min",
+                  "value": "<integer>",
+                  "description": "Minimum total units (tokens)"
+                },
+                {
+                  "disabled": false,
+                  "key": "total_units_max",
+                  "value": "<integer>",
+                  "description": "Maximum total units (tokens)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cost_min",
+                  "value": "<number>",
+                  "description": "Minimum cost (in cents)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cost_max",
+                  "value": "<number>",
+                  "description": "Maximum cost (in cents)"
+                },
+                {
+                  "disabled": false,
+                  "key": "prompt_token_min",
+                  "value": "<integer>",
+                  "description": "Minimum number of prompt tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "prompt_token_max",
+                  "value": "<integer>",
+                  "description": "Maximum number of prompt tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "completion_token_min",
+                  "value": "<integer>",
+                  "description": "Minimum number of completion tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "completion_token_max",
+                  "value": "<integer>",
+                  "description": "Maximum number of completion tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "status_code",
+                  "value": "<string>",
+                  "description": "Comma separated response status codes"
+                },
+                {
+                  "disabled": false,
+                  "key": "weighted_feedback_min",
+                  "value": "<number>",
+                  "description": "Minimum weighted feedback score"
+                },
+                {
+                  "disabled": false,
+                  "key": "weighted_feedback_max",
+                  "value": "<number>",
+                  "description": "Maximum weighted feedback score"
+                },
+                {
+                  "disabled": false,
+                  "key": "virtual_keys",
+                  "value": "<string>",
+                  "description": "Comma separated virtual key slugs"
+                },
+                {
+                  "disabled": false,
+                  "key": "configs",
+                  "value": "<string>",
+                  "description": "Comma separated config slugs"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key_ids",
+                  "value": "<string>",
+                  "description": "Comma separated API key UUIDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<integer>",
+                  "description": "Current page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "metadata",
+                  "value": "<string>",
+                  "description": "Stringifed json object with key value metadata pairs"
+                },
+                {
+                  "disabled": false,
+                  "key": "ai_org_model",
+                  "value": "<string>",
+                  "description": "Comma separated ai provider and model combination. Double underscore (__) should be used as a separator for each provider and model combination"
+                },
+                {
+                  "disabled": false,
+                  "key": "trace_id",
+                  "value": "<string>",
+                  "description": "Comma separated trace IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "span_id",
+                  "value": "<string>",
+                  "description": "Comma separated span IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "prompt_slug",
+                  "value": "<string>",
+                  "description": "Comma separated prompt slugs"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "301ef064-f803-4bef-bfad-b2d31acb7b42",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "groups",
+                    "ai-models"
+                  ],
+                  "host": [
+                    "{{analytics-groups-ai-models-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_of_generation_min",
+                      "value": "2026-02-23T14:20:31+05:30"
+                    },
+                    {
+                      "key": "time_of_generation_max",
+                      "value": "2026-02-24T14:20:31+05:30"
+                    },
+                    {
+                      "key": "total_units_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "total_units_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cost_min",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "cost_max",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "prompt_token_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "prompt_token_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "completion_token_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "completion_token_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status_code",
+                      "value": "401,403"
+                    },
+                    {
+                      "key": "weighted_feedback_min",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "weighted_feedback_max",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "virtual_keys",
+                      "value": "vk-slug-1,vk-slug-2"
+                    },
+                    {
+                      "key": "configs",
+                      "value": "pc-config-slug-1,pc-config-slug-2"
+                    },
+                    {
+                      "key": "api_key_ids",
+                      "value": "765768a9-b4ec-4694-962c-d55f40cdb0dc,7c22af5a-8119-46b8-8d9b-bad3ad382387"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "metadata",
+                      "value": "{\"_user\":\"user_1\", \"env\": \"staging\"}"
+                    },
+                    {
+                      "key": "ai_org_model",
+                      "value": "openai__gpt-3.5-turbo,azure-openai__gpt-35-turbo"
+                    },
+                    {
+                      "key": "trace_id",
+                      "value": "my-unique-trace-1,my-unique-trace-2"
+                    },
+                    {
+                      "key": "span_id",
+                      "value": "my-unique-span-1,my-unique-span-2"
+                    },
+                    {
+                      "key": "prompt_slug",
+                      "value": "prompt-slug-1,prompt-slug-2"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 259,\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"ai_model\": \"string\",\n      \"requests\": \"string\",\n      \"object\": \"analytics-group\"\n    },\n    {\n      \"ai_model\": \"string\",\n      \"requests\": \"string\",\n      \"object\": \"analytics-group\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46679485-c5cc-4dc1-a7c2-125296137646",
+          "name": "Get metadata key based grouped data.",
+          "request": {
+            "name": "Get metadata key based grouped data.",
+            "description": {},
+            "url": {
+              "path": [
+                "analytics",
+                "groups",
+                "metadata",
+                ":metadataKey"
+              ],
+              "host": [
+                "{{analytics-groups-metadata-metadataKey-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspace_slug",
+                  "value": "<string>",
+                  "description": "(Required) Workspace slug filter. If a workspace API key is being used, this filter will not be taken into consideration. If an organisation API key is used and no workspace slug is passed, default workspace will be used."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_of_generation_min",
+                  "value": "<dateTime>",
+                  "description": "(Required) Minimum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM)."
+                },
+                {
+                  "disabled": false,
+                  "key": "time_of_generation_max",
+                  "value": "<dateTime>",
+                  "description": "(Required) Maximum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM)."
+                },
+                {
+                  "disabled": false,
+                  "key": "total_units_min",
+                  "value": "<integer>",
+                  "description": "Minimum total units (tokens)"
+                },
+                {
+                  "disabled": false,
+                  "key": "total_units_max",
+                  "value": "<integer>",
+                  "description": "Maximum total units (tokens)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cost_min",
+                  "value": "<number>",
+                  "description": "Minimum cost (in cents)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cost_max",
+                  "value": "<number>",
+                  "description": "Maximum cost (in cents)"
+                },
+                {
+                  "disabled": false,
+                  "key": "prompt_token_min",
+                  "value": "<integer>",
+                  "description": "Minimum number of prompt tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "prompt_token_max",
+                  "value": "<integer>",
+                  "description": "Maximum number of prompt tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "completion_token_min",
+                  "value": "<integer>",
+                  "description": "Minimum number of completion tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "completion_token_max",
+                  "value": "<integer>",
+                  "description": "Maximum number of completion tokens"
+                },
+                {
+                  "disabled": false,
+                  "key": "status_code",
+                  "value": "<string>",
+                  "description": "Comma separated response status codes"
+                },
+                {
+                  "disabled": false,
+                  "key": "weighted_feedback_min",
+                  "value": "<number>",
+                  "description": "Minimum weighted feedback score"
+                },
+                {
+                  "disabled": false,
+                  "key": "weighted_feedback_max",
+                  "value": "<number>",
+                  "description": "Maximum weighted feedback score"
+                },
+                {
+                  "disabled": false,
+                  "key": "virtual_keys",
+                  "value": "<string>",
+                  "description": "Comma separated virtual key slugs"
+                },
+                {
+                  "disabled": false,
+                  "key": "configs",
+                  "value": "<string>",
+                  "description": "Comma separated config slugs"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key_ids",
+                  "value": "<string>",
+                  "description": "Comma separated API key UUIDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<integer>",
+                  "description": "Current page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "metadata",
+                  "value": "<string>",
+                  "description": "Stringifed json object with key value metadata pairs"
+                },
+                {
+                  "disabled": false,
+                  "key": "ai_org_model",
+                  "value": "<string>",
+                  "description": "Comma separated ai provider and model combination. Double underscore (__) should be used as a separator for each provider and model combination"
+                },
+                {
+                  "disabled": false,
+                  "key": "trace_id",
+                  "value": "<string>",
+                  "description": "Comma separated trace IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "span_id",
+                  "value": "<string>",
+                  "description": "Comma separated span IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "prompt_slug",
+                  "value": "<string>",
+                  "description": "Comma separated prompt slugs"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "metadataKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a15f372b-a3ba-4dd5-b3da-2bd49b21e87e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "groups",
+                    "metadata",
+                    ":metadataKey"
+                  ],
+                  "host": [
+                    "{{analytics-groups-metadata-metadataKey-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time_of_generation_min",
+                      "value": "2026-02-23T14:20:31+05:30"
+                    },
+                    {
+                      "key": "time_of_generation_max",
+                      "value": "2026-02-24T14:20:31+05:30"
+                    },
+                    {
+                      "key": "total_units_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "total_units_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cost_min",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "cost_max",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "prompt_token_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "prompt_token_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "completion_token_min",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "completion_token_max",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status_code",
+                      "value": "401,403"
+                    },
+                    {
+                      "key": "weighted_feedback_min",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "weighted_feedback_max",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "virtual_keys",
+                      "value": "vk-slug-1,vk-slug-2"
+                    },
+                    {
+                      "key": "configs",
+                      "value": "pc-config-slug-1,pc-config-slug-2"
+                    },
+                    {
+                      "key": "api_key_ids",
+                      "value": "765768a9-b4ec-4694-962c-d55f40cdb0dc,7c22af5a-8119-46b8-8d9b-bad3ad382387"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "metadata",
+                      "value": "{\"_user\":\"user_1\", \"env\": \"staging\"}"
+                    },
+                    {
+                      "key": "ai_org_model",
+                      "value": "openai__gpt-3.5-turbo,azure-openai__gpt-35-turbo"
+                    },
+                    {
+                      "key": "trace_id",
+                      "value": "my-unique-trace-1,my-unique-trace-2"
+                    },
+                    {
+                      "key": "span_id",
+                      "value": "my-unique-span-1,my-unique-span-2"
+                    },
+                    {
+                      "key": "prompt_slug",
+                      "value": "prompt-slug-1,prompt-slug-2"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "metadataKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 4060,\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"metadata_value\": \"string\",\n      \"requests\": 176,\n      \"cost\": 9299,\n      \"avg_tokens\": 2306,\n      \"avg_weighted_feedback\": 9640,\n      \"requests_with_feedback\": 5802,\n      \"last_seen\": \"1961-02-04T14:57:55.625Z\",\n      \"object\": \"analytics-group\"\n    },\n    {\n      \"metadata_value\": \"string\",\n      \"requests\": 2210,\n      \"cost\": 8483,\n      \"avg_tokens\": 2476,\n      \"avg_weighted_feedback\": 9791,\n      \"requests_with_feedback\": 672,\n      \"last_seen\": \"1986-03-14T14:17:44.939Z\",\n      \"object\": \"analytics-group\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "analytics-groups-users-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "analytics-groups-ai-models-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "analytics-groups-metadata-metadataKey-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7376875b-b382-4e4a-8725-8116fd0f6e43",
+    "name": "Portkey Analytics > Graphs Analytics > Groups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

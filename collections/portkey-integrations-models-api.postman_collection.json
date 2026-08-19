@@ -1,0 +1,376 @@
+{
+  "item": [
+    {
+      "id": "f6471e6d-9b1b-459c-b295-aa28d311bf39",
+      "name": "Integrations > Models",
+      "description": {
+        "content": "Manage model access for your Portkey Integrations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5703b48c-c81b-4bd4-898f-2771abae1509",
+          "name": "List integration models",
+          "request": {
+            "name": "List integration models",
+            "description": {
+              "content": "Retrieves all model access for a specific integration with their configuration and pricing details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                ":slug",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88c778f1-3244-48be-be42-78748a9f6c7e",
+              "name": "List of integration models",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    ":slug",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 7156,\n  \"models\": [\n    {\n      \"slug\": \"string\",\n      \"name\": \"string\",\n      \"enabled\": false,\n      \"is_custom\": true,\n      \"is_finetune\": false,\n      \"base_model_slug\": \"string\",\n      \"pricing_config\": {\n        \"type\": \"static\",\n        \"pay_as_you_go\": {\n          \"request_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"response_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"slug\": \"string\",\n      \"name\": \"string\",\n      \"enabled\": false,\n      \"is_custom\": true,\n      \"is_finetune\": false,\n      \"base_model_slug\": \"string\",\n      \"pricing_config\": {\n        \"type\": \"static\",\n        \"pay_as_you_go\": {\n          \"request_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"response_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e420654d-f72e-4645-b423-4f3bd4bdb45d",
+          "name": "Bulk update integration models",
+          "request": {
+            "name": "Bulk update integration models",
+            "description": {
+              "content": "Updates model access, pricing configuration, and settings for multiple models in an integration.\nCan enable/disable models and configure custom pricing.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                ":slug",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"models\": [\n    {\n      \"slug\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"is_custom\": \"<boolean>\",\n      \"is_finetune\": \"<boolean>\",\n      \"base_model_slug\": \"<string>\",\n      \"configurations\": {\n        \"custom_host\": \"<string>\"\n      },\n      \"pricing_config\": {\n        \"type\": \"<string>\",\n        \"pay_as_you_go\": {\n          \"request_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"response_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"slug\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"is_custom\": \"<boolean>\",\n      \"is_finetune\": \"<boolean>\",\n      \"base_model_slug\": \"<string>\",\n      \"configurations\": {\n        \"custom_host\": \"<string>\"\n      },\n      \"pricing_config\": {\n        \"type\": \"<string>\",\n        \"pay_as_you_go\": {\n          \"request_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"response_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"allow_all_models\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "edde051f-5982-4771-9bde-f82b3bad3a5b",
+              "name": "Models updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    ":slug",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"models\": [\n    {\n      \"slug\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"is_custom\": \"<boolean>\",\n      \"is_finetune\": \"<boolean>\",\n      \"base_model_slug\": \"<string>\",\n      \"configurations\": {\n        \"custom_host\": \"<string>\"\n      },\n      \"pricing_config\": {\n        \"type\": \"<string>\",\n        \"pay_as_you_go\": {\n          \"request_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"response_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    },\n    {\n      \"slug\": \"<string>\",\n      \"enabled\": \"<boolean>\",\n      \"is_custom\": \"<boolean>\",\n      \"is_finetune\": \"<boolean>\",\n      \"base_model_slug\": \"<string>\",\n      \"configurations\": {\n        \"custom_host\": \"<string>\"\n      },\n      \"pricing_config\": {\n        \"type\": \"<string>\",\n        \"pay_as_you_go\": {\n          \"request_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"response_token\": {\n            \"price\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      }\n    }\n  ],\n  \"allow_all_models\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97c2b448-c993-4242-a809-2f7b78b2d821",
+          "name": "Bulk delete integration custom models",
+          "request": {
+            "name": "Bulk delete integration custom models",
+            "description": {
+              "content": "Removes multiple custom models from an integration by their slugs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                ":slug",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "slugs",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of model slugs to delete"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eaa419f2-e58c-42c2-9f26-00c2f6bb00e9",
+              "name": "Models deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    ":slug",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "slugs",
+                      "value": "gpt-4,gpt-3.5-turbo"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ab4a6bb1-6757-4119-a3ec-7261395fc10a",
+    "name": "Portkey Analytics > Graphs Integrations > Models API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

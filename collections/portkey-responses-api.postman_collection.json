@@ -1,0 +1,553 @@
+{
+  "item": [
+    {
+      "id": "ea17ce5b-9b9d-4ee5-bf1d-045533cf0f28",
+      "name": "Responses",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ba7b0c0a-05e8-4e48-b9d2-31eb527ed33e",
+          "name": "Creates a model response\n",
+          "request": {
+            "name": "Creates a model response\n",
+            "description": {},
+            "url": {
+              "path": [
+                "responses"
+              ],
+              "host": [
+                "{{responses-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"user\": \"<string>\",\n  \"previous_response_id\": \"<string>\",\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"generate_summary\": \"<string>\"\n  },\n  \"max_output_tokens\": \"<integer>\",\n  \"instructions\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": \"<integer>\",\n      \"filters\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": 0\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": \"<integer>\",\n      \"filters\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": 0\n      }\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"truncation\": \"disabled\",\n  \"include\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"parallel_tool_calls\": true,\n  \"store\": true,\n  \"stream\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "20eafc96-3c15-4380-b438-904ceadc4d87",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "responses"
+                  ],
+                  "host": [
+                    "{{responses-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  },\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"user\": \"user-1234\",\n  \"previous_response_id\": \"<string>\",\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"generate_summary\": \"<string>\"\n  },\n  \"max_output_tokens\": \"<integer>\",\n  \"instructions\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": \"<integer>\",\n      \"filters\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": 0\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": \"<integer>\",\n      \"filters\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": 0\n      }\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"truncation\": \"disabled\",\n  \"include\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"parallel_tool_calls\": true,\n  \"store\": true,\n  \"stream\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"response\",\n  \"created_at\": 2218.675176021261,\n  \"error\": {\n    \"code\": \"rate_limit_exceeded\",\n    \"message\": \"string\"\n  },\n  \"incomplete_details\": {\n    \"reason\": \"content_filter\"\n  },\n  \"instructions\": \"<string>\",\n  \"model\": \"<string>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": \"<integer>\",\n      \"filters\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": 0\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": \"<integer>\",\n      \"filters\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": 0\n      }\n    }\n  ],\n  \"output\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"message\",\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"status\": \"completed\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"message\",\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"status\": \"in_progress\"\n    }\n  ],\n  \"parallel_tool_calls\": true,\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"user\": \"user-1234\",\n  \"previous_response_id\": \"<string>\",\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"generate_summary\": \"<string>\"\n  },\n  \"max_output_tokens\": \"<integer>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"truncation\": \"disabled\",\n  \"status\": \"incomplete\",\n  \"output_text\": \"string\",\n  \"usage\": {\n    \"input_tokens\": 8394,\n    \"input_tokens_details\": {\n      \"cached_tokens\": 9841\n    },\n    \"output_tokens\": 1174,\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": 6196\n    },\n    \"total_tokens\": 3899\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4810d65-b5bc-4516-b4b2-be4f4b8bff0d",
+          "name": "Retrieves a model response with the given ID.\n",
+          "request": {
+            "name": "Retrieves a model response with the given ID.\n",
+            "description": {},
+            "url": {
+              "path": [
+                "responses",
+                ":response_id"
+              ],
+              "host": [
+                "{{responses-response_id-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Specify additional output data to include in the response. Currently\nsupported values are:\n- `file_search_call.results`: Include the search results of\n  the file search tool call.\n- `message.input_image.image_url`: Include image urls from the input message.\n- `computer_call_output.output.image_url`: Include image urls from the computer call output.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Specify additional output data to include in the response. Currently\nsupported values are:\n- `file_search_call.results`: Include the search results of\n  the file search tool call.\n- `message.input_image.image_url`: Include image urls from the input message.\n- `computer_call_output.output.image_url`: Include image urls from the computer call output.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "response_id",
+                  "description": "(Required) The ID of the response to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ea4d41d6-ce08-4590-9968-41593b346466",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "responses",
+                    ":response_id"
+                  ],
+                  "host": [
+                    "{{responses-response_id-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "response_id",
+                      "description": "(Required) The ID of the response to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"response\",\n  \"created_at\": 5238.259783810028,\n  \"error\": {\n    \"code\": \"image_file_not_found\",\n    \"message\": \"string\"\n  },\n  \"incomplete_details\": {\n    \"reason\": \"max_output_tokens\"\n  },\n  \"instructions\": \"<string>\",\n  \"model\": \"<string>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": \"<integer>\",\n      \"filters\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": 0\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"vector_store_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"max_num_results\": \"<integer>\",\n      \"filters\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"ranking_options\": {\n        \"ranker\": \"auto\",\n        \"score_threshold\": 0\n      }\n    }\n  ],\n  \"output\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"message\",\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"status\": \"incomplete\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"message\",\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"status\": \"incomplete\"\n    }\n  ],\n  \"parallel_tool_calls\": true,\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"user\": \"user-1234\",\n  \"previous_response_id\": \"<string>\",\n  \"reasoning\": {\n    \"effort\": \"medium\",\n    \"generate_summary\": \"<string>\"\n  },\n  \"max_output_tokens\": \"<integer>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"truncation\": \"disabled\",\n  \"status\": \"incomplete\",\n  \"output_text\": \"string\",\n  \"usage\": {\n    \"input_tokens\": 8430,\n    \"input_tokens_details\": {\n      \"cached_tokens\": 6246\n    },\n    \"output_tokens\": 1482,\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": 9023\n    },\n    \"total_tokens\": 9523\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0813d3e2-98ea-4e4a-be4d-27fd4cef6db8",
+          "name": "Deletes a model response with the given ID.\n",
+          "request": {
+            "name": "Deletes a model response with the given ID.\n",
+            "description": {},
+            "url": {
+              "path": [
+                "responses",
+                ":response_id"
+              ],
+              "host": [
+                "{{responses-response_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "response_id",
+                  "description": "(Required) The ID of the response to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "da27d678-1529-4d18-a3e6-31d00f40ae49",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "responses",
+                    ":response_id"
+                  ],
+                  "host": [
+                    "{{responses-response_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "response_id",
+                      "description": "(Required) The ID of the response to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9337834b-8377-4715-8618-c03f457cd483",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "responses",
+                    ":response_id"
+                  ],
+                  "host": [
+                    "{{responses-response_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "response_id",
+                      "description": "(Required) The ID of the response to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"message\": \"string\",\n  \"param\": \"string\",\n  \"code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c718dfab-0b97-4d5c-8d77-0525f7cd9320",
+          "name": "Returns a list of input items for a given response.",
+          "request": {
+            "name": "Returns a list of input items for a given response.",
+            "description": {},
+            "url": {
+              "path": [
+                "responses",
+                ":response_id",
+                "input_items"
+              ],
+              "host": [
+                "{{responses-response_id-input_items-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "A limit on the number of objects to be returned. Limit can range between\n1 and 100, and the default is 20.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "The order to return the input items in. Default is `asc`.\n- `asc`: Return the input items in ascending order.\n- `desc`: Return the input items in descending order.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "An item ID to list items after, used in pagination.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "An item ID to list items before, used in pagination.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "response_id",
+                  "description": "(Required) The ID of the response to retrieve input items for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "91600298-575a-43ea-a6cb-dd856133cb46",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "responses",
+                    ":response_id",
+                    "input_items"
+                  ],
+                  "host": [
+                    "{{responses-response_id-input_items-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "response_id",
+                      "description": "(Required) The ID of the response to retrieve input items for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"id\": \"string\",\n      \"role\": \"developer\",\n      \"type\": \"message\",\n      \"status\": \"in_progress\"\n    },\n    {\n      \"content\": [\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      ],\n      \"id\": \"string\",\n      \"role\": \"user\",\n      \"type\": \"message\",\n      \"status\": \"completed\"\n    }\n  ],\n  \"has_more\": false,\n  \"first_id\": \"string\",\n  \"last_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "responses-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "responses-response_id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "responses-response_id-input_items-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4f0668e5-827b-4c01-aca3-4dfc8545a78b",
+    "name": "Portkey Analytics > Graphs Responses API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

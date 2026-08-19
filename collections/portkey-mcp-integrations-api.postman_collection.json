@@ -1,0 +1,593 @@
+{
+  "item": [
+    {
+      "id": "437d6c6f-dbc1-49c9-95a8-4aa0db4c22be",
+      "name": "MCP Integrations",
+      "description": {
+        "content": "Create, List, Retrieve, Update, and Delete MCP Integrations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "69faf433-ba2c-47f8-bed7-911fd8d76bc4",
+          "name": "Create MCP Integration",
+          "request": {
+            "name": "Create MCP Integration",
+            "description": {
+              "content": "Create a new MCP Integration. Requires either organisation_id (with admin API key) or workspace_id in body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mcp-integrations"
+              ],
+              "host": [
+                "{{mcp-integrations-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"auth_type\": \"<string>\",\n  \"transport\": \"<string>\",\n  \"organisation_id\": \"<uuid>\",\n  \"workspace_id\": \"<uuid>\",\n  \"slug\": \"<string>\",\n  \"description\": \"<string>\",\n  \"configurations\": {\n    \"custom_headers\": {\n      \"key_0\": \"string\",\n      \"key_1\": true\n    },\n    \"passthrough_header\": {\n      \"key_0\": 3150\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "711c533c-13d6-45e2-b0ba-6cd61fa47910",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-integrations"
+                  ],
+                  "host": [
+                    "{{mcp-integrations-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My MCP Server\",\n  \"url\": \"https://mcp.example.com/mcp\",\n  \"auth_type\": \"none\",\n  \"transport\": \"http\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"17d41dfc-08ce-4a19-29d5-308eef1d1bca\",\n  \"slug\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d4646d2-db0a-4103-84b8-d664005f0eae",
+          "name": "List MCP Integrations",
+          "request": {
+            "name": "List MCP Integrations",
+            "description": {
+              "content": "List MCP Integrations for the organisation or workspace. Requires organisation_id (when using org admin API key) or x-portkey-api-key header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "mcp-integrations"
+              ],
+              "host": [
+                "{{mcp-integrations-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "organisation_id",
+                  "value": "<uuid>",
+                  "description": "Organisation ID (required when using org admin API key)"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5068a91-733c-4654-99ca-65c646d19115",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-integrations"
+                  ],
+                  "host": [
+                    "{{mcp-integrations-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organisation_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"8aa62ede-e5b5-0f92-ea93-38a95b29ed87\",\n      \"name\": \"string\",\n      \"owner_id\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"organisation\",\n      \"url\": \"https://dtBUyRGrUUfr.wfbVDOMg6gXYzG38a-valxhFtyfEwC22u\",\n      \"auth_type\": \"headers\",\n      \"transport\": \"interactive\",\n      \"configurations\": {},\n      \"created_at\": \"1964-09-21T13:00:48.518Z\",\n      \"last_updated_at\": \"1986-11-30T21:16:50.145Z\",\n      \"slug\": \"string\",\n      \"workspace_id\": \"string\",\n      \"description\": \"string\",\n      \"workspaces_count\": 9881.438560390645\n    },\n    {\n      \"id\": \"9061a6d8-24d5-2cdb-da72-fb24748eac29\",\n      \"name\": \"string\",\n      \"owner_id\": \"string\",\n      \"status\": \"string\",\n      \"type\": \"organisation\",\n      \"url\": \"http://FNBoDbyAgtOD.tldKmmRzpD\",\n      \"auth_type\": \"headers\",\n      \"transport\": \"sse\",\n      \"configurations\": {},\n      \"created_at\": \"1998-07-03T16:18:22.695Z\",\n      \"last_updated_at\": \"2015-08-19T18:19:38.314Z\",\n      \"slug\": \"string\",\n      \"workspace_id\": \"string\",\n      \"description\": \"string\",\n      \"workspaces_count\": 1605.4193330211808\n    }\n  ],\n  \"total\": 9253,\n  \"has_more\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b619fcc-cccc-4aeb-9de7-d2d8afe39b91",
+          "name": "Get MCP Integration",
+          "request": {
+            "name": "Get MCP Integration",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-integrations",
+                ":mcpIntegrationId"
+              ],
+              "host": [
+                "{{mcp-integrations-mcpIntegrationId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpIntegrationId",
+                  "description": "(Required) MCP Integration ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cd0bb517-ac1e-4162-b530-74b28d5b7169",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-integrations",
+                    ":mcpIntegrationId"
+                  ],
+                  "host": [
+                    "{{mcp-integrations-mcpIntegrationId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpIntegrationId",
+                      "description": "(Required) MCP Integration ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"dd8a82f4-1367-2486-6ac1-3a87fac3a9ad\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"owner_id\": \"string\",\n  \"status\": \"string\",\n  \"created_at\": \"1959-06-15T01:36:46.679Z\",\n  \"last_updated_at\": \"1983-08-20T02:27:40.101Z\",\n  \"configurations\": {},\n  \"global_workspace_access\": {},\n  \"workspace_id\": \"string\",\n  \"slug\": \"string\",\n  \"url\": \"https://NShMnwVSVwEFZaSqFEWJLJ.jakR33-C0AKZFOFdthe7odBEUgBlQk0En7ZMHA,Iz3Oudt+eZRMglL4L,t5jBFwZ\",\n  \"auth_type\": \"oauth_client_credentials\",\n  \"transport\": \"interactive\",\n  \"type\": \"organisation\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5ba3548-f640-42b3-8263-c78ae80ea0da",
+          "name": "Update MCP Integration",
+          "request": {
+            "name": "Update MCP Integration",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-integrations",
+                ":mcpIntegrationId"
+              ],
+              "host": [
+                "{{mcp-integrations-mcpIntegrationId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpIntegrationId",
+                  "description": "(Required) MCP Integration ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"configurations\": {\n    \"custom_headers\": {\n      \"key_0\": false\n    },\n    \"passthrough_header\": {\n      \"key_0\": 3864,\n      \"key_1\": 7656.438359950715\n    }\n  },\n  \"url\": \"<uri>\",\n  \"auth_type\": \"<string>\",\n  \"transport\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "adf5d729-2a1a-43c5-bab9-036c244ea447",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-integrations",
+                    ":mcpIntegrationId"
+                  ],
+                  "host": [
+                    "{{mcp-integrations-mcpIntegrationId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpIntegrationId",
+                      "description": "(Required) MCP Integration ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"configurations\": {\n    \"custom_headers\": {\n      \"Authorization\": \"Bearer some-token\",\n      \"x-foo\": \"bar\"\n    },\n    \"passthrough_header\": {\n      \"x-user-id\": {\n        \"type\": \"string\",\n        \"example\": \"abc123\"\n      },\n      \"x-request-id\": {\n        \"type\": \"string\",\n        \"example\": \"req-0001\"\n      }\n    }\n  },\n  \"url\": \"<uri>\",\n  \"auth_type\": \"<string>\",\n  \"transport\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fc2e78d4-af9c-4924-9b80-843fcc7b76ac",
+          "name": "Delete MCP Integration",
+          "request": {
+            "name": "Delete MCP Integration",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-integrations",
+                ":mcpIntegrationId"
+              ],
+              "host": [
+                "{{mcp-integrations-mcpIntegrationId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpIntegrationId",
+                  "description": "(Required) MCP Integration ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52271e02-5330-4687-a678-ebe49ed3dd9f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-integrations",
+                    ":mcpIntegrationId"
+                  ],
+                  "host": [
+                    "{{mcp-integrations-mcpIntegrationId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpIntegrationId",
+                      "description": "(Required) MCP Integration ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "mcp-integrations-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "mcp-integrations-mcpIntegrationId-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5f33f3eb-1cdc-43d6-9b78-3f57fc5bb16a",
+    "name": "Portkey Analytics > Graphs MCP Integrations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

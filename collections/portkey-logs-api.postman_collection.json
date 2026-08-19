@@ -1,0 +1,243 @@
+{
+  "item": [
+    {
+      "id": "2f202b8f-7afb-4212-9b3b-919872fb7c1b",
+      "name": "Logs",
+      "description": {
+        "content": "Custom Logger to add external logs to Portkey.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "72f9197d-4833-4caf-8802-1a80cc507258",
+          "name": "Insert New logs",
+          "request": {
+            "name": "Insert New logs",
+            "description": {
+              "content": "Submit one or more log entries",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "logs"
+              ],
+              "host": [
+                "{{logs-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request\": {\n    \"url\": \"<string>\",\n    \"body\": \"<object>\",\n    \"method\": \"<string>\",\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    }\n  },\n  \"response\": {\n    \"body\": \"<object>\",\n    \"status\": \"<integer>\",\n    \"headers\": {\n      \"key_0\": \"<string>\"\n    },\n    \"response_time\": \"<integer>\"\n  },\n  \"metadata\": {\n    \"trace_id\": \"<string>\",\n    \"span_id\": \"<string>\",\n    \"span_name\": \"<string>\",\n    \"additionalProperties\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "80f5617b-af43-4c73-9612-ce33fd427583",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs"
+                  ],
+                  "host": [
+                    "{{logs-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request\": {\n    \"url\": \"<string>\",\n    \"body\": \"<object>\",\n    \"method\": \"<string>\",\n    \"headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"response\": {\n    \"body\": \"<object>\",\n    \"status\": \"<integer>\",\n    \"headers\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"response_time\": \"<integer>\"\n  },\n  \"metadata\": {\n    \"trace_id\": \"<string>\",\n    \"span_id\": \"<string>\",\n    \"span_name\": \"<string>\",\n    \"additionalProperties\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71675d0f-dfd0-446f-9ee9-b518b6ce33af",
+          "name": "Get a specific log",
+          "request": {
+            "name": "Get a specific log",
+            "description": {},
+            "url": {
+              "path": [
+                "logs",
+                ":logId"
+              ],
+              "host": [
+                "{{logs-logId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "logId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ce1ccf5-8c4b-4dec-837a-4f79d6805003",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "logs",
+                    ":logId"
+                  ],
+                  "host": [
+                    "{{logs-logId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "logId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"request\": {\n    \"url\": \"https://api.openai.com/v1/chat/completions\",\n    \"method\": \"POST\",\n    \"portkeyHeaders\": {\n      \"x-portkey-trace-id\": \"trace-123\",\n      \"x-portkey-span-id\": \"span-456\",\n      \"x-portkey-metadata\": \"{\\\"key\\\":\\\"value\\\"}\"\n    },\n    \"headers\": {\n      \"Content-Type\": \"application/json\",\n      \"Authorization\": \"Bearer hashed_value\"\n    },\n    \"body\": {\n      \"key_0\": 8556.929951710032,\n      \"key_1\": 9098.619387497563\n    }\n  },\n  \"response\": {\n    \"status\": 200,\n    \"responseTime\": 1234,\n    \"lastUsedOptionJsonPath\": \"$.config.options[0]\",\n    \"headers\": {\n      \"Content-Type\": \"application/json\"\n    },\n    \"body\": {\n      \"object\": \"chat.completion\",\n      \"created\": 1677652288\n    }\n  },\n  \"organisation_id\": \"org-123\",\n  \"created_at\": \"2024-01-15T10:30:00.000Z\",\n  \"metrics\": {\n    \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"organisation_id\": \"org-123\",\n    \"organisation_name\": \"Acme Corp\",\n    \"prompt_id\": \"prompt-789\",\n    \"prompt_version_id\": \"prompt-v1\",\n    \"config_id\": \"config-123\",\n    \"created_at\": \"2024-01-15T10:30:00.000\",\n    \"is_success\": true,\n    \"ai_org\": \"openai\",\n    \"ai_model\": \"gpt-4o\",\n    \"req_units\": 100,\n    \"res_units\": 50,\n    \"total_units\": 150,\n    \"cost\": 0.002,\n    \"cost_currency\": \"USD\",\n    \"request_url\": \"https://api.openai.com/v1/chat/completions\",\n    \"request_method\": \"POST\",\n    \"response_status_code\": 200,\n    \"response_time\": 1234,\n    \"is_proxy_call\": true,\n    \"cache_status\": \"MISS\",\n    \"cache_type\": \"semantic\",\n    \"stream_mode\": 1,\n    \"retry_success_count\": 0,\n    \"trace_id\": \"trace-123\",\n    \"span_id\": \"span-456\",\n    \"span_name\": \"llm\",\n    \"parent_span_id\": \"span-789\",\n    \"mode\": \"single\",\n    \"virtual_key\": \"vk-123\",\n    \"source\": \"rubeus\",\n    \"runtime\": \"node\",\n    \"runtime_version\": \"18.0.0\",\n    \"sdk_version\": \"1.0.0\",\n    \"config\": \"pc-config-123\",\n    \"internal_trace_id\": \"internal-trace-123\",\n    \"last_used_option_index\": 0,\n    \"config_version_id\": \"config-v1\",\n    \"prompt_slug\": \"my-prompt\",\n    \"workspace_slug\": \"my-workspace\",\n    \"log_store_file_path_format\": \"v1\",\n    \"metadata.key\": [\n      \"key1\",\n      \"key2\"\n    ],\n    \"metadata.value\": [\n      \"value1\",\n      \"value2\"\n    ],\n    \"api_key_id\": \"api-key-123\",\n    \"request_parsing_time\": 5,\n    \"pre_processing_time\": 10,\n    \"cache_processing_time\": 2,\n    \"response_parsing_time\": 8,\n    \"gateway_processing_time\": 50,\n    \"upstream_response_time\": 1200\n  },\n  \"finalUntransformedRequest\": {\n    \"body\": {\n      \"key_0\": 9210,\n      \"key_1\": 6364\n    },\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"url\": \"http://nTltAebiBSRLIX.tluN3rrtcIEPE2s,xNb4DUI3QBNtdaJsU\",\n    \"method\": \"string\"\n  },\n  \"originalResponse\": {\n    \"body\": {\n      \"key_0\": false,\n      \"key_1\": 2345.5180544233776,\n      \"key_2\": \"string\",\n      \"key_3\": 2100.554409837846\n    },\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"url\": \"http://OPyWQofpVxW.afS8i,WWN1qk1Aad2CS3BKVqIRgW41zuOwGxJLp0L6FcDo33DMeBX,\",\n    \"method\": \"string\"\n  },\n  \"transformedRequest\": {\n    \"body\": {\n      \"key_0\": false\n    },\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"url\": \"https://tHmYRcWSmoZD.teLJ7sI+1kCCTBn+JG4j6MaWb3lpbW2RTUNR2KunCSxIOZiIIQ60M.85Rx.Ud5zr2mUP\",\n    \"method\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "logs-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "logs-logId-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bc6ed68e-ce7a-4064-98bd-a18943b83071",
+    "name": "Portkey Analytics > Graphs Logs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

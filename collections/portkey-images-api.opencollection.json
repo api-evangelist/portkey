@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Images API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/images/generations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Image"
+        },
+        {
+          "info": {
+            "name": "Create Image Edit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/images/edits",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Image Edit"
+        },
+        {
+          "info": {
+            "name": "Creates Image Variation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/images/variations",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates Image Variation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

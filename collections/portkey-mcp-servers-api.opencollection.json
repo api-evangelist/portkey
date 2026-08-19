@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs MCP Servers API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MCP Servers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List MCP Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/mcp-servers",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Workspace ID or slug. Required when using org admin API key; optional when API key is workspace-scoped."
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by MCP Server ID(s), comma-separated"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List MCP Servers for the workspace. Requires workspace_id or x-portkey-api-key header."
+        },
+        {
+          "info": {
+            "name": "Create MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/mcp-servers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new MCP Server (workspace instance of an MCP Integration). Requires workspace_id or x-portkey-api-key header."
+        },
+        {
+          "info": {
+            "name": "Get MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/mcp-servers/:mcpServerId",
+            "params": [
+              {
+                "name": "mcpServerId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Server ID (UUID) or slug"
+              }
+            ]
+          },
+          "docs": "Get MCP Server"
+        },
+        {
+          "info": {
+            "name": "Update MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/mcp-servers/:mcpServerId",
+            "params": [
+              {
+                "name": "mcpServerId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Server ID (UUID) or slug"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update MCP Server"
+        },
+        {
+          "info": {
+            "name": "Delete MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/mcp-servers/:mcpServerId",
+            "params": [
+              {
+                "name": "mcpServerId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Server ID (UUID) or slug"
+              }
+            ]
+          },
+          "docs": "Delete MCP Server"
+        },
+        {
+          "info": {
+            "name": "Test MCP Server Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/mcp-servers/:mcpServerId/test",
+            "params": [
+              {
+                "name": "mcpServerId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Server ID (UUID) or slug"
+              }
+            ]
+          },
+          "docs": "Test connectivity to the MCP server via its integration URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

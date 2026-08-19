@@ -1,0 +1,171 @@
+{
+  "item": [
+    {
+      "id": "70614bd1-5895-479e-b77c-486f4391bab9",
+      "name": "Finetune",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "863d4672-fa94-45ae-b50c-84d0c6ca8a71",
+          "name": "Create a Finetune Job",
+          "request": {
+            "name": "Create a Finetune Job",
+            "description": {
+              "content": "Finetune a provider model",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fine_tuning",
+                "jobs"
+              ],
+              "host": [
+                "{{fine_tuning-jobs-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"training_file\": \"<string>\",\n  \"suffix\": \"<string>\",\n  \"method\": {\n    \"type\": \"<string>\",\n    \"supervised\": {\n      \"hyperparameters\": {\n        \"n_epochs\": \"<integer>\",\n        \"learning_rate_multiplier\": \"<float>\",\n        \"batch_size\": \"<integer>\"\n      }\n    },\n    \"dpo\": {\n      \"hyperparameters\": {\n        \"n_epochs\": \"<integer>\",\n        \"learning_rate_multiplier\": \"<float>\",\n        \"batch_size\": \"<integer>\"\n      }\n    }\n  },\n  \"validation_file\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "050f8032-b149-4648-a465-4390c4496f9d",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fine_tuning",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{fine_tuning-jobs-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"training_file\": \"<string>\",\n  \"suffix\": \"<string>\",\n  \"method\": {\n    \"type\": \"<string>\",\n    \"supervised\": {\n      \"hyperparameters\": {\n        \"n_epochs\": \"<integer>\",\n        \"learning_rate_multiplier\": \"<float>\",\n        \"batch_size\": \"<integer>\"\n      }\n    },\n    \"dpo\": {\n      \"hyperparameters\": {\n        \"n_epochs\": \"<integer>\",\n        \"learning_rate_multiplier\": \"<float>\",\n        \"batch_size\": \"<integer>\"\n      }\n    }\n  },\n  \"validation_file\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": 3195,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\"\n  },\n  \"finished_at\": 9164,\n  \"fine_tuned_model\": \"string\",\n  \"hyperparameters\": {\n    \"n_epochs\": \"auto\"\n  },\n  \"id\": \"string\",\n  \"model\": \"string\",\n  \"object\": \"fine_tuning.job\",\n  \"organization_id\": \"string\",\n  \"result_files\": [\n    \"file-abc123\",\n    \"file-abc123\"\n  ],\n  \"status\": \"running\",\n  \"trained_tokens\": 785,\n  \"training_file\": \"string\",\n  \"validation_file\": \"string\",\n  \"seed\": 3510,\n  \"integrations\": [\n    {\n      \"type\": \"wandb\",\n      \"wandb\": {\n        \"project\": \"my-wandb-project\",\n        \"name\": \"string\",\n        \"entity\": \"string\",\n        \"tags\": [\n          \"custom-tag\",\n          \"custom-tag\"\n        ]\n      }\n    },\n    {\n      \"type\": \"wandb\",\n      \"wandb\": {\n        \"project\": \"my-wandb-project\",\n        \"name\": \"string\",\n        \"entity\": \"string\",\n        \"tags\": [\n          \"custom-tag\",\n          \"custom-tag\"\n        ]\n      }\n    }\n  ],\n  \"estimated_finish\": 7564\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "fine_tuning-jobs-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4b753ecb-e42b-48fa-99b2-2b18d0e6b141",
+    "name": "Portkey Analytics > Graphs Finetune API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

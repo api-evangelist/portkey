@@ -1,0 +1,819 @@
+{
+  "item": [
+    {
+      "id": "ceb09867-13e0-4a44-89a8-b00373a3ef08",
+      "name": "Virtual-keys",
+      "description": {
+        "content": "Create, List, Retrieve, Update, and Delete your Portkey Virtual keys.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a1089e4-a83c-4b0e-8f25-3be0786494b1",
+          "name": "List All Virtual Keys",
+          "request": {
+            "name": "List All Virtual Keys",
+            "description": {},
+            "url": {
+              "path": [
+                "virtual-keys"
+              ],
+              "host": [
+                "{{virtual-keys-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<integer>",
+                  "description": "(Required) Current page, defaults to 0"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "(Required) Page size, default to 50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7876ad79-db3a-40d4-bda3-e74d90a7a8ad",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys"
+                  ],
+                  "host": [
+                    "{{virtual-keys-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "current_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"total\": 1978,\n  \"data\": [\n    {\n      \"name\": \"Open AI Workspace\",\n      \"note\": \"randomness\",\n      \"status\": \"active\",\n      \"usage_limits\": {\n        \"credit_limit\": 10,\n        \"periodic_reset\": \"monthly\",\n        \"alert_threshold\": 8\n      },\n      \"reset_usage\": 0,\n      \"created_at\": \"2016-06-30T15:07:25.866Z\",\n      \"slug\": \"string\",\n      \"model_config\": {},\n      \"rate_limits\": [\n        {\n          \"type\": \"requests\",\n          \"unit\": \"rpm\",\n          \"value\": 6650\n        },\n        {\n          \"type\": \"requests\",\n          \"unit\": \"rpd\",\n          \"value\": 5126\n        }\n      ],\n      \"expires_at\": \"1983-07-07T03:12:18.313Z\",\n      \"secret_mappings\": [\n        {\n          \"target_field\": \"key\",\n          \"secret_reference_id\": \"my-aws-secret\",\n          \"secret_key\": \"string\"\n        },\n        {\n          \"target_field\": \"key\",\n          \"secret_reference_id\": \"my-aws-secret\",\n          \"secret_key\": \"string\"\n        }\n      ],\n      \"object\": \"virtual-key\"\n    },\n    {\n      \"name\": \"Open AI Workspace\",\n      \"note\": \"randomness\",\n      \"status\": \"active\",\n      \"usage_limits\": {\n        \"credit_limit\": 10,\n        \"periodic_reset\": \"monthly\",\n        \"alert_threshold\": 8\n      },\n      \"reset_usage\": 0,\n      \"created_at\": \"1983-08-14T22:52:04.950Z\",\n      \"slug\": \"string\",\n      \"model_config\": {},\n      \"rate_limits\": [\n        {\n          \"type\": \"tokens\",\n          \"unit\": \"rpd\",\n          \"value\": 4140\n        },\n        {\n          \"type\": \"tokens\",\n          \"unit\": \"rpm\",\n          \"value\": 1904\n        }\n      ],\n      \"expires_at\": \"1999-11-26T08:40:31.734Z\",\n      \"secret_mappings\": [\n        {\n          \"target_field\": \"key\",\n          \"secret_reference_id\": \"my-aws-secret\",\n          \"secret_key\": \"string\"\n        },\n        {\n          \"target_field\": \"key\",\n          \"secret_reference_id\": \"my-aws-secret\",\n          \"secret_key\": \"string\"\n        }\n      ],\n      \"object\": \"virtual-key\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f990a31-f6a8-42fa-a7e7-9b8153feb29a",
+              "name": "Unauthorized response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys"
+                  ],
+                  "host": [
+                    "{{virtual-keys-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "current_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"message\": \"Unauthorised Request\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "335a5891-c333-460f-890a-91ec3c9783b4",
+          "name": "Create a Virtual Key",
+          "request": {
+            "name": "Create a Virtual Key",
+            "description": {},
+            "url": {
+              "path": [
+                "virtual-keys"
+              ],
+              "host": [
+                "{{virtual-keys-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"key\": \"<string>\",\n  \"note\": \"<string>\",\n  \"apiVersion\": \"<string>\",\n  \"resourceName\": \"<string>\",\n  \"deploymentName\": \"<string>\",\n  \"workspace_id\": \"<uuid>\",\n  \"deploymentConfig\": [\n    {\n      \"apiVersion\": \"<string>\",\n      \"deploymentName\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"is_default\": \"<boolean>\"\n    },\n    {\n      \"apiVersion\": \"<string>\",\n      \"deploymentName\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"is_default\": \"<boolean>\"\n    }\n  ],\n  \"usage_limits\": {\n    \"credit_limit\": null,\n    \"type\": \"<string>\",\n    \"alert_threshold\": null,\n    \"periodic_reset\": \"<string>\",\n    \"periodic_reset_days\": \"<integer>\",\n    \"next_usage_reset_at\": \"<dateTime>\"\n  },\n  \"rate_limits\": {\n    \"type\": \"<string>\",\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"expires_at\": \"<dateTime>\",\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"<string>\",\n      \"secret_reference_id\": \"<string>\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"<string>\",\n      \"secret_reference_id\": \"<string>\",\n      \"secret_key\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d6c634c-5edd-4c22-8ab8-37fcfc8f33cc",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys"
+                  ],
+                  "host": [
+                    "{{virtual-keys-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My first virtual key\",\n  \"provider\": \"openai\",\n  \"key\": \"sk-jhkfkjs8d9f7jksfghkjhfg\",\n  \"note\": \"Virtual key description\",\n  \"usage_limits\": {\n    \"credit_limit\": 10,\n    \"periodic_reset\": \"monthly\",\n    \"alert_threshold\": 9\n  },\n  \"workspace_id\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"slug\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eaca531f-8294-47de-a43f-ee2db1f81d6c",
+              "name": "Unauthorized response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys"
+                  ],
+                  "host": [
+                    "{{virtual-keys-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My first virtual key\",\n  \"provider\": \"openai\",\n  \"key\": \"sk-jhkfkjs8d9f7jksfghkjhfg\",\n  \"note\": \"Virtual key description\",\n  \"usage_limits\": {\n    \"credit_limit\": 10,\n    \"periodic_reset\": \"monthly\",\n    \"alert_threshold\": 9\n  },\n  \"workspace_id\": \"\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"message\": \"Unauthorised Request\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5148c3a1-764c-44b8-bb1a-9a25fd5832d0",
+          "name": "Get a Virtual Key",
+          "request": {
+            "name": "Get a Virtual Key",
+            "description": {},
+            "url": {
+              "path": [
+                "virtual-keys",
+                ":slug"
+              ],
+              "host": [
+                "{{virtual-keys-slug-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b95e9e0-9e79-4974-9d7e-3a31766b377a",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{virtual-keys-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Open AI Workspace\",\n  \"note\": \"randomness\",\n  \"status\": \"exhausted\",\n  \"usage_limits\": {\n    \"credit_limit\": 10,\n    \"periodic_reset\": \"monthly\",\n    \"alert_threshold\": 8\n  },\n  \"reset_usage\": 0,\n  \"created_at\": \"2002-05-02T12:22:07.800Z\",\n  \"slug\": \"string\",\n  \"model_config\": {},\n  \"rate_limits\": [\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    }\n  ],\n  \"expires_at\": \"2018-09-19T17:18:16.895Z\",\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    }\n  ],\n  \"object\": \"virtual-key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "112239f0-7d7a-4960-80d0-2a4184c2b506",
+              "name": "Unauthorized response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{virtual-keys-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"message\": \"Unauthorised Request\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7faf9a8c-3d50-46f6-ae12-72d2e12c33c4",
+          "name": "Update a Virtual Key",
+          "request": {
+            "name": "Update a Virtual Key",
+            "description": {},
+            "url": {
+              "path": [
+                "virtual-keys",
+                ":slug"
+              ],
+              "host": [
+                "{{virtual-keys-slug-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"note\": \"<string>\",\n  \"deploymentConfig\": [\n    {\n      \"apiVersion\": \"<string>\",\n      \"deploymentName\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"is_default\": \"<boolean>\"\n    },\n    {\n      \"apiVersion\": \"<string>\",\n      \"deploymentName\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"is_default\": \"<boolean>\"\n    }\n  ],\n  \"usage_limits\": {\n    \"credit_limit\": null,\n    \"type\": \"<string>\",\n    \"alert_threshold\": null,\n    \"periodic_reset\": \"<string>\",\n    \"periodic_reset_days\": \"<integer>\",\n    \"next_usage_reset_at\": \"<dateTime>\"\n  },\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"<string>\",\n      \"secret_reference_id\": \"<string>\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"<string>\",\n      \"secret_reference_id\": \"<string>\",\n      \"secret_key\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "368ed2dc-e80c-4be3-b246-fa31166c2524",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{virtual-keys-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"note\": \"<string>\",\n  \"deploymentConfig\": [\n    {\n      \"apiVersion\": \"<string>\",\n      \"deploymentName\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"is_default\": \"<boolean>\"\n    },\n    {\n      \"apiVersion\": \"<string>\",\n      \"deploymentName\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"is_default\": \"<boolean>\"\n    }\n  ],\n  \"usage_limits\": {\n    \"credit_limit\": 10,\n    \"periodic_reset\": \"monthly\",\n    \"alert_threshold\": 8\n  },\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4bd9d42-ba53-43b3-b2c0-bc8684b0966d",
+              "name": "Unauthorized response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{virtual-keys-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"note\": \"<string>\",\n  \"deploymentConfig\": [\n    {\n      \"apiVersion\": \"<string>\",\n      \"deploymentName\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"is_default\": \"<boolean>\"\n    },\n    {\n      \"apiVersion\": \"<string>\",\n      \"deploymentName\": \"<string>\",\n      \"alias\": \"<string>\",\n      \"is_default\": \"<boolean>\"\n    }\n  ],\n  \"usage_limits\": {\n    \"credit_limit\": 10,\n    \"periodic_reset\": \"monthly\",\n    \"alert_threshold\": 8\n  },\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"message\": \"Unauthorised Request\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "936b0d86-3404-4780-ba09-f015ccee05a5",
+          "name": "Delete a Virtual Key",
+          "request": {
+            "name": "Delete a Virtual Key",
+            "description": {},
+            "url": {
+              "path": [
+                "virtual-keys",
+                ":slug"
+              ],
+              "host": [
+                "{{virtual-keys-slug-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b73ac6e-d264-4025-9f46-3aafb5c2fc56",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{virtual-keys-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b88047cf-dd92-4ffa-93cf-7cc1c1f4f716",
+              "name": "Unauthorized response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "virtual-keys",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{virtual-keys-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": false,\n  \"data\": {\n    \"message\": \"Unauthorised Request\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "virtual-keys-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "virtual-keys-slug-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0f6f9756-e30c-4419-be49-195d47df3e9e",
+    "name": "Portkey Analytics > Graphs Virtual-keys API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Virtual-keys API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Virtual-keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Virtual Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/virtual-keys",
+            "params": [
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query",
+                "description": "Current page, defaults to 0"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Page size, default to 50"
+              }
+            ]
+          },
+          "docs": "List All Virtual Keys"
+        },
+        {
+          "info": {
+            "name": "Create a Virtual Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/virtual-keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Virtual Key"
+        },
+        {
+          "info": {
+            "name": "Get a Virtual Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/virtual-keys/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a Virtual Key"
+        },
+        {
+          "info": {
+            "name": "Update a Virtual Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/virtual-keys/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Virtual Key"
+        },
+        {
+          "info": {
+            "name": "Delete a Virtual Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/virtual-keys/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a Virtual Key"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,295 @@
+{
+  "item": [
+    {
+      "id": "ec9ef3c8-db23-481b-be26-5c66010d8c52",
+      "name": "MCP Servers > User Access",
+      "description": {
+        "content": "List and manage user access for MCP Servers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "26bf7ae1-0e29-4a13-bb40-58225a00821c",
+          "name": "List MCP Server User Access",
+          "request": {
+            "name": "List MCP Server User Access",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-servers",
+                ":mcpServerId",
+                "user-access"
+              ],
+              "host": [
+                "{{mcp-servers-mcpServerId-user-access-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Search by user name or email"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpServerId",
+                  "description": "(Required) MCP Server ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3ed11a6b-0442-4326-a921-fc2a259c8177",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-servers",
+                    ":mcpServerId",
+                    "user-access"
+                  ],
+                  "host": [
+                    "{{mcp-servers-mcpServerId-user-access-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpServerId",
+                      "description": "(Required) MCP Server ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"enabled\": true,\n      \"has_override\": false,\n      \"connection_status\": \"connected\"\n    },\n    {\n      \"user_id\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"enabled\": true,\n      \"has_override\": true,\n      \"connection_status\": \"not_connected\"\n    }\n  ],\n  \"default_user_access\": \"allow\",\n  \"total\": 4109,\n  \"has_more\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "45a86ed7-374b-4f7f-a3c5-c38ab268e48c",
+          "name": "Bulk Update MCP Server User Access",
+          "request": {
+            "name": "Bulk Update MCP Server User Access",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-servers",
+                ":mcpServerId",
+                "user-access"
+              ],
+              "host": [
+                "{{mcp-servers-mcpServerId-user-access-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpServerId",
+                  "description": "(Required) MCP Server ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_access\": [\n    {\n      \"user_id\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    },\n    {\n      \"user_id\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    }\n  ],\n  \"default_user_access\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e081b6a6-848a-4ced-a743-8058fb993061",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-servers",
+                    ":mcpServerId",
+                    "user-access"
+                  ],
+                  "host": [
+                    "{{mcp-servers-mcpServerId-user-access-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpServerId",
+                      "description": "(Required) MCP Server ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_access\": [\n    {\n      \"user_id\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    },\n    {\n      \"user_id\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    }\n  ],\n  \"default_user_access\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "mcp-servers-mcpServerId-user-access-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "13502264-ae08-45b4-98c7-e65f9be1c4b5",
+    "name": "Portkey Analytics > Graphs MCP Servers > User Access API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,728 @@
+{
+  "item": [
+    {
+      "id": "861bc182-8bea-4850-bf56-4d119da1d64a",
+      "name": "Api-Keys",
+      "description": {
+        "content": "Create, List, Retrieve, Update, and Delete your Portkey API keys.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6daa36ea-1b2c-40cc-b6f9-7dba98082e3b",
+          "name": "Create API Keys",
+          "request": {
+            "name": "Create API Keys",
+            "description": {
+              "content": "Creates a new API key.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api-keys",
+                ":type",
+                ":sub-type"
+              ],
+              "host": [
+                "{{api-keys-type-sub-type-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "type",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "sub-type",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"description\": \"<string>\",\n  \"organisation_id\": \"<uuid>\",\n  \"workspace_id\": \"<string>\",\n  \"user_id\": \"<uuid>\",\n  \"rate_limits\": [\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    }\n  ],\n  \"usage_limits\": {\n    \"credit_limit\": null,\n    \"type\": \"<string>\",\n    \"alert_threshold\": null,\n    \"periodic_reset\": \"<string>\",\n    \"periodic_reset_days\": \"<integer>\",\n    \"next_usage_reset_at\": \"<dateTime>\"\n  },\n  \"defaults\": {\n    \"metadata\": {\n      \"key_0\": 4801.28853804422,\n      \"key_1\": \"string\",\n      \"key_2\": 8740.738746524186\n    },\n    \"config_id\": \"<string>\",\n    \"allow_config_override\": true\n  },\n  \"alert_emails\": [\n    \"<email>\",\n    \"<email>\"\n  ],\n  \"expires_at\": \"<dateTime>\",\n  \"rotation_policy\": {\n    \"rotation_period\": \"<string>\",\n    \"next_rotation_at\": \"<dateTime>\",\n    \"key_transition_period_ms\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e75b8111-b65a-4526-9abc-2aaa961390fa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api-keys",
+                    ":type",
+                    ":sub-type"
+                  ],
+                  "host": [
+                    "{{api-keys-type-sub-type-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "sub-type",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"API_KEY_NAME_0909\",\n  \"scopes\": [\n    \"completions.write\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"752e71f9-030d-5080-8717-b4fa4311c4e4\",\n  \"key\": \"abssofjosfjs\",\n  \"object\": \"api-key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ef75923-488b-4e88-a90b-6749488332cb",
+          "name": "Get All",
+          "request": {
+            "name": "Get All",
+            "description": {},
+            "url": {
+              "path": [
+                "api-keys"
+              ],
+              "host": [
+                "{{api-keys-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de228975-0f0c-458e-bbc2-f10d0aec1824",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api-keys"
+                  ],
+                  "host": [
+                    "{{api-keys-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "workspace_id",
+                      "value": "ws-shared-123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 2,\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n      \"key\": \"Xk*******S4\",\n      \"name\": \"Development API Key\",\n      \"description\": \"API key for development environment\",\n      \"type\": \"organisation-service\",\n      \"organisation_id\": \"a1b2c3d4-e5f6-4a5b-8c7d-9e0f1a2b3c4d\",\n      \"workspace_id\": \"ws-myworkspace\",\n      \"user_id\": \"c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f\",\n      \"status\": \"active\",\n      \"created_at\": \"2023-09-15T10:30:00Z\",\n      \"last_updated_at\": \"2023-09-15T10:30:00Z\",\n      \"creation_mode\": \"ui\",\n      \"rate_limits\": [\n        {\n          \"type\": \"requests\",\n          \"unit\": \"rpm\",\n          \"value\": 100\n        },\n        {\n          \"type\": \"requests\",\n          \"unit\": \"rpm\",\n          \"value\": 100\n        }\n      ],\n      \"usage_limits\": {\n        \"credit_limit\": 10,\n        \"periodic_reset\": \"monthly\",\n        \"alert_threshold\": 8\n      },\n      \"reset_usage\": 0,\n      \"scopes\": [\n        \"completions.write\"\n      ],\n      \"defaults\": {\n        \"metadata\": {\n          \"environment\": \"development\",\n          \"team\": \"backend\"\n        },\n        \"config_id\": \"config-abc\"\n      },\n      \"alert_emails\": [\n        \"foo@bar.com\",\n        \"foo@bar.com\"\n      ],\n      \"expires_at\": \"2015-01-23T18:49:56.651Z\",\n      \"object\": \"api-key\"\n    },\n    {\n      \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n      \"key\": \"Xk*******S4\",\n      \"name\": \"Development API Key\",\n      \"description\": \"API key for development environment\",\n      \"type\": \"organisation-service\",\n      \"organisation_id\": \"a1b2c3d4-e5f6-4a5b-8c7d-9e0f1a2b3c4d\",\n      \"workspace_id\": \"ws-myworkspace\",\n      \"user_id\": \"c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f\",\n      \"status\": \"active\",\n      \"created_at\": \"2023-09-15T10:30:00Z\",\n      \"last_updated_at\": \"2023-09-15T10:30:00Z\",\n      \"creation_mode\": \"ui\",\n      \"rate_limits\": [\n        {\n          \"type\": \"requests\",\n          \"unit\": \"rpm\",\n          \"value\": 100\n        },\n        {\n          \"type\": \"requests\",\n          \"unit\": \"rpm\",\n          \"value\": 100\n        }\n      ],\n      \"usage_limits\": {\n        \"credit_limit\": 10,\n        \"periodic_reset\": \"monthly\",\n        \"alert_threshold\": 8\n      },\n      \"reset_usage\": 0,\n      \"scopes\": [\n        \"completions.write\"\n      ],\n      \"defaults\": {\n        \"metadata\": {\n          \"environment\": \"development\",\n          \"team\": \"backend\"\n        },\n        \"config_id\": \"config-abc\"\n      },\n      \"alert_emails\": [\n        \"foo@bar.com\",\n        \"foo@bar.com\"\n      ],\n      \"expires_at\": \"2004-10-20T03:51:22.087Z\",\n      \"object\": \"api-key\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9817b518-d67f-49a1-b1c7-891e73fbf616",
+          "name": "Update API Keys",
+          "request": {
+            "name": "Update API Keys",
+            "description": {
+              "content": "Updates an existing API key. The API key type (user vs service) and associated user_id cannot be changed after creation.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api-keys",
+                ":id"
+              ],
+              "host": [
+                "{{api-keys-id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rate_limits\": [\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    }\n  ],\n  \"usage_limits\": {\n    \"credit_limit\": null,\n    \"type\": \"<string>\",\n    \"alert_threshold\": null,\n    \"periodic_reset\": \"<string>\",\n    \"periodic_reset_days\": \"<integer>\",\n    \"next_usage_reset_at\": \"<dateTime>\"\n  },\n  \"reset_usage\": \"<boolean>\",\n  \"scopes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"defaults\": {\n    \"metadata\": {\n      \"key_0\": 433.9047233553384\n    },\n    \"config_id\": \"<string>\",\n    \"allow_config_override\": true\n  },\n  \"alert_emails\": [\n    \"<email>\",\n    \"<email>\"\n  ],\n  \"expires_at\": \"<dateTime>\",\n  \"rotation_policy\": {\n    \"rotation_period\": \"<string>\",\n    \"next_rotation_at\": \"<dateTime>\",\n    \"key_transition_period_ms\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "10780c82-8767-4327-941c-da632fcec215",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api-keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{api-keys-id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"API_KEY_NAME_0909\",\n  \"rate_limits\": [\n    {\n      \"type\": \"requests\",\n      \"unit\": \"rpm\",\n      \"value\": 100\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a63a8886-c22d-402e-b2a9-d998a7977928",
+          "name": "Get API Keys",
+          "request": {
+            "name": "Get API Keys",
+            "description": {},
+            "url": {
+              "path": [
+                "api-keys",
+                ":id"
+              ],
+              "host": [
+                "{{api-keys-id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a57809fe-dc65-41aa-b606-0f6ddb0464d9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api-keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{api-keys-id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n  \"key\": \"Xk*******S4\",\n  \"name\": \"Development API Key\",\n  \"description\": \"API key for development environment\",\n  \"type\": \"organisation-service\",\n  \"organisation_id\": \"a1b2c3d4-e5f6-4a5b-8c7d-9e0f1a2b3c4d\",\n  \"workspace_id\": \"ws-myworkspace\",\n  \"user_id\": \"c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f\",\n  \"status\": \"active\",\n  \"created_at\": \"2023-09-15T10:30:00Z\",\n  \"last_updated_at\": \"2023-09-15T10:30:00Z\",\n  \"creation_mode\": \"ui\",\n  \"rate_limits\": [\n    {\n      \"type\": \"requests\",\n      \"unit\": \"rpm\",\n      \"value\": 100\n    },\n    {\n      \"type\": \"requests\",\n      \"unit\": \"rpm\",\n      \"value\": 100\n    }\n  ],\n  \"usage_limits\": {\n    \"credit_limit\": 10,\n    \"periodic_reset\": \"monthly\",\n    \"alert_threshold\": 8\n  },\n  \"reset_usage\": 0,\n  \"scopes\": [\n    \"completions.write\"\n  ],\n  \"defaults\": {\n    \"metadata\": {\n      \"environment\": \"development\",\n      \"team\": \"backend\"\n    },\n    \"config_id\": \"config-abc\"\n  },\n  \"alert_emails\": [\n    \"foo@bar.com\",\n    \"foo@bar.com\"\n  ],\n  \"expires_at\": \"2010-12-08T17:41:00.415Z\",\n  \"object\": \"api-key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f46e070e-da5b-4ded-aa13-9cf254d4d09d",
+          "name": "Remove an API Key",
+          "request": {
+            "name": "Remove an API Key",
+            "description": {},
+            "url": {
+              "path": [
+                "api-keys",
+                ":id"
+              ],
+              "host": [
+                "{{api-keys-id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "44355ea2-343f-4f37-a0a4-ca011c283cd7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api-keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{api-keys-id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0f161e6-ac45-4ed4-bf3b-82b0937bd006",
+          "name": "Rotate API Key",
+          "request": {
+            "name": "Rotate API Key",
+            "description": {
+              "content": "Rotates an existing API key and returns a newly generated key value.\nThe previous key remains valid during the transition period and expires at `key_transition_expires_at`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api-keys",
+                ":id",
+                "rotate"
+              ],
+              "host": [
+                "{{api-keys-id-rotate-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_transition_period_ms\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32176168-2959-4416-9aa9-b4e755defabe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api-keys",
+                    ":id",
+                    "rotate"
+                  ],
+                  "host": [
+                    "{{api-keys-id-rotate-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_transition_period_ms\": 3600000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n  \"key\": \"pk_live_new_rotated_key_value\",\n  \"key_transition_expires_at\": \"2026-01-15T10:30:00.000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "api-keys-type-sub-type-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "api-keys-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "api-keys-id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "api-keys-id-rotate-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ba91c518-92ef-4215-b0d1-f8263720c4a9",
+    "name": "Portkey Analytics > Graphs Api-Keys API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

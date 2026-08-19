@@ -1,0 +1,151 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Providers API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Providers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List All Providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/providers",
+            "params": [
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query",
+                "description": "Current page, defaults to 0"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Page size, default to 50"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Not required when using workspace API keys. Required when using organisation admin keys"
+              }
+            ]
+          },
+          "docs": "List All Providers"
+        },
+        {
+          "info": {
+            "name": "Create a Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/providers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Provider"
+        },
+        {
+          "info": {
+            "name": "Get a Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/providers/:slug",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "optional, needed when using organisation admin keys"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "Provider slug"
+              }
+            ]
+          },
+          "docs": "Get a Provider"
+        },
+        {
+          "info": {
+            "name": "Update a Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/providers/:slug",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "optional, needed when using organisation admin keys"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "Provider slug"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Provider"
+        },
+        {
+          "info": {
+            "name": "Delete a Provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/providers/:slug",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "optional, needed when using organisation admin keys"
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "Provider slug"
+              }
+            ]
+          },
+          "docs": "Delete a Provider"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

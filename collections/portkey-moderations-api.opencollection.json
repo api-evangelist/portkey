@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Moderations API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Moderations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Identify potentially harmful content in text and images. **Only** works with [OpenAI's Moderations endpoint](https://platform.openai.com/docs/guides/moderation) currently.\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/moderations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Identify potentially harmful content in text and images. **Only** works with [OpenAI's Moderations endpoint](https://platform.openai.com/docs/guides/moderation) currently.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

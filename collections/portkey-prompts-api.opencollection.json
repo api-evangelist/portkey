@@ -1,0 +1,327 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Prompts API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Prompts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List prompts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/prompts",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List prompts"
+        },
+        {
+          "info": {
+            "name": "Create a new prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/prompts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new prompt"
+        },
+        {
+          "info": {
+            "name": "Get a prompt by ID or slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/prompts/:promptId",
+            "params": [
+              {
+                "name": "promptId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a prompt by ID or slug"
+        },
+        {
+          "info": {
+            "name": "Update a prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/prompts/:promptId",
+            "params": [
+              {
+                "name": "promptId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a prompt's metadata and/or create a new version with updated template content.\n\n**Partial version updates:** Set `patch: true` to perform a partial update of version fields (`string`, `parameters`, `model`, `virtual_key`, `version_description`, `functions`, `tools`, `tool_choice`, `is_raw_template`, `prompt_metadata`). When enabled, any version fields omitted from the request are backfilled from the current latest version, allowing you to update only the fields you need. When `patch` is o"
+        },
+        {
+          "info": {
+            "name": "Delete a prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/prompts/:promptId",
+            "params": [
+              {
+                "name": "promptId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a prompt"
+        },
+        {
+          "info": {
+            "name": "Get all versions of a prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/prompts/:promptId/versions",
+            "params": [
+              {
+                "name": "promptId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all versions of a prompt"
+        },
+        {
+          "info": {
+            "name": "Get a specific version of a prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/prompts/:promptId/versions/:versionId",
+            "params": [
+              {
+                "name": "promptId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific version of a prompt"
+        },
+        {
+          "info": {
+            "name": "Update a specific version of a prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/prompts/:promptId/versions/:versionId",
+            "params": [
+              {
+                "name": "promptId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates metadata for a specific prompt version. **This endpoint only supports updating the `label_id` field.**\n\nPrompt versions are immutable — their `string`, `parameters`, and `model` content cannot be changed after creation. To update prompt content, use `PUT /prompts/{promptId}` which creates a new version with the updated content.\n"
+        },
+        {
+          "info": {
+            "name": "Set a version as the default for a prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/prompts/:promptId/makeDefault",
+            "params": [
+              {
+                "name": "promptId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set a version as the default for a prompt"
+        },
+        {
+          "info": {
+            "name": "Prompts Completions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/prompts/:promptId/completions",
+            "params": [
+              {
+                "name": "promptId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the prompt template to use"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute your saved prompt templates on Portkey\n"
+        },
+        {
+          "info": {
+            "name": "Prompts Render",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/prompts/:promptId/render",
+            "params": [
+              {
+                "name": "promptId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the prompt template to render"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Renders a prompt template with its variable values filled in\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs MCP Integrations > Workspaces API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MCP Integrations > Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List MCP Integration Workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/mcp-integrations/:mcpIntegrationId/workspaces",
+            "params": [
+              {
+                "name": "mcpIntegrationId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Integration ID (UUID) or slug"
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "When set, response uses data/total shape instead of workspaces"
+              }
+            ]
+          },
+          "docs": "List MCP Integration Workspaces"
+        },
+        {
+          "info": {
+            "name": "Bulk Update MCP Integration Workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/mcp-integrations/:mcpIntegrationId/workspaces",
+            "params": [
+              {
+                "name": "mcpIntegrationId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Integration ID (UUID) or slug"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk Update MCP Integration Workspaces"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

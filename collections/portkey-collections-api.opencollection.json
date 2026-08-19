@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Collections API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/collections",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "ID or slug of the workspace"
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (0-indexed)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search query to filter collections by name"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Lists all collections in the specified workspace"
+        },
+        {
+          "info": {
+            "name": "Create a new collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/collections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new collection in the specified workspace"
+        },
+        {
+          "info": {
+            "name": "Get collection details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/collections/:collectionId",
+            "params": [
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID or slug of the collection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves details of a specific collection"
+        },
+        {
+          "info": {
+            "name": "Update collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/collections/:collectionId",
+            "params": [
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID or slug of the collection"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a collection's details"
+        },
+        {
+          "info": {
+            "name": "Delete collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/collections/:collectionId",
+            "params": [
+              {
+                "name": "collectionId",
+                "value": "",
+                "type": "path",
+                "description": "ID or slug of the collection"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes a collection"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

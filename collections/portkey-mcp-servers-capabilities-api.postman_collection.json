@@ -1,0 +1,294 @@
+{
+  "item": [
+    {
+      "id": "88fb84a4-0d5e-4c6b-9eb2-cee5e0fd47ff",
+      "name": "MCP Servers > Capabilities",
+      "description": {
+        "content": "List and manage capabilities for MCP Servers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e097da54-1a51-4ce4-99e3-6850e8c13563",
+          "name": "List MCP Server Capabilities",
+          "request": {
+            "name": "List MCP Server Capabilities",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-servers",
+                ":mcpServerId",
+                "capabilities"
+              ],
+              "host": [
+                "{{mcp-servers-mcpServerId-capabilities-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpServerId",
+                  "description": "(Required) MCP Server ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c95d4103-5795-4be0-b3bd-c72e256419fe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-servers",
+                    ":mcpServerId",
+                    "capabilities"
+                  ],
+                  "host": [
+                    "{{mcp-servers-mcpServerId-capabilities-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpServerId",
+                      "description": "(Required) MCP Server ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"string\",\n      \"type\": \"tool\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"enabled\": false,\n      \"integration_enabled\": true,\n      \"input_schema\": {},\n      \"output_schema\": {},\n      \"execution\": {},\n      \"annotations\": {},\n      \"uri\": \"string\",\n      \"uri_template\": \"string\",\n      \"mime_type\": \"string\",\n      \"size\": 9164.05684705487\n    },\n    {\n      \"name\": \"string\",\n      \"type\": \"resource\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"enabled\": true,\n      \"integration_enabled\": true,\n      \"input_schema\": {},\n      \"output_schema\": {},\n      \"execution\": {},\n      \"annotations\": {},\n      \"uri\": \"string\",\n      \"uri_template\": \"string\",\n      \"mime_type\": \"string\",\n      \"size\": 9997.909393418473\n    }\n  ],\n  \"counts\": {\n    \"tools\": {\n      \"total\": 9593,\n      \"enabled\": 5013\n    },\n    \"prompts\": {\n      \"total\": 9630,\n      \"enabled\": 7205\n    },\n    \"resources\": {\n      \"total\": 3547,\n      \"enabled\": 9126\n    },\n    \"resource_templates\": {\n      \"total\": 4884,\n      \"enabled\": 9250\n    }\n  },\n  \"total\": 5175,\n  \"has_more\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58787b1d-259a-4d56-8b8f-b0a3dc5aec61",
+          "name": "Bulk Update MCP Server Capabilities",
+          "request": {
+            "name": "Bulk Update MCP Server Capabilities",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-servers",
+                ":mcpServerId",
+                "capabilities"
+              ],
+              "host": [
+                "{{mcp-servers-mcpServerId-capabilities-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpServerId",
+                  "description": "(Required) MCP Server ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"capabilities\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c2cd3254-f353-45cb-b0e8-a163c27c4e3f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-servers",
+                    ":mcpServerId",
+                    "capabilities"
+                  ],
+                  "host": [
+                    "{{mcp-servers-mcpServerId-capabilities-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpServerId",
+                      "description": "(Required) MCP Server ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"capabilities\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "mcp-servers-mcpServerId-capabilities-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "95bbb09d-9feb-486f-9507-2600175f54d3",
+    "name": "Portkey Analytics > Graphs MCP Servers > Capabilities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

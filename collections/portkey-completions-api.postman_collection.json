@@ -1,0 +1,166 @@
+{
+  "item": [
+    {
+      "id": "0561222e-822d-496e-8e51-80bc755a7f77",
+      "name": "Completions",
+      "description": {
+        "content": "Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of alternative tokens at each position.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b14b83c9-d1e8-48fa-9848-ee119526b8b8",
+          "name": "Completions",
+          "request": {
+            "name": "Completions",
+            "description": {},
+            "url": {
+              "path": [
+                "completions"
+              ],
+              "host": [
+                "{{completions-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"\",\n  \"best_of\": 1,\n  \"echo\": false,\n  \"frequency_penalty\": 0,\n  \"logit_bias\": null,\n  \"logprobs\": null,\n  \"max_tokens\": 16,\n  \"n\": 1,\n  \"presence_penalty\": 0,\n  \"seed\": \"<integer>\",\n  \"stop\": \"<|endoftext|>\",\n  \"stream\": false,\n  \"stream_options\": null,\n  \"suffix\": null,\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"user\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "88954712-e752-454a-a6d0-d31262e417a2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "completions"
+                  ],
+                  "host": [
+                    "{{completions-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"This is a test.\",\n  \"best_of\": 1,\n  \"echo\": false,\n  \"frequency_penalty\": 0,\n  \"logit_bias\": null,\n  \"logprobs\": null,\n  \"max_tokens\": 16,\n  \"n\": 1,\n  \"presence_penalty\": 0,\n  \"seed\": \"<integer>\",\n  \"stop\": \"\\n\",\n  \"stream\": false,\n  \"stream_options\": null,\n  \"suffix\": \"test.\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"user\": \"user-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"text_completion\",\n  \"created\": 5724,\n  \"model\": \"string\",\n  \"choices\": [\n    {\n      \"finish_reason\": \"length\",\n      \"index\": 3524,\n      \"logprobs\": {\n        \"text_offset\": [\n          3969,\n          8142\n        ],\n        \"token_logprobs\": [\n          267.74136218380096,\n          836.0275584585131\n        ],\n        \"tokens\": [\n          \"string\",\n          \"string\"\n        ],\n        \"top_logprobs\": [\n          {\n            \"key_0\": 6779.274233636885\n          },\n          {\n            \"key_0\": 1361.5403338114463,\n            \"key_1\": 5276.077036987705\n          }\n        ]\n      },\n      \"text\": \"string\"\n    },\n    {\n      \"finish_reason\": \"length\",\n      \"index\": 8818,\n      \"logprobs\": {\n        \"text_offset\": [\n          7217,\n          3559\n        ],\n        \"token_logprobs\": [\n          8555.084022455494,\n          3940.4000365020875\n        ],\n        \"tokens\": [\n          \"string\",\n          \"string\"\n        ],\n        \"top_logprobs\": [\n          {\n            \"key_0\": 9620.952004762334\n          },\n          {\n            \"key_0\": 2264.2795075853815,\n            \"key_1\": 3200.342327383211,\n            \"key_2\": 7705.042071647562,\n            \"key_3\": 3116.7859286236853\n          }\n        ]\n      },\n      \"text\": \"string\"\n    }\n  ],\n  \"system_fingerprint\": \"string\",\n  \"usage\": {\n    \"prompt_tokens\": 4299,\n    \"completion_tokens\": 291,\n    \"total_tokens\": 434,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 8167,\n      \"accepted_prediction_tokens\": 5568,\n      \"rejected_prediction_tokens\": 6703\n    },\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 4116\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "completions-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5380fc24-165b-4d49-8746-7cd85b4ce15c",
+    "name": "Portkey Analytics > Graphs Completions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

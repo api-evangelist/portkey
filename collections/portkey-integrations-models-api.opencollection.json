@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Integrations > Models API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integrations > Models",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List integration models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/integrations/:slug/models",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves all model access for a specific integration with their configuration and pricing details."
+        },
+        {
+          "info": {
+            "name": "Bulk update integration models",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/integrations/:slug/models",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates model access, pricing configuration, and settings for multiple models in an integration.\nCan enable/disable models and configure custom pricing.\n"
+        },
+        {
+          "info": {
+            "name": "Bulk delete integration custom models",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/integrations/:slug/models",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "slugs",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of model slugs to delete"
+              }
+            ]
+          },
+          "docs": "Removes multiple custom models from an integration by their slugs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

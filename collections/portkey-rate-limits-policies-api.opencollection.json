@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Rate Limits Policies API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rate Limits Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Rate Limits Policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/policies/rate-limits",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Workspace ID or slug"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by policy type"
+              },
+              {
+                "name": "unit",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rate unit"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query",
+                "description": "Current page number"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all rate limits policies with optional filtering."
+        },
+        {
+          "info": {
+            "name": "Create Rate Limits Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/policies/rate-limits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new rate limits policy to control the rate of requests or tokens consumed per minute, hour, or day."
+        },
+        {
+          "info": {
+            "name": "Get Rate Limits Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/policies/rate-limits/:rateLimitsPolicyId",
+            "params": [
+              {
+                "name": "rateLimitsPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "Rate limits policy UUID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single rate limits policy by ID."
+        },
+        {
+          "info": {
+            "name": "Update Rate Limits Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/policies/rate-limits/:rateLimitsPolicyId",
+            "params": [
+              {
+                "name": "rateLimitsPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "Rate limits policy UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an existing rate limits policy."
+        },
+        {
+          "info": {
+            "name": "Delete Rate Limits Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/policies/rate-limits/:rateLimitsPolicyId",
+            "params": [
+              {
+                "name": "rateLimitsPolicyId",
+                "value": "",
+                "type": "path",
+                "description": "Rate limits policy UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a rate limits policy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

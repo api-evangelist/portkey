@@ -1,0 +1,166 @@
+{
+  "item": [
+    {
+      "id": "58282f34-97c7-4c82-a3eb-67d760168124",
+      "name": "Moderations",
+      "description": {
+        "content": "Given a input text, outputs if the model classifies it as potentially harmful.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a080e93-5cdb-43bc-a3a1-76424e2e1950",
+          "name": "Identify potentially harmful content in text and images. **Only** works with [OpenAI's Moderations endpoint](https://platform.openai.com/docs/guides/moderation) currently.\n",
+          "request": {
+            "name": "Identify potentially harmful content in text and images. **Only** works with [OpenAI's Moderations endpoint](https://platform.openai.com/docs/guides/moderation) currently.\n",
+            "description": {},
+            "url": {
+              "path": [
+                "moderations"
+              ],
+              "host": [
+                "{{moderations-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"\",\n  \"model\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "12f864c7-9a97-45da-ae11-2690afdf533a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "moderations"
+                  ],
+                  "host": [
+                    "{{moderations-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"I want to kill them.\",\n  \"model\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"model\": \"string\",\n  \"results\": [\n    {\n      \"flagged\": false,\n      \"categories\": {\n        \"hate\": false,\n        \"hate/threatening\": false,\n        \"harassment\": true,\n        \"harassment/threatening\": true,\n        \"self-harm\": false,\n        \"self-harm/intent\": true,\n        \"self-harm/instructions\": false,\n        \"sexual\": true,\n        \"sexual/minors\": false,\n        \"violence\": false,\n        \"violence/graphic\": true\n      },\n      \"category_scores\": {\n        \"hate\": 4148.098276302588,\n        \"hate/threatening\": 5613.049479618793,\n        \"harassment\": 6312.403780758211,\n        \"harassment/threatening\": 5353.745989152238,\n        \"self-harm\": 820.7658529727735,\n        \"self-harm/intent\": 5621.407780088216,\n        \"self-harm/instructions\": 8875.617659164885,\n        \"sexual\": 868.9683173759965,\n        \"sexual/minors\": 6598.4265172848645,\n        \"violence\": 7351.8811507962055,\n        \"violence/graphic\": 1375.328949614487\n      }\n    },\n    {\n      \"flagged\": false,\n      \"categories\": {\n        \"hate\": false,\n        \"hate/threatening\": true,\n        \"harassment\": false,\n        \"harassment/threatening\": true,\n        \"self-harm\": true,\n        \"self-harm/intent\": true,\n        \"self-harm/instructions\": false,\n        \"sexual\": false,\n        \"sexual/minors\": false,\n        \"violence\": false,\n        \"violence/graphic\": true\n      },\n      \"category_scores\": {\n        \"hate\": 805.1163165732689,\n        \"hate/threatening\": 8424.02154373205,\n        \"harassment\": 2179.952856415046,\n        \"harassment/threatening\": 5546.172000507717,\n        \"self-harm\": 5237.262507228079,\n        \"self-harm/intent\": 4580.81467428444,\n        \"self-harm/instructions\": 4449.965029025641,\n        \"sexual\": 4750.85703737037,\n        \"sexual/minors\": 1925.283420536762,\n        \"violence\": 4065.8208977573017,\n        \"violence/graphic\": 2541.771570450682\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "moderations-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c64274fc-6089-45c3-83ca-098667bfab3d",
+    "name": "Portkey Analytics > Graphs Moderations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

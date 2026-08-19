@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Chat API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Chat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/chat/completions",
+            "headers": [
+              {
+                "name": "x-portkey-trace-id",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-span-id",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-parent-span-id",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-span-name",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-metadata",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-cache-namespace",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-cache-force-refresh",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Chat"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

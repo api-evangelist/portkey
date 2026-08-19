@@ -1,0 +1,252 @@
+{
+  "item": [
+    {
+      "id": "1b9bba24-f884-448e-aa08-417e598db67a",
+      "name": "Chat",
+      "description": {
+        "content": "Given a list of messages comprising a conversation, the model will return a response.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0d2f34ff-4ae7-4aa9-996b-28bf52b31143",
+          "name": "Chat",
+          "request": {
+            "name": "Chat",
+            "description": {},
+            "url": {
+              "path": [
+                "chat",
+                "completions"
+              ],
+              "host": [
+                "{{chat-completions-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)",
+                "key": "x-portkey-trace-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An ID you can pass to refer to a span under a trace.",
+                "key": "x-portkey-span-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Link a child span to a parent span",
+                "key": "x-portkey-parent-span-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Name for the Span ID",
+                "key": "x-portkey-span-name",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Pass any arbitrary metadata along with your request",
+                "key": "x-portkey-metadata",
+                "value": "<object>"
+              },
+              {
+                "disabled": false,
+                "description": "Partition your Portkey cache store based on custom strings, ignoring metadata and other headers",
+                "key": "x-portkey-cache-namespace",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Forces a cache refresh for your request by making a new API call and storing the updated value",
+                "key": "x-portkey-cache-force-refresh",
+                "value": "<boolean>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"frequency_penalty\": 0,\n  \"logit_bias\": null,\n  \"logprobs\": false,\n  \"top_logprobs\": \"<integer>\",\n  \"max_tokens\": \"<integer>\",\n  \"max_completion_tokens\": \"<integer>\",\n  \"n\": 1,\n  \"presence_penalty\": 0,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"seed\": \"<integer>\",\n  \"stop\": \"<string>\",\n  \"stream\": false,\n  \"stream_options\": null,\n  \"thinking\": {\n    \"type\": \"disabled\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 9937.421655325254\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": true\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"user\": \"<string>\",\n  \"function_call\": \"<string>\",\n  \"functions\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": false\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7eddc04e-136a-4a0c-a7b9-b942c5eca2bd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{chat-completions-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)",
+                    "key": "x-portkey-trace-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An ID you can pass to refer to a span under a trace.",
+                    "key": "x-portkey-span-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Link a child span to a parent span",
+                    "key": "x-portkey-parent-span-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Name for the Span ID",
+                    "key": "x-portkey-span-name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Pass any arbitrary metadata along with your request",
+                    "key": "x-portkey-metadata",
+                    "value": "<object>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partition your Portkey cache store based on custom strings, ignoring metadata and other headers",
+                    "key": "x-portkey-cache-namespace",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Forces a cache refresh for your request by making a new API call and storing the updated value",
+                    "key": "x-portkey-cache-force-refresh",
+                    "value": "<boolean>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"content\": \"<string>\",\n      \"role\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"frequency_penalty\": 0,\n  \"logit_bias\": null,\n  \"logprobs\": false,\n  \"top_logprobs\": \"<integer>\",\n  \"max_tokens\": \"<integer>\",\n  \"max_completion_tokens\": \"<integer>\",\n  \"n\": 1,\n  \"presence_penalty\": 0,\n  \"response_format\": {\n    \"type\": \"<string>\"\n  },\n  \"seed\": \"<integer>\",\n  \"stop\": \"<string>\",\n  \"stream\": false,\n  \"stream_options\": null,\n  \"thinking\": {\n    \"type\": \"enabled\",\n    \"budget_tokens\": 2030\n  },\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": false\n        },\n        \"strict\": false\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"description\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 3485,\n          \"key_1\": false,\n          \"key_2\": 426,\n          \"key_3\": false\n        },\n        \"strict\": false\n      }\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"user\": \"user-1234\",\n  \"function_call\": \"<string>\",\n  \"functions\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"choices\": [\n    {\n      \"finish_reason\": \"content_filter\",\n      \"index\": 5419,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"string\",\n        \"tool_calls\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"function\",\n            \"function\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"arguments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"function\",\n            \"function\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"arguments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ],\n        \"function_call\": {\n          \"name\": \"string\",\n          \"arguments\": \"string\"\n        },\n        \"content_blocks\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"text\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"text\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"logprobs\": {\n        \"content\": [\n          {\n            \"token\": \"string\",\n            \"logprob\": 8223.02064554657,\n            \"bytes\": [\n              4079,\n              7409\n            ],\n            \"top_logprobs\": [\n              {\n                \"token\": \"string\",\n                \"logprob\": 7573.700873726141,\n                \"bytes\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              },\n              {\n                \"token\": \"string\",\n                \"logprob\": 9023.18285404229,\n                \"bytes\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              }\n            ]\n          },\n          {\n            \"token\": \"string\",\n            \"logprob\": 701.420281188625,\n            \"bytes\": [\n              852,\n              1039\n            ],\n            \"top_logprobs\": [\n              {\n                \"token\": \"string\",\n                \"logprob\": 4273.832379203284,\n                \"bytes\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              },\n              {\n                \"token\": \"string\",\n                \"logprob\": 4643.379554009271,\n                \"bytes\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              }\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"finish_reason\": \"content_filter\",\n      \"index\": 1582,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"string\",\n        \"tool_calls\": [\n          {\n            \"id\": \"string\",\n            \"type\": \"function\",\n            \"function\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"arguments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          },\n          {\n            \"id\": \"string\",\n            \"type\": \"function\",\n            \"function\": {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"arguments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          }\n        ],\n        \"function_call\": {\n          \"name\": \"string\",\n          \"arguments\": \"string\"\n        },\n        \"content_blocks\": [\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"text\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"text\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"logprobs\": {\n        \"content\": [\n          {\n            \"token\": \"string\",\n            \"logprob\": 9738.699054162958,\n            \"bytes\": [\n              3903,\n              6394\n            ],\n            \"top_logprobs\": [\n              {\n                \"token\": \"string\",\n                \"logprob\": 8183.854831106853,\n                \"bytes\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              },\n              {\n                \"token\": \"string\",\n                \"logprob\": 8989.488512646747,\n                \"bytes\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              }\n            ]\n          },\n          {\n            \"token\": \"string\",\n            \"logprob\": 8836.639173518002,\n            \"bytes\": [\n              7273,\n              9115\n            ],\n            \"top_logprobs\": [\n              {\n                \"token\": \"string\",\n                \"logprob\": 5073.470034753529,\n                \"bytes\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              },\n              {\n                \"token\": \"string\",\n                \"logprob\": 7109.016521021743,\n                \"bytes\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ]\n              }\n            ]\n          }\n        ]\n      }\n    }\n  ],\n  \"created\": 4513,\n  \"id\": \"string\",\n  \"model\": \"string\",\n  \"object\": \"chat.completion\",\n  \"system_fingerprint\": \"string\",\n  \"usage\": {\n    \"prompt_tokens\": 7561,\n    \"completion_tokens\": 5601,\n    \"total_tokens\": 1149,\n    \"completion_tokens_details\": {\n      \"reasoning_tokens\": 2360,\n      \"accepted_prediction_tokens\": 8528,\n      \"rejected_prediction_tokens\": 2597\n    },\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": 3751\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "chat-completions-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "905634fe-b09e-4083-9632-1898fb50481e",
+    "name": "Portkey Analytics > Graphs Chat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

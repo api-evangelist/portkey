@@ -1,0 +1,683 @@
+{
+  "item": [
+    {
+      "id": "83a79b3f-a664-4a3c-b0d3-e12b5a61555a",
+      "name": "Fine-tuning",
+      "description": {
+        "content": "Manage fine-tuning jobs to tailor a model to your specific training data.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "856576da-b2ba-4914-afe3-b871749c5b1a",
+          "name": "List your organization's fine-tuning jobs\n",
+          "request": {
+            "name": "List your organization's fine-tuning jobs\n",
+            "description": {},
+            "url": {
+              "path": [
+                "fine_tuning",
+                "jobs"
+              ],
+              "host": [
+                "{{fine_tuning-jobs-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Identifier for the last job from the previous pagination request."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of fine-tuning jobs to retrieve."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f511e67a-479f-40e2-adb4-5f4256748f7e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fine_tuning",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{fine_tuning-jobs-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"created_at\": 8311,\n      \"error\": {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"param\": \"string\"\n      },\n      \"finished_at\": 517,\n      \"fine_tuned_model\": \"string\",\n      \"hyperparameters\": {\n        \"n_epochs\": \"auto\"\n      },\n      \"id\": \"string\",\n      \"model\": \"string\",\n      \"object\": \"fine_tuning.job\",\n      \"organization_id\": \"string\",\n      \"result_files\": [\n        \"file-abc123\",\n        \"file-abc123\"\n      ],\n      \"status\": \"queued\",\n      \"trained_tokens\": 5884,\n      \"training_file\": \"string\",\n      \"validation_file\": \"string\",\n      \"seed\": 5148,\n      \"integrations\": [\n        {\n          \"type\": \"wandb\",\n          \"wandb\": {\n            \"project\": \"my-wandb-project\",\n            \"name\": \"string\",\n            \"entity\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        {\n          \"type\": \"wandb\",\n          \"wandb\": {\n            \"project\": \"my-wandb-project\",\n            \"name\": \"string\",\n            \"entity\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      ],\n      \"estimated_finish\": 940\n    },\n    {\n      \"created_at\": 1597,\n      \"error\": {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"param\": \"string\"\n      },\n      \"finished_at\": 5613,\n      \"fine_tuned_model\": \"string\",\n      \"hyperparameters\": {\n        \"n_epochs\": \"auto\"\n      },\n      \"id\": \"string\",\n      \"model\": \"string\",\n      \"object\": \"fine_tuning.job\",\n      \"organization_id\": \"string\",\n      \"result_files\": [\n        \"file-abc123\",\n        \"file-abc123\"\n      ],\n      \"status\": \"cancelled\",\n      \"trained_tokens\": 5054,\n      \"training_file\": \"string\",\n      \"validation_file\": \"string\",\n      \"seed\": 7487,\n      \"integrations\": [\n        {\n          \"type\": \"wandb\",\n          \"wandb\": {\n            \"project\": \"my-wandb-project\",\n            \"name\": \"string\",\n            \"entity\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        },\n        {\n          \"type\": \"wandb\",\n          \"wandb\": {\n            \"project\": \"my-wandb-project\",\n            \"name\": \"string\",\n            \"entity\": \"string\",\n            \"tags\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      ],\n      \"estimated_finish\": 9843\n    }\n  ],\n  \"has_more\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f59c6c9a-c91f-403e-a8e3-e6435edad270",
+          "name": "Get info about a fine-tuning job.\n\n[Learn more about fine-tuning](https://platform.openai.com/docs/guides/fine-tuning)\n",
+          "request": {
+            "name": "Get info about a fine-tuning job.\n\n[Learn more about fine-tuning](https://platform.openai.com/docs/guides/fine-tuning)\n",
+            "description": {},
+            "url": {
+              "path": [
+                "fine_tuning",
+                "jobs",
+                ":fine_tuning_job_id"
+              ],
+              "host": [
+                "{{fine_tuning-jobs-fine_tuning_job_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fine_tuning_job_id",
+                  "description": "(Required) The ID of the fine-tuning job.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bd1f2c8a-11ef-48a1-84fc-dc63f097f063",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fine_tuning",
+                    "jobs",
+                    ":fine_tuning_job_id"
+                  ],
+                  "host": [
+                    "{{fine_tuning-jobs-fine_tuning_job_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fine_tuning_job_id",
+                      "description": "(Required) The ID of the fine-tuning job.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": 6433,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\"\n  },\n  \"finished_at\": 1310,\n  \"fine_tuned_model\": \"string\",\n  \"hyperparameters\": {\n    \"n_epochs\": \"auto\"\n  },\n  \"id\": \"string\",\n  \"model\": \"string\",\n  \"object\": \"fine_tuning.job\",\n  \"organization_id\": \"string\",\n  \"result_files\": [\n    \"file-abc123\",\n    \"file-abc123\"\n  ],\n  \"status\": \"running\",\n  \"trained_tokens\": 3171,\n  \"training_file\": \"string\",\n  \"validation_file\": \"string\",\n  \"seed\": 5672,\n  \"integrations\": [\n    {\n      \"type\": \"wandb\",\n      \"wandb\": {\n        \"project\": \"my-wandb-project\",\n        \"name\": \"string\",\n        \"entity\": \"string\",\n        \"tags\": [\n          \"custom-tag\",\n          \"custom-tag\"\n        ]\n      }\n    },\n    {\n      \"type\": \"wandb\",\n      \"wandb\": {\n        \"project\": \"my-wandb-project\",\n        \"name\": \"string\",\n        \"entity\": \"string\",\n        \"tags\": [\n          \"custom-tag\",\n          \"custom-tag\"\n        ]\n      }\n    }\n  ],\n  \"estimated_finish\": 74\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "597fbf11-ee88-4e79-a492-750e8923faed",
+          "name": "Get status updates for a fine-tuning job.\n",
+          "request": {
+            "name": "Get status updates for a fine-tuning job.\n",
+            "description": {},
+            "url": {
+              "path": [
+                "fine_tuning",
+                "jobs",
+                ":fine_tuning_job_id",
+                "events"
+              ],
+              "host": [
+                "{{fine_tuning-jobs-fine_tuning_job_id-events-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Identifier for the last event from the previous pagination request."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of events to retrieve."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fine_tuning_job_id",
+                  "description": "(Required) The ID of the fine-tuning job to get events for.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c55f9b3b-0650-4efd-baa5-5f5aa02acc54",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fine_tuning",
+                    "jobs",
+                    ":fine_tuning_job_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{fine_tuning-jobs-fine_tuning_job_id-events-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fine_tuning_job_id",
+                      "description": "(Required) The ID of the fine-tuning job to get events for.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"fine_tuning.job.event\",\n      \"created_at\": 3713,\n      \"level\": \"error\",\n      \"message\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"fine_tuning.job.event\",\n      \"created_at\": 8254,\n      \"level\": \"info\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e0e522d-c43e-45b7-8f44-8de6d71812b1",
+          "name": "Immediately cancel a fine-tune job.\n",
+          "request": {
+            "name": "Immediately cancel a fine-tune job.\n",
+            "description": {},
+            "url": {
+              "path": [
+                "fine_tuning",
+                "jobs",
+                ":fine_tuning_job_id",
+                "cancel"
+              ],
+              "host": [
+                "{{fine_tuning-jobs-fine_tuning_job_id-cancel-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fine_tuning_job_id",
+                  "description": "(Required) The ID of the fine-tuning job to cancel.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ea5b63a2-da8d-414f-9dae-d6fd841816e1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fine_tuning",
+                    "jobs",
+                    ":fine_tuning_job_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{fine_tuning-jobs-fine_tuning_job_id-cancel-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fine_tuning_job_id",
+                      "description": "(Required) The ID of the fine-tuning job to cancel.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_at\": 6433,\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\"\n  },\n  \"finished_at\": 1310,\n  \"fine_tuned_model\": \"string\",\n  \"hyperparameters\": {\n    \"n_epochs\": \"auto\"\n  },\n  \"id\": \"string\",\n  \"model\": \"string\",\n  \"object\": \"fine_tuning.job\",\n  \"organization_id\": \"string\",\n  \"result_files\": [\n    \"file-abc123\",\n    \"file-abc123\"\n  ],\n  \"status\": \"running\",\n  \"trained_tokens\": 3171,\n  \"training_file\": \"string\",\n  \"validation_file\": \"string\",\n  \"seed\": 5672,\n  \"integrations\": [\n    {\n      \"type\": \"wandb\",\n      \"wandb\": {\n        \"project\": \"my-wandb-project\",\n        \"name\": \"string\",\n        \"entity\": \"string\",\n        \"tags\": [\n          \"custom-tag\",\n          \"custom-tag\"\n        ]\n      }\n    },\n    {\n      \"type\": \"wandb\",\n      \"wandb\": {\n        \"project\": \"my-wandb-project\",\n        \"name\": \"string\",\n        \"entity\": \"string\",\n        \"tags\": [\n          \"custom-tag\",\n          \"custom-tag\"\n        ]\n      }\n    }\n  ],\n  \"estimated_finish\": 74\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb6befab-cc6a-4548-bcce-9df67ddcff9e",
+          "name": "List checkpoints for a fine-tuning job.\n",
+          "request": {
+            "name": "List checkpoints for a fine-tuning job.\n",
+            "description": {},
+            "url": {
+              "path": [
+                "fine_tuning",
+                "jobs",
+                ":fine_tuning_job_id",
+                "checkpoints"
+              ],
+              "host": [
+                "{{fine_tuning-jobs-fine_tuning_job_id-checkpoints-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "Identifier for the last checkpoint ID from the previous pagination request."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Number of checkpoints to retrieve."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fine_tuning_job_id",
+                  "description": "(Required) The ID of the fine-tuning job to get checkpoints for.\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f342f46b-a64d-424c-a938-aceb799b4087",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fine_tuning",
+                    "jobs",
+                    ":fine_tuning_job_id",
+                    "checkpoints"
+                  ],
+                  "host": [
+                    "{{fine_tuning-jobs-fine_tuning_job_id-checkpoints-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fine_tuning_job_id",
+                      "description": "(Required) The ID of the fine-tuning job to get checkpoints for.\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"created_at\": 2406,\n      \"fine_tuning_job_id\": \"string\",\n      \"fine_tuned_model_checkpoint\": \"string\",\n      \"id\": \"string\",\n      \"metrics\": {\n        \"step\": 1555.55969771485,\n        \"train_loss\": 8035.308851608539,\n        \"train_mean_token_accuracy\": 2029.3770526030773,\n        \"valid_loss\": 3078.04678652383,\n        \"valid_mean_token_accuracy\": 7201.484515370316,\n        \"full_valid_loss\": 8151.334558815344,\n        \"full_valid_mean_token_accuracy\": 1521.9952771005062\n      },\n      \"object\": \"fine_tuning.job.checkpoint\",\n      \"step_number\": 9444\n    },\n    {\n      \"created_at\": 6953,\n      \"fine_tuning_job_id\": \"string\",\n      \"fine_tuned_model_checkpoint\": \"string\",\n      \"id\": \"string\",\n      \"metrics\": {\n        \"step\": 7799.719803137991,\n        \"train_loss\": 1854.9086587263307,\n        \"train_mean_token_accuracy\": 9178.794879730738,\n        \"valid_loss\": 316.3733621027165,\n        \"valid_mean_token_accuracy\": 7823.170207157709,\n        \"full_valid_loss\": 6108.048254998123,\n        \"full_valid_mean_token_accuracy\": 2012.9594780132154\n      },\n      \"object\": \"fine_tuning.job.checkpoint\",\n      \"step_number\": 6336\n    }\n  ],\n  \"has_more\": false,\n  \"first_id\": \"string\",\n  \"last_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "fine_tuning-jobs-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "fine_tuning-jobs-fine_tuning_job_id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "fine_tuning-jobs-fine_tuning_job_id-events-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "fine_tuning-jobs-fine_tuning_job_id-cancel-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "fine_tuning-jobs-fine_tuning_job_id-checkpoints-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bc1d46c8-74f1-4bd7-a738-3693d4548393",
+    "name": "Portkey Analytics > Graphs Fine-tuning API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

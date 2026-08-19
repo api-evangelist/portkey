@@ -1,0 +1,3133 @@
+{
+  "item": [
+    {
+      "id": "171caaed-65d6-420e-b7a5-405492d04cff",
+      "name": "Assistants",
+      "description": {
+        "content": "Build Assistants that can call models and use tools.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3036e529-f6a6-451a-a36d-d52e0d510c9b",
+          "name": "Returns a list of assistants.",
+          "request": {
+            "name": "Returns a list of assistants.",
+            "description": {},
+            "url": {
+              "path": [
+                "assistants"
+              ],
+              "host": [
+                "{{assistants-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "654b35d2-20a9-42e9-b8c1-b652a5252f69",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistants"
+                  ],
+                  "host": [
+                    "{{assistants-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"assistant\",\n      \"created_at\": 8712,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"model\": \"string\",\n      \"instructions\": \"string\",\n      \"metadata\": {},\n      \"tool_resources\": {\n        \"code_interpreter\": {},\n        \"file_search\": {\n          \"vector_store_ids\": [\n            \"string\"\n          ]\n        }\n      },\n      \"temperature\": 1,\n      \"top_p\": 1,\n      \"response_format\": \"none\"\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"assistant\",\n      \"created_at\": 6734,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"model\": \"string\",\n      \"instructions\": \"string\",\n      \"metadata\": {},\n      \"tool_resources\": {\n        \"code_interpreter\": {},\n        \"file_search\": {\n          \"vector_store_ids\": [\n            \"string\"\n          ]\n        }\n      },\n      \"temperature\": 1,\n      \"top_p\": 1,\n      \"response_format\": \"auto\"\n    }\n  ],\n  \"first_id\": \"asst_abc123\",\n  \"last_id\": \"asst_abc456\",\n  \"has_more\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b625fd6-ab8b-470f-a52d-fc827743d18e",
+          "name": "Create an assistant with a model and instructions.",
+          "request": {
+            "name": "Create an assistant with a model and instructions.",
+            "description": {},
+            "url": {
+              "path": [
+                "assistants"
+              ],
+              "host": [
+                "{{assistants-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {}\n  },\n  \"metadata\": \"<object>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"response_format\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "51737d39-ef90-4491-9c7a-e6c9baac3e38",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistants"
+                  ],
+                  "host": [
+                    "{{assistants-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {}\n  },\n  \"metadata\": \"<object>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"response_format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"assistant\",\n  \"created_at\": 4764,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"model\": \"string\",\n  \"instructions\": \"string\",\n  \"tools\": [],\n  \"metadata\": {},\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"string\"\n      ]\n    }\n  },\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"response_format\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c8a2459-b7ed-4847-ac24-929d9f2757ba",
+          "name": "Retrieves an assistant.",
+          "request": {
+            "name": "Retrieves an assistant.",
+            "description": {},
+            "url": {
+              "path": [
+                "assistants",
+                ":assistant_id"
+              ],
+              "host": [
+                "{{assistants-assistant_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "assistant_id",
+                  "description": "(Required) The ID of the assistant to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a0c85d2e-965c-4e05-99a9-8229d020dfe6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistants",
+                    ":assistant_id"
+                  ],
+                  "host": [
+                    "{{assistants-assistant_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "assistant_id",
+                      "description": "(Required) The ID of the assistant to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"assistant\",\n  \"created_at\": 4764,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"model\": \"string\",\n  \"instructions\": \"string\",\n  \"tools\": [],\n  \"metadata\": {},\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"string\"\n      ]\n    }\n  },\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"response_format\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75624bc3-ab37-46a2-9a9e-f12ca914d734",
+          "name": "Modifies an assistant.",
+          "request": {
+            "name": "Modifies an assistant.",
+            "description": {},
+            "url": {
+              "path": [
+                "assistants",
+                ":assistant_id"
+              ],
+              "host": [
+                "{{assistants-assistant_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "assistant_id",
+                  "description": "(Required) The ID of the assistant to modify."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"<string>\"\n      ]\n    }\n  },\n  \"metadata\": \"<object>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"response_format\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7a1453f6-919a-4299-b5d7-b4ce25a8c259",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistants",
+                    ":assistant_id"
+                  ],
+                  "host": [
+                    "{{assistants-assistant_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "assistant_id",
+                      "description": "(Required) The ID of the assistant to modify."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"<string>\"\n      ]\n    }\n  },\n  \"metadata\": \"<object>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"response_format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"assistant\",\n  \"created_at\": 4764,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"model\": \"string\",\n  \"instructions\": \"string\",\n  \"tools\": [],\n  \"metadata\": {},\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"string\"\n      ]\n    }\n  },\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"response_format\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ea2371b-8776-43fb-9d83-cfba4b81a174",
+          "name": "Delete an assistant.",
+          "request": {
+            "name": "Delete an assistant.",
+            "description": {},
+            "url": {
+              "path": [
+                "assistants",
+                ":assistant_id"
+              ],
+              "host": [
+                "{{assistants-assistant_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "assistant_id",
+                  "description": "(Required) The ID of the assistant to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5768ffba-16cd-4bc7-98cb-e1bc65ff74fc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assistants",
+                    ":assistant_id"
+                  ],
+                  "host": [
+                    "{{assistants-assistant_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "assistant_id",
+                      "description": "(Required) The ID of the assistant to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"assistant.deleted\",\n  \"deleted\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ce1b031-0048-45e3-a8be-219f524668db",
+          "name": "Create a thread.",
+          "request": {
+            "name": "Create a thread.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads"
+              ],
+              "host": [
+                "{{threads-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"attachments\": [\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": \"<object>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"attachments\": [\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": \"<object>\"\n    }\n  ],\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {}\n  },\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9d50c290-0545-4dec-9486-916a09adf06a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads"
+                  ],
+                  "host": [
+                    "{{threads-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"attachments\": [\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": \"<object>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"attachments\": [\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": \"<object>\"\n    }\n  ],\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {}\n  },\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread\",\n  \"created_at\": 1215,\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"string\"\n      ]\n    }\n  },\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38227117-9e69-4402-b826-ec50de1e7aa9",
+          "name": "Retrieves a thread.",
+          "request": {
+            "name": "Retrieves a thread.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id"
+              ],
+              "host": [
+                "{{threads-thread_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "610199c9-b399-4d9d-b9c7-ed7bfb8f3853",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread\",\n  \"created_at\": 1215,\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"string\"\n      ]\n    }\n  },\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8198c51d-36e8-46b0-a388-fee807d31c84",
+          "name": "Modifies a thread.",
+          "request": {
+            "name": "Modifies a thread.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id"
+              ],
+              "host": [
+                "{{threads-thread_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread to modify. Only the `metadata` can be modified."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"<string>\"\n      ]\n    }\n  },\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7269e9a5-9c66-4554-adb9-c55904c15802",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread to modify. Only the `metadata` can be modified."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"<string>\"\n      ]\n    }\n  },\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread\",\n  \"created_at\": 1215,\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"string\"\n      ]\n    }\n  },\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c91f15a-d28a-4b0c-a45b-946b2dc0b632",
+          "name": "Delete a thread.",
+          "request": {
+            "name": "Delete a thread.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id"
+              ],
+              "host": [
+                "{{threads-thread_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "042bd214-fdbc-48e2-a810-de7944bed007",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.deleted\",\n  \"deleted\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99e23e54-101e-405d-b3ce-2c992834e4ea",
+          "name": "Returns a list of messages for a given thread.",
+          "request": {
+            "name": "Returns a list of messages for a given thread.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "messages"
+              ],
+              "host": [
+                "{{threads-thread_id-messages-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "run_id",
+                  "value": "<string>",
+                  "description": "Filter messages by the run ID that generated them.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) the messages belong to."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "99a2698c-551b-4d4f-8378-e5d7cdfddb95",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-messages-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "run_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) the messages belong to."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"thread.message\",\n      \"created_at\": 5831,\n      \"thread_id\": \"string\",\n      \"status\": \"in_progress\",\n      \"incomplete_details\": {\n        \"reason\": \"content_filter\"\n      },\n      \"completed_at\": 2053,\n      \"incomplete_at\": 3196,\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"type\": \"image_file\",\n          \"image_file\": {\n            \"file_id\": \"string\",\n            \"detail\": \"auto\"\n          }\n        },\n        {\n          \"type\": \"image_file\",\n          \"image_file\": {\n            \"file_id\": \"string\",\n            \"detail\": \"auto\"\n          }\n        }\n      ],\n      \"assistant_id\": \"string\",\n      \"run_id\": \"string\",\n      \"attachments\": [\n        {\n          \"file_id\": \"string\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"string\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": {}\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"thread.message\",\n      \"created_at\": 9439,\n      \"thread_id\": \"string\",\n      \"status\": \"completed\",\n      \"incomplete_details\": {\n        \"reason\": \"run_expired\"\n      },\n      \"completed_at\": 4184,\n      \"incomplete_at\": 600,\n      \"role\": \"user\",\n      \"content\": [\n        {\n          \"type\": \"image_file\",\n          \"image_file\": {\n            \"file_id\": \"string\",\n            \"detail\": \"auto\"\n          }\n        },\n        {\n          \"type\": \"image_file\",\n          \"image_file\": {\n            \"file_id\": \"string\",\n            \"detail\": \"auto\"\n          }\n        }\n      ],\n      \"assistant_id\": \"string\",\n      \"run_id\": \"string\",\n      \"attachments\": [\n        {\n          \"file_id\": \"string\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"string\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": {}\n    }\n  ],\n  \"first_id\": \"msg_abc123\",\n  \"last_id\": \"msg_abc123\",\n  \"has_more\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a75b60b-d22c-4e4a-921d-7c796ac1998d",
+          "name": "Create a message.",
+          "request": {
+            "name": "Create a message.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "messages"
+              ],
+              "host": [
+                "{{threads-thread_id-messages-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) to create a message for."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"<string>\",\n  \"content\": \"<string>\",\n  \"attachments\": [\n    {\n      \"file_id\": \"<string>\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"file_id\": \"<string>\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4452ec74-81c1-42b4-bf13-b676dd70a32d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-messages-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) to create a message for."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"role\": \"<string>\",\n  \"content\": \"<string>\",\n  \"attachments\": [\n    {\n      \"file_id\": \"<string>\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"file_id\": \"<string>\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.message\",\n  \"created_at\": 934,\n  \"thread_id\": \"string\",\n  \"status\": \"in_progress\",\n  \"incomplete_details\": {\n    \"reason\": \"max_tokens\"\n  },\n  \"completed_at\": 4572,\n  \"incomplete_at\": 1800,\n  \"role\": \"user\",\n  \"content\": [\n    {\n      \"type\": \"image_file\",\n      \"image_file\": {\n        \"file_id\": \"string\",\n        \"detail\": \"auto\"\n      }\n    },\n    {\n      \"type\": \"image_file\",\n      \"image_file\": {\n        \"file_id\": \"string\",\n        \"detail\": \"auto\"\n      }\n    }\n  ],\n  \"assistant_id\": \"string\",\n  \"run_id\": \"string\",\n  \"attachments\": [\n    {\n      \"file_id\": \"string\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"file_id\": \"string\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "929f9a16-01ad-43fa-89a9-d246b3d05353",
+          "name": "Retrieve a message.",
+          "request": {
+            "name": "Retrieve a message.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "messages",
+                ":message_id"
+              ],
+              "host": [
+                "{{threads-thread_id-messages-message_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) to which this message belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "message_id",
+                  "description": "(Required) The ID of the message to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "04939b2a-6d25-4433-9591-32673ca899e9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "messages",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-messages-message_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) to which this message belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "message_id",
+                      "description": "(Required) The ID of the message to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.message\",\n  \"created_at\": 934,\n  \"thread_id\": \"string\",\n  \"status\": \"in_progress\",\n  \"incomplete_details\": {\n    \"reason\": \"max_tokens\"\n  },\n  \"completed_at\": 4572,\n  \"incomplete_at\": 1800,\n  \"role\": \"user\",\n  \"content\": [\n    {\n      \"type\": \"image_file\",\n      \"image_file\": {\n        \"file_id\": \"string\",\n        \"detail\": \"auto\"\n      }\n    },\n    {\n      \"type\": \"image_file\",\n      \"image_file\": {\n        \"file_id\": \"string\",\n        \"detail\": \"auto\"\n      }\n    }\n  ],\n  \"assistant_id\": \"string\",\n  \"run_id\": \"string\",\n  \"attachments\": [\n    {\n      \"file_id\": \"string\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"file_id\": \"string\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9fdb001c-8c00-467f-ad19-cd803f180866",
+          "name": "Modifies a message.",
+          "request": {
+            "name": "Modifies a message.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "messages",
+                ":message_id"
+              ],
+              "host": [
+                "{{threads-thread_id-messages-message_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread to which this message belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "message_id",
+                  "description": "(Required) The ID of the message to modify."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aca156e8-e516-4aaf-8eea-1f7dc6b5372e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "messages",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-messages-message_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread to which this message belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "message_id",
+                      "description": "(Required) The ID of the message to modify."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.message\",\n  \"created_at\": 934,\n  \"thread_id\": \"string\",\n  \"status\": \"in_progress\",\n  \"incomplete_details\": {\n    \"reason\": \"max_tokens\"\n  },\n  \"completed_at\": 4572,\n  \"incomplete_at\": 1800,\n  \"role\": \"user\",\n  \"content\": [\n    {\n      \"type\": \"image_file\",\n      \"image_file\": {\n        \"file_id\": \"string\",\n        \"detail\": \"auto\"\n      }\n    },\n    {\n      \"type\": \"image_file\",\n      \"image_file\": {\n        \"file_id\": \"string\",\n        \"detail\": \"auto\"\n      }\n    }\n  ],\n  \"assistant_id\": \"string\",\n  \"run_id\": \"string\",\n  \"attachments\": [\n    {\n      \"file_id\": \"string\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"file_id\": \"string\",\n      \"tools\": [\n        {\n          \"type\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5254f0b2-9a37-44bd-9dca-c9506df4051d",
+          "name": "Deletes a message.",
+          "request": {
+            "name": "Deletes a message.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "messages",
+                ":message_id"
+              ],
+              "host": [
+                "{{threads-thread_id-messages-message_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread to which this message belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "message_id",
+                  "description": "(Required) The ID of the message to delete."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "88a6b0a2-e803-4563-bb24-24a1581c3205",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "messages",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-messages-message_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread to which this message belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "message_id",
+                      "description": "(Required) The ID of the message to delete."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.message.deleted\",\n  \"deleted\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11270947-0fa7-41b7-9c50-2c6238d6c19c",
+          "name": "Create a thread and run it in one request.",
+          "request": {
+            "name": "Create a thread and run it in one request.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                "runs"
+              ],
+              "host": [
+                "{{threads-runs-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assistant_id\": \"<string>\",\n  \"thread\": {\n    \"messages\": [\n      {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"attachments\": [\n          {\n            \"file_id\": \"<string>\",\n            \"tools\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"file_id\": \"<string>\",\n            \"tools\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"metadata\": \"<object>\"\n      },\n      {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"attachments\": [\n          {\n            \"file_id\": \"<string>\",\n            \"tools\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"file_id\": \"<string>\",\n            \"tools\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"metadata\": \"<object>\"\n      }\n    ],\n    \"tool_resources\": {\n      \"code_interpreter\": {},\n      \"file_search\": {}\n    },\n    \"metadata\": \"<object>\"\n  },\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\"\n    }\n  ],\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"<string>\"\n      ]\n    }\n  },\n  \"metadata\": \"<object>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"stream\": \"<boolean>\",\n  \"max_prompt_tokens\": \"<integer>\",\n  \"max_completion_tokens\": \"<integer>\",\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0472c7a-6c1b-4299-83e5-10840c08c06b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{threads-runs-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"assistant_id\": \"<string>\",\n  \"thread\": {\n    \"messages\": [\n      {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"attachments\": [\n          {\n            \"file_id\": \"<string>\",\n            \"tools\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"file_id\": \"<string>\",\n            \"tools\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"metadata\": \"<object>\"\n      },\n      {\n        \"role\": \"<string>\",\n        \"content\": \"<string>\",\n        \"attachments\": [\n          {\n            \"file_id\": \"<string>\",\n            \"tools\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"file_id\": \"<string>\",\n            \"tools\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"metadata\": \"<object>\"\n      }\n    ],\n    \"tool_resources\": {\n      \"code_interpreter\": {},\n      \"file_search\": {}\n    },\n    \"metadata\": \"<object>\"\n  },\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\"\n    }\n  ],\n  \"tool_resources\": {\n    \"code_interpreter\": {},\n    \"file_search\": {\n      \"vector_store_ids\": [\n        \"<string>\"\n      ]\n    }\n  },\n  \"metadata\": \"<object>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"stream\": \"<boolean>\",\n  \"max_prompt_tokens\": \"<integer>\",\n  \"max_completion_tokens\": \"<integer>\",\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.run\",\n  \"created_at\": 9824,\n  \"thread_id\": \"string\",\n  \"assistant_id\": \"string\",\n  \"status\": \"expired\",\n  \"required_action\": {\n    \"type\": \"submit_tool_outputs\",\n    \"submit_tool_outputs\": {\n      \"tool_calls\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        }\n      ]\n    }\n  },\n  \"last_error\": {\n    \"code\": \"rate_limit_exceeded\",\n    \"message\": \"string\"\n  },\n  \"expires_at\": 794,\n  \"started_at\": 2117,\n  \"cancelled_at\": 7726,\n  \"failed_at\": 3464,\n  \"completed_at\": 2437,\n  \"model\": \"string\",\n  \"instructions\": \"string\",\n  \"tools\": [],\n  \"metadata\": {},\n  \"usage\": {\n    \"prompt_tokens\": 5449,\n    \"completion_tokens\": 5721,\n    \"total_tokens\": 2728\n  },\n  \"incomplete_details\": {\n    \"reason\": \"max_prompt_tokens\"\n  },\n  \"max_prompt_tokens\": 4619,\n  \"max_completion_tokens\": 1983,\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\",\n  \"temperature\": 1810.2026801280924,\n  \"top_p\": 3519.2429172889615\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ff58b4b-f6c3-4d97-806b-49ade88410c8",
+          "name": "Returns a list of runs belonging to a thread.",
+          "request": {
+            "name": "Returns a list of runs belonging to a thread.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "runs"
+              ],
+              "host": [
+                "{{threads-thread_id-runs-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread the run belongs to."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "86fc99cf-2aa8-44fa-b080-8891c4e4e8d0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-runs-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread the run belongs to."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"thread.run\",\n      \"created_at\": 1232,\n      \"thread_id\": \"string\",\n      \"assistant_id\": \"string\",\n      \"status\": \"queued\",\n      \"required_action\": {\n        \"type\": \"submit_tool_outputs\",\n        \"submit_tool_outputs\": {\n          \"tool_calls\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"function\",\n              \"function\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"arguments\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"function\",\n              \"function\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"arguments\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          ]\n        }\n      },\n      \"last_error\": {\n        \"code\": \"rate_limit_exceeded\",\n        \"message\": \"string\"\n      },\n      \"expires_at\": 1986,\n      \"started_at\": 825,\n      \"cancelled_at\": 3899,\n      \"failed_at\": 8520,\n      \"completed_at\": 7314,\n      \"model\": \"string\",\n      \"instructions\": \"string\",\n      \"metadata\": {},\n      \"usage\": {\n        \"prompt_tokens\": 7779,\n        \"completion_tokens\": 4681,\n        \"total_tokens\": 1153\n      },\n      \"incomplete_details\": {\n        \"reason\": \"max_prompt_tokens\"\n      },\n      \"max_prompt_tokens\": 3459,\n      \"max_completion_tokens\": 3381,\n      \"truncation_strategy\": {\n        \"type\": \"<string>\",\n        \"last_messages\": \"<integer>\"\n      },\n      \"tool_choice\": \"<string>\",\n      \"parallel_tool_calls\": true,\n      \"response_format\": \"<string>\",\n      \"temperature\": 9049.18421641838,\n      \"top_p\": 7313.498127447248\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"thread.run\",\n      \"created_at\": 1613,\n      \"thread_id\": \"string\",\n      \"assistant_id\": \"string\",\n      \"status\": \"cancelled\",\n      \"required_action\": {\n        \"type\": \"submit_tool_outputs\",\n        \"submit_tool_outputs\": {\n          \"tool_calls\": [\n            {\n              \"id\": \"string\",\n              \"type\": \"function\",\n              \"function\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"arguments\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            {\n              \"id\": \"string\",\n              \"type\": \"function\",\n              \"function\": {\n                \"name\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"arguments\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          ]\n        }\n      },\n      \"last_error\": {\n        \"code\": \"invalid_prompt\",\n        \"message\": \"string\"\n      },\n      \"expires_at\": 4584,\n      \"started_at\": 9304,\n      \"cancelled_at\": 9921,\n      \"failed_at\": 9193,\n      \"completed_at\": 6542,\n      \"model\": \"string\",\n      \"instructions\": \"string\",\n      \"metadata\": {},\n      \"usage\": {\n        \"prompt_tokens\": 8838,\n        \"completion_tokens\": 7585,\n        \"total_tokens\": 41\n      },\n      \"incomplete_details\": {\n        \"reason\": \"max_prompt_tokens\"\n      },\n      \"max_prompt_tokens\": 6897,\n      \"max_completion_tokens\": 853,\n      \"truncation_strategy\": {\n        \"type\": \"<string>\",\n        \"last_messages\": \"<integer>\"\n      },\n      \"tool_choice\": \"<string>\",\n      \"parallel_tool_calls\": true,\n      \"response_format\": \"<string>\",\n      \"temperature\": 1873.2911043925549,\n      \"top_p\": 4446.247154549058\n    }\n  ],\n  \"first_id\": \"run_abc123\",\n  \"last_id\": \"run_abc456\",\n  \"has_more\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8583ba4-fda6-4c40-bf29-6937e6138adc",
+          "name": "Create a run.",
+          "request": {
+            "name": "Create a run.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "runs"
+              ],
+              "host": [
+                "{{threads-thread_id-runs-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread to run."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assistant_id\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"additional_instructions\": \"<string>\",\n  \"additional_messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"attachments\": [\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": \"<object>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"attachments\": [\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": \"<object>\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": \"<object>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"stream\": \"<boolean>\",\n  \"max_prompt_tokens\": \"<integer>\",\n  \"max_completion_tokens\": \"<integer>\",\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "62ef04e1-2b4c-445a-9d02-fc91e3373a30",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-runs-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"assistant_id\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"additional_instructions\": \"<string>\",\n  \"additional_messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"attachments\": [\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": \"<object>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"attachments\": [\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"file_id\": \"<string>\",\n          \"tools\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"metadata\": \"<object>\"\n    }\n  ],\n  \"tools\": [\n    {\n      \"type\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\"\n    }\n  ],\n  \"metadata\": \"<object>\",\n  \"temperature\": 1,\n  \"top_p\": 1,\n  \"stream\": \"<boolean>\",\n  \"max_prompt_tokens\": \"<integer>\",\n  \"max_completion_tokens\": \"<integer>\",\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.run\",\n  \"created_at\": 3388,\n  \"thread_id\": \"string\",\n  \"assistant_id\": \"string\",\n  \"status\": \"failed\",\n  \"required_action\": {\n    \"type\": \"submit_tool_outputs\",\n    \"submit_tool_outputs\": {\n      \"tool_calls\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        }\n      ]\n    }\n  },\n  \"last_error\": {\n    \"code\": \"invalid_prompt\",\n    \"message\": \"string\"\n  },\n  \"expires_at\": 3357,\n  \"started_at\": 4128,\n  \"cancelled_at\": 7637,\n  \"failed_at\": 8060,\n  \"completed_at\": 9901,\n  \"model\": \"string\",\n  \"instructions\": \"string\",\n  \"tools\": [],\n  \"metadata\": {},\n  \"usage\": {\n    \"prompt_tokens\": 1923,\n    \"completion_tokens\": 9634,\n    \"total_tokens\": 1934\n  },\n  \"incomplete_details\": {\n    \"reason\": \"max_completion_tokens\"\n  },\n  \"max_prompt_tokens\": 8309,\n  \"max_completion_tokens\": 9171,\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\",\n  \"temperature\": 3348.2615071890577,\n  \"top_p\": 4206.482604797909\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b7e693b2-59d8-4e47-b083-c4de9e453010",
+          "name": "Retrieves a run.",
+          "request": {
+            "name": "Retrieves a run.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "runs",
+                ":run_id"
+              ],
+              "host": [
+                "{{threads-thread_id-runs-run_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was run."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The ID of the run to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c53d86dd-509a-46b0-986c-afa1c698e580",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-runs-run_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was run."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The ID of the run to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.run\",\n  \"created_at\": 3388,\n  \"thread_id\": \"string\",\n  \"assistant_id\": \"string\",\n  \"status\": \"failed\",\n  \"required_action\": {\n    \"type\": \"submit_tool_outputs\",\n    \"submit_tool_outputs\": {\n      \"tool_calls\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        }\n      ]\n    }\n  },\n  \"last_error\": {\n    \"code\": \"invalid_prompt\",\n    \"message\": \"string\"\n  },\n  \"expires_at\": 3357,\n  \"started_at\": 4128,\n  \"cancelled_at\": 7637,\n  \"failed_at\": 8060,\n  \"completed_at\": 9901,\n  \"model\": \"string\",\n  \"instructions\": \"string\",\n  \"tools\": [],\n  \"metadata\": {},\n  \"usage\": {\n    \"prompt_tokens\": 1923,\n    \"completion_tokens\": 9634,\n    \"total_tokens\": 1934\n  },\n  \"incomplete_details\": {\n    \"reason\": \"max_completion_tokens\"\n  },\n  \"max_prompt_tokens\": 8309,\n  \"max_completion_tokens\": 9171,\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\",\n  \"temperature\": 3348.2615071890577,\n  \"top_p\": 4206.482604797909\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e37fd1c-207f-433c-9b6a-acbdc0ec76ed",
+          "name": "Modifies a run.",
+          "request": {
+            "name": "Modifies a run.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "runs",
+                ":run_id"
+              ],
+              "host": [
+                "{{threads-thread_id-runs-run_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was run."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The ID of the run to modify."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c34767d-7265-48ef-abf0-cb42b98f991a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-runs-run_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was run."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The ID of the run to modify."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.run\",\n  \"created_at\": 3388,\n  \"thread_id\": \"string\",\n  \"assistant_id\": \"string\",\n  \"status\": \"failed\",\n  \"required_action\": {\n    \"type\": \"submit_tool_outputs\",\n    \"submit_tool_outputs\": {\n      \"tool_calls\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        }\n      ]\n    }\n  },\n  \"last_error\": {\n    \"code\": \"invalid_prompt\",\n    \"message\": \"string\"\n  },\n  \"expires_at\": 3357,\n  \"started_at\": 4128,\n  \"cancelled_at\": 7637,\n  \"failed_at\": 8060,\n  \"completed_at\": 9901,\n  \"model\": \"string\",\n  \"instructions\": \"string\",\n  \"tools\": [],\n  \"metadata\": {},\n  \"usage\": {\n    \"prompt_tokens\": 1923,\n    \"completion_tokens\": 9634,\n    \"total_tokens\": 1934\n  },\n  \"incomplete_details\": {\n    \"reason\": \"max_completion_tokens\"\n  },\n  \"max_prompt_tokens\": 8309,\n  \"max_completion_tokens\": 9171,\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\",\n  \"temperature\": 3348.2615071890577,\n  \"top_p\": 4206.482604797909\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43097a28-5062-4a09-9ff2-fd3de5ae0a01",
+          "name": "When a run has the `status: \"requires_action\"` and `required_action.type` is `submit_tool_outputs`, this endpoint can be used to submit the outputs from the tool calls once they're all completed. All outputs must be submitted in a single request.\n",
+          "request": {
+            "name": "When a run has the `status: \"requires_action\"` and `required_action.type` is `submit_tool_outputs`, this endpoint can be used to submit the outputs from the tool calls once they're all completed. All outputs must be submitted in a single request.\n",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "runs",
+                ":run_id",
+                "submit_tool_outputs"
+              ],
+              "host": [
+                "{{threads-thread_id-runs-run_id-submit_tool_outputs-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) to which this run belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The ID of the run that requires the tool output submission."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tool_outputs\": [\n    {\n      \"tool_call_id\": \"<string>\",\n      \"output\": \"<string>\"\n    },\n    {\n      \"tool_call_id\": \"<string>\",\n      \"output\": \"<string>\"\n    }\n  ],\n  \"stream\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e1233e62-862c-45fa-b10f-b78e847c5452",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "runs",
+                    ":run_id",
+                    "submit_tool_outputs"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-runs-run_id-submit_tool_outputs-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) to which this run belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The ID of the run that requires the tool output submission."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tool_outputs\": [\n    {\n      \"tool_call_id\": \"<string>\",\n      \"output\": \"<string>\"\n    },\n    {\n      \"tool_call_id\": \"<string>\",\n      \"output\": \"<string>\"\n    }\n  ],\n  \"stream\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.run\",\n  \"created_at\": 3388,\n  \"thread_id\": \"string\",\n  \"assistant_id\": \"string\",\n  \"status\": \"failed\",\n  \"required_action\": {\n    \"type\": \"submit_tool_outputs\",\n    \"submit_tool_outputs\": {\n      \"tool_calls\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        }\n      ]\n    }\n  },\n  \"last_error\": {\n    \"code\": \"invalid_prompt\",\n    \"message\": \"string\"\n  },\n  \"expires_at\": 3357,\n  \"started_at\": 4128,\n  \"cancelled_at\": 7637,\n  \"failed_at\": 8060,\n  \"completed_at\": 9901,\n  \"model\": \"string\",\n  \"instructions\": \"string\",\n  \"tools\": [],\n  \"metadata\": {},\n  \"usage\": {\n    \"prompt_tokens\": 1923,\n    \"completion_tokens\": 9634,\n    \"total_tokens\": 1934\n  },\n  \"incomplete_details\": {\n    \"reason\": \"max_completion_tokens\"\n  },\n  \"max_prompt_tokens\": 8309,\n  \"max_completion_tokens\": 9171,\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\",\n  \"temperature\": 3348.2615071890577,\n  \"top_p\": 4206.482604797909\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89fc8043-59d6-496f-a04e-60fff90330ac",
+          "name": "Cancels a run that is `in_progress`.",
+          "request": {
+            "name": "Cancels a run that is `in_progress`.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "runs",
+                ":run_id",
+                "cancel"
+              ],
+              "host": [
+                "{{threads-thread_id-runs-run_id-cancel-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread to which this run belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The ID of the run to cancel."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e6106ce7-036d-40cc-8aff-9ccbfc9d470b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "runs",
+                    ":run_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-runs-run_id-cancel-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread to which this run belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The ID of the run to cancel."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.run\",\n  \"created_at\": 3388,\n  \"thread_id\": \"string\",\n  \"assistant_id\": \"string\",\n  \"status\": \"failed\",\n  \"required_action\": {\n    \"type\": \"submit_tool_outputs\",\n    \"submit_tool_outputs\": {\n      \"tool_calls\": [\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        },\n        {\n          \"id\": \"string\",\n          \"type\": \"function\",\n          \"function\": {\n            \"name\": \"string\",\n            \"arguments\": \"string\"\n          }\n        }\n      ]\n    }\n  },\n  \"last_error\": {\n    \"code\": \"invalid_prompt\",\n    \"message\": \"string\"\n  },\n  \"expires_at\": 3357,\n  \"started_at\": 4128,\n  \"cancelled_at\": 7637,\n  \"failed_at\": 8060,\n  \"completed_at\": 9901,\n  \"model\": \"string\",\n  \"instructions\": \"string\",\n  \"tools\": [],\n  \"metadata\": {},\n  \"usage\": {\n    \"prompt_tokens\": 1923,\n    \"completion_tokens\": 9634,\n    \"total_tokens\": 1934\n  },\n  \"incomplete_details\": {\n    \"reason\": \"max_completion_tokens\"\n  },\n  \"max_prompt_tokens\": 8309,\n  \"max_completion_tokens\": 9171,\n  \"truncation_strategy\": {\n    \"type\": \"<string>\",\n    \"last_messages\": \"<integer>\"\n  },\n  \"tool_choice\": \"<string>\",\n  \"parallel_tool_calls\": true,\n  \"response_format\": \"<string>\",\n  \"temperature\": 3348.2615071890577,\n  \"top_p\": 4206.482604797909\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86c90680-46cb-4630-9ed2-32fd188012ac",
+          "name": "Returns a list of run steps belonging to a run.",
+          "request": {
+            "name": "Returns a list of run steps belonging to a run.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "runs",
+                ":run_id",
+                "steps"
+              ],
+              "host": [
+                "{{threads-thread_id-runs-run_id-steps-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 20.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<string>",
+                  "description": "A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include before=obj_foo in order to fetch the previous page of the list.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread the run and run steps belong to."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The ID of the run the run steps belong to."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "452f5921-0f8c-41f8-86c7-7dd2c2d72c88",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "runs",
+                    ":run_id",
+                    "steps"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-runs-run_id-steps-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread the run and run steps belong to."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The ID of the run the run steps belong to."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"thread.run.step\",\n      \"created_at\": 3852,\n      \"assistant_id\": \"string\",\n      \"thread_id\": \"string\",\n      \"run_id\": \"string\",\n      \"type\": \"message_creation\",\n      \"status\": \"failed\",\n      \"step_details\": {\n        \"type\": \"message_creation\",\n        \"message_creation\": {\n          \"message_id\": \"string\"\n        }\n      },\n      \"last_error\": {\n        \"code\": \"rate_limit_exceeded\",\n        \"message\": \"string\"\n      },\n      \"expired_at\": 9007,\n      \"cancelled_at\": 9861,\n      \"failed_at\": 8425,\n      \"completed_at\": 3538,\n      \"metadata\": {},\n      \"usage\": {\n        \"prompt_tokens\": 4094,\n        \"completion_tokens\": 7703,\n        \"total_tokens\": 3087\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"thread.run.step\",\n      \"created_at\": 1869,\n      \"assistant_id\": \"string\",\n      \"thread_id\": \"string\",\n      \"run_id\": \"string\",\n      \"type\": \"tool_calls\",\n      \"status\": \"failed\",\n      \"step_details\": {\n        \"type\": \"message_creation\",\n        \"message_creation\": {\n          \"message_id\": \"string\"\n        }\n      },\n      \"last_error\": {\n        \"code\": \"server_error\",\n        \"message\": \"string\"\n      },\n      \"expired_at\": 89,\n      \"cancelled_at\": 5530,\n      \"failed_at\": 1327,\n      \"completed_at\": 8177,\n      \"metadata\": {},\n      \"usage\": {\n        \"prompt_tokens\": 6560,\n        \"completion_tokens\": 8424,\n        \"total_tokens\": 547\n      }\n    }\n  ],\n  \"first_id\": \"step_abc123\",\n  \"last_id\": \"step_abc456\",\n  \"has_more\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b269bd59-a094-40f8-b0bf-d29a5c8479c9",
+          "name": "Retrieves a run step.",
+          "request": {
+            "name": "Retrieves a run step.",
+            "description": {},
+            "url": {
+              "path": [
+                "threads",
+                ":thread_id",
+                "runs",
+                ":run_id",
+                "steps",
+                ":step_id"
+              ],
+              "host": [
+                "{{threads-thread_id-runs-run_id-steps-step_id-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) The ID of the thread to which the run and run step belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "run_id",
+                  "description": "(Required) The ID of the run to which the run step belongs."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "step_id",
+                  "description": "(Required) The ID of the run step to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "68584250-4821-4e7d-a335-49565efcb3fd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "threads",
+                    ":thread_id",
+                    "runs",
+                    ":run_id",
+                    "steps",
+                    ":step_id"
+                  ],
+                  "host": [
+                    "{{threads-thread_id-runs-run_id-steps-step_id-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) The ID of the thread to which the run and run step belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "run_id",
+                      "description": "(Required) The ID of the run to which the run step belongs."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "step_id",
+                      "description": "(Required) The ID of the run step to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"thread.run.step\",\n  \"created_at\": 4053,\n  \"assistant_id\": \"string\",\n  \"thread_id\": \"string\",\n  \"run_id\": \"string\",\n  \"type\": \"tool_calls\",\n  \"status\": \"in_progress\",\n  \"step_details\": {\n    \"type\": \"message_creation\",\n    \"message_creation\": {\n      \"message_id\": \"string\"\n    }\n  },\n  \"last_error\": {\n    \"code\": \"rate_limit_exceeded\",\n    \"message\": \"string\"\n  },\n  \"expired_at\": 5055,\n  \"cancelled_at\": 1836,\n  \"failed_at\": 3121,\n  \"completed_at\": 2191,\n  \"metadata\": {},\n  \"usage\": {\n    \"prompt_tokens\": 2483,\n    \"completion_tokens\": 9566,\n    \"total_tokens\": 3278\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "assistants-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "assistants-assistant_id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-thread_id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-thread_id-messages-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-thread_id-messages-message_id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-runs-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-thread_id-runs-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-thread_id-runs-run_id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-thread_id-runs-run_id-submit_tool_outputs-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-thread_id-runs-run_id-cancel-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-thread_id-runs-run_id-steps-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "threads-thread_id-runs-run_id-steps-step_id-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f402f3e7-cae4-4f08-865a-86b106d42e40",
+    "name": "Portkey Analytics > Graphs Assistants API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

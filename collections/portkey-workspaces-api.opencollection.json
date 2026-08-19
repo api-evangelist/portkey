@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Workspaces API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/admin/workspaces",
+            "params": [
+              {
+                "name": "page_size",
+                "value": "1",
+                "type": "query"
+              },
+              {
+                "name": "current_page",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "workspace",
+                "type": "query",
+                "description": "Workspace name to filter results, case sensitive"
+              },
+              {
+                "name": "exact_name",
+                "value": "",
+                "type": "query",
+                "description": "Workspace name filter with strict check"
+              },
+              {
+                "name": "status",
+                "value": "active,archived",
+                "type": "query",
+                "description": "Workspace status to filter results, comma separated"
+              }
+            ]
+          },
+          "docs": "Get All Workspaces"
+        },
+        {
+          "info": {
+            "name": "Create Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/admin/workspaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Workspace"
+        },
+        {
+          "info": {
+            "name": "Get workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/admin/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get workspace"
+        },
+        {
+          "info": {
+            "name": "Update Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/admin/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Workspace"
+        },
+        {
+          "info": {
+            "name": "Delete a workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/admin/workspaces/:workspaceId",
+            "params": [
+              {
+                "name": "workspaceId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a workspace"
+        },
+        {
+          "info": {
+            "name": "List SCIM Group to Workspace Mappings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/scim/workspaces",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter mappings by workspace ID or slug."
+              },
+              {
+                "name": "scim_group_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter mappings by SCIM group ID."
+              },
+              {
+                "name": "role",
+                "value": "",
+                "type": "query",
+                "description": "Filter mappings by role."
+              }
+            ]
+          },
+          "docs": "List all mappings between SCIM groups and workspaces for the organisation.\nOptionally filter by workspace, SCIM group, or role.\n"
+        },
+        {
+          "info": {
+            "name": "Create SCIM Group to Workspace Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/scim/workspaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a mapping between a SCIM group and a workspace. \nYou can either reference an existing SCIM group by ID, or provide a group name \nto pre-create the SCIM group before the IdP provisions it.\n"
+        },
+        {
+          "info": {
+            "name": "Delete SCIM Group to Workspace Mapping",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/scim/workspaces/:scimWorkspaceGroupId",
+            "params": [
+              {
+                "name": "scimWorkspaceGroupId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the SCIM workspace mapping to delete"
+              }
+            ]
+          },
+          "docs": "Remove a SCIM group to workspace mapping. This archives the mapping but does not delete the SCIM group or workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

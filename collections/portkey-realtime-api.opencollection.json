@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Realtime API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Realtime",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Realtime",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/realtime",
+            "headers": [
+              {
+                "name": "x-portkey-trace-id",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-span-id",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-parent-span-id",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-span-name",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-metadata",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-cache-namespace",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-cache-force-refresh",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Often required for OpenAI-style realtime; other query params pass through unchanged."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Connect to the Realtime API endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

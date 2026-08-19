@@ -1,0 +1,646 @@
+{
+  "item": [
+    {
+      "id": "0444948b-c94f-4f83-b080-f28416984647",
+      "name": "Configs",
+      "description": {
+        "content": "Create, List, Retrieve, and Update your Portkey Configs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3e22a75f-9160-405a-b0b3-9afee9e23488",
+          "name": "List all configs",
+          "request": {
+            "name": "List all configs",
+            "description": {},
+            "url": {
+              "path": [
+                "configs"
+              ],
+              "host": [
+                "{{configs-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef95aa0c-d698-4ad9-b52d-71e189bd99b9",
+              "name": "A list of configs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "configs"
+                  ],
+                  "host": [
+                    "{{configs-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"4e54a1a4-109c-43ee-b0f7-11e7d60b0066\",\n      \"name\": \"Pplx Cache Test\",\n      \"slug\": \"pc-pplx-c-ca7a87\",\n      \"organisation_id\": \"472d2804-d054-4226-b4ae-9d4e2e61e69e\",\n      \"workspace_id\": \"472d2804-d054-4226-b4ae-9d4e2e61e69e\",\n      \"is_default\": 0,\n      \"status\": \"active\",\n      \"owner_id\": \"c4c7996d-be62-429d-b787-5d48fe94da86\",\n      \"updated_by\": \"439268ba-94a2-4031-9ca7-ca88ddda5096\",\n      \"created_at\": \"2024-05-12T21:37:06.000Z\",\n      \"last_updated_at\": \"2024-05-23T23:36:06.000Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9551a79e-0833-44db-a3c1-a9eae1edd0af",
+          "name": "Create a config",
+          "request": {
+            "name": "Create a config",
+            "description": {},
+            "url": {
+              "path": [
+                "configs"
+              ],
+              "host": [
+                "{{configs-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"config\": \"<object>\",\n  \"isDefault\": \"<integer>\",\n  \"workspace_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eafe1c3e-2c77-4193-8d8f-ed0c5fb15a51",
+              "name": "Config created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "configs"
+                  ],
+                  "host": [
+                    "{{configs-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"New config\",\n  \"config\": {\n    \"retry\": {\n      \"attempts\": 3\n    }\n  },\n  \"workspace_id\": \"\",\n  \"isDefault\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"f3d8d070-f29d-43a3-bf97-3159c60f4ce0\",\n    \"version_id\": \"0db4065b-ead2-4daa-bf5e-7e9106585133\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e20a51c-4aab-471f-ac6b-3e985d882bf9",
+          "name": "Delete a config",
+          "request": {
+            "name": "Delete a config",
+            "description": {},
+            "url": {
+              "path": [
+                "configs",
+                ":slug"
+              ],
+              "host": [
+                "{{configs-slug-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e1be28f-78c2-4913-813b-7610c49ce7bf",
+              "name": "Config deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "configs",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{configs-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f217eea8-7917-479d-a9e7-c953b4060eba",
+          "name": "Get a config",
+          "request": {
+            "name": "Get a config",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "configs",
+                ":slug"
+              ],
+              "host": [
+                "api",
+                "portkey",
+                "ai"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1a0b9c5-fcb1-4897-807e-1f182f851684",
+              "name": "Config details",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "configs",
+                    ":slug"
+                  ],
+                  "host": [
+                    "api",
+                    "portkey",
+                    "ai"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"config\": {\n      \"retry\": {\n        \"attempts\": 5,\n        \"on_status_codes\": [\n          429,\n          529\n        ]\n      },\n      \"cache\": {\n        \"mode\": \"simple\",\n        \"max_age\": 3600\n      },\n      \"strategy\": {\n        \"mode\": \"fallback\"\n      },\n      \"targets\": [\n        {\n          \"provider\": \"openai\",\n          \"virtual_key\": \"main-258f4d\"\n        },\n        {\n          \"provider\": \"azure-openai\",\n          \"virtual_key\": \"azure-test-4110dd\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8271dcaf-7345-4350-afe6-b4a386099692",
+          "name": "Update a config",
+          "request": {
+            "name": "Update a config",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "configs",
+                ":slug"
+              ],
+              "host": [
+                "api",
+                "portkey",
+                "ai"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"config\": {\n    \"virtual_key\": \"<string>\"\n  },\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3bfba98-fc8b-4aac-a3cd-2b802cf05cf9",
+              "name": "Config updated successfully",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "configs",
+                    ":slug"
+                  ],
+                  "host": [
+                    "api",
+                    "portkey",
+                    "ai"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"testConf\",\n  \"config\": {\n    \"virtual_key\": \"copy-of-anthrop-b20259\"\n  },\n  \"status\": \"active\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"version_id\": \"abe447e2-f6aa-4229-93b7-8ee3183b6667\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9df2982-1660-4c93-b477-2e98d14a27fd",
+          "name": "List versions for a config",
+          "request": {
+            "name": "List versions for a config",
+            "description": {},
+            "url": {
+              "path": [
+                "configs",
+                ":slug",
+                "versions"
+              ],
+              "host": [
+                "{{configs-slug-versions-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b564920-32ab-4805-9231-f7d52fe07bea",
+              "name": "A list of config versions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "configs",
+                    ":slug",
+                    "versions"
+                  ],
+                  "host": [
+                    "{{configs-slug-versions-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"total\": 1,\n  \"data\": [\n    {\n      \"id\": \"daab995b-8d3b-42c5-a490-47217fbf4e0e\",\n      \"name\": \"PII Redaction Guardrail\",\n      \"workspace_id\": \"8610029e-692a-4df6-9052-3fa3eff69911\",\n      \"slug\": \"pc-pii-re-7f1051\",\n      \"organisation_id\": \"472d2804-d054-4226-b4ae-9d4e2e61e69e\",\n      \"is_default\": 0,\n      \"status\": \"active\",\n      \"owner_id\": \"c4c7996d-be62-429d-b787-5d48fe94da86\",\n      \"updated_by\": \"c4c7996d-be62-429d-b787-5d48fe94da86\",\n      \"created_at\": \"2025-10-17T19:11:47.000Z\",\n      \"last_updated_at\": \"2025-10-17T19:11:47.000Z\",\n      \"config\": \"{\\\"input_guardrails\\\":[\\\"pg-patron-1d0224\\\"]}\",\n      \"format\": \"json\",\n      \"type\": \"ORG_CONFIG\",\n      \"version_id\": \"8c1a4fbf-26d9-49df-82ca-ab772ba397d2\",\n      \"object\": \"config\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "configs-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "configs-slug-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "configs-slug-versions-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "48a24dfc-1d55-4b1f-b0e4-b50d0b584020",
+    "name": "Portkey Analytics > Graphs Configs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

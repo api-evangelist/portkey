@@ -1,0 +1,901 @@
+{
+  "item": [
+    {
+      "id": "db5f0a9a-b77e-45c7-ba52-f54d439e7dde",
+      "name": "Workspaces",
+      "description": {
+        "content": "Create and manage workspaces.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e22fdfcb-b882-492d-b183-b25ae9dd64ea",
+          "name": "Create Workspace",
+          "request": {
+            "name": "Create Workspace",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "workspaces"
+              ],
+              "host": [
+                "{{admin-workspaces-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"defaults\": {\n    \"metadata\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"users\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"usage_limits\": [\n    {\n      \"credit_limit\": null,\n      \"type\": \"<string>\",\n      \"alert_threshold\": null,\n      \"periodic_reset\": \"<string>\",\n      \"periodic_reset_days\": \"<integer>\",\n      \"next_usage_reset_at\": \"<dateTime>\"\n    },\n    {\n      \"credit_limit\": null,\n      \"type\": \"<string>\",\n      \"alert_threshold\": null,\n      \"periodic_reset\": \"<string>\",\n      \"periodic_reset_days\": \"<integer>\",\n      \"next_usage_reset_at\": \"<dateTime>\"\n    }\n  ],\n  \"rate_limits\": [\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0edb7f17-396b-4585-ba9c-79d08b287281",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{admin-workspaces-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Workspace\",\n  \"description\": \"My Description\",\n  \"defaults\": {\n    \"metadata\": {\n      \"environment\": \"production\",\n      \"foo\": \"bar\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ws-test-a-174eb1\",\n  \"slug\": \"ws-test-a-174eb1\",\n  \"name\": \"New Workspace\",\n  \"description\": null,\n  \"created_at\": \"2024-07-30 13:27:29+00:00\",\n  \"last_updated_at\": \"2024-07-30 13:27:29+00:00\",\n  \"defaults\": {\n    \"metadata\": {\n      \"foo\": \"bar\"\n    },\n    \"is_default\": 0,\n    \"object\": \"workspace\"\n  },\n  \"usage_limits\": [\n    {\n      \"credit_limit\": 10,\n      \"periodic_reset\": \"monthly\",\n      \"alert_threshold\": 8\n    },\n    {\n      \"credit_limit\": 10,\n      \"periodic_reset\": \"monthly\",\n      \"alert_threshold\": 8\n    }\n  ],\n  \"rate_limits\": [\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d6ef7ad-b764-4802-8288-3357a813450b",
+          "name": "Get All Workspaces",
+          "request": {
+            "name": "Get All Workspaces",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "workspaces"
+              ],
+              "host": [
+                "{{admin-workspaces-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Workspace name to filter results, case sensitive"
+                },
+                {
+                  "disabled": false,
+                  "key": "exact_name",
+                  "value": "<string>",
+                  "description": "Workspace name filter with strict check"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Workspace status to filter results, comma separated"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8da1b90-3cc7-4066-b869-cb15f7da0c5f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{admin-workspaces-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "workspace"
+                    },
+                    {
+                      "key": "exact_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 2,\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"test-prod-ws-12345\",\n      \"name\": \"Test prod workspace\",\n      \"description\": \"This is a production workspace\",\n      \"created_at\": \"2023-07-13 13:51:27\",\n      \"last_updated_at\": \"2023-07-13 14:51:27\",\n      \"object\": \"workspace\"\n    },\n    {\n      \"id\": \"test-prod-ws-12345\",\n      \"name\": \"Test prod workspace\",\n      \"description\": \"This is a production workspace\",\n      \"created_at\": \"2023-07-13 13:51:27\",\n      \"last_updated_at\": \"2023-07-13 14:51:27\",\n      \"object\": \"workspace\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81c609e4-005a-4042-8ec4-b797b6fac8c4",
+          "name": "Update Workspace",
+          "request": {
+            "name": "Update Workspace",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "workspaces",
+                ":workspaceId"
+              ],
+              "host": [
+                "{{admin-workspaces-workspaceId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"defaults\": {\n    \"metadata\": {\n      \"key_0\": \"<string>\"\n    },\n    \"input_guardrails\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"output_guardrails\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"usage_limits\": [\n    {\n      \"credit_limit\": null,\n      \"type\": \"<string>\",\n      \"alert_threshold\": null,\n      \"periodic_reset\": \"<string>\",\n      \"periodic_reset_days\": \"<integer>\",\n      \"next_usage_reset_at\": \"<dateTime>\"\n    },\n    {\n      \"credit_limit\": null,\n      \"type\": \"<string>\",\n      \"alert_threshold\": null,\n      \"periodic_reset\": \"<string>\",\n      \"periodic_reset_days\": \"<integer>\",\n      \"next_usage_reset_at\": \"<dateTime>\"\n    }\n  ],\n  \"rate_limits\": [\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4670e9b1-e5c8-4655-9af0-4c5c0f548c52",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "workspaces",
+                    ":workspaceId"
+                  ],
+                  "host": [
+                    "{{admin-workspaces-workspaceId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Workspace\",\n  \"description\": \"My Description\",\n  \"defaults\": {\n    \"metadata\": {\n      \"foo\": \"bar\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa7ad290-1750-47ef-8d0f-e2cf9dd3d03e",
+          "name": "Get workspace",
+          "request": {
+            "name": "Get workspace",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "workspaces",
+                ":workspaceId"
+              ],
+              "host": [
+                "{{admin-workspaces-workspaceId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "01a2b68a-5571-42e4-aec9-206bc84c8bb5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "workspaces",
+                    ":workspaceId"
+                  ],
+                  "host": [
+                    "{{admin-workspaces-workspaceId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ws-test-a-174eb1\",\n  \"slug\": \"ws-test-a-174eb1\",\n  \"name\": \"New Workspace\",\n  \"description\": null,\n  \"created_at\": \"2024-07-30 13:27:29+00:00\",\n  \"last_updated_at\": \"2024-07-30 13:27:29+00:00\",\n  \"defaults\": {\n    \"metadata\": {\n      \"foo\": \"bar\"\n    },\n    \"is_default\": 0,\n    \"input_guardrails\": [\n      \"string\",\n      \"string\"\n    ],\n    \"output_guardrails\": [\n      \"string\",\n      \"string\"\n    ],\n    \"object\": \"workspace\"\n  },\n  \"users\": [\n    {\n      \"object\": \"workspace-user\",\n      \"id\": \"66dc015d-0270-11f1-8eec-0e27d7367989\",\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"org_role\": \"admin\",\n      \"role\": \"admin\",\n      \"created_at\": \"2026-03-09T07:55:25.000Z\",\n      \"last_updated_at\": \"2026-03-09T07:55:25.000Z\",\n      \"status\": \"active\",\n      \"workspace_id\": \"bf276bb9-4cef-4d87-b69b-b23a6ed6b1dd\",\n      \"email\": \"john.doe@example.com\",\n      \"scopes\": [\n        \"organisations.read\",\n        \"organisation_users.read\",\n        \"workspaces.read\",\n        \"logs.list\",\n        \"logs.view\",\n        \"prompts.create\",\n        \"prompts.read\",\n        \"prompts.list\",\n        \"configs.create\",\n        \"configs.read\",\n        \"configs.list\",\n        \"virtual_keys.create\",\n        \"virtual_keys.read\",\n        \"virtual_keys.list\",\n        \"workspace_users.create\",\n        \"workspace_users.read\",\n        \"workspace_users.list\",\n        \"generations.create\"\n      ],\n      \"settings\": null\n    },\n    {\n      \"object\": \"workspace-user\",\n      \"id\": \"66dc015d-0270-11f1-8eec-0e27d7367989\",\n      \"first_name\": \"John\",\n      \"last_name\": \"Doe\",\n      \"org_role\": \"admin\",\n      \"role\": \"admin\",\n      \"created_at\": \"2026-03-09T07:55:25.000Z\",\n      \"last_updated_at\": \"2026-03-09T07:55:25.000Z\",\n      \"status\": \"active\",\n      \"workspace_id\": \"bf276bb9-4cef-4d87-b69b-b23a6ed6b1dd\",\n      \"email\": \"john.doe@example.com\",\n      \"scopes\": [\n        \"organisations.read\",\n        \"organisation_users.read\",\n        \"workspaces.read\",\n        \"logs.list\",\n        \"logs.view\",\n        \"prompts.create\",\n        \"prompts.read\",\n        \"prompts.list\",\n        \"configs.create\",\n        \"configs.read\",\n        \"configs.list\",\n        \"virtual_keys.create\",\n        \"virtual_keys.read\",\n        \"virtual_keys.list\",\n        \"workspace_users.create\",\n        \"workspace_users.read\",\n        \"workspace_users.list\",\n        \"generations.create\"\n      ],\n      \"settings\": null\n    }\n  ],\n  \"usage_limits\": [\n    {\n      \"credit_limit\": 10,\n      \"periodic_reset\": \"monthly\",\n      \"alert_threshold\": 8\n    },\n    {\n      \"credit_limit\": 10,\n      \"periodic_reset\": \"monthly\",\n      \"alert_threshold\": 8\n    }\n  ],\n  \"rate_limits\": [\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e1ba808-4c4b-410d-b0ef-73b8298bb54b",
+          "name": "Delete a workspace",
+          "request": {
+            "name": "Delete a workspace",
+            "description": {},
+            "url": {
+              "path": [
+                "admin",
+                "workspaces",
+                ":workspaceId"
+              ],
+              "host": [
+                "{{admin-workspaces-workspaceId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "workspaceId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ededba2e-1ba1-442f-bce5-e4a1469268df",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "admin",
+                    "workspaces",
+                    ":workspaceId"
+                  ],
+                  "host": [
+                    "{{admin-workspaces-workspaceId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "workspaceId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c0eafbd-1eaa-4e95-9504-7c86aae9c27d",
+          "name": "List SCIM Group to Workspace Mappings",
+          "request": {
+            "name": "List SCIM Group to Workspace Mappings",
+            "description": {
+              "content": "List all mappings between SCIM groups and workspaces for the organisation.\nOptionally filter by workspace, SCIM group, or role.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "workspaces"
+              ],
+              "host": [
+                "{{scim-workspaces-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>",
+                  "description": "Filter mappings by workspace ID or slug."
+                },
+                {
+                  "disabled": false,
+                  "key": "scim_group_id",
+                  "value": "<string>",
+                  "description": "Filter mappings by SCIM group ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "role",
+                  "value": "<string>",
+                  "description": "Filter mappings by role."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "950ed481-2892-478c-93d5-71a050841ad6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{scim-workspaces-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "scim_group_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "role",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"mappings\": [\n    {\n      \"id\": \"d290f1ee-6c54-4b01-90e6-d701748f0851\",\n      \"workspace_id\": \"ws_my-workspace\",\n      \"scim_group\": \"Engineering Team\",\n      \"scim_group_id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"role\": \"member\"\n    }\n  ],\n  \"total_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66231b14-fbf3-4cb9-96c3-8a7127bf7aa7",
+          "name": "Create SCIM Group to Workspace Mapping",
+          "request": {
+            "name": "Create SCIM Group to Workspace Mapping",
+            "description": {
+              "content": "Create a mapping between a SCIM group and a workspace. \nYou can either reference an existing SCIM group by ID, or provide a group name \nto pre-create the SCIM group before the IdP provisions it.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "workspaces"
+              ],
+              "host": [
+                "{{scim-workspaces-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cc0c5246-6839-4f6c-89f0-a8c6a3ea684d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{scim-workspaces-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"scim_group_name\": \"Engineering Team\",\n  \"workspace_id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n  \"role\": \"admin\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"workspace_id\": \"ws-12345\",\n  \"scim_group\": \"Engineering Team\",\n  \"role\": \"member\",\n  \"scim_group_id\": \"d290f1ee-6c54-4b01-90e6-d701748f0851\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea2e882f-1c83-4c2d-9e4b-5b1eb2ba8a1f",
+          "name": "Delete SCIM Group to Workspace Mapping",
+          "request": {
+            "name": "Delete SCIM Group to Workspace Mapping",
+            "description": {
+              "content": "Remove a SCIM group to workspace mapping. This archives the mapping but does not delete the SCIM group or workspace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "workspaces",
+                ":scimWorkspaceGroupId"
+              ],
+              "host": [
+                "{{scim-workspaces-scimWorkspaceGroupId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scimWorkspaceGroupId",
+                  "description": "(Required) ID of the SCIM workspace mapping to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8746303d-07b6-4e46-80ad-1d835acba8be",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "workspaces",
+                    ":scimWorkspaceGroupId"
+                  ],
+                  "host": [
+                    "{{scim-workspaces-scimWorkspaceGroupId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scimWorkspaceGroupId",
+                      "description": "(Required) ID of the SCIM workspace mapping to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "admin-workspaces-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "admin-workspaces-workspaceId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "scim-workspaces-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "scim-workspaces-scimWorkspaceGroupId-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6540e8c8-1b6d-4cfd-897b-2dfd53477c7c",
+    "name": "Portkey Analytics > Graphs Workspaces API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

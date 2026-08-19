@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Rerank API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rerank",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Rerank",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/rerank",
+            "headers": [
+              {
+                "name": "x-portkey-trace-id",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-span-id",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-parent-span-id",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-span-name",
+                "value": ""
+              },
+              {
+                "name": "x-portkey-metadata",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Reranks a list of documents based on their relevance to a query. This endpoint provides a unified interface to reranking models from multiple providers including Cohere, Voyage, Jina, Pinecone, Bedrock, and Azure AI.\n\nReranking is useful for improving search results by scoring and sorting documents based on semantic relevance to a query, rather than just keyword matching.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,98 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs MCP Servers > Connections API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MCP Servers > Connections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List MCP Server Connections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/mcp-servers/:mcpServerId/connections",
+            "params": [
+              {
+                "name": "mcpServerId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Server ID (UUID) or slug"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional. UUID of the user whose connections to list. If not provided, defaults to the current user for user API keys, and returns all connections on the MCP server for service API keys."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Workspace ID or slug. Required when using org admin API key; optional when API key is workspace-scoped."
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List MCP Server Connections"
+        },
+        {
+          "info": {
+            "name": "Delete MCP Server Connection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/mcp-servers/:mcpServerId/connections",
+            "params": [
+              {
+                "name": "mcpServerId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Server ID (UUID) or slug"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The UUID of the user to disconnect. Required when using a service API key; optional when using a user API key (the user ID is derived from the key if not provided)."
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Workspace ID or slug. Required when using org admin API key; optional when API key is workspace-scoped."
+              }
+            ]
+          },
+          "docs": "Delete MCP Server Connection"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

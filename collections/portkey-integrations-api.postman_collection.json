@@ -1,0 +1,572 @@
+{
+  "item": [
+    {
+      "id": "916b917f-8ac0-4c76-94f3-760a7d43c4fc",
+      "name": "Integrations",
+      "description": {
+        "content": "Create, List, Retrieve, Update, and Delete your Portkey Integrations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "583d0a6e-f878-472d-950d-7b0e58b69c3d",
+          "name": "List All Integrations",
+          "request": {
+            "name": "List All Integrations",
+            "description": {},
+            "url": {
+              "path": [
+                "integrations"
+              ],
+              "host": [
+                "{{integrations-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<integer>",
+                  "description": "Current page, defaults to 0"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Page size, default to 100"
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>",
+                  "description": "Filter integrations accessible by a specific workspace. When using workspace API keys, this value will be enforced based on the API key details"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "all",
+                  "description": "For type=workspace, the API will only return Workpace-Scoped integrations. For type=organisation, the API will only return Global (organisation level) integrations. For type=all, both types of integrations will be returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c949d5b-7079-49ae-a478-4e70ffbbf341",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{integrations-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "current_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "all"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"total\": 8294,\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"organisation_id\": \"string\",\n      \"ai_provider_id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"archived\",\n      \"created_at\": \"2016-01-14T07:59:09.484Z\",\n      \"last_updated_at\": \"2013-01-29T21:50:50.482Z\",\n      \"slug\": \"string\",\n      \"description\": \"string\",\n      \"object\": \"integration\"\n    },\n    {\n      \"id\": \"string\",\n      \"organisation_id\": \"string\",\n      \"ai_provider_id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"archived\",\n      \"created_at\": \"1999-05-20T05:46:15.128Z\",\n      \"last_updated_at\": \"1967-08-31T19:40:41.627Z\",\n      \"slug\": \"string\",\n      \"description\": \"string\",\n      \"object\": \"integration\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "642edc43-526a-49cc-b7b5-39124210b609",
+          "name": "Create a Integration",
+          "request": {
+            "name": "Create a Integration",
+            "description": {},
+            "url": {
+              "path": [
+                "integrations"
+              ],
+              "host": [
+                "{{integrations-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"ai_provider_id\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"key\": \"<string>\",\n  \"description\": \"<string>\",\n  \"workspace_id\": \"<string>\",\n  \"configurations\": {\n    \"openai_organization\": \"<string>\",\n    \"openai_project\": \"<string>\"\n  },\n  \"create_default_provider\": true,\n  \"default_provider_slug\": \"<string>\",\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"<string>\",\n      \"secret_reference_id\": \"<string>\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"<string>\",\n      \"secret_reference_id\": \"<string>\",\n      \"secret_key\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef04f041-fef0-40fc-900e-8a25151cfd14",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations"
+                  ],
+                  "host": [
+                    "{{integrations-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Production OpenAI\",\n  \"ai_provider_id\": \"openai\",\n  \"slug\": \"production-openai\",\n  \"key\": \"sk-...\",\n  \"description\": \"Production OpenAI integration for customer-facing applications\",\n  \"workspace_id\": \"ws-my-team-1234\",\n  \"configurations\": {\n    \"openai_organization\": \"<string>\",\n    \"openai_project\": \"<string>\"\n  },\n  \"create_default_provider\": true,\n  \"default_provider_slug\": \"<string>\",\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"slug\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "081ae7b4-3cb9-4307-803e-cf3b1df23b30",
+          "name": "Get a Integration",
+          "request": {
+            "name": "Get a Integration",
+            "description": {},
+            "url": {
+              "path": [
+                "integrations",
+                ":slug"
+              ],
+              "host": [
+                "{{integrations-slug-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aaf908bc-09a3-479f-b781-1790bd8ed09c",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{integrations-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"organisation_id\": \"string\",\n  \"ai_provider_id\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"active\",\n  \"created_at\": \"2003-12-03T00:53:24.358Z\",\n  \"last_updated_at\": \"1957-07-30T22:43:56.051Z\",\n  \"slug\": \"string\",\n  \"description\": \"string\",\n  \"object\": \"integration\",\n  \"masked_key\": \"string\",\n  \"configurations\": {\n    \"openai_organization\": \"<string>\",\n    \"openai_project\": \"<string>\"\n  },\n  \"global_workspace_access_settings\": {\n    \"enabled\": false,\n    \"usage_limits\": [\n      {\n        \"credit_limit\": 10,\n        \"periodic_reset\": \"monthly\",\n        \"alert_threshold\": 8\n      }\n    ],\n    \"rate_limits\": [\n      {\n        \"type\": \"tokens\",\n        \"unit\": \"rpd\",\n        \"value\": 4081\n      }\n    ]\n  },\n  \"allow_all_models\": true,\n  \"workspace_count\": 4255,\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14234041-568f-4158-9cb9-b8143e29a5dd",
+          "name": "Update a Integration",
+          "request": {
+            "name": "Update a Integration",
+            "description": {},
+            "url": {
+              "path": [
+                "integrations",
+                ":slug"
+              ],
+              "host": [
+                "{{integrations-slug-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"description\": \"<string>\",\n  \"configurations\": {\n    \"openai_organization\": \"<string>\",\n    \"openai_project\": \"<string>\"\n  },\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"<string>\",\n      \"secret_reference_id\": \"<string>\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"<string>\",\n      \"secret_reference_id\": \"<string>\",\n      \"secret_key\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "983d722a-f5cf-48ac-b8f9-304c5afc7723",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{integrations-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Production OpenAI\",\n  \"key\": \"sk-...\",\n  \"description\": \"Production OpenAI integration for customer-facing applications\",\n  \"configurations\": {\n    \"openai_organization\": \"<string>\",\n    \"openai_project\": \"<string>\"\n  },\n  \"secret_mappings\": [\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    },\n    {\n      \"target_field\": \"key\",\n      \"secret_reference_id\": \"my-aws-secret\",\n      \"secret_key\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33bc4f56-73ba-4969-9a35-46fa2be96a18",
+          "name": "Delete a Integration",
+          "request": {
+            "name": "Delete a Integration",
+            "description": {},
+            "url": {
+              "path": [
+                "integrations",
+                ":slug"
+              ],
+              "host": [
+                "{{integrations-slug-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33284bf0-5049-414f-b6ef-5bf6c40c3169",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{integrations-slug-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "integrations-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "integrations-slug-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fb5d33a5-f090-4072-97fa-cc90729405e7",
+    "name": "Portkey Analytics > Graphs Integrations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

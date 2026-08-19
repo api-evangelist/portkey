@@ -1,0 +1,1174 @@
+{
+  "item": [
+    {
+      "id": "b47f3dc3-ae17-4940-9340-f564ca15d4c6",
+      "name": "Guardrails",
+      "description": {
+        "content": "Create, List, Retrieve, Update, and Delete prompt Guardrails.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4d9ceba1-9bd5-450e-8767-1df0c45c0afe",
+          "name": "Create a new guardrail",
+          "request": {
+            "name": "Create a new guardrail",
+            "description": {
+              "content": "Creates a new guardrail with specified checks and actions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "guardrails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"checks\": [\n    {\n      \"id\": \"<string>\",\n      \"parameters\": {\n        \"jwksUri\": \"<uri>\",\n        \"headerKey\": \"<string>\",\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\",\n        \"algorithms\": [\n          \"RS256\"\n        ]\n      },\n      \"name\": \"<string>\",\n      \"is_enabled\": true\n    }\n  ],\n  \"actions\": {\n    \"deny\": false,\n    \"async\": false,\n    \"on_success\": {\n      \"feedback\": {\n        \"value\": 5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    },\n    \"on_fail\": {\n      \"feedback\": {\n        \"value\": -5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    }\n  },\n  \"workspace_id\": \"<uuid>\",\n  \"organisation_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d9fbe8b-0cca-4966-8bd7-cb89899fc6b5",
+              "name": "Guardrail created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"JWT Authentication Guard\",\n  \"organisation_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"checks\": [\n    {\n      \"id\": \"default.jwt\",\n      \"parameters\": {\n        \"jwksUri\": \"https://example.com/.well-known/jwks.json\",\n        \"headerKey\": \"Authorization\",\n        \"algorithms\": [\n          \"RS256\"\n        ],\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\"\n      }\n    }\n  ],\n  \"actions\": {\n    \"onFail\": \"block\",\n    \"message\": \"Invalid JWT token\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"slug\": \"string\",\n  \"version_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc64ca58-b14e-4295-bae7-8d619a3c6ff2",
+              "name": "Bad request - validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"JWT Authentication Guard\",\n  \"organisation_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"checks\": [\n    {\n      \"id\": \"default.jwt\",\n      \"parameters\": {\n        \"jwksUri\": \"https://example.com/.well-known/jwks.json\",\n        \"headerKey\": \"Authorization\",\n        \"algorithms\": [\n          \"RS256\"\n        ],\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\"\n      }\n    }\n  ],\n  \"actions\": {\n    \"onFail\": \"block\",\n    \"message\": \"Invalid JWT token\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe0737c0-5163-4d7d-bd9f-c298de6c12a7",
+              "name": "Forbidden - insufficient permissions or guardrail not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"JWT Authentication Guard\",\n  \"organisation_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"checks\": [\n    {\n      \"id\": \"default.jwt\",\n      \"parameters\": {\n        \"jwksUri\": \"https://example.com/.well-known/jwks.json\",\n        \"headerKey\": \"Authorization\",\n        \"algorithms\": [\n          \"RS256\"\n        ],\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\"\n      }\n    }\n  ],\n  \"actions\": {\n    \"onFail\": \"block\",\n    \"message\": \"Invalid JWT token\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d81e2b03-32a2-465d-8d85-729cdb4f0d5e",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"JWT Authentication Guard\",\n  \"organisation_id\": \"550e8400-e29b-41d4-a716-446655440001\",\n  \"checks\": [\n    {\n      \"id\": \"default.jwt\",\n      \"parameters\": {\n        \"jwksUri\": \"https://example.com/.well-known/jwks.json\",\n        \"headerKey\": \"Authorization\",\n        \"algorithms\": [\n          \"RS256\"\n        ],\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\"\n      }\n    }\n  ],\n  \"actions\": {\n    \"onFail\": \"block\",\n    \"message\": \"Invalid JWT token\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "898eb6c2-9e93-4249-833e-21219dd1904e",
+          "name": "List guardrails",
+          "request": {
+            "name": "List guardrails",
+            "description": {
+              "content": "Retrieves a paginated list of guardrails for the specified workspace or organisation",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "guardrails"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<uuid>",
+                  "description": "Workspace UUID to filter guardrails"
+                },
+                {
+                  "disabled": false,
+                  "key": "organisation_id",
+                  "value": "<uuid>",
+                  "description": "Organisation UUID to filter guardrails"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "0",
+                  "description": "Current page number (0-indexed)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "088d1025-981b-46a8-b0d2-ed6b4a508128",
+              "name": "List of guardrails retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "organisation_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"created_at\": \"1947-08-31T23:14:38.260Z\",\n      \"last_updated_at\": \"2025-02-15T14:03:13.818Z\",\n      \"owner_id\": \"2fb81b7a-2fab-f87b-b16c-89cc8206d758\",\n      \"organisation_id\": \"a3363178-7c8f-2407-a6d6-fb7f750399c3\",\n      \"workspace_id\": \"f54642dd-ba63-9658-54c0-185c8993e6fe\",\n      \"status\": \"active\",\n      \"updated_by\": \"efd76e68-ff5a-e567-88c4-43be8cf3aa22\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"created_at\": \"1994-01-06T22:01:00.129Z\",\n      \"last_updated_at\": \"1955-02-11T02:40:01.882Z\",\n      \"owner_id\": \"e18cdd3b-d51c-d388-89ae-37ad9b7d8538\",\n      \"organisation_id\": \"dbe32f39-a664-85ba-0c2d-9f9200898609\",\n      \"workspace_id\": \"78ecebb3-8315-ee1b-0e04-d6a2cfcde8a1\",\n      \"status\": \"archived\",\n      \"updated_by\": \"18b1407f-4b67-407f-bc8f-0927e518247e\"\n    }\n  ],\n  \"total\": 347\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3997f55c-10ef-45fd-977c-86b0cf8e0e52",
+              "name": "Bad request - invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "organisation_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00e530de-372c-4ca7-8c70-f8ce361fb472",
+              "name": "Forbidden - insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workspace_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "organisation_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6fd7b1ad-a7fd-4f65-9c23-0a9b8809561c",
+          "name": "Get a specific guardrail",
+          "request": {
+            "name": "Get a specific guardrail",
+            "description": {
+              "content": "Retrieves details of a specific guardrail by ID or slug",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "guardrails",
+                ":guardrailId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "guardrailId",
+                  "description": "(Required) Guardrail UUID or slug (with guard_ prefix)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecabf1ea-8782-478e-b8d8-1c70958c47fd",
+              "name": "Guardrail details retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails",
+                    ":guardrailId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guardrailId",
+                      "description": "(Required) Guardrail UUID or slug (with guard_ prefix)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"slug\": \"string\",\n  \"created_at\": \"2003-03-11T12:39:29.475Z\",\n  \"last_updated_at\": \"2019-10-03T04:36:50.211Z\",\n  \"owner_id\": \"5034c5b8-98d2-b65d-4ecf-ae99a4753f5e\",\n  \"organisation_id\": \"905301e1-9cd5-5a4b-93fb-105073d1c907\",\n  \"workspace_id\": \"64ad1c9f-af5c-dfda-53f0-73c08c972f2e\",\n  \"status\": \"archived\",\n  \"updated_by\": \"21e0948e-5bca-b151-62ef-1d6b6521d042\",\n  \"checks\": [\n    {\n      \"id\": \"<string>\",\n      \"parameters\": {\n        \"jwksUri\": \"<uri>\",\n        \"headerKey\": \"<string>\",\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\",\n        \"algorithms\": [\n          \"RS256\"\n        ]\n      },\n      \"name\": \"<string>\",\n      \"is_enabled\": true\n    },\n    {\n      \"id\": \"<string>\",\n      \"parameters\": {\n        \"jwksUri\": \"<uri>\",\n        \"headerKey\": \"<string>\",\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\",\n        \"algorithms\": [\n          \"RS256\"\n        ]\n      },\n      \"name\": \"<string>\",\n      \"is_enabled\": true\n    }\n  ],\n  \"actions\": {\n    \"deny\": false,\n    \"async\": false,\n    \"on_success\": {\n      \"feedback\": {\n        \"value\": 5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    },\n    \"on_fail\": {\n      \"feedback\": {\n        \"value\": -5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "160d000c-5b29-4cc1-8634-574934f8ef64",
+              "name": "Forbidden - guardrail not found or insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails",
+                    ":guardrailId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guardrailId",
+                      "description": "(Required) Guardrail UUID or slug (with guard_ prefix)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e63a4a2-87d3-417f-b3af-54ac3360d6a6",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails",
+                    ":guardrailId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guardrailId",
+                      "description": "(Required) Guardrail UUID or slug (with guard_ prefix)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "357a5504-6253-4345-9ed8-67c97883cbda",
+          "name": "Update a guardrail",
+          "request": {
+            "name": "Update a guardrail",
+            "description": {
+              "content": "Updates an existing guardrail's name, checks, or actions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "guardrails",
+                ":guardrailId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "guardrailId",
+                  "description": "(Required) Guardrail UUID or slug to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"checks\": [\n    {\n      \"id\": \"<string>\",\n      \"parameters\": {\n        \"jwksUri\": \"<uri>\",\n        \"headerKey\": \"<string>\",\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\",\n        \"algorithms\": [\n          \"RS256\"\n        ]\n      },\n      \"name\": \"<string>\",\n      \"is_enabled\": true\n    }\n  ],\n  \"actions\": {\n    \"deny\": false,\n    \"async\": false,\n    \"on_success\": {\n      \"feedback\": {\n        \"value\": 5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    },\n    \"on_fail\": {\n      \"feedback\": {\n        \"value\": -5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "29c8609f-9a26-4a97-90f6-00d111fcd5be",
+              "name": "Guardrail updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails",
+                    ":guardrailId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guardrailId",
+                      "description": "(Required) Guardrail UUID or slug to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"checks\": [\n    {\n      \"id\": \"<string>\",\n      \"parameters\": {\n        \"jwksUri\": \"<uri>\",\n        \"headerKey\": \"<string>\",\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\",\n        \"algorithms\": [\n          \"RS256\"\n        ]\n      },\n      \"name\": \"<string>\",\n      \"is_enabled\": true\n    }\n  ],\n  \"actions\": {\n    \"deny\": false,\n    \"async\": false,\n    \"on_success\": {\n      \"feedback\": {\n        \"value\": 5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    },\n    \"on_fail\": {\n      \"feedback\": {\n        \"value\": -5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"slug\": \"string\",\n  \"version_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fc9b312-a00a-47db-9436-b0a5ffe718fe",
+              "name": "Bad request - validation failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails",
+                    ":guardrailId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guardrailId",
+                      "description": "(Required) Guardrail UUID or slug to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"checks\": [\n    {\n      \"id\": \"<string>\",\n      \"parameters\": {\n        \"jwksUri\": \"<uri>\",\n        \"headerKey\": \"<string>\",\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\",\n        \"algorithms\": [\n          \"RS256\"\n        ]\n      },\n      \"name\": \"<string>\",\n      \"is_enabled\": true\n    }\n  ],\n  \"actions\": {\n    \"deny\": false,\n    \"async\": false,\n    \"on_success\": {\n      \"feedback\": {\n        \"value\": 5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    },\n    \"on_fail\": {\n      \"feedback\": {\n        \"value\": -5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88b38403-8e90-4ec0-9244-256f0060da86",
+              "name": "Forbidden - guardrail not found or insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails",
+                    ":guardrailId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guardrailId",
+                      "description": "(Required) Guardrail UUID or slug to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"checks\": [\n    {\n      \"id\": \"<string>\",\n      \"parameters\": {\n        \"jwksUri\": \"<uri>\",\n        \"headerKey\": \"<string>\",\n        \"cacheMaxAge\": 86400,\n        \"clockTolerance\": 5,\n        \"maxTokenAge\": \"1d\",\n        \"algorithms\": [\n          \"RS256\"\n        ]\n      },\n      \"name\": \"<string>\",\n      \"is_enabled\": true\n    }\n  ],\n  \"actions\": {\n    \"deny\": false,\n    \"async\": false,\n    \"on_success\": {\n      \"feedback\": {\n        \"value\": 5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    },\n    \"on_fail\": {\n      \"feedback\": {\n        \"value\": -5,\n        \"weight\": 1,\n        \"metadata\": \"\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99e1dbf5-64f7-4dc0-958e-c2a0fdcba14a",
+          "name": "Delete a guardrail",
+          "request": {
+            "name": "Delete a guardrail",
+            "description": {
+              "content": "Deletes an existing guardrail",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "guardrails",
+                ":guardrailId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "guardrailId",
+                  "description": "(Required) Guardrail UUID or slug to delete"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "28f977a6-ec08-46a7-822c-221aa78ef43c",
+              "name": "Guardrail deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails",
+                    ":guardrailId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guardrailId",
+                      "description": "(Required) Guardrail UUID or slug to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "421b32d5-ff0b-4021-ac1e-ac28e4983823",
+              "name": "Forbidden - guardrail not found or insufficient permissions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails",
+                    ":guardrailId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guardrailId",
+                      "description": "(Required) Guardrail UUID or slug to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d87cce4-769f-4936-b539-4f5658c370fc",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guardrails",
+                    ":guardrailId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "guardrailId",
+                      "description": "(Required) Guardrail UUID or slug to delete"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"type\": \"string\",\n    \"message\": \"string\",\n    \"param\": \"string\",\n    \"code\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e5a5c365-cb4d-4c92-8c2d-2014fa84415f",
+    "name": "Portkey Analytics > Graphs Guardrails API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

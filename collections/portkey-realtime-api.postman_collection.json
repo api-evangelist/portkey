@@ -1,0 +1,322 @@
+{
+  "item": [
+    {
+      "id": "3b3adf58-3413-4744-aa75-d24ec933b5a5",
+      "name": "Realtime",
+      "description": {
+        "content": "WebSocket proxy for provider Realtime APIs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ce38aec3-152e-44fa-9dfb-3ab277856f40",
+          "name": "Realtime",
+          "request": {
+            "name": "Realtime",
+            "description": {
+              "content": "Connect to the Realtime API endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "realtime"
+              ],
+              "host": [
+                "{{realtime-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "Often required for OpenAI-style realtime; other query params pass through unchanged."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)",
+                "key": "x-portkey-trace-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An ID you can pass to refer to a span under a trace.",
+                "key": "x-portkey-span-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Link a child span to a parent span",
+                "key": "x-portkey-parent-span-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Name for the Span ID",
+                "key": "x-portkey-span-name",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Pass any arbitrary metadata along with your request",
+                "key": "x-portkey-metadata",
+                "value": "<object>"
+              },
+              {
+                "disabled": false,
+                "description": "Partition your Portkey cache store based on custom strings, ignoring metadata and other headers",
+                "key": "x-portkey-cache-namespace",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Forces a cache refresh for your request by making a new API call and storing the updated value",
+                "key": "x-portkey-cache-force-refresh",
+                "value": "<boolean>"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2026172f-bd74-4dce-84a8-18dcd6b4adb2",
+              "name": "WebSocket upgrade.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realtime"
+                  ],
+                  "host": [
+                    "{{realtime-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)",
+                    "key": "x-portkey-trace-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An ID you can pass to refer to a span under a trace.",
+                    "key": "x-portkey-span-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Link a child span to a parent span",
+                    "key": "x-portkey-parent-span-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Name for the Span ID",
+                    "key": "x-portkey-span-name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Pass any arbitrary metadata along with your request",
+                    "key": "x-portkey-metadata",
+                    "value": "<object>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partition your Portkey cache store based on custom strings, ignoring metadata and other headers",
+                    "key": "x-portkey-cache-namespace",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Forces a cache refresh for your request by making a new API call and storing the updated value",
+                    "key": "x-portkey-cache-force-refresh",
+                    "value": "<boolean>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Switching Protocols",
+              "code": 101,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d0a85ce-5edd-4762-af45-29c9cab96552",
+              "name": "Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "realtime"
+                  ],
+                  "host": [
+                    "{{realtime-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "model",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)",
+                    "key": "x-portkey-trace-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An ID you can pass to refer to a span under a trace.",
+                    "key": "x-portkey-span-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Link a child span to a parent span",
+                    "key": "x-portkey-parent-span-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Name for the Span ID",
+                    "key": "x-portkey-span-name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Pass any arbitrary metadata along with your request",
+                    "key": "x-portkey-metadata",
+                    "value": "<object>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Partition your Portkey cache store based on custom strings, ignoring metadata and other headers",
+                    "key": "x-portkey-cache-namespace",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Forces a cache refresh for your request by making a new API call and storing the updated value",
+                    "key": "x-portkey-cache-force-refresh",
+                    "value": "<boolean>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "realtime-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1bc7b84c-3ede-4048-9fdd-3320518bb22d",
+    "name": "Portkey Analytics > Graphs Realtime API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

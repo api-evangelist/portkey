@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Guardrails API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Guardrails",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List guardrails",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/guardrails",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Workspace UUID to filter guardrails"
+              },
+              {
+                "name": "organisation_id",
+                "value": "",
+                "type": "query",
+                "description": "Organisation UUID to filter guardrails"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query",
+                "description": "Current page number (0-indexed)"
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of guardrails for the specified workspace or organisation"
+        },
+        {
+          "info": {
+            "name": "Create a new guardrail",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/guardrails",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new guardrail with specified checks and actions"
+        },
+        {
+          "info": {
+            "name": "Get a specific guardrail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/guardrails/:guardrailId",
+            "params": [
+              {
+                "name": "guardrailId",
+                "value": "",
+                "type": "path",
+                "description": "Guardrail UUID or slug (with guard_ prefix)"
+              }
+            ]
+          },
+          "docs": "Retrieves details of a specific guardrail by ID or slug"
+        },
+        {
+          "info": {
+            "name": "Update a guardrail",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/guardrails/:guardrailId",
+            "params": [
+              {
+                "name": "guardrailId",
+                "value": "",
+                "type": "path",
+                "description": "Guardrail UUID or slug to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing guardrail's name, checks, or actions"
+        },
+        {
+          "info": {
+            "name": "Delete a guardrail",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/guardrails/:guardrailId",
+            "params": [
+              {
+                "name": "guardrailId",
+                "value": "",
+                "type": "path",
+                "description": "Guardrail UUID or slug to delete"
+              }
+            ]
+          },
+          "docs": "Deletes an existing guardrail"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

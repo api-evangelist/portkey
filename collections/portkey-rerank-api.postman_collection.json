@@ -1,0 +1,229 @@
+{
+  "item": [
+    {
+      "id": "38fe101f-6114-47ea-b756-d1d46da66ca0",
+      "name": "Rerank",
+      "description": {
+        "content": "Rerank a list of documents based on their relevance to a query. Supported providers include Cohere, Voyage, Jina, Pinecone, Bedrock, and Azure AI.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0075b7ff-5a06-4e62-b2c7-15703777779e",
+          "name": "Rerank",
+          "request": {
+            "name": "Rerank",
+            "description": {
+              "content": "Reranks a list of documents based on their relevance to a query. This endpoint provides a unified interface to reranking models from multiple providers including Cohere, Voyage, Jina, Pinecone, Bedrock, and Azure AI.\n\nReranking is useful for improving search results by scoring and sorting documents based on semantic relevance to a query, rather than just keyword matching.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rerank"
+              ],
+              "host": [
+                "{{rerank-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)",
+                "key": "x-portkey-trace-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "An ID you can pass to refer to a span under a trace.",
+                "key": "x-portkey-span-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Link a child span to a parent span",
+                "key": "x-portkey-parent-span-id",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Name for the Span ID",
+                "key": "x-portkey-span-name",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Pass any arbitrary metadata along with your request",
+                "key": "x-portkey-metadata",
+                "value": "<object>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-portkey-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"query\": \"<string>\",\n  \"documents\": [\n    \"<string>\"\n  ],\n  \"top_n\": \"<integer>\",\n  \"return_documents\": false,\n  \"max_tokens_per_doc\": \"<integer>\",\n  \"priority\": \"<number>\",\n  \"rank_fields\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"truncation\": \"<boolean>\",\n  \"parameters\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": 326.16280614115254\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "02245bf9-84a2-46e0-ac3a-fd46d541e06d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rerank"
+                  ],
+                  "host": [
+                    "{{rerank-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)",
+                    "key": "x-portkey-trace-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An ID you can pass to refer to a span under a trace.",
+                    "key": "x-portkey-span-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Link a child span to a parent span",
+                    "key": "x-portkey-parent-span-id",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Name for the Span ID",
+                    "key": "x-portkey-span-name",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Pass any arbitrary metadata along with your request",
+                    "key": "x-portkey-metadata",
+                    "value": "<object>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"rerank-v3.5\",\n  \"query\": \"What is the capital of France?\",\n  \"documents\": [\n    \"Paris is the capital of France.\",\n    \"Berlin is the capital of Germany.\",\n    \"Madrid is the capital of Spain.\"\n  ],\n  \"top_n\": 3,\n  \"return_documents\": false,\n  \"max_tokens_per_doc\": \"<integer>\",\n  \"priority\": \"<number>\",\n  \"rank_fields\": [\n    \"text\",\n    \"title\"\n  ],\n  \"truncation\": \"<boolean>\",\n  \"parameters\": {\n    \"key_0\": 2644,\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"results\": [\n    {\n      \"index\": 0,\n      \"relevance_score\": 0.98,\n      \"document\": {\n        \"text\": \"string\",\n        \"key_0\": 2380,\n        \"key_1\": 3509\n      }\n    },\n    {\n      \"index\": 0,\n      \"relevance_score\": 0.98,\n      \"document\": {\n        \"text\": \"string\",\n        \"key_0\": 5549.495283715439\n      }\n    }\n  ],\n  \"model\": \"rerank-v3.5\",\n  \"id\": \"rerank-abc123\",\n  \"usage\": {\n    \"search_units\": 2693\n  },\n  \"provider\": \"cohere\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "rerank-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6b4a225c-1766-440c-a44d-7ce3044ba6a6",
+    "name": "Portkey Analytics > Graphs Rerank API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

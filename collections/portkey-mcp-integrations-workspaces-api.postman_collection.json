@@ -1,0 +1,277 @@
+{
+  "item": [
+    {
+      "id": "57efb890-a7be-439f-829d-fdb10be05a5b",
+      "name": "MCP Integrations > Workspaces",
+      "description": {
+        "content": "Manage workspace access for MCP Integrations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dcc600aa-12bc-4906-bdcb-d85cd293415b",
+          "name": "List MCP Integration Workspaces",
+          "request": {
+            "name": "List MCP Integration Workspaces",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-integrations",
+                ":mcpIntegrationId",
+                "workspaces"
+              ],
+              "host": [
+                "{{mcp-integrations-mcpIntegrationId-workspaces-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "<string>",
+                  "description": "When set, response uses data/total shape instead of workspaces"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpIntegrationId",
+                  "description": "(Required) MCP Integration ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b366e4f-6dc1-4fe5-87e4-701160641a63",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-integrations",
+                    ":mcpIntegrationId",
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{mcp-integrations-mcpIntegrationId-workspaces-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpIntegrationId",
+                      "description": "(Required) MCP Integration ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"enabled\": true,\n      \"status\": \"string\",\n      \"created_at\": \"1950-09-01T17:37:07.384Z\",\n      \"last_updated_at\": \"1963-03-10T01:05:56.686Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"enabled\": true,\n      \"status\": \"string\",\n      \"created_at\": \"2000-03-02T15:35:50.746Z\",\n      \"last_updated_at\": \"2015-02-07T17:03:22.882Z\"\n    }\n  ],\n  \"global_workspace_access\": {},\n  \"total\": 6161\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3625507-4d22-4867-a596-0847ed514142",
+          "name": "Bulk Update MCP Integration Workspaces",
+          "request": {
+            "name": "Bulk Update MCP Integration Workspaces",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-integrations",
+                ":mcpIntegrationId",
+                "workspaces"
+              ],
+              "host": [
+                "{{mcp-integrations-mcpIntegrationId-workspaces-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpIntegrationId",
+                  "description": "(Required) MCP Integration ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workspaces\": [\n    {\n      \"id\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    }\n  ],\n  \"global_workspace_access\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"override_existing_workspace_access\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4b33afe7-b4b9-4a92-a7e6-c1b2067d6fa8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-integrations",
+                    ":mcpIntegrationId",
+                    "workspaces"
+                  ],
+                  "host": [
+                    "{{mcp-integrations-mcpIntegrationId-workspaces-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpIntegrationId",
+                      "description": "(Required) MCP Integration ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workspaces\": [\n    {\n      \"id\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"enabled\": \"<boolean>\"\n    }\n  ],\n  \"global_workspace_access\": {\n    \"enabled\": \"<boolean>\"\n  },\n  \"override_existing_workspace_access\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "mcp-integrations-mcpIntegrationId-workspaces-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f7a56251-883a-4702-b838-8f41bee5de0b",
+    "name": "Portkey Analytics > Graphs MCP Integrations > Workspaces API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

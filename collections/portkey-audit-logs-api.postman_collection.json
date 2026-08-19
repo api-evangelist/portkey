@@ -1,0 +1,291 @@
+{
+  "item": [
+    {
+      "id": "d4f978b9-7f0b-46c9-8818-bd809da49f1b",
+      "name": "Audit Logs",
+      "description": {
+        "content": "Get audit logs for your Portkey account.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "585fda2d-c16c-4637-9128-42b1e9c0bfa2",
+          "name": "Get Audit Logs",
+          "request": {
+            "name": "Get Audit Logs",
+            "description": {},
+            "url": {
+              "path": [
+                "audit-logs"
+              ],
+              "host": [
+                "{{audit-logs-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start_time",
+                  "value": "<string>",
+                  "description": "(Required) Start time for filtering logs (ISO8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end_time",
+                  "value": "<string>",
+                  "description": "(Required) End time for filtering logs (ISO8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "organisation_id",
+                  "value": "<string>",
+                  "description": "(Required) Organisation ID for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "method",
+                  "value": "<string>",
+                  "description": "HTTP method for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "uri",
+                  "value": "<string>",
+                  "description": "URI path for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "request_id",
+                  "value": "<string>",
+                  "description": "Request ID for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<string>",
+                  "description": "User ID for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_type",
+                  "value": "<string>",
+                  "description": "Type of user for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>",
+                  "description": "Workspace ID for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_status_code",
+                  "value": "<integer>",
+                  "description": "HTTP response status code for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_type",
+                  "value": "<string>",
+                  "description": "Resource type for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "action",
+                  "value": "<string>",
+                  "description": "Action type for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_ip",
+                  "value": "<string>",
+                  "description": "Client IP address for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Country for filtering logs"
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "<integer>",
+                  "description": "Current page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Number of items per page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f89ea84d-9a29-435e-b8ed-9078e3d17c9f",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{audit-logs-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_time",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_time",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "organisation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "method",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uri",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "request_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "user_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "response_status_code",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "action",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "client_ip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"records\": [\n    {\n      \"timestamp\": \"string\",\n      \"method\": \"PUT\",\n      \"uri\": \"string\",\n      \"request_id\": \"string\",\n      \"request_body\": \"string\",\n      \"query_params\": \"string\",\n      \"request_headers\": \"string\",\n      \"user_id\": \"3e0a6607-4910-3c6a-b2b0-e7dcd460d1b1\",\n      \"user_type\": \"user\",\n      \"organisation_id\": \"76a60d0a-0636-d3c5-896b-4d209b3b0cdc\",\n      \"workspace_id\": \"string\",\n      \"response_status_code\": 6988,\n      \"resource_type\": \"string\",\n      \"action\": \"string\",\n      \"client_ip\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"timestamp\": \"string\",\n      \"method\": \"POST\",\n      \"uri\": \"string\",\n      \"request_id\": \"string\",\n      \"request_body\": \"string\",\n      \"query_params\": \"string\",\n      \"request_headers\": \"string\",\n      \"user_id\": \"f9902d31-b690-ae3a-7e8a-c1f77f92136d\",\n      \"user_type\": \"user\",\n      \"organisation_id\": \"29c933bf-5b80-9470-1240-5cd9f58098c9\",\n      \"workspace_id\": \"string\",\n      \"response_status_code\": 6803,\n      \"resource_type\": \"string\",\n      \"action\": \"string\",\n      \"client_ip\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"total\": 7221,\n  \"object\": \"analytics-graph\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "audit-logs-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2602fed1-5760-48bf-ac95-56e6babca7ae",
+    "name": "Portkey Analytics > Graphs Audit Logs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

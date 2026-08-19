@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Model Pricing API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Model Pricing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Model Pricing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/model-configs/pricing/:provider/:model",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "path",
+                "description": "Provider identifier. Use lowercase with hyphens.\n\nExamples: `openai`, `anthropic`, `google`, `azure-openai`, `bedrock`, `x-ai`\n"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "path",
+                "description": "Model identifier. Use the exact model name as specified by the provider.\n\nExamples: `gpt-5`, `gpt-5.2`, `claude-opus-4-5-20251101`, `gemini-3.0-pro`\n"
+              }
+            ]
+          },
+          "docs": "Returns pricing configuration for a specific model.\n\n**Note:** Prices are in USD cents per token.\n\n## Supported Providers\n\nopenai, anthropic, google, azure-openai, bedrock, mistral-ai, cohere, \ntogether-ai, groq, deepseek, fireworks-ai, perplexity-ai, anyscale, \ndeepinfra, cerebras, x-ai, and 25+ more.\n\n## Example Response Fields\n\n| Field | Description | Unit |\n|-------|-------------|------|\n| `request_token.price` | Input token cost | cents/token |\n| `response_token.price` | Output token cost |"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

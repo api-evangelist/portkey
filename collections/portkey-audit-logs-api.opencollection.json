@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Audit Logs API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audit Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Audit Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/audit-logs",
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Start time for filtering logs (ISO8601 format)"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End time for filtering logs (ISO8601 format)"
+              },
+              {
+                "name": "organisation_id",
+                "value": "",
+                "type": "query",
+                "description": "Organisation ID for filtering logs"
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query",
+                "description": "HTTP method for filtering logs"
+              },
+              {
+                "name": "uri",
+                "value": "",
+                "type": "query",
+                "description": "URI path for filtering logs"
+              },
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "query",
+                "description": "Request ID for filtering logs"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "User ID for filtering logs"
+              },
+              {
+                "name": "user_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of user for filtering logs"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Workspace ID for filtering logs"
+              },
+              {
+                "name": "response_status_code",
+                "value": "",
+                "type": "query",
+                "description": "HTTP response status code for filtering logs"
+              },
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query",
+                "description": "Resource type for filtering logs"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "Action type for filtering logs"
+              },
+              {
+                "name": "client_ip",
+                "value": "",
+                "type": "query",
+                "description": "Client IP address for filtering logs"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country for filtering logs"
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query",
+                "description": "Current page number for pagination"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              }
+            ]
+          },
+          "docs": "Get Audit Logs"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

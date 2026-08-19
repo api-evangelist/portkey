@@ -1,0 +1,267 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs Usage Limits Policies API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Usage Limits Policies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Usage Limits Policies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/policies/usage-limits",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Workspace ID or slug"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by policy type"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query",
+                "description": "Current page number"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all usage limits policies with optional filtering."
+        },
+        {
+          "info": {
+            "name": "Create Usage Limits Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.portkey.ai/v1/policies/usage-limits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new usage limits policy to control total usage (cost or tokens) over a period."
+        },
+        {
+          "info": {
+            "name": "Get Usage Limits Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/policies/usage-limits/:policyUsageLimitsId",
+            "params": [
+              {
+                "name": "policyUsageLimitsId",
+                "value": "",
+                "type": "path",
+                "description": "Usage limits policy UUID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status"
+              },
+              {
+                "name": "include_usage",
+                "value": "",
+                "type": "query",
+                "description": "Include usage information for each value key"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single usage limits policy by ID."
+        },
+        {
+          "info": {
+            "name": "Update Usage Limits Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/policies/usage-limits/:policyUsageLimitsId",
+            "params": [
+              {
+                "name": "policyUsageLimitsId",
+                "value": "",
+                "type": "path",
+                "description": "Usage limits policy UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an existing usage limits policy."
+        },
+        {
+          "info": {
+            "name": "Delete Usage Limits Policy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.portkey.ai/v1/policies/usage-limits/:policyUsageLimitsId",
+            "params": [
+              {
+                "name": "policyUsageLimitsId",
+                "value": "",
+                "type": "path",
+                "description": "Usage limits policy UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Archive (soft delete) a usage limits policy."
+        },
+        {
+          "info": {
+            "name": "List Usage Limits Policy Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/policies/usage-limits/:policyUsageLimitsId/entities",
+            "params": [
+              {
+                "name": "policyUsageLimitsId",
+                "value": "",
+                "type": "path",
+                "description": "Usage limits policy UUID"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by entity usage status"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter entities by value key"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "current_page",
+                "value": "",
+                "type": "query",
+                "description": "Current page number"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List entities tracked by a usage limits policy with their current usage."
+        },
+        {
+          "info": {
+            "name": "Reset Usage Limits Policy Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.portkey.ai/v1/policies/usage-limits/:policyUsageLimitsId/entities/:entityId/reset",
+            "params": [
+              {
+                "name": "policyUsageLimitsId",
+                "value": "",
+                "type": "path",
+                "description": "Usage limits policy UUID"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "path",
+                "description": "Usage limits policy entity ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-portkey-api-key",
+              "value": "{{x-portkey-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Reset the current usage for a specific entity in a usage limits policy."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

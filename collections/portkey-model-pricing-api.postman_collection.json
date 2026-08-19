@@ -1,0 +1,229 @@
+{
+  "item": [
+    {
+      "id": "0879c795-9479-4e37-84de-101c65d48bba",
+      "name": "Model Pricing",
+      "description": {
+        "content": "Model pricing configurations for 2300+ LLMs across 40+ providers",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "602ac7fa-8216-45bc-95bf-a61a794d5b03",
+          "name": "Get Model Pricing",
+          "request": {
+            "name": "Get Model Pricing",
+            "description": {
+              "content": "Returns pricing configuration for a specific model.\n\n**Note:** Prices are in USD cents per token.\n\n## Supported Providers\n\nopenai, anthropic, google, azure-openai, bedrock, mistral-ai, cohere, \ntogether-ai, groq, deepseek, fireworks-ai, perplexity-ai, anyscale, \ndeepinfra, cerebras, x-ai, and 25+ more.\n\n## Example Response Fields\n\n| Field | Description | Unit |\n|-------|-------------|------|\n| `request_token.price` | Input token cost | cents/token |\n| `response_token.price` | Output token cost | cents/token |\n| `cache_write_input_token.price` | Cache write cost | cents/token |\n| `cache_read_input_token.price` | Cache read cost | cents/token |\n| `additional_units.*` | Provider-specific features | cents/unit |\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "model-configs",
+                "pricing",
+                ":provider",
+                ":model"
+              ],
+              "host": [
+                "{{model-configs-pricing-provider-model-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "provider",
+                  "description": "(Required) Provider identifier. Use lowercase with hyphens.\n\nExamples: `openai`, `anthropic`, `google`, `azure-openai`, `bedrock`, `x-ai`\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "model",
+                  "description": "(Required) Model identifier. Use the exact model name as specified by the provider.\n\nExamples: `gpt-5`, `gpt-5.2`, `claude-opus-4-5-20251101`, `gemini-3.0-pro`\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "444bbd06-1713-4007-af0e-00728aa06b8a",
+              "name": "Pricing configuration for the specified model",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "model-configs",
+                    "pricing",
+                    ":provider",
+                    ":model"
+                  ],
+                  "host": [
+                    "{{model-configs-pricing-provider-model-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "provider",
+                      "description": "(Required) Provider identifier. Use lowercase with hyphens.\n\nExamples: `openai`, `anthropic`, `google`, `azure-openai`, `bedrock`, `x-ai`\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model",
+                      "description": "(Required) Model identifier. Use the exact model name as specified by the provider.\n\nExamples: `gpt-5`, `gpt-5.2`, `claude-opus-4-5-20251101`, `gemini-3.0-pro`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pay_as_you_go\": {\n    \"request_token\": {\n      \"price\": 0.003\n    },\n    \"response_token\": {\n      \"price\": 0.006\n    }\n  },\n  \"calculate\": {\n    \"request\": {\n      \"operation\": \"sum\",\n      \"operands\": [\n        {\n          \"operation\": \"multiply\",\n          \"operands\": [\n            {\n              \"value\": \"input_tokens\"\n            },\n            {\n              \"value\": \"rates.request_token\"\n            }\n          ]\n        },\n        {\n          \"operation\": \"multiply\",\n          \"operands\": [\n            {\n              \"value\": \"cache_write_tokens\"\n            },\n            {\n              \"value\": \"rates.cache_write_input_token\"\n            }\n          ]\n        },\n        {\n          \"operation\": \"multiply\",\n          \"operands\": [\n            {\n              \"value\": \"cache_read_tokens\"\n            },\n            {\n              \"value\": \"rates.cache_read_input_token\"\n            }\n          ]\n        }\n      ]\n    },\n    \"response\": {\n      \"operation\": \"multiply\",\n      \"operands\": [\n        {\n          \"value\": \"output_tokens\"\n        },\n        {\n          \"value\": \"rates.response_token\"\n        }\n      ]\n    }\n  },\n  \"currency\": \"USD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e14fda90-c922-4997-a2f6-0a386ab667ba",
+              "name": "Model or provider not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "model-configs",
+                    "pricing",
+                    ":provider",
+                    ":model"
+                  ],
+                  "host": [
+                    "{{model-configs-pricing-provider-model-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "provider",
+                      "description": "(Required) Provider identifier. Use lowercase with hyphens.\n\nExamples: `openai`, `anthropic`, `google`, `azure-openai`, `bedrock`, `x-ai`\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "model",
+                      "description": "(Required) Model identifier. Use the exact model name as specified by the provider.\n\nExamples: `gpt-5`, `gpt-5.2`, `claude-opus-4-5-20251101`, `gemini-3.0-pro`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Model not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai",
+      "key": "model-configs-pricing-provider-model-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5ed3e06a-0a3c-4481-8aea-a8c6b709a937",
+    "name": "Portkey Analytics > Graphs Model Pricing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

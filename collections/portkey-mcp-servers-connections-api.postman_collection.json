@@ -1,0 +1,306 @@
+{
+  "item": [
+    {
+      "id": "da8e85aa-f712-4ee0-8dd4-90bbc2046f90",
+      "name": "MCP Servers > Connections",
+      "description": {
+        "content": "List and manage user connections for MCP Servers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2745767f-f465-42fb-8b14-6e7e2a09fffd",
+          "name": "List MCP Server Connections",
+          "request": {
+            "name": "List MCP Server Connections",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-servers",
+                ":mcpServerId",
+                "connections"
+              ],
+              "host": [
+                "{{mcp-servers-mcpServerId-connections-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<string>",
+                  "description": "Optional. UUID of the user whose connections to list. If not provided, defaults to the current user for user API keys, and returns all connections on the MCP server for service API keys."
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>",
+                  "description": "Workspace ID or slug. Required when using org admin API key; optional when API key is workspace-scoped."
+                },
+                {
+                  "disabled": false,
+                  "key": "current_page",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpServerId",
+                  "description": "(Required) MCP Server ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "387043a4-be14-486a-b503-4633a81dadaa",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-servers",
+                    ":mcpServerId",
+                    "connections"
+                  ],
+                  "host": [
+                    "{{mcp-servers-mcpServerId-connections-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "current_page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpServerId",
+                      "description": "(Required) MCP Server ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"user_id\": \"005343fe-ed0c-cea3-0330-2e51495bc715\",\n      \"connected\": false,\n      \"created_at\": \"1963-12-25T18:06:39.942Z\",\n      \"last_updated_at\": \"2014-12-13T04:41:06.264Z\"\n    },\n    {\n      \"user_id\": \"2c57167a-c449-f3f6-9778-a97d88a9ae30\",\n      \"connected\": true,\n      \"created_at\": \"1980-02-19T14:16:22.633Z\",\n      \"last_updated_at\": \"1978-05-03T21:37:42.538Z\"\n    }\n  ],\n  \"total\": 8888,\n  \"has_more\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22940251-2599-4511-9c44-0159ceb12977",
+          "name": "Delete MCP Server Connection",
+          "request": {
+            "name": "Delete MCP Server Connection",
+            "description": {},
+            "url": {
+              "path": [
+                "mcp-servers",
+                ":mcpServerId",
+                "connections"
+              ],
+              "host": [
+                "{{mcp-servers-mcpServerId-connections-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<uuid>",
+                  "description": "The UUID of the user to disconnect. Required when using a service API key; optional when using a user API key (the user ID is derived from the key if not provided)."
+                },
+                {
+                  "disabled": false,
+                  "key": "workspace_id",
+                  "value": "<string>",
+                  "description": "Workspace ID or slug. Required when using org admin API key; optional when API key is workspace-scoped."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "mcpServerId",
+                  "description": "(Required) MCP Server ID (UUID) or slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5aba22dc-042f-41ad-91b1-700627afd90d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "mcp-servers",
+                    ":mcpServerId",
+                    "connections"
+                  ],
+                  "host": [
+                    "{{mcp-servers-mcpServerId-connections-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "workspace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "mcpServerId",
+                      "description": "(Required) MCP Server ID (UUID) or slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-portkey-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.portkey.ai/v1",
+      "key": "mcp-servers-mcpServerId-connections-Url"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-portkey-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f593e91a-e14b-485d-a3c5-92295cf6d93c",
+    "name": "Portkey Analytics > Graphs MCP Servers > Connections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.\n\nContact Support:\n Name: Portkey Developer Forum",
+      "type": "text/plain"
+    }
+  }
+}

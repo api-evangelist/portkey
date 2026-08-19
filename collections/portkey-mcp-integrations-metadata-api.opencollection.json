@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Portkey Analytics > Graphs MCP Integrations > Metadata API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-portkey-api-key",
+      "value": "{{x-portkey-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MCP Integrations > Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get MCP Integration Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.portkey.ai/v1/mcp-integrations/:mcpIntegrationId/metadata",
+            "params": [
+              {
+                "name": "mcpIntegrationId",
+                "value": "",
+                "type": "path",
+                "description": "MCP Integration ID (UUID) or slug"
+              }
+            ]
+          },
+          "docs": "Get MCP Integration Metadata"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
