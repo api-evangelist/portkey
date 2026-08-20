@@ -73,6 +73,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - APIKeys
+  tags_raw:
   - Api-Keys
   properties:
   - type: OpenAPI
@@ -205,6 +207,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -320,6 +324,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -342,6 +348,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - Fine-Tuning
+  tags_raw:
   - Fine-tuning
   properties:
   - type: OpenAPI
@@ -408,6 +416,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -430,6 +440,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - Integration
+  tags_raw:
   - Integrations
   properties:
   - type: OpenAPI
@@ -894,6 +906,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - Real-Time
+  tags_raw:
   - Realtime
   properties:
   - type: OpenAPI
@@ -1029,6 +1043,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -1073,6 +1089,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - Virtual Keys
+  tags_raw:
   - Virtual-keys
   properties:
   - type: OpenAPI
