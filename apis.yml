@@ -1160,6 +1160,18 @@ tags:
   - Observability
   - Prompt Management
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -1176,6 +1188,9 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/portkey.png
 access: 3rd-Party
 common:
+  - type: CapabilityMap
+    url: capabilities/portkey-capability-edges.yml
+    name: Portkey Business Capability Map
   - type: AgenticAccess
     url: agentic-access/portkey-agentic-access.yml
   - type: DomainSecurity
