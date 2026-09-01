@@ -73,7 +73,7 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
-  - Api-Keys
+  - APIKeys
   tags_raw:
   - Api-Keys
   properties:
@@ -348,7 +348,7 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
-  - Fine-tuning
+  - Fine-Tuning
   tags_raw:
   - Fine-tuning
   properties:
@@ -1089,7 +1089,7 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
-  - Virtual-keys
+  - Virtual Keys
   tags_raw:
   - Virtual-keys
   properties:
