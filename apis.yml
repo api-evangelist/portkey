@@ -97,6 +97,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - Assistant
+  tags_raw:
   - Assistants
   properties:
   - type: OpenAPI
@@ -663,6 +665,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - MCP Server
+  tags_raw:
   - MCP Servers
   properties:
   - type: OpenAPI
@@ -1113,6 +1117,8 @@ apis:
   humanURL: https://portkey.ai/
   baseURL: https://api.portkey.ai/v1
   tags:
+  - Workspace
+  tags_raw:
   - Workspaces
   properties:
   - type: OpenAPI
@@ -1153,6 +1159,13 @@ apis:
     url: https://portkey.ai/docs/api-reference/admin-api/introduction
 name: Portkey
 tags:
+  - AI Gateway
+  - Gateways
+  - Governance
+  - Guardrails
+  - Observability
+  - Prompt Management
+tags_raw:
   - AI Gateways
   - Gateways
   - Governance
