@@ -1,79 +1,90 @@
-specification: API Commons Rate Limits
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: Portkey
-providerId: portkey
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
-tags:
-  - AI Gateways
-  - Governance
-  - Observability
-  - Rate Limiting
-description: >-
-  Portkey is an LLM gateway whose runtime quotas are dominated by the upstream
-  provider being proxied (OpenAI, Anthropic, Bedrock, etc.); Portkey itself
-  exposes plan-bound caps on recorded logs (10k/month on Developer, 100k/month
-  on Production with overage to 3M, 10M+ on Enterprise) rather than per-second
-  request throttling. Enterprise customers can configure granular budget and
-  rate limits per virtual key and workspace. Concrete numeric request-per-second
-  ceilings are not published on the public docs site at the time of writing.
+# Rate limits transcribed from the provider's own documentation — see provenance. Quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://portkey.ai/docs/guides/getting-started/tackling-rate-limiting
 sources:
-  - https://portkey.ai/pricing
-  - https://portkey.ai/docs/api-reference/inference-api/introduction
-  - https://portkey.ai/docs/product/enterprise-offering/private-cloud-deployments
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+- https://portkey.ai/docs/guides/getting-started/tackling-rate-limiting
+provenance:
+  tool: planning/api-economics/harvest_ratelimits.py
+  run: 20260920T133210
+  grounding: every limit_text was found verbatim in the fetched page text
+published: true
+note: Cookbook page about avoiding rate limits with Portkey fallbacks/load balancing; the numeric limits
+  listed are third-party LLM provider limits (OpenAI, Anthropic, Cohere, Anyscale, Perplexity, Together
+  AI), not Portkey's own. Page also mentions tts-1-hd 'you can not send more than 7 requests in minute'
+  and that 429 is generated for rate limit errors.
+limit_count: 11
 limits:
-  - name: Developer plan recorded logs
-    scope: account
-    metric: requests_per_month
-    limit: 10000
-    timeFrame: month
-    notes: Logs beyond cap are not recorded but requests still pass through.
-  - name: Production plan recorded logs (included)
-    scope: account
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    notes: $9 per additional 100k requests up to 3M then contact sales.
-  - name: Production plan upper ceiling
-    scope: account
-    metric: requests_per_month
-    limit: 3000000
-    timeFrame: month
-    notes: Beyond 3M requests, account is moved to Enterprise discussion.
-  - name: Enterprise per-virtual-key rate limit
-    scope: virtual-key
-    metric: varies
-    limit: configurable per contract
-    notes: Enterprise admins can configure granular rate limits and budgets per virtual key, workspace, or service account.
-  - name: Upstream provider throttling
-    scope: upstream
-    metric: varies
-    limit: governed by the proxied LLM provider (OpenAI, Anthropic, Bedrock, etc.)
-    notes: Portkey passes through 429 responses from upstream LLM providers along with their Retry-After signaling.
-policies:
-  - name: Cap-and-drop logging
-    description: When recorded log quota is exceeded on Developer or Production tiers, requests still succeed but log records beyond the cap are dropped.
-  - name: Pass-through throttling
-    description: When the upstream LLM provider throttles, Portkey returns the upstream 429 with whatever Retry-After header the provider supplied.
-  - name: Granular enterprise limits
-    description: Enterprise tenants can scope budget and rate limits per virtual key, workspace, or environment for chargeback and blast-radius control.
-  - name: Backoff
-    description: Clients should implement exponential backoff with jitter on 429 and 5xx responses.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
-notes: >-
-  Plan-level recorded-log caps come from the public pricing page. Portkey does
-  not publish a fixed per-second request-rate ceiling; runtime throttling is
-  governed by the proxied upstream LLM provider and by enterprise-configured
-  per-virtual-key limits. Marked reconciled=false because the per-second
-  numbers are not public.
+- name: OpenAI gpt-5 requests per minute (Tier 1)
+  limit_text: 500 Requests per Minute
+  limit: 500
+  window: minute
+  scope: account
+  plan: Tier 1
+  endpoint: gpt-5
+- name: OpenAI gpt-5 tokens per minute (Tier 1)
+  limit_text: 10,000 Tokens per Minute
+  limit: 10000
+  window: minute
+  scope: account
+  plan: Tier 1
+  endpoint: gpt-5
+- name: OpenAI gpt-5 requests per day (Tier 1)
+  limit_text: 10,000 Requests per Day
+  limit: 10000
+  window: day
+  scope: account
+  plan: Tier 1
+  endpoint: gpt-5
+- name: Anthropic RPM (Tier 1)
+  limit_text: 50 RPM
+  limit: 50
+  window: minute
+  scope: account
+  plan: Tier 1
+  endpoint: All models
+- name: Anthropic TPM (Tier 1)
+  limit_text: 50,000 TPM
+  limit: 50000
+  window: minute
+  scope: account
+  plan: Tier 1
+  endpoint: All models
+- name: Anthropic tokens per day (Tier 1)
+  limit_text: 1 Million Tokens per Day
+  window: day
+  scope: account
+  plan: Tier 1
+  endpoint: All models
+- name: Cohere production key RPM
+  limit_text: 10,000 RPM
+  limit: 10000
+  window: minute
+  scope: api-key
+  plan: Production Key
+  endpoint: Co.Generate models
+- name: Anyscale concurrency
+  limit_text: 30 concurrent requests
+  limit: 30
+  scope: endpoint
+  endpoint: All models
+- name: Perplexity RPM
+  limit_text: 24 RPM
+  limit: 24
+  window: minute
+  scope: account
+  endpoint: mixtral-8x7b-instruct
+- name: Perplexity TPM
+  limit_text: 16,000 TPM
+  limit: 16000
+  window: minute
+  scope: account
+  endpoint: mixtral-8x7b-instruct
+- name: Together AI paid RPM
+  limit_text: 100 RPM
+  limit: 100
+  window: minute
+  scope: account
+  plan: Paid
+  endpoint: All models
+exceeded_status: 429

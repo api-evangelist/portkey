@@ -1202,6 +1202,8 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/portkey.png
 access: 3rd-Party
 common:
+  - type: RateLimits
+    url: rate-limits/portkey-rate-limits.yml
   - type: Pricing
     url: https://portkey.ai/pricing
   - type: Plans
