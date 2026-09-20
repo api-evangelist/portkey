@@ -10,6 +10,13 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: developer-api
 pricing_basis: tiered-subscription
+delivery:
+  delivery: open-core
+  method: page
+  read: '2026-09-20'
+  evidence: Open Source ⓘ Host it Yourself Deploy Locally
+  free_edition: Open Source
+  managed_tier: Production
 published: true
 note: Tiered SaaS plans for AI gateway; free tier, $49/month Production with $9 per extra 100K requests,
   custom enterprise.
