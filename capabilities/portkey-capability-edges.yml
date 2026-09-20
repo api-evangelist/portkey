@@ -1,0 +1,73 @@
+slug: portkey
+provider: Portkey
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Fine-tuning
+  spec_file: portkey-fine-tuning-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.85
+  evidence: GET /fine_tuning/jobs  listPaginatedFineTuningJobs  List your organization's fine-tuning jobs;
+    listFineTuningJobCheckpoints
+  reason: Managing fine-tuning jobs, events and checkpoints is squarely AI/ML model lifecycle and MLOps.
+- tag: Finetune
+  spec_file: portkey-finetune-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.85
+  evidence: POST /fine_tuning/jobs  createFineTuningJob  Create a Finetune Job; schemas PortkeyFinetuneJob,
+    BedrockFinetuneJob
+  reason: Creating model fine-tuning jobs across providers is AI/ML model lifecycle management (MLOps).
+- tag: Guardrails
+  spec_file: portkey-guardrails-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.72
+  evidence: POST /guardrails  createGuardrail  Create a new guardrail; schemas AzurePIIParameters, AzureContentSafetyParameters,
+    ModelWhitelistParameters
+  reason: CRUD over guardrail policies (PII detection, content safety scans, model whitelists) applied
+    to LLM traffic is responsible-AI control, part of AI management; not general cybersecurity controls.
+- tag: Prompts
+  spec_file: portkey-prompts-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.72
+  evidence: POST /prompts createPrompt 'Create a new prompt'; 'Get all versions of a prompt'; POST /prompts/{promptId}/completions
+    'Prompts Completions'
+  reason: Prompt authoring, versioning, default-version promotion and execution against LLM completions
+    is AI/ML lifecycle (LLMOps) tooling, mapping to Artificial Intelligence Management rather than any
+    business-domain capability.
+- tag: Models
+  spec_file: portkey-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: GET /models listModels List Available Models; DELETE /models/{model} Delete a fine-tuned model
+  reason: Inventory and lifecycle operations (list, retrieve, delete fine-tuned) over AI/ML models, which
+    is AI model lifecycle management. Not higher because the surface is a thin OpenAI-compatible passthrough.
+- tag: Responses
+  spec_file: portkey-responses-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /responses createResponse 'Creates a model response'; GET /responses/{response_id} 'Retrieves
+    a model response with the given ID.'
+  reason: Model inference invocation and retrieval of model responses — AI model serving, which sits under
+    Artificial Intelligence Management. No other candidate capability describes LLM inference.
