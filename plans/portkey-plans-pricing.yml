@@ -1,212 +1,45 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: Portkey
-providerId: portkey
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: true
-tags:
-  - AI Gateways
-  - Governance
-  - Guardrails
-  - Observability
-  - Prompt Management
-description: >-
-  Portkey publishes a four-tier offering for its AI gateway and observability
-  platform. The Open Source build is self-hosted with no platform usage limits.
-  The Developer plan is free forever and meters recorded log volume (10k logs
-  per month, with logs above the cap simply dropped rather than blocking
-  requests). Production is a flat subscription ($49/month) bundled with 100k
-  recorded logs and overage at $9 per additional 100k requests up to 3M.
-  Enterprise is contact-sales with 10M+ logs, custom retention, SSO, VPC
-  hosting, and HIPAA/SOC2/GDPR options.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://portkey.ai/pricing
 sources:
-  - https://portkey.ai/pricing
-  - https://portkey.ai/docs/api-reference/inference-api/introduction
+- https://portkey.ai/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T130003
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: tiered-subscription
+published: true
+note: Tiered SaaS plans for AI gateway; free tier, $49/month Production with $9 per extra 100K requests,
+  custom enterprise.
+plan_count: 4
+currency: USD
 plans:
-  - id: portkey-open-source
-    name: Open Source
-    type: freemium
-    description: Self-hosted AI gateway with no usage limits and community support.
-    entries:
-      - label: Recorded Requests
-        name: requests
-        type: quota
-        metric: request
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Universal API
-      - name: Retries and Timeouts
-      - name: Routing
-      - name: Guardrails
-      - name: Automatic Fallbacks
-      - name: Basic Dashboard
-      - name: Load Balancing
-      - name: Community Support
-  - id: portkey-developer
-    name: Developer
-    type: freemium
-    description: Free forever hosted plan for prototyping and POCs; logs above cap are not recorded but requests still pass through.
-    entries:
-      - label: Recorded Logs
-        name: recorded_logs
-        type: quota
-        metric: log
-        limit: 10000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Log Retention
-        name: log_retention
-        type: quota
-        metric: day
-        limit: 3
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Metrics Retention
-        name: metrics_retention
-        type: quota
-        metric: day
-        limit: 30
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Prompt Templates
-        name: prompt_templates
-        type: quota
-        metric: template
-        limit: 3
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Observability
-      - name: Universal API and Key Management
-      - name: Playground
-      - name: API Endpoints
-      - name: Versioning
-      - name: Variables
-      - name: Community Support
-  - id: portkey-production
-    name: Production
-    type: subscription
-    description: Flat-fee plan for teams running LLM apps in production.
-    entries:
-      - label: Subscription
-        name: subscription
-        type: subscription
-        metric: month
-        limit: 1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '$49/month'
-        userMultiplied: false
-      - label: Recorded Logs Included
-        name: recorded_logs
-        type: quota
-        metric: log
-        limit: 100000
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: included
-        userMultiplied: false
-      - label: Overage
-        name: log_overage
-        type: metered
-        metric: request
-        limit: 3000000
-        timeFrame: month
-        geo: global
-        unit: 100000
-        price: '$9 per additional 100k requests (up to 3M)'
-        userMultiplied: false
-      - label: Log Retention
-        name: log_retention
-        type: quota
-        metric: day
-        limit: 30
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: included
-        userMultiplied: false
-      - label: Metrics Retention
-        name: metrics_retention
-        type: quota
-        metric: day
-        limit: 90
-        timeFrame: usage
-        geo: global
-        unit: 1
-        price: included
-        userMultiplied: false
-    elements:
-      - name: AI Gateway (Universal API, Fallbacks, Load Balancing, Retries)
-      - name: Observability (Logs, Traces, Feedback, Metadata, Filters, Alerts)
-      - name: LLM and Partner Guardrails
-      - name: Unlimited Prompt Templates
-      - name: Simple and Semantic Caching
-      - name: Role-Based Access Control
-      - name: Service Account API Keys
-      - name: Production Support
-  - id: portkey-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom contract for high-volume and regulated workloads with private cloud or VPC deployment.
-    entries:
-      - label: Recorded Logs
-        name: recorded_logs
-        type: quota
-        metric: log
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Subscription
-        name: subscription
-        type: subscription
-        metric: month
-        limit: 1
-        timeFrame: month
-        geo: configurable
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-    elements:
-      - name: 10M+ Recorded Logs per Month
-      - name: Custom Retention Periods
-      - name: Custom Guardrail Hooks
-      - name: Advanced Evaluation Templates
-      - name: SSO
-      - name: Granular Budget and Rate Limits
-      - name: Private Cloud Deployment
-      - name: VPC Hosting
-      - name: Data Export and Isolation
-      - name: SOC2 Type 2, GDPR, HIPAA
-      - name: Custom BAAs
-      - name: Dedicated Onboarding and Priority Support
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: Developer
+  price_text: Free Forever
+  period: none
+  included_quota: 10k recorded logs per month; Retention 3 days for Logs, 30 days for metrics; 3 Prompt
+    Templates
+  overage: No Overage Allowed
+- name: Production
+  price_text: $49/month
+  price: 49
+  currency: USD
+  period: month
+  included_quota: 100k recorded logs per month; Retention 30 days for logs, 90 days for metrics
+  overage: $9/Month for Every 100K Up to 3M Requests
+- name: Enterprise
+  price_text: Custom Pricing
+  period: none
+  included_quota: 10 Mn Plus Recorded logs per month; custom retention
+  overage: Custom Pricing Overage
+- name: Open Source
+  price_text: Host it Yourself
+  period: none
+  included_quota: Universal API, Retries & Timeouts, Routing, Guardrails, Fallbacks, Load Balancing; Requests
+    per Month No Limit
+rate_limit_statements:
+- 10k recorded logs per month
+- 100k recorded logs per month
+- Requests per Month No Limit 10K 100K Custom
