@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Logs API
+  title: Portkey Logs API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -62,6 +62,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import Portkey from \"portkey-ai\";\n\nconst portkey = new Portkey({\n  apiKey:\"PORTKEY_API_KEY\",\n  baseUrl: \"SELF_HOSTED_GATEWAY_URL\"\n})\n\nasync function main() {\n  const request = {\n    url: \"https://api.someprovider.com/model/generate\",\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: { prompt: \"What is AI?\" },\n  };\n  const response = {\n    status: 200,\n    headers: { \"Content-Type\": \"application/json\" },\n    body: { response: \"AI stands for Artificial Intelligence...\" },\n    response_time: 123,\n  };\n  const metadata = {\n    user_id: \"123\",\n    user_name: \"John Doe\",\n  };\n  const result = await portkey.logs.create({\n    request: request,\n    response: response,\n    metadata: metadata,\n  });\n  console.log(result);\n}\n\nmain();\n"
+      operationId: postLogs
+      x-operation-id-source: derived
   /logs/{logId}:
     servers:
     - url: https://api.portkey.ai/v1
@@ -85,8 +87,74 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LogObject'
+      operationId: getLogsByLogId
+      x-operation-id-source: derived
 components:
   schemas:
+    LogObject:
+      type: object
+      required:
+      - _id
+      - request
+      - response
+      - organisation_id
+      - created_at
+      properties:
+        _id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier for the log entry
+          example: 550e8400-e29b-41d4-a716-446655440000
+        request:
+          $ref: '#/components/schemas/LogRequest'
+        response:
+          $ref: '#/components/schemas/LogResponse'
+        organisation_id:
+          type:
+          - string
+          - 'null'
+          description: Organization identifier
+          example: org-123
+        created_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the log was created
+          example: '2024-01-15T10:30:00.000Z'
+        metrics:
+          $ref: '#/components/schemas/AnalyticsMetrics'
+          description: Analytics metrics object containing detailed metrics about the request
+        finalUntransformedRequest:
+          $ref: '#/components/schemas/RequestResponseObject'
+          description: The original request before any transformations (only present when debug logging is enabled)
+        originalResponse:
+          $ref: '#/components/schemas/RequestResponseObject'
+          description: The original response from the provider (only present when debug logging is enabled or request failed)
+        transformedRequest:
+          $ref: '#/components/schemas/RequestResponseObject'
+          description: The request after transformations (only present when debug logging is enabled)
+    RequestResponseObject:
+      type: object
+      properties:
+        body:
+          type: object
+          additionalProperties: true
+          description: The body content
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Headers if present
+        url:
+          type: string
+          format: uri
+          description: URL if present
+        method:
+          type: string
+          description: HTTP method if present
     AnalyticsMetrics:
       type: object
       description: Analytics metrics extracted from the log entry
@@ -182,18 +250,21 @@ components:
           description: Whether this was a proxy call
           example: true
         cache_status:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Cache status (e.g., HIT, MISS, DISABLED, SEMANTIC HIT)
           example: MISS
         cache_type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Type of cache used
           example: semantic
         stream_mode:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: Whether streaming was enabled (1) or not (0)
           example: 1
         retry_success_count:
@@ -261,8 +332,9 @@ components:
           description: Prompt slug
           example: my-prompt
         workspace_slug:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Workspace slug
           example: my-workspace
         log_store_file_path_format:
@@ -272,8 +344,9 @@ components:
         metadata.key:
           type: array
           items:
-            type: string
-            nullable: true
+            type:
+            - string
+            - 'null'
           description: Array of metadata keys
           example:
           - key1
@@ -281,8 +354,9 @@ components:
         metadata.value:
           type: array
           items:
-            type: string
-            nullable: true
+            type:
+            - string
+            - 'null'
           description: Array of metadata values
           example:
           - value1
@@ -450,67 +524,6 @@ components:
           type: string
           description: JSON path to the last used option in the config
           example: $.config.options[0]
-    RequestResponseObject:
-      type: object
-      properties:
-        body:
-          type: object
-          additionalProperties: true
-          description: The body content
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: Headers if present
-        url:
-          type: string
-          format: uri
-          description: URL if present
-        method:
-          type: string
-          description: HTTP method if present
-    LogObject:
-      type: object
-      required:
-      - _id
-      - request
-      - response
-      - organisation_id
-      - created_at
-      properties:
-        _id:
-          type: string
-          format: uuid
-          description: Unique identifier for the log entry
-          nullable: true
-          example: 550e8400-e29b-41d4-a716-446655440000
-        request:
-          $ref: '#/components/schemas/LogRequest'
-        response:
-          $ref: '#/components/schemas/LogResponse'
-        organisation_id:
-          type: string
-          description: Organization identifier
-          nullable: true
-          example: org-123
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the log was created
-          nullable: true
-          example: '2024-01-15T10:30:00.000Z'
-        metrics:
-          $ref: '#/components/schemas/AnalyticsMetrics'
-          description: Analytics metrics object containing detailed metrics about the request
-        finalUntransformedRequest:
-          $ref: '#/components/schemas/RequestResponseObject'
-          description: The original request before any transformations (only present when debug logging is enabled)
-        originalResponse:
-          $ref: '#/components/schemas/RequestResponseObject'
-          description: The original response from the provider (only present when debug logging is enabled or request failed)
-        transformedRequest:
-          $ref: '#/components/schemas/RequestResponseObject'
-          description: The request after transformations (only present when debug logging is enabled)
   securitySchemes:
     Portkey-Key:
       type: apiKey

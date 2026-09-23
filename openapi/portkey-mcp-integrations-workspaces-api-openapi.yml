@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs MCP Integrations > Workspaces API
+  title: Portkey MCP Integrations > Workspaces API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -72,28 +72,6 @@ paths:
                 type: object
 components:
   schemas:
-    McpIntegrationWorkspacesListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
-        global_workspace_access:
-          type: object
-          nullable: true
-        total:
-          type: integer
-    McpIntegrationWorkspacesLegacyResponse:
-      type: object
-      properties:
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
-        global_workspace_access:
-          type: object
-          nullable: true
     McpIntegrationWorkspaceItem:
       type: object
       properties:
@@ -130,14 +108,39 @@ components:
               enabled:
                 type: boolean
         global_workspace_access:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           properties:
             enabled:
               type: boolean
         override_existing_workspace_access:
           type: boolean
           default: false
+    McpIntegrationWorkspacesLegacyResponse:
+      type: object
+      properties:
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
+        global_workspace_access:
+          type:
+          - object
+          - 'null'
+    McpIntegrationWorkspacesListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
+        global_workspace_access:
+          type:
+          - object
+          - 'null'
+        total:
+          type: integer
   securitySchemes:
     Portkey-Key:
       type: apiKey

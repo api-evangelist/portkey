@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Usage Limits Policies API
+  title: Portkey Usage Limits Policies API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -329,44 +329,167 @@ paths:
         '500':
           description: Server error
 components:
-  parameters:
-    PolicyUsageLimitsId:
-      name: policyUsageLimitsId
-      in: path
-      required: true
-      description: Usage limits policy UUID
-      schema:
-        type: string
-        format: uuid
-    WorkspaceIdQuery:
-      name: workspace_id
-      in: query
-      required: false
-      description: Workspace ID or slug
-      schema:
-        type: string
-    CurrentPage:
-      in: query
-      name: current_page
-      schema:
-        type: integer
-        minimum: 0
-      description: Current page number
-    PageSize:
-      in: query
-      name: page_size
-      schema:
-        type: integer
-        minimum: 0
-      description: Number of items per page
-    UsageLimitsPolicyEntityId:
-      name: entityId
-      in: path
-      required: true
-      description: Usage limits policy entity ID
-      schema:
-        type: string
   schemas:
+    UsageLimitsPolicyEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Entity ID
+        value_key:
+          type: string
+          description: The value key identifying the entity (e.g. metadata._user:username)
+        current_usage:
+          type: number
+          description: Current usage value for this entity
+    UsageLimitsPolicyResponse:
+      allOf:
+      - $ref: '#/components/schemas/UsageLimitsPolicy'
+      - type: object
+        properties:
+          object:
+            type: string
+            example: policy_usage_limits
+    GroupBy:
+      type: object
+      required:
+      - key
+      properties:
+        key:
+          type: string
+          description: 'Group by key. Valid values:
+
+            - `api_key` - Group by API key
+
+            - `organisation_id` - Group by organization
+
+            - `workspace_id` - Group by workspace
+
+            - `metadata.*` - Group by custom metadata fields
+
+            '
+          example: api_key
+    ValueKeyUsage:
+      type: object
+      properties:
+        current_usage:
+          type: number
+          description: Current usage value
+        status:
+          type: string
+          enum:
+          - active
+          - exhausted
+          description: Usage status
+        is_threshold_alerts_sent:
+          type: boolean
+          description: Whether threshold alerts have been sent
+        is_exhausted_alerts_sent:
+          type: boolean
+          description: Whether exhausted alerts have been sent
+    UsageLimitsPolicy:
+      type: object
+      required:
+      - id
+      - type
+      - status
+      - workspace_id
+      - organisation_id
+      - created_at
+      - last_updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Policy UUID
+        name:
+          type:
+          - string
+          - 'null'
+          description: Policy name
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Condition'
+          description: Array of conditions
+        group_by:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupBy'
+          description: Array of group by fields
+        type:
+          type: string
+          enum:
+          - cost
+          - tokens
+          description: Policy type
+        credit_limit:
+          type: number
+          description: Maximum usage allowed
+        alert_threshold:
+          type:
+          - number
+          - 'null'
+          description: Alert threshold
+        periodic_reset:
+          type:
+          - string
+          - 'null'
+          enum:
+          - monthly
+          - weekly
+          description: Reset period
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+          description: Policy status
+        workspace_id:
+          type: string
+          format: uuid
+          description: Workspace UUID
+        organisation_id:
+          type: string
+          format: uuid
+          description: Organization UUID
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        last_updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        value_key_usage_map:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ValueKeyUsage'
+          description: Map of value keys to usage information (only included when include_usage=true)
+    Condition:
+      type: object
+      required:
+      - key
+      - value
+      properties:
+        key:
+          type: string
+          description: 'Condition key. Valid values:
+
+            - `api_key` - Apply to a specific API key
+
+            - `organisation_id` - Apply to an organization
+
+            - `workspace_id` - Apply to a workspace
+
+            - `metadata.*` - Apply based on custom metadata fields (e.g., `metadata.user_id`, `metadata.team`)
+
+            '
+          example: workspace_id
+        value:
+          type: string
+          description: Condition value
+          example: workspace-123
     UpdateUsageLimitsPolicyRequest:
       type: object
       properties:
@@ -379,13 +502,15 @@ components:
           minimum: 0
           description: Maximum usage allowed
         alert_threshold:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
           minimum: 0
           description: Threshold at which to send alerts. Must be less than credit_limit.
         periodic_reset:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           enum:
           - monthly
           - weekly
@@ -429,13 +554,15 @@ components:
           minimum: 0
           description: Maximum usage allowed
         alert_threshold:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
           minimum: 0
           description: Threshold at which to send alerts. Must be less than credit_limit.
         periodic_reset:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           enum:
           - monthly
           - weekly
@@ -447,151 +574,6 @@ components:
           type: string
           format: uuid
           description: Organization ID. Required if not using API key authentication.
-    UsageLimitsPolicy:
-      type: object
-      required:
-      - id
-      - type
-      - status
-      - workspace_id
-      - organisation_id
-      - created_at
-      - last_updated_at
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Policy UUID
-        name:
-          type: string
-          nullable: true
-          description: Policy name
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Condition'
-          description: Array of conditions
-        group_by:
-          type: array
-          items:
-            $ref: '#/components/schemas/GroupBy'
-          description: Array of group by fields
-        type:
-          type: string
-          enum:
-          - cost
-          - tokens
-          description: Policy type
-        credit_limit:
-          type: number
-          description: Maximum usage allowed
-        alert_threshold:
-          type: number
-          nullable: true
-          description: Alert threshold
-        periodic_reset:
-          type: string
-          nullable: true
-          enum:
-          - monthly
-          - weekly
-          description: Reset period
-        status:
-          type: string
-          enum:
-          - active
-          - archived
-          description: Policy status
-        workspace_id:
-          type: string
-          format: uuid
-          description: Workspace UUID
-        organisation_id:
-          type: string
-          format: uuid
-          description: Organization UUID
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        last_updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-        value_key_usage_map:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/ValueKeyUsage'
-          description: Map of value keys to usage information (only included when include_usage=true)
-    UsageLimitsPolicyEntityListResponse:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageLimitsPolicyEntity'
-        total:
-          type: integer
-          description: Total number of entities
-    ValueKeyUsage:
-      type: object
-      properties:
-        current_usage:
-          type: number
-          description: Current usage value
-        status:
-          type: string
-          enum:
-          - active
-          - exhausted
-          description: Usage status
-        is_threshold_alerts_sent:
-          type: boolean
-          description: Whether threshold alerts have been sent
-        is_exhausted_alerts_sent:
-          type: boolean
-          description: Whether exhausted alerts have been sent
-    GroupBy:
-      type: object
-      required:
-      - key
-      properties:
-        key:
-          type: string
-          description: 'Group by key. Valid values:
-
-            - `api_key` - Group by API key
-
-            - `organisation_id` - Group by organization
-
-            - `workspace_id` - Group by workspace
-
-            - `metadata.*` - Group by custom metadata fields
-
-            '
-          example: api_key
-    CreatePolicyResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Created policy UUID
-        object:
-          type: string
-          description: Resource type
-          example: policy_usage_limits
-    UsageLimitsPolicyResponse:
-      allOf:
-      - $ref: '#/components/schemas/UsageLimitsPolicy'
-      - type: object
-        properties:
-          object:
-            type: string
-            example: policy_usage_limits
     UsageLimitsPolicyListResponse:
       type: object
       properties:
@@ -605,42 +587,67 @@ components:
         total:
           type: integer
           description: Total number of policies
-    Condition:
-      type: object
-      required:
-      - key
-      - value
-      properties:
-        key:
-          type: string
-          description: 'Condition key. Valid values:
-
-            - `api_key` - Apply to a specific API key
-
-            - `organisation_id` - Apply to an organization
-
-            - `workspace_id` - Apply to a workspace
-
-            - `metadata.*` - Apply based on custom metadata fields (e.g., `metadata.user_id`, `metadata.team`)
-
-            '
-          example: workspace_id
-        value:
-          type: string
-          description: Condition value
-          example: workspace-123
-    UsageLimitsPolicyEntity:
+    CreatePolicyResponse:
       type: object
       properties:
         id:
           type: string
-          description: Entity ID
-        value_key:
+          format: uuid
+          description: Created policy UUID
+        object:
           type: string
-          description: The value key identifying the entity (e.g. metadata._user:username)
-        current_usage:
-          type: number
-          description: Current usage value for this entity
+          description: Resource type
+          example: policy_usage_limits
+    UsageLimitsPolicyEntityListResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageLimitsPolicyEntity'
+        total:
+          type: integer
+          description: Total number of entities
+  parameters:
+    CurrentPage:
+      in: query
+      name: current_page
+      schema:
+        type: integer
+        minimum: 0
+      description: Current page number
+    WorkspaceIdQuery:
+      name: workspace_id
+      in: query
+      required: false
+      description: Workspace ID or slug
+      schema:
+        type: string
+    UsageLimitsPolicyEntityId:
+      name: entityId
+      in: path
+      required: true
+      description: Usage limits policy entity ID
+      schema:
+        type: string
+    PageSize:
+      in: query
+      name: page_size
+      schema:
+        type: integer
+        minimum: 0
+      description: Number of items per page
+    PolicyUsageLimitsId:
+      name: policyUsageLimitsId
+      in: path
+      required: true
+      description: Usage limits policy UUID
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     Portkey-Key:
       type: apiKey

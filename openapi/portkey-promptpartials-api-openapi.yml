@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs PromptPartials API
+  title: Portkey Prompt Partials API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -312,34 +312,6 @@ paths:
           description: Server error
 components:
   schemas:
-    PromptPartialSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        slug:
-          type: string
-        name:
-          type: string
-        collection_id:
-          type: string
-          format: uuid
-        created_at:
-          type: string
-          format: date-time
-        last_updated_at:
-          type: string
-          format: date-time
-        status:
-          type: string
-          enum:
-          - active
-          - archived
-        object:
-          type: string
-          enum:
-          - partial
     PromptPartialVersion:
       type: object
       properties:
@@ -361,6 +333,34 @@ components:
           type: string
           format: date-time
         prompt_version_status:
+          type: string
+          enum:
+          - active
+          - archived
+        object:
+          type: string
+          enum:
+          - partial
+    PromptPartialSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        name:
+          type: string
+        collection_id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        last_updated_at:
+          type: string
+          format: date-time
+        status:
           type: string
           enum:
           - active

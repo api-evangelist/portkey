@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs MCP Servers API
+  title: Portkey MCP Servers API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -185,8 +185,9 @@ components:
         name:
           type: string
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
           type: string
         created_at:
@@ -197,29 +198,119 @@ components:
         slug:
           type: string
         workspace_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         mcp_integration_id:
           type: string
         mcp_integration_slug:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         mcp_integration_url:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uri
-          nullable: true
         auth_type:
           type: string
         workspace_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         workspace_slug:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         url:
           type: string
           format: uri
           description: Gateway URL for this MCP server (e.g. {gateway_base}/{slug}/mcp)
+    McpServerTestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status_code:
+          type:
+          - integer
+          - 'null'
+          description: HTTP status from upstream (when success)
+        response_time_ms:
+          type:
+          - integer
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        server_name:
+          type: string
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message when success is false
+    McpServer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+        mcp_integration_id:
+          type: string
+          description: MCP Integration ID or slug
+        mcp_integration_details:
+          type:
+          - object
+          - 'null'
+          description: Present for system/service auth
+          properties:
+            id:
+              type: string
+            slug:
+              type: string
+            status:
+              type: string
+            configurations:
+              type:
+              - object
+              - 'null'
+            url:
+              type: string
+              format: uri
+            transport:
+              type: string
+            auth_type:
+              type: string
+        workspace_id:
+          type:
+          - string
+          - 'null'
+          description: Present for system/service auth
+    McpServerListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerListItem'
+        total:
+          type: integer
     McpServerCreateResponse:
       type: object
       properties:
@@ -228,6 +319,19 @@ components:
           format: uuid
         slug:
           type: string
+    UpdateMcpServer:
+      type: object
+      minProperties: 1
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
     CreateMcpServer:
       type: object
       description: Create an MCP Server (workspace instance of an MCP Integration).
@@ -245,8 +349,9 @@ components:
           maxLength: 255
           description: Display name of the MCP server
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           maxLength: 500
         mcp_integration_id:
           type: string
@@ -257,95 +362,6 @@ components:
           minLength: 3
           maxLength: 50
           description: Optional slug; must be unique within organisation
-    McpServerListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpServerListItem'
-        total:
-          type: integer
-    McpServer:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        slug:
-          type: string
-        name:
-          type: string
-        status:
-          type: string
-        description:
-          type: string
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-        mcp_integration_id:
-          type: string
-          description: MCP Integration ID or slug
-        mcp_integration_details:
-          type: object
-          nullable: true
-          description: Present for system/service auth
-          properties:
-            id:
-              type: string
-            slug:
-              type: string
-            status:
-              type: string
-            configurations:
-              type: object
-              nullable: true
-            url:
-              type: string
-              format: uri
-            transport:
-              type: string
-            auth_type:
-              type: string
-        workspace_id:
-          type: string
-          nullable: true
-          description: Present for system/service auth
-    McpServerTestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        status_code:
-          type: integer
-          nullable: true
-          description: HTTP status from upstream (when success)
-        response_time_ms:
-          type: integer
-          nullable: true
-        url:
-          type: string
-          format: uri
-          nullable: true
-        server_name:
-          type: string
-        error:
-          type: string
-          nullable: true
-          description: Error message when success is false
-    UpdateMcpServer:
-      type: object
-      minProperties: 1
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 255
-        description:
-          type: string
-          nullable: true
-          maxLength: 500
   securitySchemes:
     Portkey-Key:
       type: apiKey

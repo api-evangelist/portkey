@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs MCP Integrations API
+  title: Portkey MCP Integrations API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -157,117 +157,6 @@ paths:
                 type: object
 components:
   schemas:
-    CreateMcpIntegration:
-      type: object
-      description: Only include optional fields (slug, description, configurations) when you have values for them. The example and code samples show required fields plus workspace_id and organisation_id when scoping.
-      required:
-      - name
-      - url
-      - auth_type
-      - transport
-      properties:
-        organisation_id:
-          type: string
-          format: uuid
-          description: Organisation ID (optional; required when using org admin API key without workspace_id)
-        workspace_id:
-          type: string
-          format: uuid
-          description: Workspace ID (optional; to create at workspace level)
-        slug:
-          type: string
-          pattern: ^[a-zA-Z0-9_-]+$
-          description: Optional slug; must be unique within organisation
-        name:
-          type: string
-          description: Display name of the MCP integration
-        description:
-          type: string
-          nullable: true
-        configurations:
-          type: object
-          description: Auth/config key-value pairs (e.g. headers, client credentials)
-          properties:
-            custom_headers:
-              type: object
-              additionalProperties: true
-              description: Custom headers to send to the MCP server.
-              example:
-                Authorization: Bearer some-token
-                x-foo: bar
-            passthrough_header:
-              type: object
-              additionalProperties: true
-              description: Headers to pass through from the incoming request to the MCP server.
-              example:
-                x-user-id:
-                  type: string
-                  example: abc123
-                x-request-id:
-                  type: string
-                  example: req-0001
-          additionalProperties: true
-        url:
-          type: string
-          format: uri
-          description: MCP server URL
-        auth_type:
-          type: string
-          enum:
-          - oauth_auto
-          - headers
-          - none
-        transport:
-          type: string
-          enum:
-          - http
-          - sse
-    UpdateMcpIntegration:
-      type: object
-      minProperties: 1
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-          nullable: true
-        configurations:
-          type: object
-          description: Auth/config key-value pairs (e.g. headers, client credentials)
-          properties:
-            custom_headers:
-              type: object
-              additionalProperties: true
-              description: Custom headers to send to the MCP server.
-              example:
-                Authorization: Bearer some-token
-                x-foo: bar
-            passthrough_header:
-              type: object
-              additionalProperties: true
-              description: Headers to pass through from the incoming request to the MCP server.
-              example:
-                x-user-id:
-                  type: string
-                  example: abc123
-                x-request-id:
-                  type: string
-                  example: req-0001
-          additionalProperties: true
-        url:
-          type: string
-          format: uri
-        auth_type:
-          type: string
-          enum:
-          - oauth_auto
-          - headers
-          - none
-        transport:
-          type: string
-          enum:
-          - http
-          - sse
     McpIntegrationCreateResponse:
       type: object
       properties:
@@ -319,14 +208,17 @@ components:
         slug:
           type: string
         workspace_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         workspaces_count:
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
     McpIntegration:
       type: object
       properties:
@@ -336,8 +228,9 @@ components:
         name:
           type: string
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         owner_id:
           type: string
         status:
@@ -349,14 +242,17 @@ components:
           type: string
           format: date-time
         configurations:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
         global_workspace_access:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
         workspace_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Workspace ID or slug (when workspace-scoped)
         slug:
           type: string
@@ -381,6 +277,72 @@ components:
           enum:
           - workspace
           - organisation
+    CreateMcpIntegration:
+      type: object
+      description: Only include optional fields (slug, description, configurations) when you have values for them. The example and code samples show required fields plus workspace_id and organisation_id when scoping.
+      required:
+      - name
+      - url
+      - auth_type
+      - transport
+      properties:
+        organisation_id:
+          type: string
+          format: uuid
+          description: Organisation ID (optional; required when using org admin API key without workspace_id)
+        workspace_id:
+          type: string
+          format: uuid
+          description: Workspace ID (optional; to create at workspace level)
+        slug:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]+$
+          description: Optional slug; must be unique within organisation
+        name:
+          type: string
+          description: Display name of the MCP integration
+        description:
+          type:
+          - string
+          - 'null'
+        configurations:
+          type: object
+          description: Auth/config key-value pairs (e.g. headers, client credentials)
+          properties:
+            custom_headers:
+              type: object
+              additionalProperties: true
+              description: Custom headers to send to the MCP server.
+              example:
+                Authorization: Bearer some-token
+                x-foo: bar
+            passthrough_header:
+              type: object
+              additionalProperties: true
+              description: Headers to pass through from the incoming request to the MCP server.
+              example:
+                x-user-id:
+                  type: string
+                  example: abc123
+                x-request-id:
+                  type: string
+                  example: req-0001
+          additionalProperties: true
+        url:
+          type: string
+          format: uri
+          description: MCP server URL
+        auth_type:
+          type: string
+          enum:
+          - oauth_auto
+          - headers
+          - none
+        transport:
+          type: string
+          enum:
+          - http
+          - sse
     McpIntegrationListResponse:
       type: object
       properties:
@@ -392,6 +354,53 @@ components:
           type: integer
         has_more:
           type: boolean
+    UpdateMcpIntegration:
+      type: object
+      minProperties: 1
+      properties:
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        configurations:
+          type: object
+          description: Auth/config key-value pairs (e.g. headers, client credentials)
+          properties:
+            custom_headers:
+              type: object
+              additionalProperties: true
+              description: Custom headers to send to the MCP server.
+              example:
+                Authorization: Bearer some-token
+                x-foo: bar
+            passthrough_header:
+              type: object
+              additionalProperties: true
+              description: Headers to pass through from the incoming request to the MCP server.
+              example:
+                x-user-id:
+                  type: string
+                  example: abc123
+                x-request-id:
+                  type: string
+                  example: req-0001
+          additionalProperties: true
+        url:
+          type: string
+          format: uri
+        auth_type:
+          type: string
+          enum:
+          - oauth_auto
+          - headers
+          - none
+        transport:
+          type: string
+          enum:
+          - http
+          - sse
   securitySchemes:
     Portkey-Key:
       type: apiKey

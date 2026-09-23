@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Labels API
+  title: Portkey Labels API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -262,6 +262,26 @@ paths:
           description: Server err
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type: string
+        param:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+      required:
+      - type
+      - message
+      - param
+      - code
     CreateLabelRequest:
       type: object
       required:
@@ -284,29 +304,6 @@ components:
         color_code:
           type: string
           description: Color code for the label
-    UpdateLabelRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the label
-          pattern: ^(?!latest$)(?!default$)(?!\d+$)[a-zA-Z0-9_-]*[^@\s]?[a-zA-Z0-9_-]*$
-        description:
-          type: string
-          description: Description of the label
-        color_code:
-          type: string
-          description: Color code for the label
-    ListLabelsResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of labels
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Label'
     ErrorResponse:
       type: object
       properties:
@@ -321,26 +318,16 @@ components:
           type: string
           format: uuid
           description: ID of the created label
-    Error:
+    ListLabelsResponse:
       type: object
       properties:
-        code:
-          type: string
-          nullable: true
-        message:
-          type: string
-          nullable: false
-        param:
-          type: string
-          nullable: true
-        type:
-          type: string
-          nullable: false
-      required:
-      - type
-      - message
-      - param
-      - code
+        total:
+          type: integer
+          description: Total number of labels
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Label'
     Label:
       type: object
       properties:
@@ -379,6 +366,19 @@ components:
         status:
           type: string
           description: Status of the label
+    UpdateLabelRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the label
+          pattern: ^(?!latest$)(?!default$)(?!\d+$)[a-zA-Z0-9_-]*[^@\s]?[a-zA-Z0-9_-]*$
+        description:
+          type: string
+          description: Description of the label
+        color_code:
+          type: string
+          description: Color code for the label
   securitySchemes:
     Portkey-Key:
       type: apiKey

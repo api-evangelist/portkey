@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Batch API
+  title: Portkey Batch API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -82,7 +82,7 @@ paths:
       operationId: listBatches
       tags:
       - Batch
-      summary: List your organization's batches.
+      summary: List your organization's batches
       parameters:
       - in: query
         name: after
@@ -149,7 +149,7 @@ paths:
       operationId: getBatchOutput
       tags:
       - Batch
-      summary: Returns batch output as stream.
+      summary: Returns batch output as stream
       parameters:
       - in: path
         name: batch_id
@@ -206,7 +206,7 @@ paths:
       operationId: retrieveBatch
       tags:
       - Batch
-      summary: Retrieves a batch.
+      summary: Retrieves a batch
       parameters:
       - in: path
         name: batch_id
@@ -262,7 +262,7 @@ paths:
       operationId: cancelBatch
       tags:
       - Batch
-      summary: Cancels an in-progress batch. The batch will be in status `cancelling` for up to 10 minutes, before changing to `cancelled`, where it will have partial results (if any) available in the output file.
+      summary: Cancels an in-progress batch.
       parameters:
       - in: path
         name: batch_id
@@ -310,6 +310,60 @@ paths:
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  baseUrl: 'SELF_HOSTED_GATEWAY_URL',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY'\n});\n\nasync function main() {\n  const batch = await client.batches.cancel(\"batch_abc123\");\n\n  console.log(batch);\n}\n\nmain();\n"
 components:
   schemas:
+    OpenAIBatchJob:
+      type: object
+      required:
+      - input_file_id
+      - completion_window
+      - endpoint
+      properties:
+        input_file_id:
+          type: string
+          description: The input file to use for the batch job
+        completion_window:
+          type: string
+          enum:
+          - immediate
+          - 24h
+          description: Completion window for the batch job, `immediate` is only supported with Portkey Managed Batching.
+        endpoint:
+          type: string
+          enum:
+          - /v1/chat/completions
+          - /v1/completions
+          - /v1/embeddings
+          description: Inference endpoint
+        metadata:
+          description: metadata related for the batch job
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+      description: Gateway supported body params for OpenAI, Azure OpenAI and VertexAI.
+      title: OpenAI Params
+    ListBatchesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Batch'
+        first_id:
+          type: string
+          example: batch_abc123
+        last_id:
+          type: string
+          example: batch_abc456
+        has_more:
+          type: boolean
+        object:
+          type: string
+          enum:
+          - list
+      required:
+      - object
+      - data
+      - has_more
     PortkeyBatchJob:
       type: object
       required:
@@ -370,36 +424,29 @@ components:
       - $ref: '#/components/schemas/OpenAIBatchJob'
       description: Gateway supported body params for portkey managed batching.
       title: Portkey Params
-    OpenAIBatchJob:
+    PortkeyBatchOptions:
       type: object
       required:
-      - input_file_id
-      - completion_window
-      - endpoint
+      - x-portkey-virtual-key
       properties:
-        input_file_id:
+        x-portkey-virtual-key:
           type: string
-          description: The input file to use for the batch job
-        completion_window:
+          description: The virtual key to communicate with the provider
+        x-portkey-aws-s3-bucket:
           type: string
-          enum:
-          - immediate
-          - 24h
-          description: Completion window for the batch job, `immediate` is only supported with Portkey Managed Batching.
-        endpoint:
+          description: The AWS S3 bucket to use for file upload during finetune
+        x-portkey-vertex-storage-bucket-name:
           type: string
-          enum:
-          - /v1/chat/completions
-          - /v1/completions
-          - /v1/embeddings
-          description: Inference endpoint
-        metadata:
-          description: metadata related for the batch job
-          type: object
-          additionalProperties: true
-          nullable: true
-      description: Gateway supported body params for OpenAI, Azure OpenAI and VertexAI.
-      title: OpenAI Params
+          description: Google Storage bucket to use for file upload during finetune
+        x-portkey-provider-model:
+          type: string
+          description: Model to use for the batch job also for file transformation for model specific inference input.
+      example:
+        x-portkey-virtual-key: vkey-1234567890
+        x-portkey-aws-s3-bucket: my-bucket
+        x-portkey-provider-model: meta.llama3-1-8b-instruct-v1:0
+        x-portkey-vertex-storage-bucket-name: my-bucket
+      description: Options to be passed to the provider, supports all options supported by the provider from gateway.
     VertexBatchJob:
       type: object
       required:
@@ -449,13 +496,15 @@ components:
                     type: string
                     description: A human-readable message providing more details about the error.
                   param:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                     description: The name of the parameter that caused the error, if applicable.
-                    nullable: true
                   line:
-                    type: integer
+                    type:
+                    - integer
+                    - 'null'
                     description: The line number of the input file where the error occurred, if applicable.
-                    nullable: true
         input_file_id:
           type: string
           description: The ID of the input file for the batch.
@@ -528,9 +577,10 @@ components:
           description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
 
             '
-          type: object
+          type:
+          - object
+          - 'null'
           x-oaiTypeLabel: map
-          nullable: true
       required:
       - id
       - object
@@ -539,52 +589,6 @@ components:
       - completion_window
       - status
       - created_at
-    PortkeyBatchOptions:
-      type: object
-      required:
-      - x-portkey-virtual-key
-      properties:
-        x-portkey-virtual-key:
-          type: string
-          description: The virtual key to communicate with the provider
-        x-portkey-aws-s3-bucket:
-          type: string
-          description: The AWS S3 bucket to use for file upload during finetune
-        x-portkey-vertex-storage-bucket-name:
-          type: string
-          description: Google Storage bucket to use for file upload during finetune
-        x-portkey-provider-model:
-          type: string
-          description: Model to use for the batch job also for file transformation for model specific inference input.
-      example:
-        x-portkey-virtual-key: vkey-1234567890
-        x-portkey-aws-s3-bucket: my-bucket
-        x-portkey-provider-model: meta.llama3-1-8b-instruct-v1:0
-        x-portkey-vertex-storage-bucket-name: my-bucket
-      description: Options to be passed to the provider, supports all options supported by the provider from gateway.
-    ListBatchesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Batch'
-        first_id:
-          type: string
-          example: batch_abc123
-        last_id:
-          type: string
-          example: batch_abc456
-        has_more:
-          type: boolean
-        object:
-          type: string
-          enum:
-          - list
-      required:
-      - object
-      - data
-      - has_more
     BedrockBatchJob:
       type: object
       required:

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Model Pricing API
+  title: Portkey Model Pricing API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -26,7 +26,38 @@ paths:
     get:
       summary: Get Model Pricing
       security: []
-      description: "Returns pricing configuration for a specific model.\n\n**Note:** Prices are in USD cents per token.\n\n## Supported Providers\n\nopenai, anthropic, google, azure-openai, bedrock, mistral-ai, cohere, \ntogether-ai, groq, deepseek, fireworks-ai, perplexity-ai, anyscale, \ndeepinfra, cerebras, x-ai, and 25+ more.\n\n## Example Response Fields\n\n| Field | Description | Unit |\n|-------|-------------|------|\n| `request_token.price` | Input token cost | cents/token |\n| `response_token.price` | Output token cost | cents/token |\n| `cache_write_input_token.price` | Cache write cost | cents/token |\n| `cache_read_input_token.price` | Cache read cost | cents/token |\n| `additional_units.*` | Provider-specific features | cents/unit |\n"
+      description: 'Returns pricing configuration for a specific model.
+
+
+        **Note:** Prices are in USD cents per token.
+
+
+        ## Supported Providers
+
+
+        openai, anthropic, google, azure-openai, bedrock, mistral-ai, cohere,
+
+        together-ai, groq, deepseek, fireworks-ai, perplexity-ai, anyscale,
+
+        deepinfra, cerebras, x-ai, and 25+ more.
+
+
+        ## Example Response Fields
+
+
+        | Field | Description | Unit |
+
+        |-------|-------------|------|
+
+        | `request_token.price` | Input token cost | cents/token |
+
+        | `response_token.price` | Output token cost | cents/token |
+
+        | `cache_write_input_token.price` | Cache write cost | cents/token |
+
+        | `cache_read_input_token.price` | Cache read cost | cents/token |
+
+        | `additional_units.*` | Provider-specific features | cents/unit |'
       operationId: getModelPricing
       tags:
       - Model Pricing
@@ -180,6 +211,88 @@ components:
           description: Currency code (always USD)
         finetune_config:
           $ref: '#/components/schemas/ModelFinetuneConfig'
+    ModelFinetuneConfig:
+      type: object
+      description: Fine-tuning pricing configuration
+      properties:
+        pay_per_token:
+          $ref: '#/components/schemas/ModelTokenPrice'
+        pay_per_hour:
+          $ref: '#/components/schemas/ModelTokenPrice'
+    ModelImagePricing:
+      type: object
+      description: Image generation pricing by quality and size
+      additionalProperties:
+        type: object
+        additionalProperties:
+          $ref: '#/components/schemas/ModelTokenPrice'
+      example:
+        standard:
+          1024x1024:
+            price: 4
+          1024x1792:
+            price: 8
+        hd:
+          1024x1024:
+            price: 8
+          1024x1792:
+            price: 12
+    ModelValueReference:
+      type: object
+      properties:
+        value:
+          type: string
+          description: 'Reference to a value or rate.
+
+
+            Examples:
+
+            - `input_tokens`: Number of input tokens
+
+            - `output_tokens`: Number of output tokens
+
+            - `rates.request_token`: Request token rate
+
+            - `rates.response_token`: Response token rate
+
+            '
+    ModelCalculateOperation:
+      type: object
+      description: Mathematical operation for cost calculation
+      properties:
+        operation:
+          type: string
+          enum:
+          - sum
+          - multiply
+          description: Operation type
+        operands:
+          type: array
+          description: Operands for the operation
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ModelCalculateOperation'
+            - $ref: '#/components/schemas/ModelValueReference'
+    ModelCalculateConfig:
+      type: object
+      description: Cost calculation formulas
+      properties:
+        request:
+          $ref: '#/components/schemas/ModelCalculateOperation'
+        response:
+          $ref: '#/components/schemas/ModelCalculateOperation'
+    ModelTokenPrice:
+      type: object
+      description: Price object (value is in USD cents)
+      properties:
+        price:
+          type: number
+          description: 'Price in USD cents per token/unit.
+
+
+            Example: `0.003` = 0.003 cents/token = $0.03 per 1K tokens
+
+            '
     ModelPayAsYouGo:
       type: object
       description: Token-based pricing (all prices in USD cents)
@@ -220,88 +333,6 @@ components:
             $ref: '#/components/schemas/ModelTokenPrice'
         image:
           $ref: '#/components/schemas/ModelImagePricing'
-    ModelCalculateOperation:
-      type: object
-      description: Mathematical operation for cost calculation
-      properties:
-        operation:
-          type: string
-          enum:
-          - sum
-          - multiply
-          description: Operation type
-        operands:
-          type: array
-          description: Operands for the operation
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/ModelCalculateOperation'
-            - $ref: '#/components/schemas/ModelValueReference'
-    ModelValueReference:
-      type: object
-      properties:
-        value:
-          type: string
-          description: 'Reference to a value or rate.
-
-
-            Examples:
-
-            - `input_tokens`: Number of input tokens
-
-            - `output_tokens`: Number of output tokens
-
-            - `rates.request_token`: Request token rate
-
-            - `rates.response_token`: Response token rate
-
-            '
-    ModelTokenPrice:
-      type: object
-      description: Price object (value is in USD cents)
-      properties:
-        price:
-          type: number
-          description: 'Price in USD cents per token/unit.
-
-
-            Example: `0.003` = 0.003 cents/token = $0.03 per 1K tokens
-
-            '
-    ModelCalculateConfig:
-      type: object
-      description: Cost calculation formulas
-      properties:
-        request:
-          $ref: '#/components/schemas/ModelCalculateOperation'
-        response:
-          $ref: '#/components/schemas/ModelCalculateOperation'
-    ModelFinetuneConfig:
-      type: object
-      description: Fine-tuning pricing configuration
-      properties:
-        pay_per_token:
-          $ref: '#/components/schemas/ModelTokenPrice'
-        pay_per_hour:
-          $ref: '#/components/schemas/ModelTokenPrice'
-    ModelImagePricing:
-      type: object
-      description: Image generation pricing by quality and size
-      additionalProperties:
-        type: object
-        additionalProperties:
-          $ref: '#/components/schemas/ModelTokenPrice'
-      example:
-        standard:
-          1024x1024:
-            price: 4
-          1024x1792:
-            price: 8
-        hd:
-          1024x1024:
-            price: 8
-          1024x1792:
-            price: 12
   securitySchemes:
     Portkey-Key:
       type: apiKey

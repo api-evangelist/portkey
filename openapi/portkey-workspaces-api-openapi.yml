@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Workspaces API
+  title: Portkey Workspaces API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -96,6 +96,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst workspace = await portkey.admin.workspaces.create({\n    name: 'WORKSPACE_NAME_0909',\n    description: \"WORKSPACE_DESCRIPTION\",\n    defaults: {\n        metadata: {\n            environment: \"production\",\n            foo: \"bar\"\n        }\n    }\n})\n\nconsole.log(workspace)\n"
+      operationId: postAdminWorkspaces
+      x-operation-id-source: derived
     get:
       tags:
       - Workspaces
@@ -182,6 +184,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst workspaces=await portkey.admin.workspaces.list({})\nconsole.log(workspaces);\n"
+      operationId: getAdminWorkspaces
+      x-operation-id-source: derived
   /admin/workspaces/{workspaceId}:
     servers:
     - url: https://api.portkey.ai/v1
@@ -285,6 +289,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst workspace=await portkey.admin.workspaces.update({\n    workspaceId: 'WORKSPACE_ID',\n    name: 'WORKSPACE 0909',\n    description: 'This is a test description',\n    defaults: {\n        x: \"y\"\n    }\n})\nconsole.log(workspace);\n"
+      operationId: putAdminWorkspacesByWorkspaceId
+      x-operation-id-source: derived
     get:
       tags:
       - Workspaces
@@ -334,6 +340,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst workspace=await portkey.admin.workspaces.retrieve({\n    workspaceId: 'WORKSPACE_SLUG',\n})\nconsole.log(workspace);\n"
+      operationId: getAdminWorkspacesByWorkspaceId
+      x-operation-id-source: derived
     delete:
       tags:
       - Workspaces
@@ -374,6 +382,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst workspace=await portkey.admin.workspaces.delete({\n    workspaceId: 'WORKSPACE_SLUG',\n})\nconsole.log(workspace);\n"
+      operationId: deleteAdminWorkspacesByWorkspaceId
+      x-operation-id-source: derived
   /scim/workspaces:
     servers:
     - url: https://api.portkey.ai/v1
@@ -386,9 +396,7 @@ paths:
       summary: List SCIM Group to Workspace Mappings
       description: 'List all mappings between SCIM groups and workspaces for the organisation.
 
-        Optionally filter by workspace, SCIM group, or role.
-
-        '
+        Optionally filter by workspace, SCIM group, or role.'
       parameters:
       - name: workspace_id
         in: query
@@ -482,11 +490,17 @@ paths:
           -H "x-portkey-api-key: PORTKEY_API_KEY"
 
           '
+      operationId: getScimWorkspaces
+      x-operation-id-source: derived
     post:
       tags:
       - Workspaces
       summary: Create SCIM Group to Workspace Mapping
-      description: "Create a mapping between a SCIM group and a workspace. \nYou can either reference an existing SCIM group by ID, or provide a group name \nto pre-create the SCIM group before the IdP provisions it.\n"
+      description: 'Create a mapping between a SCIM group and a workspace.
+
+        You can either reference an existing SCIM group by ID, or provide a group name
+
+        to pre-create the SCIM group before the IdP provisions it.'
       requestBody:
         required: true
         content:
@@ -547,6 +561,8 @@ paths:
       - lang: curl
         label: Self-Hosted
         source: "curl -X POST SELF_HOSTED_CONTROL_PLANE_URL/scim/workspaces \\\n-H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n    \"scim_group_name\": \"Engineering Team\",\n    \"workspace_id\": \"ws_my-workspace\",\n    \"role\": \"member\"\n}'\n"
+      operationId: postScimWorkspaces
+      x-operation-id-source: derived
   /scim/workspaces/{scimWorkspaceGroupId}:
     servers:
     - url: https://api.portkey.ai/v1
@@ -597,161 +613,57 @@ paths:
           -H "x-portkey-api-key: PORTKEY_API_KEY"
 
           '
+      operationId: deleteScimWorkspacesByScimWorkspaceGroupId
+      x-operation-id-source: derived
 components:
   schemas:
-    WorkspaceWithUsers:
+    UsageLimits:
       type: object
       properties:
-        id:
-          type: string
-          example: ws-test-a-174eb1
-        slug:
-          type: string
-          example: ws-test-a-174eb1
-        name:
-          type: string
-          example: New Workspace
-        description:
-          type: string
-          nullable: true
-          example: null
-        created_at:
-          type: string
-          format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        last_updated_at:
-          type: string
-          format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        defaults:
-          type: object
-          nullable: true
-          properties:
-            metadata:
-              type: object
-              additionalProperties:
-                type: string
-              example:
-                foo: bar
-            is_default:
-              type: integer
-              example: 0
-            input_guardrails:
-              type: array
-              items:
-                type: string
-            output_guardrails:
-              type: array
-              items:
-                type: string
-            object:
-              type: string
-              enum:
-              - workspace
-        users:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/WorkspaceMember'
-        usage_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageLimits'
-        rate_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimits'
-    ScimWorkspaceMapping:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the mapping
-        workspace_id:
-          type: string
-          description: ID of the mapped workspace
-        scim_group:
-          type: string
-          description: Display name of the SCIM group
-        role:
-          type: string
-          enum:
-          - admin
-          - member
-          - manager
-          description: Role assigned to group members
-        scim_group_id:
-          type: string
-          description: ID of the SCIM group
-      example:
-        id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        workspace_id: ws-12345
-        scim_group: Engineering Team
-        role: member
-        scim_group_id: d290f1ee-6c54-4b01-90e6-d701748f0851
-    WorkspaceList:
-      type: object
-      properties:
-        total:
+        credit_limit:
           type: integer
-          example: 2
-        object:
+          description: Credit Limit. Used for tracking usage
+          minimum: 1
+          default: null
+        type:
           type: string
+          description: Type of credit limit
           enum:
-          - list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workspace'
-    Workspace:
-      type: object
-      properties:
-        id:
-          type: string
-          example: ws-test-a-174eb1
-        slug:
-          type: string
-          example: ws-test-a-174eb1
-        name:
-          type: string
-          example: New Workspace
-        description:
-          type: string
-          nullable: true
-          example: null
-        created_at:
-          type: string
+          - cost
+          - tokens
+        alert_threshold:
+          type: integer
+          description: Alert Threshold. Used for alerting when usage reaches more than this
+          minimum: 1
+          default: null
+        periodic_reset:
+          type:
+          - string
+          - 'null'
+          description: Reset the usage periodically.
+          enum:
+          - monthly
+          - weekly
+          example: monthly
+        periodic_reset_days:
+          type:
+          - integer
+          - 'null'
+          description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
+          minimum: 1
+          maximum: 365
+          example: 30
+        next_usage_reset_at:
+          type:
+          - string
+          - 'null'
           format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        last_updated_at:
-          type: string
-          format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        defaults:
-          type: object
-          nullable: true
-          properties:
-            metadata:
-              type: object
-              additionalProperties:
-                type: string
-              example:
-                foo: bar
-            is_default:
-              type: integer
-              example: 0
-            object:
-              type: string
-              enum:
-              - workspace
-        usage_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageLimits'
-        rate_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimits'
+          description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
+          example: '2026-05-01T00:00:00Z'
+      example:
+        credit_limit: 10
+        periodic_reset: monthly
+        alert_threshold: 8
     WorkspaceMember:
       type: object
       properties:
@@ -829,53 +741,103 @@ components:
           - workspace_users.list
           - generations.create
         settings:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           example: null
-    UsageLimits:
+    Workspace:
       type: object
       properties:
-        credit_limit:
-          type: integer
-          description: Credit Limit. Used for tracking usage
-          minimum: 1
-          default: null
-        type:
+        id:
           type: string
-          description: Type of credit limit
-          enum:
-          - cost
-          - tokens
-        alert_threshold:
-          type: integer
-          description: Alert Threshold. Used for alerting when usage reaches more than this
-          minimum: 1
-          default: null
-        periodic_reset:
+          example: ws-test-a-174eb1
+        slug:
           type: string
-          description: Reset the usage periodically.
-          enum:
-          - monthly
-          - weekly
-          nullable: true
-          example: monthly
-        periodic_reset_days:
-          type: integer
-          description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
-          minimum: 1
-          maximum: 365
-          nullable: true
-          example: 30
-        next_usage_reset_at:
+          example: ws-test-a-174eb1
+        name:
+          type: string
+          example: New Workspace
+        description:
+          type:
+          - string
+          - 'null'
+          example: null
+        created_at:
           type: string
           format: date-time
-          description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
-          nullable: true
-          example: '2026-05-01T00:00:00Z'
+          example: 2024-07-30 13:27:29+00:00
+        last_updated_at:
+          type: string
+          format: date-time
+          example: 2024-07-30 13:27:29+00:00
+        defaults:
+          type:
+          - object
+          - 'null'
+          properties:
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+              example:
+                foo: bar
+            is_default:
+              type: integer
+              example: 0
+            object:
+              type: string
+              enum:
+              - workspace
+        usage_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageLimits'
+        rate_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimits'
+    ScimWorkspaceMapping:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the mapping
+        workspace_id:
+          type: string
+          description: ID of the mapped workspace
+        scim_group:
+          type: string
+          description: Display name of the SCIM group
+        role:
+          type: string
+          enum:
+          - admin
+          - member
+          - manager
+          description: Role assigned to group members
+        scim_group_id:
+          type: string
+          description: ID of the SCIM group
       example:
-        credit_limit: 10
-        periodic_reset: monthly
-        alert_threshold: 8
+        id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        workspace_id: ws-12345
+        scim_group: Engineering Team
+        role: member
+        scim_group_id: d290f1ee-6c54-4b01-90e6-d701748f0851
+    WorkspaceList:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 2
+        object:
+          type: string
+          enum:
+          - list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
     RateLimits:
       type: object
       properties:
@@ -892,6 +854,70 @@ components:
           - rpm
         value:
           type: integer
+    WorkspaceWithUsers:
+      type: object
+      properties:
+        id:
+          type: string
+          example: ws-test-a-174eb1
+        slug:
+          type: string
+          example: ws-test-a-174eb1
+        name:
+          type: string
+          example: New Workspace
+        description:
+          type:
+          - string
+          - 'null'
+          example: null
+        created_at:
+          type: string
+          format: date-time
+          example: 2024-07-30 13:27:29+00:00
+        last_updated_at:
+          type: string
+          format: date-time
+          example: 2024-07-30 13:27:29+00:00
+        defaults:
+          type:
+          - object
+          - 'null'
+          properties:
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+              example:
+                foo: bar
+            is_default:
+              type: integer
+              example: 0
+            input_guardrails:
+              type: array
+              items:
+                type: string
+            output_guardrails:
+              type: array
+              items:
+                type: string
+            object:
+              type: string
+              enum:
+              - workspace
+        users:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/WorkspaceMember'
+        usage_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageLimits'
+        rate_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimits'
   securitySchemes:
     Portkey-Key:
       type: apiKey

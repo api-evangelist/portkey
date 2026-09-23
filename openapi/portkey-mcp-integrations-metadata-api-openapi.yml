@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs MCP Integrations > Metadata API
+  title: Portkey MCP Integrations > Metadata API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -50,28 +50,35 @@ components:
       type: object
       properties:
         server_name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         server_version:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         protocol_version:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         capability_flags:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
         sync_status:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           example: pending
         last_synced_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         sync_error:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
   securitySchemes:
     Portkey-Key:
       type: apiKey

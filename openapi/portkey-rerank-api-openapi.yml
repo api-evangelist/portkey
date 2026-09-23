@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Rerank API
+  title: Portkey Rerank API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -33,9 +33,7 @@ paths:
       description: 'Reranks a list of documents based on their relevance to a query. This endpoint provides a unified interface to reranking models from multiple providers including Cohere, Voyage, Jina, Pinecone, Bedrock, and Azure AI.
 
 
-        Reranking is useful for improving search results by scoring and sorting documents based on semantic relevance to a query, rather than just keyword matching.
-
-        '
+        Reranking is useful for improving search results by scoring and sorting documents based on semantic relevance to a query, rather than just keyword matching.'
       parameters:
       - $ref: '#/components/parameters/PortkeyTraceId'
       - $ref: '#/components/parameters/PortkeySpanId'
@@ -87,43 +85,36 @@ paths:
         label: Self-Hosted
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY',\n  baseURL: 'SELF_HOSTED_GATEWAY_URL'\n});\n\nasync function main() {\n  const response = await client.post('/rerank', {\n    model: 'rerank-v3.5',\n    query: 'What is the capital of France?',\n    documents: [\n      'Paris is the capital of France.',\n      'Berlin is the capital of Germany.',\n      'Madrid is the capital of Spain.'\n    ],\n    top_n: 2\n  });\n\n  console.log(response);\n}\n\nmain();\n"
 components:
-  parameters:
-    PortkeyTraceId:
-      in: header
-      name: x-portkey-trace-id
-      schema:
-        type: string
-      description: An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)
-      required: false
-    PortkeySpanName:
-      in: header
-      name: x-portkey-span-name
-      schema:
-        type: string
-      description: Name for the Span ID
-      required: false
-    PortkeyMetadata:
-      in: header
-      name: x-portkey-metadata
-      schema:
-        type: object
-      description: Pass any arbitrary metadata along with your request
-      required: false
-    PortkeySpanId:
-      in: header
-      name: x-portkey-span-id
-      schema:
-        type: string
-      description: An ID you can pass to refer to a span under a trace.
-      required: false
-    PortkeyParentSpanId:
-      in: header
-      name: x-portkey-parent-span-id
-      schema:
-        type: string
-      description: Link a child span to a parent span
-      required: false
   schemas:
+    RerankUsage:
+      type: object
+      description: Usage information for the rerank request.
+      properties:
+        search_units:
+          type: integer
+          description: 'The number of search units consumed by the request. Billing varies by provider.
+
+            '
+    RerankDocument:
+      description: 'A document to be reranked. Can be a simple string or an object with a text field and optional metadata.
+
+        '
+      oneOf:
+      - type: string
+        title: string
+        description: A simple text string to be reranked.
+        example: Paris is the capital of France.
+      - type: object
+        title: object
+        description: An object containing the document text and optional metadata.
+        properties:
+          text:
+            type: string
+            description: The text content of the document.
+            example: Paris is the capital of France.
+        required:
+        - text
+        additionalProperties: true
     RerankResult:
       type: object
       description: A single reranked document result.
@@ -152,15 +143,6 @@ components:
       required:
       - index
       - relevance_score
-    RerankUsage:
-      type: object
-      description: Usage information for the rerank request.
-      properties:
-        search_units:
-          type: integer
-          description: 'The number of search units consumed by the request. Billing varies by provider.
-
-            '
     CreateRerankRequest:
       type: object
       description: 'Request body for reranking documents. The unified API supports multiple providers including Cohere, Voyage, Jina, Pinecone, Bedrock, and Azure AI.
@@ -289,26 +271,42 @@ components:
       - object
       - results
       - model
-    RerankDocument:
-      description: 'A document to be reranked. Can be a simple string or an object with a text field and optional metadata.
-
-        '
-      oneOf:
-      - type: string
-        title: string
-        description: A simple text string to be reranked.
-        example: Paris is the capital of France.
-      - type: object
-        title: object
-        description: An object containing the document text and optional metadata.
-        properties:
-          text:
-            type: string
-            description: The text content of the document.
-            example: Paris is the capital of France.
-        required:
-        - text
-        additionalProperties: true
+  parameters:
+    PortkeyMetadata:
+      in: header
+      name: x-portkey-metadata
+      schema:
+        type: object
+      description: Pass any arbitrary metadata along with your request
+      required: false
+    PortkeyParentSpanId:
+      in: header
+      name: x-portkey-parent-span-id
+      schema:
+        type: string
+      description: Link a child span to a parent span
+      required: false
+    PortkeySpanId:
+      in: header
+      name: x-portkey-span-id
+      schema:
+        type: string
+      description: An ID you can pass to refer to a span under a trace.
+      required: false
+    PortkeyTraceId:
+      in: header
+      name: x-portkey-trace-id
+      schema:
+        type: string
+      description: An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)
+      required: false
+    PortkeySpanName:
+      in: header
+      name: x-portkey-span-name
+      schema:
+        type: string
+      description: Name for the Span ID
+      required: false
   securitySchemes:
     Portkey-Key:
       type: apiKey

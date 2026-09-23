@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs User-invites API
+  title: Portkey User Invites API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -16,7 +16,7 @@ servers:
 security:
 - Portkey-Key: []
 tags:
-- name: User-invites
+- name: User Invites
   description: Create and manage user invites.
 paths:
   /admin/users/invites:
@@ -38,7 +38,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SuccessInvite'
       tags:
-      - User-invites
+      - User Invites
       requestBody:
         required: true
         content:
@@ -66,7 +66,7 @@ paths:
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst user = await portkey.admin.users.invites.create({\n    email: \"user@example.com\",\n    role: \"member\",\n    workspaces: [\n        {\n            id: \"WORKSPACE_SLUG\",\n            role: \"admin\"\n        }\n    ],\n    workspace_api_key_details: {\n        scopes: [\n            \"workspaces.list\",\n            \"logs.export\",\n            \"logs.list\",\n            \"logs.view\",\n        ]\n    }\n})\n\nconsole.log(user);\n"
     get:
       tags:
-      - User-invites
+      - User Invites
       summary: Get All Invites
       parameters:
       - name: pageSize
@@ -150,6 +150,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst user=await portkey.admin.users.invites.list({\n    email:\"user@example.com\"\n});\nconsole.log(user);\n"
+      operationId: getAdminUsersInvites
+      x-operation-id-source: derived
   /admin/users/invites/{inviteId}:
     servers:
     - url: https://api.portkey.ai/v1
@@ -158,7 +160,7 @@ paths:
       description: Self-Hosted Control Plane URL
     get:
       tags:
-      - User-invites
+      - User Invites
       summary: Get Invite
       parameters:
       - name: inviteId
@@ -211,9 +213,11 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst user=await portkey.admin.users.invites.retrieve({\n    inviteId: 'INVITE_ID',\n});\nconsole.log(user);\n"
+      operationId: getAdminUsersInvitesByInviteId
+      x-operation-id-source: derived
     delete:
       tags:
-      - User-invites
+      - User Invites
       summary: Delete Invite By ID
       parameters:
       - name: inviteId
@@ -253,6 +257,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst user=await portkey.admin.users.invites.delete({\n    inviteId:\"INVITE_ID\"\n})\n\nconsole.log(user);\n"
+      operationId: deleteAdminUsersInvitesByInviteId
+      x-operation-id-source: derived
   /admin/users/invites/{inviteId}/resend:
     servers:
     - url: https://api.portkey.ai/v1
@@ -261,7 +267,7 @@ paths:
       description: Self-Hosted Control Plane URL
     post:
       tags:
-      - User-invites
+      - User Invites
       summary: Resend Invite
       description: Resend an invite to user for your organization
       parameters:
@@ -307,26 +313,16 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst user=await portkey.admin.users.invites.resend({\n    inviteId:\"INVITE_ID\"\n});\n\nconsole.log(user);\n"
+      operationId: postAdminUsersInvitesByInviteIdResend
+      x-operation-id-source: derived
 components:
   schemas:
-    SuccessInvite:
-      type: object
-      required:
-      - id
-      - invite_link
-      properties:
-        id:
-          type: string
-        invite_link:
-          type: string
-      example:
-        id: a286286b-633d-4c4f-bddb-86b84a50a25c
-        invite_link: https://app.portkey.ai/invite_id
-    InviteRole:
+    WorkspaceInviteRole:
       type: string
       enum:
       - admin
       - member
+      - manager
     CreateInvite:
       type: object
       required:
@@ -393,12 +389,6 @@ components:
         invited_by:
           type: string
           format: uuid
-    WorkspaceInviteRole:
-      type: string
-      enum:
-      - admin
-      - member
-      - manager
     WorkspaceInvite:
       type: object
       required:
@@ -423,6 +413,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Invite'
+    SuccessInvite:
+      type: object
+      required:
+      - id
+      - invite_link
+      properties:
+        id:
+          type: string
+        invite_link:
+          type: string
+      example:
+        id: a286286b-633d-4c4f-bddb-86b84a50a25c
+        invite_link: https://app.portkey.ai/invite_id
+    InviteRole:
+      type: string
+      enum:
+      - admin
+      - member
   securitySchemes:
     Portkey-Key:
       type: apiKey

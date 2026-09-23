@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs MCP Servers > Capabilities API
+  title: Portkey MCP Servers > Capabilities API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -87,12 +87,86 @@ paths:
                 $ref: '#/components/schemas/McpServerCapabilitiesBulkUpdateResponse'
 components:
   schemas:
-    McpServerCapabilitiesBulkUpdateResponse:
+    McpServerCapabilitiesListResponse:
       type: object
       properties:
-        success:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerCapabilityItem'
+        counts:
+          $ref: '#/components/schemas/McpServerCapabilitiesCounts'
+        total:
+          type: integer
+        has_more:
           type: boolean
-          example: true
+    McpServerCapabilityItem:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - tool
+          - prompt
+          - resource
+          - resource_template
+        title:
+          type:
+          - string
+          - 'null'
+        description:
+          type:
+          - string
+          - 'null'
+        icons:
+          type:
+          - array
+          - 'null'
+        enabled:
+          type: boolean
+        integration_enabled:
+          type:
+          - boolean
+          - 'null'
+          description: Present for service users; indicates integration-level enabled state
+        input_schema:
+          type:
+          - object
+          - 'null'
+        output_schema:
+          type:
+          - object
+          - 'null'
+        execution:
+          type:
+          - object
+          - 'null'
+        annotations:
+          type:
+          - object
+          - 'null'
+        arguments:
+          type:
+          - array
+          - 'null'
+        uri:
+          type:
+          - string
+          - 'null'
+        uri_template:
+          type:
+          - string
+          - 'null'
+        mime_type:
+          type:
+          - string
+          - 'null'
+        size:
+          type:
+          - number
+          - 'null'
     McpServerCapabilitiesCounts:
       type: object
       properties:
@@ -124,60 +198,12 @@ components:
               type: integer
             enabled:
               type: integer
-    McpServerCapabilityItem:
+    McpServerCapabilitiesBulkUpdateResponse:
       type: object
       properties:
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - tool
-          - prompt
-          - resource
-          - resource_template
-        title:
-          type: string
-          nullable: true
-        description:
-          type: string
-          nullable: true
-        icons:
-          type: array
-          nullable: true
-        enabled:
+        success:
           type: boolean
-        integration_enabled:
-          type: boolean
-          nullable: true
-          description: Present for service users; indicates integration-level enabled state
-        input_schema:
-          type: object
-          nullable: true
-        output_schema:
-          type: object
-          nullable: true
-        execution:
-          type: object
-          nullable: true
-        annotations:
-          type: object
-          nullable: true
-        arguments:
-          type: array
-          nullable: true
-        uri:
-          type: string
-          nullable: true
-        uri_template:
-          type: string
-          nullable: true
-        mime_type:
-          type: string
-          nullable: true
-        size:
-          type: number
-          nullable: true
+          example: true
     BulkUpdateMcpServerCapabilities:
       type: object
       required:
@@ -203,19 +229,6 @@ components:
                 - resource
               enabled:
                 type: boolean
-    McpServerCapabilitiesListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpServerCapabilityItem'
-        counts:
-          $ref: '#/components/schemas/McpServerCapabilitiesCounts'
-        total:
-          type: integer
-        has_more:
-          type: boolean
   securitySchemes:
     Portkey-Key:
       type: apiKey

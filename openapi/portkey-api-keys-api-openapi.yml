@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Api-Keys API
+  title: Portkey API Keys API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -16,7 +16,7 @@ servers:
 security:
 - Portkey-Key: []
 tags:
-- name: Api-Keys
+- name: API Keys
   description: Create, List, Retrieve, Update, and Delete your Portkey API keys.
 paths:
   /api-keys/{type}/{sub-type}:
@@ -27,11 +27,9 @@ paths:
       description: Self-Hosted Control Plane URL
     post:
       tags:
-      - Api-Keys
+      - API Keys
       summary: Create API Keys
-      description: 'Creates a new API key.
-
-        '
+      description: Creates a new API key.
       parameters:
       - name: type
         in: path
@@ -136,13 +134,15 @@ paths:
       - lang: curl
         label: User API Key
         source: "curl -X POST https://api.portkey.ai/v1/api-keys/workspace/user\n  -H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"name\":\"User API Key\",\n    \"type\":\"workspace\",\n    \"sub-type\":\"user\",\n    \"workspace_id\":\"WORKSPACE_ID\",\n    \"user_id\":\"USER_ID\",\n    \"scopes\":[\n      \"completions.write\",\n      \"logs.view\"\n    ]\n  }'\n"
+      operationId: postApiKeysByTypeBySubType
+      x-operation-id-source: derived
   /api-keys:
     servers:
     - url: https://api.portkey.ai/v1
     - url: https://SELF_HOSTED_CONTROL_PLANE_URL
     get:
       tags:
-      - Api-Keys
+      - API Keys
       summary: Get All
       parameters:
       - name: page_size
@@ -191,6 +191,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst apiKey=await portkey.apiKeys.list({\n    workspaceId:\"WORKSPACE_SLUG\"\n})\n\nconsole.log(apiKey);\n"
+      operationId: getApiKeys
+      x-operation-id-source: derived
   /api-keys/{id}:
     servers:
     - url: https://api.portkey.ai/v1
@@ -199,11 +201,9 @@ paths:
       description: Self-Hosted Control Plane URL
     put:
       tags:
-      - Api-Keys
+      - API Keys
       summary: Update API Keys
-      description: 'Updates an existing API key. The API key type (user vs service) and associated user_id cannot be changed after creation.
-
-        '
+      description: Updates an existing API key. The API key type (user vs service) and associated user_id cannot be changed after creation.
       requestBody:
         content:
           application/json:
@@ -277,9 +277,11 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst apiKey=await portkey.apiKeys.update({\n    id:\"API_KEY_ID\",\n    name:\"API_KEY_NAME_0909\",\n    rate_limits:[        {\n        \"type\": \"requests\",\n        \"unit\": \"rpm\",\n        \"value\": 100\n    }],\n    \"scopes\": [\n                \"organisation_users.create\",\n                \"organisation_users.read\",\n                \"organisation_users.update\",\n                \"organisation_users.delete\",\n                \"organisation_users.list\",\n                \"organisation_service_api_keys.create\",\n                \"organisation_service_api_keys.update\",\n                \"organisation_service_api_keys.read\",\n                \"organisation_service_api_keys.delete\",\n                \"organisation_service_api_keys.list\",\n                \"workspaces.delete\",\n                \"workspaces.create\",\n                \"workspaces.read\",\n                \"workspaces.update\",\n                \"workspaces.list\",\n                \"logs.export\",\n                \"logs.list\",\n                \"logs.view\",\n                \"configs.create\",\n                \"configs.update\",\n                \"configs.delete\",\n                \"configs.read\",\n                \"configs.list\",\n                \"virtual_keys.create\",\n                \"virtual_keys.update\",\n                \"virtual_keys.delete\",\n                \"virtual_keys.duplicate\",\n                \"virtual_keys.read\",\n                \"virtual_keys.list\",\n                \"virtual_keys.copy\",\n                \"workspace_service_api_keys.create\",\n                \"workspace_service_api_keys.delete\",\n                \"workspace_service_api_keys.update\",\n                \"workspace_service_api_keys.read\",\n                \"workspace_service_api_keys.list\",\n                \"workspace_user_api_keys.create\",\n                \"workspace_user_api_keys.delete\",\n                \"workspace_user_api_keys.update\",\n                \"workspace_user_api_keys.read\",\n                \"workspace_user_api_keys.list\",\n                \"workspace_users.create\",\n                \"workspace_users.read\",\n                \"workspace_users.update\",\n                \"workspace_users.delete\",\n                \"workspace_users.list\",\n                \"analytics.view\"\n            ],\n\n})\nconsole.log(apiKey);\n"
+      operationId: putApiKeysById
+      x-operation-id-source: derived
     get:
       tags:
-      - Api-Keys
+      - API Keys
       summary: Get API Keys
       parameters:
       - name: id
@@ -327,9 +329,11 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst apiKey=await portkey.apiKeys.retrieve({\n    id:\"API_KEY_ID\"\n})\n\nconsole.log(apiKey);\n"
+      operationId: getApiKeysById
+      x-operation-id-source: derived
     delete:
       tags:
-      - Api-Keys
+      - API Keys
       summary: Remove an API Key
       parameters:
       - name: id
@@ -378,6 +382,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst apiKey=await portkey.apiKeys.delete({\n    id:\"API_KEY_ID\"\n})\nconsole.log(apiKey);\n"
+      operationId: deleteApiKeysById
+      x-operation-id-source: derived
   /api-keys/{id}/rotate:
     servers:
     - url: https://api.portkey.ai/v1
@@ -386,13 +392,11 @@ paths:
       description: Self-Hosted Control Plane URL
     post:
       tags:
-      - Api-Keys
+      - API Keys
       summary: Rotate API Key
       description: 'Rotates an existing API key and returns a newly generated key value.
 
-        The previous key remains valid during the transition period and expires at `key_transition_expires_at`.
-
-        '
+        The previous key remains valid during the transition period and expires at `key_transition_expires_at`.'
       requestBody:
         content:
           application/json:
@@ -441,8 +445,57 @@ paths:
       - lang: curl
         label: Self-Hosted
         source: "curl -X POST \"SELF_HOSTED_CONTROL_PLANE_URL/api-keys/{id}/rotate\" \\\n  -H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"key_transition_period_ms\": 3600000\n  }'\n"
+      operationId: postApiKeysByIdRotate
+      x-operation-id-source: derived
 components:
   schemas:
+    UsageLimits:
+      type: object
+      properties:
+        credit_limit:
+          type: integer
+          description: Credit Limit. Used for tracking usage
+          minimum: 1
+          default: null
+        type:
+          type: string
+          description: Type of credit limit
+          enum:
+          - cost
+          - tokens
+        alert_threshold:
+          type: integer
+          description: Alert Threshold. Used for alerting when usage reaches more than this
+          minimum: 1
+          default: null
+        periodic_reset:
+          type:
+          - string
+          - 'null'
+          description: Reset the usage periodically.
+          enum:
+          - monthly
+          - weekly
+          example: monthly
+        periodic_reset_days:
+          type:
+          - integer
+          - 'null'
+          description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
+          minimum: 1
+          maximum: 365
+          example: 30
+        next_usage_reset_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
+          example: '2026-05-01T00:00:00Z'
+      example:
+        credit_limit: 10
+        periodic_reset: monthly
+        alert_threshold: 8
     UpdateApiKeyObject:
       type: object
       properties:
@@ -453,8 +506,9 @@ components:
           type: string
           example: API key for development environment
         rate_limits:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           items:
             type: object
             required:
@@ -518,28 +572,32 @@ components:
             format: email
             example: foo@bar.com
         expires_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: ISO 8601 datetime at which this key expires.
           example: '2026-12-31T23:59:59Z'
         rotation_policy:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           description: Update or replace the automatic key rotation configuration. Requires either rotation_period or next_rotation_at.
           properties:
             rotation_period:
-              type: string
+              type:
+              - string
+              - 'null'
               enum:
               - weekly
               - monthly
-              nullable: true
               description: How often to automatically rotate the key.
               example: monthly
             next_rotation_at:
-              type: string
+              type:
+              - string
+              - 'null'
               format: date-time
-              nullable: true
               description: Explicit datetime for the next rotation. Mutually exclusive with rotation_period.
               example: '2026-06-01T00:00:00Z'
             key_transition_period_ms:
@@ -547,28 +605,143 @@ components:
               minimum: 1800000
               description: Duration in milliseconds during which the previous key remains valid after rotation. Minimum 30 minutes (1800000). Must be less than the full rotation period.
               example: 3600000
-    RotateApiKeyRequest:
+    CreateApiKeyObject:
       type: object
+      required:
+      - name
+      - scopes
       properties:
-        key_transition_period_ms:
-          type: integer
-          minimum: 1800000
-          description: Optional transition period in milliseconds during which the previous key remains valid.
-          example: 3600000
-    ApiKeyObjectList:
-      type: object
-      properties:
-        total:
-          type: integer
-          example: 2
-        object:
+        name:
           type: string
-          enum:
-          - list
-        data:
+          example: Development API Key
+        description:
+          type: string
+          example: API key for development environment
+        organisation_id:
+          type: string
+          format: uuid
+          description: Organisation ID. Optional when calling via an org-level API key (picked from auth context).
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        workspace_id:
+          type: string
+          example: ws-myworkspace
+        user_id:
+          type: string
+          format: uuid
+          description: '**Required** when sub-type path parameter is ''user''. Not required when sub-type is ''service''.'
+          example: c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f
+        rate_limits:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+            required:
+            - type
+            - unit
+            - value
+            properties:
+              type:
+                type: string
+                enum:
+                - requests
+                - tokens
+                example: requests
+              unit:
+                type: string
+                enum:
+                - rpd
+                - rph
+                - rpm
+                - rps
+                - rpw
+                description: 'Rate limit unit: requests/tokens per day, hour, minute, second, or week.'
+                example: rpm
+              value:
+                type: integer
+                minimum: 0
+                example: 100
+        usage_limits:
+          $ref: '#/components/schemas/UsageLimits'
+        scopes:
           type: array
           items:
-            $ref: '#/components/schemas/ApiKeyObject'
+            type: string
+          example:
+          - completions.write
+        defaults:
+          type: object
+          properties:
+            metadata:
+              type: object
+              additionalProperties: true
+              example:
+                environment: development
+                team: backend
+            config_id:
+              type: string
+              example: config-abc
+            allow_config_override:
+              type: boolean
+              default: true
+              description: When false, the pinned config_id cannot be overridden at request time.
+              example: false
+        alert_emails:
+          type: array
+          items:
+            type: string
+            format: email
+            example: foo@bar.com
+        expires_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: ISO 8601 datetime at which this key expires. Must not exceed the org/workspace maximum TTL if configured.
+          example: '2026-12-31T23:59:59Z'
+        rotation_policy:
+          type:
+          - object
+          - 'null'
+          description: Automatic key rotation configuration. Requires either rotation_period or next_rotation_at.
+          properties:
+            rotation_period:
+              type:
+              - string
+              - 'null'
+              enum:
+              - weekly
+              - monthly
+              description: How often to automatically rotate the key.
+              example: monthly
+            next_rotation_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+              description: Explicit datetime for the next rotation. Mutually exclusive with rotation_period.
+              example: '2026-06-01T00:00:00Z'
+            key_transition_period_ms:
+              type: integer
+              minimum: 1800000
+              description: Duration in milliseconds during which the previous key remains valid after rotation. Minimum 30 minutes (1800000). Must be less than the full rotation period.
+              example: 3600000
+    RotateApiKeyResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        key:
+          type: string
+          description: Newly rotated API key value.
+          example: pk_live_new_rotated_key_value
+        key_transition_expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the previous key version stops being accepted.
+          example: '2026-01-15T10:30:00.000Z'
     ApiKeyObject:
       type: object
       properties:
@@ -675,182 +848,28 @@ components:
           enum:
           - api-key
           example: api-key
-    CreateApiKeyObject:
-      type: object
-      required:
-      - name
-      - scopes
-      properties:
-        name:
-          type: string
-          example: Development API Key
-        description:
-          type: string
-          example: API key for development environment
-        organisation_id:
-          type: string
-          format: uuid
-          description: Organisation ID. Optional when calling via an org-level API key (picked from auth context).
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        workspace_id:
-          type: string
-          example: ws-myworkspace
-        user_id:
-          type: string
-          format: uuid
-          description: '**Required** when sub-type path parameter is ''user''. Not required when sub-type is ''service''.'
-          example: c3d4e5f6-a7b8-6c7d-0e1f-2a3b4c5d6e7f
-        rate_limits:
-          type: array
-          nullable: true
-          items:
-            type: object
-            required:
-            - type
-            - unit
-            - value
-            properties:
-              type:
-                type: string
-                enum:
-                - requests
-                - tokens
-                example: requests
-              unit:
-                type: string
-                enum:
-                - rpd
-                - rph
-                - rpm
-                - rps
-                - rpw
-                description: 'Rate limit unit: requests/tokens per day, hour, minute, second, or week.'
-                example: rpm
-              value:
-                type: integer
-                minimum: 0
-                example: 100
-        usage_limits:
-          $ref: '#/components/schemas/UsageLimits'
-        scopes:
-          type: array
-          items:
-            type: string
-          example:
-          - completions.write
-        defaults:
-          type: object
-          properties:
-            metadata:
-              type: object
-              additionalProperties: true
-              example:
-                environment: development
-                team: backend
-            config_id:
-              type: string
-              example: config-abc
-            allow_config_override:
-              type: boolean
-              default: true
-              description: When false, the pinned config_id cannot be overridden at request time.
-              example: false
-        alert_emails:
-          type: array
-          items:
-            type: string
-            format: email
-            example: foo@bar.com
-        expires_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: ISO 8601 datetime at which this key expires. Must not exceed the org/workspace maximum TTL if configured.
-          example: '2026-12-31T23:59:59Z'
-        rotation_policy:
-          type: object
-          nullable: true
-          description: Automatic key rotation configuration. Requires either rotation_period or next_rotation_at.
-          properties:
-            rotation_period:
-              type: string
-              enum:
-              - weekly
-              - monthly
-              nullable: true
-              description: How often to automatically rotate the key.
-              example: monthly
-            next_rotation_at:
-              type: string
-              format: date-time
-              nullable: true
-              description: Explicit datetime for the next rotation. Mutually exclusive with rotation_period.
-              example: '2026-06-01T00:00:00Z'
-            key_transition_period_ms:
-              type: integer
-              minimum: 1800000
-              description: Duration in milliseconds during which the previous key remains valid after rotation. Minimum 30 minutes (1800000). Must be less than the full rotation period.
-              example: 3600000
-    RotateApiKeyResponse:
+    RotateApiKeyRequest:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-          example: 550e8400-e29b-41d4-a716-446655440000
-        key:
-          type: string
-          description: Newly rotated API key value.
-          example: pk_live_new_rotated_key_value
-        key_transition_expires_at:
-          type: string
-          format: date-time
-          description: Timestamp when the previous key version stops being accepted.
-          example: '2026-01-15T10:30:00.000Z'
-    UsageLimits:
-      type: object
-      properties:
-        credit_limit:
+        key_transition_period_ms:
           type: integer
-          description: Credit Limit. Used for tracking usage
-          minimum: 1
-          default: null
-        type:
+          minimum: 1800000
+          description: Optional transition period in milliseconds during which the previous key remains valid.
+          example: 3600000
+    ApiKeyObjectList:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 2
+        object:
           type: string
-          description: Type of credit limit
           enum:
-          - cost
-          - tokens
-        alert_threshold:
-          type: integer
-          description: Alert Threshold. Used for alerting when usage reaches more than this
-          minimum: 1
-          default: null
-        periodic_reset:
-          type: string
-          description: Reset the usage periodically.
-          enum:
-          - monthly
-          - weekly
-          nullable: true
-          example: monthly
-        periodic_reset_days:
-          type: integer
-          description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
-          minimum: 1
-          maximum: 365
-          nullable: true
-          example: 30
-        next_usage_reset_at:
-          type: string
-          format: date-time
-          description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
-          nullable: true
-          example: '2026-05-01T00:00:00Z'
-      example:
-        credit_limit: 10
-        periodic_reset: monthly
-        alert_threshold: 8
+          - list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiKeyObject'
   securitySchemes:
     Portkey-Key:
       type: apiKey

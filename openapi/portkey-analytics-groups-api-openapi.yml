@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Analytics > Groups API
+  title: Portkey Analytics > Groups API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -28,7 +28,7 @@ paths:
     get:
       tags:
       - Analytics > Groups
-      summary: Get metadata users grouped data.
+      summary: Get metadata users grouped data
       parameters:
       - $ref: '#/components/parameters/WorkspaceSlug'
       - $ref: '#/components/parameters/TimeOfGenerationMin'
@@ -97,6 +97,8 @@ paths:
                 - total
                 - object
                 - data
+      operationId: getAnalyticsGroupsUsers
+      x-operation-id-source: derived
   /analytics/groups/ai-models:
     servers:
     - url: https://api.portkey.ai/v1
@@ -106,7 +108,7 @@ paths:
     get:
       tags:
       - Analytics > Groups
-      summary: Get ai model grouped data.
+      summary: Get ai model grouped data
       parameters:
       - $ref: '#/components/parameters/WorkspaceSlug'
       - $ref: '#/components/parameters/TimeOfGenerationMin'
@@ -172,6 +174,8 @@ paths:
                 - total
                 - object
                 - data
+      operationId: getAnalyticsGroupsAiModels
+      x-operation-id-source: derived
   /analytics/groups/metadata/{metadataKey}:
     servers:
     - url: https://api.portkey.ai/v1
@@ -181,7 +185,7 @@ paths:
     get:
       tags:
       - Analytics > Groups
-      summary: Get metadata key based grouped data.
+      summary: Get metadata key based grouped data
       parameters:
       - name: metadataKey
         in: path
@@ -268,15 +272,59 @@ paths:
                 - total
                 - object
                 - data
+      operationId: getAnalyticsGroupsMetadataByMetadataKey
+      x-operation-id-source: derived
 components:
   parameters:
-    PromptTokenMin:
+    TotalUnitsMax:
       in: query
-      name: prompt_token_min
+      name: total_units_max
       schema:
         type: integer
         minimum: 0
-      description: Minimum number of prompt tokens
+      description: Maximum total units (tokens)
+    Configs:
+      in: query
+      name: configs
+      schema:
+        type: string
+      description: Comma separated config slugs
+      example: pc-config-slug-1,pc-config-slug-2
+    WorkspaceSlug:
+      in: query
+      name: workspace_slug
+      required: true
+      schema:
+        type: string
+      description: Workspace slug filter. If a workspace API key is being used, this filter will not be taken into consideration. If an organisation API key is used and no workspace slug is passed, default workspace will be used.
+    CompletionTokenMin:
+      in: query
+      name: completion_token_min
+      schema:
+        type: integer
+        minimum: 0
+      description: Minimum number of completion tokens
+    TotalUnitsMin:
+      in: query
+      name: total_units_min
+      schema:
+        type: integer
+        minimum: 0
+      description: Minimum total units (tokens)
+    PromptSlug:
+      in: query
+      name: prompt_slug
+      schema:
+        type: string
+      description: Comma separated prompt slugs
+      example: prompt-slug-1,prompt-slug-2
+    CostMin:
+      in: query
+      name: cost_min
+      schema:
+        type: number
+        minimum: 0
+      description: Minimum cost (in cents)
     WeightedFeedbackMax:
       in: query
       name: weighted_feedback_max
@@ -285,42 +333,13 @@ components:
         minimum: -10
         maximum: 10
       description: Maximum weighted feedback score
-    TotalUnitsMax:
+    AiOrgModel:
       in: query
-      name: total_units_max
-      schema:
-        type: integer
-        minimum: 0
-      description: Maximum total units (tokens)
-    Metadata:
-      in: query
-      name: metadata
+      name: ai_org_model
       schema:
         type: string
-      description: Stringifed json object with key value metadata pairs
-      example: '{"_user":"user_1", "env": "staging"}'
-    CurrentPage:
-      in: query
-      name: current_page
-      schema:
-        type: integer
-        minimum: 0
-      description: Current page number
-    VirtualKeys:
-      in: query
-      name: virtual_keys
-      schema:
-        type: string
-      description: Comma separated virtual key slugs
-      example: vk-slug-1,vk-slug-2
-    WeightedFeedbackMin:
-      in: query
-      name: weighted_feedback_min
-      schema:
-        type: number
-        minimum: -10
-        maximum: 10
-      description: Minimum weighted feedback score
+      description: Comma separated ai provider and model combination. Double underscore (__) should be used as a separator for each provider and model combination
+      example: openai__gpt-3.5-turbo,azure-openai__gpt-35-turbo
     TimeOfGenerationMax:
       in: query
       name: time_of_generation_max
@@ -330,6 +349,50 @@ components:
         format: date-time
         example: '2026-02-24T14:20:31+05:30'
       description: Maximum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM).
+    CurrentPage:
+      in: query
+      name: current_page
+      schema:
+        type: integer
+        minimum: 0
+      description: Current page number
+    CostMax:
+      in: query
+      name: cost_max
+      schema:
+        type: number
+        minimum: 0
+      description: Maximum cost (in cents)
+    TimeOfGenerationMin:
+      in: query
+      name: time_of_generation_min
+      required: true
+      schema:
+        type: string
+        format: date-time
+        example: '2026-02-23T14:20:31+05:30'
+      description: Minimum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM).
+    PromptTokenMax:
+      in: query
+      name: prompt_token_max
+      schema:
+        type: integer
+        minimum: 0
+      description: Maximum number of prompt tokens
+    VirtualKeys:
+      in: query
+      name: virtual_keys
+      schema:
+        type: string
+      description: Comma separated virtual key slugs
+      example: vk-slug-1,vk-slug-2
+    PageSize:
+      in: query
+      name: page_size
+      schema:
+        type: integer
+        minimum: 0
+      description: Number of items per page
     CompletionTokenMax:
       in: query
       name: completion_token_max
@@ -344,48 +407,13 @@ components:
         type: string
       description: Comma separated API key UUIDs
       example: 765768a9-b4ec-4694-962c-d55f40cdb0dc,7c22af5a-8119-46b8-8d9b-bad3ad382387
-    StatusCode:
+    Metadata:
       in: query
-      name: status_code
+      name: metadata
       schema:
         type: string
-      description: Comma separated response status codes
-      example: 401,403
-    Configs:
-      in: query
-      name: configs
-      schema:
-        type: string
-      description: Comma separated config slugs
-      example: pc-config-slug-1,pc-config-slug-2
-    TraceId:
-      in: query
-      name: trace_id
-      schema:
-        type: string
-      description: Comma separated trace IDs
-      example: my-unique-trace-1,my-unique-trace-2
-    CompletionTokenMin:
-      in: query
-      name: completion_token_min
-      schema:
-        type: integer
-        minimum: 0
-      description: Minimum number of completion tokens
-    PromptSlug:
-      in: query
-      name: prompt_slug
-      schema:
-        type: string
-      description: Comma separated prompt slugs
-      example: prompt-slug-1,prompt-slug-2
-    TotalUnitsMin:
-      in: query
-      name: total_units_min
-      schema:
-        type: integer
-        minimum: 0
-      description: Minimum total units (tokens)
+      description: Stringifed json object with key value metadata pairs
+      example: '{"_user":"user_1", "env": "staging"}'
     SpanId:
       in: query
       name: span_id
@@ -393,57 +421,35 @@ components:
         type: string
       description: Comma separated span IDs
       example: my-unique-span-1,my-unique-span-2
-    WorkspaceSlug:
+    WeightedFeedbackMin:
       in: query
-      name: workspace_slug
-      required: true
+      name: weighted_feedback_min
+      schema:
+        type: number
+        minimum: -10
+        maximum: 10
+      description: Minimum weighted feedback score
+    StatusCode:
+      in: query
+      name: status_code
       schema:
         type: string
-      description: Workspace slug filter. If a workspace API key is being used, this filter will not be taken into consideration. If an organisation API key is used and no workspace slug is passed, default workspace will be used.
-    TimeOfGenerationMin:
+      description: Comma separated response status codes
+      example: 401,403
+    PromptTokenMin:
       in: query
-      name: time_of_generation_min
-      required: true
-      schema:
-        type: string
-        format: date-time
-        example: '2026-02-23T14:20:31+05:30'
-      description: Minimum time of generation in ISO8601 format (YYYY-MM-DDTHH:MM:SS±HH:MM).
-    PageSize:
-      in: query
-      name: page_size
+      name: prompt_token_min
       schema:
         type: integer
         minimum: 0
-      description: Number of items per page
-    AiOrgModel:
+      description: Minimum number of prompt tokens
+    TraceId:
       in: query
-      name: ai_org_model
+      name: trace_id
       schema:
         type: string
-      description: Comma separated ai provider and model combination. Double underscore (__) should be used as a separator for each provider and model combination
-      example: openai__gpt-3.5-turbo,azure-openai__gpt-35-turbo
-    CostMax:
-      in: query
-      name: cost_max
-      schema:
-        type: number
-        minimum: 0
-      description: Maximum cost (in cents)
-    CostMin:
-      in: query
-      name: cost_min
-      schema:
-        type: number
-        minimum: 0
-      description: Minimum cost (in cents)
-    PromptTokenMax:
-      in: query
-      name: prompt_token_max
-      schema:
-        type: integer
-        minimum: 0
-      description: Maximum number of prompt tokens
+      description: Comma separated trace IDs
+      example: my-unique-trace-1,my-unique-trace-2
   securitySchemes:
     Portkey-Key:
       type: apiKey

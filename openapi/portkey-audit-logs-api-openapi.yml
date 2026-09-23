@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Audit Logs API
+  title: Portkey Audit Logs API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -143,6 +143,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuditLogObjectList'
+      operationId: getAuditLogs
+      x-operation-id-source: derived
 components:
   schemas:
     AuditLogObjectList:

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Virtual-keys API
+  title: Portkey Virtual Keys API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -16,7 +16,7 @@ servers:
 security:
 - Portkey-Key: []
 tags:
-- name: Virtual-keys
+- name: Virtual Keys
   description: Create, List, Retrieve, Update, and Delete your Portkey Virtual keys.
 paths:
   /virtual-keys:
@@ -28,7 +28,7 @@ paths:
     get:
       summary: List All Virtual Keys
       tags:
-      - Virtual-keys
+      - Virtual Keys
       parameters:
       - in: query
         name: current_page
@@ -108,10 +108,12 @@ paths:
           -H "x-portkey-virtual-key: PROVIDER_VIRTUAL_KEY"
 
           '
+      operationId: getVirtualKeys
+      x-operation-id-source: derived
     post:
       summary: Create a Virtual Key
       tags:
-      - Virtual-keys
+      - Virtual Keys
       requestBody:
         required: true
         content:
@@ -159,17 +161,21 @@ paths:
                 key:
                   type: string
                 note:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 apiVersion:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 resourceName:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 deploymentName:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 workspace_id:
                   type: string
                   format: uuid
@@ -306,6 +312,8 @@ paths:
       - lang: curl
         label: Self-Hosted
         source: "curl -X POST SELF_HOSTED_CONTROL_PLANE_URL/virtual-keys \\\n-H \"x-portkey-api-key: PORTKEY_API_KEY\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n    \"name\": \"openaiVKey\",\n    \"provider\": \"openai\",\n    \"key\": \"PROVIDER_API_KEY\"\n}'\n"
+      operationId: postVirtualKeys
+      x-operation-id-source: derived
   /virtual-keys/{slug}:
     servers:
     - url: https://api.portkey.ai/v1
@@ -315,7 +323,7 @@ paths:
     get:
       summary: Get a Virtual Key
       tags:
-      - Virtual-keys
+      - Virtual Keys
       parameters:
       - in: path
         name: slug
@@ -374,10 +382,12 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst vKey=await portkey.virtualKeys.retrieve({\n    slug:'VIRTUAL_KEY_SLUG'\n})\nconsole.log(vKey);\n"
+      operationId: getVirtualKeysBySlug
+      x-operation-id-source: derived
     put:
       summary: Update a Virtual Key
       tags:
-      - Virtual-keys
+      - Virtual Keys
       parameters:
       - in: path
         name: slug
@@ -396,8 +406,9 @@ paths:
                 key:
                   type: string
                 note:
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 deploymentConfig:
                   type: array
                   items:
@@ -465,10 +476,12 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst updatedVkey=await portkey.virtualKeys.update({\n    slug:'VIRTUAL_KEY_SLUG',\n    name:\"openaiVKey\",\n    note:\"hello\",\n    rate_limits: [{type: \"requests\", unit: \"rpm\", value: 696}]\n})\nconsole.log(updatedVkey);\n"
+      operationId: putVirtualKeysBySlug
+      x-operation-id-source: derived
     delete:
       summary: Delete a Virtual Key
       tags:
-      - Virtual-keys
+      - Virtual Keys
       parameters:
       - in: path
         name: slug
@@ -523,6 +536,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import { Portkey } from \"portkey-ai\";\n\nconst portkey = new Portkey({\n    apiKey: \"PORTKEY_API_KEY\",\n    baseUrl: \"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nconst result=await portkey.virtualKeys.delete({\n    slug:'VIRTUAL_KEY_SLUG',\n})\nconsole.log(result);\n"
+      operationId: deleteVirtualKeysBySlug
+      x-operation-id-source: derived
 components:
   schemas:
     SecretMapping:
@@ -546,54 +561,10 @@ components:
           description: UUID or slug of the secret reference. Must belong to the same organisation and be accessible by the workspace.
           example: my-aws-secret
         secret_key:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Override the secret_key defined on the secret reference. Use to pick a specific key from a multi-value secret.
-    VirtualKeys:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Open AI Workspace
-        note:
-          type: string
-          nullable: true
-          example: randomness
-        status:
-          type: string
-          enum:
-          - active
-          - exhausted
-        usage_limits:
-          $ref: '#/components/schemas/UsageLimits'
-        reset_usage:
-          type: number
-          nullable: true
-          example: 0
-        created_at:
-          type: string
-          format: date-time
-        slug:
-          type: string
-        model_config:
-          type: object
-        rate_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimits'
-          nullable: true
-        expires_at:
-          type: string
-          format: date-time
-        secret_mappings:
-          type: array
-          items:
-            $ref: '#/components/schemas/SecretMapping'
-          description: Secret reference mappings for this virtual key. Valid target_field values are "key" or "model_config.<field>".
-        object:
-          type: string
-          enum:
-          - virtual-key
     UsageLimits:
       type: object
       properties:
@@ -614,25 +585,28 @@ components:
           minimum: 1
           default: null
         periodic_reset:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Reset the usage periodically.
           enum:
           - monthly
           - weekly
-          nullable: true
           example: monthly
         periodic_reset_days:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
           minimum: 1
           maximum: 365
-          nullable: true
           example: 30
         next_usage_reset_at:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
           description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
-          nullable: true
           example: '2026-05-01T00:00:00Z'
       example:
         credit_limit: 10
@@ -654,6 +628,54 @@ components:
           - rpm
         value:
           type: integer
+    VirtualKeys:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Open AI Workspace
+        note:
+          type:
+          - string
+          - 'null'
+          example: randomness
+        status:
+          type: string
+          enum:
+          - active
+          - exhausted
+        usage_limits:
+          $ref: '#/components/schemas/UsageLimits'
+        reset_usage:
+          type:
+          - number
+          - 'null'
+          example: 0
+        created_at:
+          type: string
+          format: date-time
+        slug:
+          type: string
+        model_config:
+          type: object
+        rate_limits:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RateLimits'
+        expires_at:
+          type: string
+          format: date-time
+        secret_mappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretMapping'
+          description: Secret reference mappings for this virtual key. Valid target_field values are "key" or "model_config.<field>".
+        object:
+          type: string
+          enum:
+          - virtual-key
   securitySchemes:
     Portkey-Key:
       type: apiKey

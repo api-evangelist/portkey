@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Logs Export API
+  title: Portkey Logs Export API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -69,6 +69,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import Portkey from \"portkey-ai\";\n\nconst portkey = new Portkey({\n  apiKey:\"PORTKEY_API_KEY\",\n  baseUrl:\"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nasync function main() {\n  const res= await portkey.logs.exports.retrieve({\n    exportId:'EXPORT_ID'\n  });;\n\n  console.log(res);\n}\n\nmain()\n"
+      operationId: getLogsExportsByExportId
+      x-operation-id-source: derived
     put:
       tags:
       - Logs Export
@@ -135,6 +137,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import Portkey from \"portkey-ai\";\n\nconst portkey = new Portkey({\n  apiKey:\"PORTKEY_API_KEY\",\n  baseUrl:\"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nasync function main() {\n  const res = await portkey.logs.exports.update({\n    exportId:\"7ef9f738-a93a-xxx-xxx-xxxxx\",\n    workspaceId: \"ws-shared-xxx\",\n    filters: {\n      \"time_of_generation_max\": \"2024-07-25\"\n    }\n  });\n\n  console.log(res);\n}\n\nmain();\n"
+      operationId: putLogsExportsByExportId
+      x-operation-id-source: derived
   /logs/exports:
     servers:
     - url: https://api.portkey.ai/v1
@@ -184,6 +188,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import Portkey from \"portkey-ai\";\n\nasync function main() {\n  const portkey = new Portkey({\n    apiKey:\"PORTKEY_API_KEY\",\n    baseUrl:\"SELF_HOSTED_CONTROL_PLANE_URL\"\n  })\n\n  const res = await portkey.logs.exports.list({\n    workspaceId:\"WORKSPACE_ID\"\n  });\n\n  console.log(res);\n}\n\nmain();\n"
+      operationId: getLogsExports
+      x-operation-id-source: derived
     post:
       tags:
       - Logs Export
@@ -226,6 +232,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import Portkey from \"portkey-ai\";\n\nconst portkey = new Portkey({\n  apiKey:\"PORTKEY_API_KEY\",\n  baseUrl:\"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nasync function main() {\n  const res = await portkey.logs.exports.create({\n      filters: {\n        time_of_generation_min: \"2024-10-20\",\n        time_of_generation_max: \"2024-10-30\"\n      },\n      \"workspaceId\": \"WORKSPACE_ID\",\",\n      \"description\": \"This is random description\",\n      \"requestedData\": [\n        \"id\",\n        \"trace_id\",\n        \"created_at\",\n        \"request\",\n        \"response\",\n        \"is_success\",\n        \"ai_org\",\n        \"ai_model\",\n        \"req_units\",\n        \"res_units\",\n        \"total_units\",\n        \"request_url\",\n        \"cost\",\n        \"cost_currency\",\n        \"response_time\",\n        \"response_status_code\",\n        \"mode\",\n        \"config\",\n        \"prompt_slug\",\n        \"metadata\"\n      ]\n  });\n\n  console.log(res);\n}\n\nmain();\n"
+      operationId: postLogsExports
+      x-operation-id-source: derived
   /logs/exports/{exportId}/start:
     servers:
     - url: https://api.portkey.ai/v1
@@ -265,6 +273,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import Portkey from \"portkey-ai\";\n\nconst portkey = new Portkey({\n  apiKey:\"PORTKEY_API_KEY\",\n  baseUrl:\"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nasync function main() {\n  const res = await portkey.logs.exports.start({\n    exportId:'EXPORT_ID'\n  });\n\n  console.log(res);\n}\n\nmain();\n"
+      operationId: postLogsExportsByExportIdStart
+      x-operation-id-source: derived
   /logs/exports/{exportId}/cancel:
     servers:
     - url: https://api.portkey.ai/v1
@@ -304,6 +314,8 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import Portkey from \"portkey-ai\";\n\nconst portkey = new Portkey({\n  apiKey:\"PORTKEY_API_KEY\",\n  baseUrl:\"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nasync function main() {\n  const res = await portkey.logs.exports.cancel({\n    exportId:'EXPORT_ID'\n  });\n\n  console.log(res);\n}\n\nmain();\n"
+      operationId: postLogsExportsByExportIdCancel
+      x-operation-id-source: derived
   /logs/exports/{exportId}/download:
     servers:
     - url: https://api.portkey.ai/v1
@@ -343,22 +355,74 @@ paths:
       - lang: javascript
         label: Self-Hosted
         source: "import Portkey from \"portkey-ai\";\n\nconst portkey = new Portkey({\n  apiKey:\"PORTKEY_API_KEY\",\n  baseUrl:\"SELF_HOSTED_CONTROL_PLANE_URL\"\n})\n\nasync function main() {\n  const config=await portkey.logs.exports.download({\n    exportId:'EXPORT_ID'\n  });;\n\n  console.log(config);\n}\n\nmain()\n"
+      operationId: getLogsExportsByExportIdDownload
+      x-operation-id-source: derived
 components:
   schemas:
-    ExportTaskResponse:
+    ExportItem:
       type: object
       properties:
-        message:
+        id:
           type: string
-          description: A message indicating the status of the export task
+          format: uuid
+        organisation_id:
+          type: string
+          format: uuid
+        filters:
+          $ref: '#/components/schemas/GenerationsFilterSchema'
+        requested_data:
+          $ref: '#/components/schemas/LogExportsRequestedData'
+        status:
+          type: string
+          enum:
+          - draft
+          - in_progress
+          - success
+          - failed
+          - stopped
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        last_updated_at:
+          type: string
+          format: date-time
+        created_by:
+          type: string
+          format: uuid
+        workspace_id:
+          type: string
+          format: uuid
         object:
           type: string
           enum:
           - export
-          description: The type of the object
       required:
-      - message
+      - id
+      - organisation_id
+      - filters
+      - requested_data
+      - status
+      - description
+      - created_at
+      - last_updated_at
+      - created_by
+      - workspace_id
       - object
+    ExportListResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportItem'
     GenerationsFilterSchema:
       type: object
       properties:
@@ -415,19 +479,39 @@ components:
         current_page:
           type: number
           example: 0
-    ExportListResponse:
+    UpdateExportResponse:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the updated export
+        total:
+          type: integer
+          description: The total number of items in the export
         object:
           type: string
           enum:
-          - list
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportItem'
+          - export
+          description: The type of the object
+      required:
+      - id
+      - total
+      - object
+    ExportTaskResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message indicating the status of the export task
+        object:
+          type: string
+          enum:
+          - export
+          description: The type of the object
+      required:
+      - message
+      - object
     LogExportsRequestedData:
       type: array
       items:
@@ -462,76 +546,6 @@ components:
           description: A pre-signed URL for downloading the exported logs
       required:
       - signed_url
-    UpdateExportResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the updated export
-        total:
-          type: integer
-          description: The total number of items in the export
-        object:
-          type: string
-          enum:
-          - export
-          description: The type of the object
-      required:
-      - id
-      - total
-      - object
-    ExportItem:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        organisation_id:
-          type: string
-          format: uuid
-        filters:
-          $ref: '#/components/schemas/GenerationsFilterSchema'
-        requested_data:
-          $ref: '#/components/schemas/LogExportsRequestedData'
-        status:
-          type: string
-          enum:
-          - draft
-          - in_progress
-          - success
-          - failed
-          - stopped
-        description:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        last_updated_at:
-          type: string
-          format: date-time
-        created_by:
-          type: string
-          format: uuid
-        workspace_id:
-          type: string
-          format: uuid
-        object:
-          type: string
-          enum:
-          - export
-      required:
-      - id
-      - organisation_id
-      - filters
-      - requested_data
-      - status
-      - description
-      - created_at
-      - last_updated_at
-      - created_by
-      - workspace_id
-      - object
   securitySchemes:
     Portkey-Key:
       type: apiKey

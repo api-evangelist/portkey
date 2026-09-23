@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Feedback API
+  title: Portkey Feedback API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -149,20 +149,6 @@ paths:
           '
 components:
   schemas:
-    FeedbackResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          description: success or failure
-        message:
-          type: string
-          description: Confirmation message indicating successful feedback submission.
-        feedback_ids:
-          type: array
-          description: Ids of Feedbacks created returned in the same order as input
-          items:
-            type: string
     FeedbackUpdateRequest:
       type: object
       required:
@@ -184,6 +170,20 @@ components:
           type: object
           additionalProperties: true
           description: Additional metadata for the feedback.
+    FeedbackResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: success or failure
+        message:
+          type: string
+          description: Confirmation message indicating successful feedback submission.
+        feedback_ids:
+          type: array
+          description: Ids of Feedbacks created returned in the same order as input
+          items:
+            type: string
     FeedbackRequest:
       type: object
       required:

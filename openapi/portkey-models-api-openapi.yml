@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Models API
+  title: Portkey Models API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -118,7 +118,7 @@ paths:
       operationId: retrieveModel
       tags:
       - Models
-      summary: Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
+      summary: Retrieves a model instance, providing basic information about the model such as…
       parameters:
       - in: path
         name: model
@@ -157,7 +157,7 @@ paths:
       operationId: deleteModel
       tags:
       - Models
-      summary: Delete a fine-tuned model. You must have the Owner role in your organization to delete a model.
+      summary: Delete a fine-tuned model.
       parameters:
       - in: path
         name: model
@@ -217,19 +217,6 @@ components:
       - object
       - created
       - owned_by
-    DeleteModelResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        deleted:
-          type: boolean
-        object:
-          type: string
-      required:
-      - id
-      - object
-      - deleted
     ListModelsResponse:
       type: object
       properties:
@@ -244,6 +231,19 @@ components:
       required:
       - object
       - data
+    DeleteModelResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+        object:
+          type: string
+      required:
+      - id
+      - object
+      - deleted
   securitySchemes:
     Portkey-Key:
       type: apiKey

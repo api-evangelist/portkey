@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs Moderations API
+  title: Portkey Moderations API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -29,9 +29,7 @@ paths:
       operationId: createModeration
       tags:
       - Moderations
-      summary: 'Identify potentially harmful content in text and images. **Only** works with [OpenAI''s Moderations endpoint](https://platform.openai.com/docs/guides/moderation) currently.
-
-        '
+      summary: Identify potentially harmful content in text and images.
       requestBody:
         required: true
         content:
@@ -78,39 +76,6 @@ paths:
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY',\n  baseURL: 'SELF_HOSTED_GATEWAY_URL'\n});\n\nasync function main() {\n  const moderation = await client.moderations.create({ input: \"I want to kill them.\" });\n\n  console.log(moderation);\n}\nmain();\n"
 components:
   schemas:
-    CreateModerationRequest:
-      type: object
-      properties:
-        input:
-          description: The input text to classify
-          oneOf:
-          - type: string
-            default: ''
-            example: I want to kill them.
-          - type: array
-            items:
-              type: string
-              default: ''
-              example: I want to kill them.
-        model:
-          description: 'Two content moderations models are available: `text-moderation-stable` and `text-moderation-latest`.
-
-
-            The default is `text-moderation-latest` which will be automatically upgraded over time. This ensures you are always using our most accurate model. If you use `text-moderation-stable`, we will provide advanced notice before updating the model. Accuracy of `text-moderation-stable` may be slightly lower than for `text-moderation-latest`.
-
-            '
-          nullable: false
-          default: text-moderation-latest
-          example: text-moderation-stable
-          anyOf:
-          - type: string
-          - type: string
-            enum:
-            - text-moderation-latest
-            - text-moderation-stable
-          x-oaiTypeLabel: string
-      required:
-      - input
     CreateModerationResponse:
       type: object
       description: Represents if a given text input is potentially harmful.
@@ -236,6 +201,38 @@ components:
       - id
       - model
       - results
+    CreateModerationRequest:
+      type: object
+      properties:
+        input:
+          description: The input text to classify
+          oneOf:
+          - type: string
+            default: ''
+            example: I want to kill them.
+          - type: array
+            items:
+              type: string
+              default: ''
+              example: I want to kill them.
+        model:
+          description: 'Two content moderations models are available: `text-moderation-stable` and `text-moderation-latest`.
+
+
+            The default is `text-moderation-latest` which will be automatically upgraded over time. This ensures you are always using our most accurate model. If you use `text-moderation-stable`, we will provide advanced notice before updating the model. Accuracy of `text-moderation-stable` may be slightly lower than for `text-moderation-latest`.
+
+            '
+          default: text-moderation-latest
+          example: text-moderation-stable
+          anyOf:
+          - type: string
+          - type: string
+            enum:
+            - text-moderation-latest
+            - text-moderation-stable
+          x-oaiTypeLabel: string
+      required:
+      - input
   securitySchemes:
     Portkey-Key:
       type: apiKey

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Portkey Analytics > Graphs MCP Servers > User Access API
+  title: Portkey MCP Servers > User Access API
   description: The Portkey REST API. Please see https://portkey.ai/docs/api-reference for more details.
   version: 2.0.0
   termsOfService: https://portkey.ai/terms
@@ -82,6 +82,51 @@ paths:
                 $ref: '#/components/schemas/McpServerUserAccessBulkUpdateResponse'
 components:
   schemas:
+    McpServerUserAccessItem:
+      type: object
+      properties:
+        user_id:
+          type: string
+          description: Global user ID or user_org_map_id depending on auth
+        first_name:
+          type:
+          - string
+          - 'null'
+        last_name:
+          type:
+          - string
+          - 'null'
+        enabled:
+          type: boolean
+        has_override:
+          type: boolean
+        connection_status:
+          type: string
+          enum:
+          - connected
+          - not_connected
+    McpServerUserAccessBulkUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    McpServerUserAccessListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerUserAccessItem'
+        default_user_access:
+          type: string
+          enum:
+          - allow
+          - deny
+        total:
+          type: integer
+        has_more:
+          type: boolean
     BulkUpdateMcpServerUserAccess:
       type: object
       properties:
@@ -104,49 +149,6 @@ components:
           - allow
           - deny
           description: Server default when user has no explicit override
-    McpServerUserAccessBulkUpdateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
-    McpServerUserAccessItem:
-      type: object
-      properties:
-        user_id:
-          type: string
-          description: Global user ID or user_org_map_id depending on auth
-        first_name:
-          type: string
-          nullable: true
-        last_name:
-          type: string
-          nullable: true
-        enabled:
-          type: boolean
-        has_override:
-          type: boolean
-        connection_status:
-          type: string
-          enum:
-          - connected
-          - not_connected
-    McpServerUserAccessListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpServerUserAccessItem'
-        default_user_access:
-          type: string
-          enum:
-          - allow
-          - deny
-        total:
-          type: integer
-        has_more:
-          type: boolean
   securitySchemes:
     Portkey-Key:
       type: apiKey
