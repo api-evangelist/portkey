@@ -97,6 +97,13 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    TokenPricing:
+      type: object
+      properties:
+        price:
+          type: number
+          format: float
+          description: Price per token
     PricingConfig:
       type: object
       properties:
@@ -144,20 +151,16 @@ components:
           $ref: '#/components/schemas/ModelConfigurations'
         pricing_config:
           $ref: '#/components/schemas/PricingConfig'
-    TokenPricing:
+    IntegrationModelsResponse:
       type: object
       properties:
-        price:
-          type: number
-          format: float
-          description: Price per token
-    PayAsYouGoPricing:
-      type: object
-      properties:
-        request_token:
-          $ref: '#/components/schemas/TokenPricing'
-        response_token:
-          $ref: '#/components/schemas/TokenPricing'
+        total:
+          type: integer
+          description: Total number of models
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationModel'
     BulkUpdateModelsRequest:
       type: object
       required:
@@ -199,16 +202,13 @@ components:
           description: Base model slug for fine-tuned models
         pricing_config:
           $ref: '#/components/schemas/PricingConfig'
-    IntegrationModelsResponse:
+    PayAsYouGoPricing:
       type: object
       properties:
-        total:
-          type: integer
-          description: Total number of models
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationModel'
+        request_token:
+          $ref: '#/components/schemas/TokenPricing'
+        response_token:
+          $ref: '#/components/schemas/TokenPricing'
   securitySchemes:
     Portkey-Key:
       type: apiKey

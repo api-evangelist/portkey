@@ -196,6 +196,27 @@ paths:
         source: "import fs from \"fs\";\nimport Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY',\n  baseUrl: 'SELF_HOSTED_GATEWAY_URL'\n});\n\nconst audioFile = fs.createReadStream(\"speech.mp3\");\n\nasync function main() {\n  const translation = await client.audio.translations.create({\n    file: audioFile,\n    model: \"whisper-1\",\n  });\n\n  console.log(translation.text);\n}\nmain();\n"
 components:
   schemas:
+    CreateTranslationResponseVerboseJson:
+      type: object
+      properties:
+        language:
+          type: string
+          description: The language of the output translation (always `english`).
+        duration:
+          type: string
+          description: The duration of the input audio.
+        text:
+          type: string
+          description: The translated text.
+        segments:
+          type: array
+          description: Segments of the translated text and their corresponding details.
+          items:
+            $ref: '#/components/schemas/TranscriptionSegment'
+      required:
+      - language
+      - duration
+      - text
     TranscriptionSegment:
       type: object
       properties:
@@ -248,83 +269,48 @@ components:
       - avg_logprob
       - compression_ratio
       - no_speech_prob
-    CreateSpeechRequest:
+    CreateTranslationRequest:
       type: object
       additionalProperties: false
       properties:
-        model:
-          description: 'One of the available [TTS models](https://platform.openai.com/docs/models/tts): `tts-1` or `tts-1-hd`
+        file:
+          description: 'The audio file object (not file name) translate, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.
 
             '
+          type: string
+          x-oaiTypeLabel: file
+          format: binary
+        model:
+          description: 'ID of the model to use. The options are `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, and `whisper-1`.
+
+            '
+          example: whisper-1
           anyOf:
           - type: string
           - type: string
             enum:
-            - tts-1
-            - tts-1-hd
+            - whisper-1
           x-oaiTypeLabel: string
-        input:
+        prompt:
+          description: 'An optional text to guide the model''s style or continue a previous audio segment. The [prompt](https://platform.openai.com/docs/guides/speech-to-text/prompting) should be in English.
+
+            '
           type: string
-          description: The text to generate audio for. The maximum length is 4096 characters.
-          maxLength: 4096
-        voice:
-          description: The voice to use when generating the audio. Supported voices are `alloy`, `echo`, `fable`, `onyx`, `nova`, and `shimmer`. Previews of the voices are available in the [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech/voice-options).
-          type: string
-          enum:
-          - alloy
-          - echo
-          - fable
-          - onyx
-          - nova
-          - shimmer
         response_format:
-          description: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`.
-          default: mp3
+          description: 'The format of the transcript output, in one of these options: `json`, `text`, `srt`, `verbose_json`, or `vtt`.
+
+            '
           type: string
-          enum:
-          - mp3
-          - opus
-          - aac
-          - flac
-          - wav
-          - pcm
-        speed:
-          description: The speed of the generated audio. Select a value from `0.25` to `4.0`. `1.0` is the default.
+          default: json
+        temperature:
+          description: 'The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use [log probability](https://en.wikipedia.org/wiki/Log_probability) to automatically increase the temperature until certain thresholds are hit.
+
+            '
           type: number
-          default: 1.0
-          minimum: 0.25
-          maximum: 4.0
+          default: 0
       required:
+      - file
       - model
-      - input
-      - voice
-    CreateTranscriptionResponseJson:
-      type: object
-      description: Represents a transcription response returned by model, based on the provided input.
-      properties:
-        text:
-          type: string
-          description: The transcribed text.
-      required:
-      - text
-    TranscriptionWord:
-      type: object
-      properties:
-        word:
-          type: string
-          description: The text content of the word.
-        start:
-          type: number
-          format: float
-          description: Start time of the word in seconds.
-        end:
-          type: number
-          format: float
-          description: End time of the word in seconds.
-      required:
-      - word
-      - start
-      - end
     CreateTranscriptionRequest:
       type: object
       additionalProperties: false
@@ -390,48 +376,63 @@ components:
       required:
       - file
       - model
-    CreateTranslationRequest:
+    CreateSpeechRequest:
       type: object
       additionalProperties: false
       properties:
-        file:
-          description: 'The audio file object (not file name) translate, in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm.
-
-            '
-          type: string
-          x-oaiTypeLabel: file
-          format: binary
         model:
-          description: 'ID of the model to use. The options are `gpt-4o-transcribe`, `gpt-4o-mini-transcribe`, and `whisper-1`.
+          description: 'One of the available [TTS models](https://platform.openai.com/docs/models/tts): `tts-1` or `tts-1-hd`
 
             '
-          example: whisper-1
           anyOf:
           - type: string
           - type: string
             enum:
-            - whisper-1
+            - tts-1
+            - tts-1-hd
           x-oaiTypeLabel: string
-        prompt:
-          description: 'An optional text to guide the model''s style or continue a previous audio segment. The [prompt](https://platform.openai.com/docs/guides/speech-to-text/prompting) should be in English.
-
-            '
+        input:
           type: string
+          description: The text to generate audio for. The maximum length is 4096 characters.
+          maxLength: 4096
+        voice:
+          description: The voice to use when generating the audio. Supported voices are `alloy`, `echo`, `fable`, `onyx`, `nova`, and `shimmer`. Previews of the voices are available in the [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech/voice-options).
+          type: string
+          enum:
+          - alloy
+          - echo
+          - fable
+          - onyx
+          - nova
+          - shimmer
         response_format:
-          description: 'The format of the transcript output, in one of these options: `json`, `text`, `srt`, `verbose_json`, or `vtt`.
-
-            '
+          description: The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`.
+          default: mp3
           type: string
-          default: json
-        temperature:
-          description: 'The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. If set to 0, the model will use [log probability](https://en.wikipedia.org/wiki/Log_probability) to automatically increase the temperature until certain thresholds are hit.
-
-            '
+          enum:
+          - mp3
+          - opus
+          - aac
+          - flac
+          - wav
+          - pcm
+        speed:
+          description: The speed of the generated audio. Select a value from `0.25` to `4.0`. `1.0` is the default.
           type: number
-          default: 0
+          default: 1.0
+          minimum: 0.25
+          maximum: 4.0
       required:
-      - file
       - model
+      - input
+      - voice
+    CreateTranslationResponseJson:
+      type: object
+      properties:
+        text:
+          type: string
+      required:
+      - text
     CreateTranscriptionResponseVerboseJson:
       type: object
       description: Represents a verbose json transcription response returned by model, based on the provided input.
@@ -459,34 +460,33 @@ components:
       - language
       - duration
       - text
-    CreateTranslationResponseVerboseJson:
+    CreateTranscriptionResponseJson:
       type: object
-      properties:
-        language:
-          type: string
-          description: The language of the output translation (always `english`).
-        duration:
-          type: string
-          description: The duration of the input audio.
-        text:
-          type: string
-          description: The translated text.
-        segments:
-          type: array
-          description: Segments of the translated text and their corresponding details.
-          items:
-            $ref: '#/components/schemas/TranscriptionSegment'
-      required:
-      - language
-      - duration
-      - text
-    CreateTranslationResponseJson:
-      type: object
+      description: Represents a transcription response returned by model, based on the provided input.
       properties:
         text:
           type: string
+          description: The transcribed text.
       required:
       - text
+    TranscriptionWord:
+      type: object
+      properties:
+        word:
+          type: string
+          description: The text content of the word.
+        start:
+          type: number
+          format: float
+          description: Start time of the word in seconds.
+        end:
+          type: number
+          format: float
+          description: End time of the word in seconds.
+      required:
+      - word
+      - start
+      - end
   securitySchemes:
     Portkey-Key:
       type: apiKey

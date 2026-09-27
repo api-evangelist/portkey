@@ -246,6 +246,36 @@ paths:
         '500':
           description: Server error
 components:
+  parameters:
+    PageSize:
+      in: query
+      name: page_size
+      schema:
+        type: integer
+        minimum: 0
+      description: Number of items per page
+    CurrentPage:
+      in: query
+      name: current_page
+      schema:
+        type: integer
+        minimum: 0
+      description: Current page number
+    RateLimitsPolicyId:
+      name: rateLimitsPolicyId
+      in: path
+      required: true
+      description: Rate limits policy UUID
+      schema:
+        type: string
+        format: uuid
+    WorkspaceIdQuery:
+      name: workspace_id
+      in: query
+      required: false
+      description: Workspace ID or slug
+      schema:
+        type: string
   schemas:
     RateLimitsPolicy:
       type: object
@@ -317,31 +347,6 @@ components:
           type: string
           format: date-time
           description: Last update timestamp
-    RateLimitsPolicyResponse:
-      allOf:
-      - $ref: '#/components/schemas/RateLimitsPolicy'
-      - type: object
-        properties:
-          object:
-            type: string
-            example: policy_rate_limits
-    UpdateRateLimitsPolicyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-          description: Policy name
-        unit:
-          type: string
-          enum:
-          - rpm
-          - rph
-          - rpd
-          description: Rate unit
-        value:
-          type: number
-          description: Rate limit value
     GroupBy:
       type: object
       required:
@@ -361,6 +366,30 @@ components:
 
             '
           example: api_key
+    CreatePolicyResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Created policy UUID
+        object:
+          type: string
+          description: Resource type
+          example: policy_usage_limits
+    RateLimitsPolicyListResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimitsPolicy'
+        total:
+          type: integer
+          description: Total number of policies
     Condition:
       type: object
       required:
@@ -385,6 +414,31 @@ components:
           type: string
           description: Condition value
           example: workspace-123
+    UpdateRateLimitsPolicyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          description: Policy name
+        unit:
+          type: string
+          enum:
+          - rpm
+          - rph
+          - rpd
+          description: Rate unit
+        value:
+          type: number
+          description: Rate limit value
+    RateLimitsPolicyResponse:
+      allOf:
+      - $ref: '#/components/schemas/RateLimitsPolicy'
+      - type: object
+        properties:
+          object:
+            type: string
+            example: policy_rate_limits
     CreateRateLimitsPolicyRequest:
       type: object
       required:
@@ -442,60 +496,6 @@ components:
           type: string
           format: uuid
           description: Organization ID. Required if not using API key authentication.
-    RateLimitsPolicyListResponse:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimitsPolicy'
-        total:
-          type: integer
-          description: Total number of policies
-    CreatePolicyResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Created policy UUID
-        object:
-          type: string
-          description: Resource type
-          example: policy_usage_limits
-  parameters:
-    RateLimitsPolicyId:
-      name: rateLimitsPolicyId
-      in: path
-      required: true
-      description: Rate limits policy UUID
-      schema:
-        type: string
-        format: uuid
-    CurrentPage:
-      in: query
-      name: current_page
-      schema:
-        type: integer
-        minimum: 0
-      description: Current page number
-    WorkspaceIdQuery:
-      name: workspace_id
-      in: query
-      required: false
-      description: Workspace ID or slug
-      schema:
-        type: string
-    PageSize:
-      in: query
-      name: page_size
-      schema:
-        type: integer
-        minimum: 0
-      description: Number of items per page
   securitySchemes:
     Portkey-Key:
       type: apiKey

@@ -234,21 +234,6 @@ paths:
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY'\n});\n\nasync function main() {\n  const file = await client.files.content(\"file-abc123\");\n\n  console.log(file);\n}\n\nmain();\n"
 components:
   schemas:
-    DeleteFileResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-          enum:
-          - file
-        deleted:
-          type: boolean
-      required:
-      - id
-      - object
-      - deleted
     CreateFileRequest:
       type: object
       additionalProperties: false
@@ -275,6 +260,35 @@ components:
       required:
       - file
       - purpose
+    ListFilesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenAIFile'
+        object:
+          type: string
+          enum:
+          - list
+      required:
+      - object
+      - data
+    DeleteFileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum:
+          - file
+        deleted:
+          type: boolean
+      required:
+      - id
+      - object
+      - deleted
     OpenAIFile:
       title: OpenAIFile
       description: The `File` object represents a document that has been uploaded to OpenAI.
@@ -330,20 +344,6 @@ components:
       x-code-samples:
         name: The file object
         example: "{\n  \"id\": \"file-abc123\",\n  \"object\": \"file\",\n  \"bytes\": 120000,\n  \"created_at\": 1677610602,\n  \"filename\": \"salesOverview.pdf\",\n  \"purpose\": \"assistants\",\n}\n"
-    ListFilesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenAIFile'
-        object:
-          type: string
-          enum:
-          - list
-      required:
-      - object
-      - data
   securitySchemes:
     Portkey-Key:
       type: apiKey

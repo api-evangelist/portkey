@@ -312,35 +312,6 @@ paths:
           description: Server error
 components:
   schemas:
-    PromptPartialVersion:
-      type: object
-      properties:
-        prompt_partial_id:
-          type: string
-          format: uuid
-        prompt_partial_version_id:
-          type: string
-          format: uuid
-        slug:
-          type: string
-        version:
-          type: string
-        string:
-          type: string
-        description:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        prompt_version_status:
-          type: string
-          enum:
-          - active
-          - archived
-        object:
-          type: string
-          enum:
-          - partial
     PromptPartialSummary:
       type: object
       properties:
@@ -401,6 +372,35 @@ components:
           type: string
           enum:
           - active
+    PromptPartialVersion:
+      type: object
+      properties:
+        prompt_partial_id:
+          type: string
+          format: uuid
+        prompt_partial_version_id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        version:
+          type: string
+        string:
+          type: string
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        prompt_version_status:
+          type: string
+          enum:
+          - active
+          - archived
+        object:
+          type: string
+          enum:
+          - partial
   securitySchemes:
     Portkey-Key:
       type: apiKey

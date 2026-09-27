@@ -157,14 +157,53 @@ paths:
                 type: object
 components:
   schemas:
-    McpIntegrationCreateResponse:
+    UpdateMcpIntegration:
       type: object
+      minProperties: 1
       properties:
-        id:
+        name:
           type: string
-          format: uuid
-        slug:
+        description:
+          type:
+          - string
+          - 'null'
+        configurations:
+          type: object
+          description: Auth/config key-value pairs (e.g. headers, client credentials)
+          properties:
+            custom_headers:
+              type: object
+              additionalProperties: true
+              description: Custom headers to send to the MCP server.
+              example:
+                Authorization: Bearer some-token
+                x-foo: bar
+            passthrough_header:
+              type: object
+              additionalProperties: true
+              description: Headers to pass through from the incoming request to the MCP server.
+              example:
+                x-user-id:
+                  type: string
+                  example: abc123
+                x-request-id:
+                  type: string
+                  example: req-0001
+          additionalProperties: true
+        url:
           type: string
+          format: uri
+        auth_type:
+          type: string
+          enum:
+          - oauth_auto
+          - headers
+          - none
+        transport:
+          type: string
+          enum:
+          - http
+          - sse
     McpIntegrationListItem:
       type: object
       properties:
@@ -219,64 +258,25 @@ components:
           type:
           - number
           - 'null'
-    McpIntegration:
+    McpIntegrationCreateResponse:
       type: object
       properties:
         id:
           type: string
           format: uuid
-        name:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        owner_id:
-          type: string
-        status:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        last_updated_at:
-          type: string
-          format: date-time
-        configurations:
-          type:
-          - object
-          - 'null'
-        global_workspace_access:
-          type:
-          - object
-          - 'null'
-        workspace_id:
-          type:
-          - string
-          - 'null'
-          description: Workspace ID or slug (when workspace-scoped)
         slug:
           type: string
-        url:
-          type: string
-          format: uri
-        auth_type:
-          type: string
-          enum:
-          - oauth_auto
-          - oauth_client_credentials
-          - headers
-          - none
-        transport:
-          type: string
-          enum:
-          - http
-          - sse
-          - interactive
-        type:
-          type: string
-          enum:
-          - workspace
-          - organisation
+    McpIntegrationListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpIntegrationListItem'
+        total:
+          type: integer
+        has_more:
+          type: boolean
     CreateMcpIntegration:
       type: object
       description: Only include optional fields (slug, description, configurations) when you have values for them. The example and code samples show required fields plus workspace_id and organisation_id when scoping.
@@ -343,50 +343,43 @@ components:
           enum:
           - http
           - sse
-    McpIntegrationListResponse:
+    McpIntegration:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpIntegrationListItem'
-        total:
-          type: integer
-        has_more:
-          type: boolean
-    UpdateMcpIntegration:
-      type: object
-      minProperties: 1
-      properties:
+        id:
+          type: string
+          format: uuid
         name:
           type: string
         description:
           type:
           - string
           - 'null'
+        owner_id:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        last_updated_at:
+          type: string
+          format: date-time
         configurations:
-          type: object
-          description: Auth/config key-value pairs (e.g. headers, client credentials)
-          properties:
-            custom_headers:
-              type: object
-              additionalProperties: true
-              description: Custom headers to send to the MCP server.
-              example:
-                Authorization: Bearer some-token
-                x-foo: bar
-            passthrough_header:
-              type: object
-              additionalProperties: true
-              description: Headers to pass through from the incoming request to the MCP server.
-              example:
-                x-user-id:
-                  type: string
-                  example: abc123
-                x-request-id:
-                  type: string
-                  example: req-0001
-          additionalProperties: true
+          type:
+          - object
+          - 'null'
+        global_workspace_access:
+          type:
+          - object
+          - 'null'
+        workspace_id:
+          type:
+          - string
+          - 'null'
+          description: Workspace ID or slug (when workspace-scoped)
+        slug:
+          type: string
         url:
           type: string
           format: uri
@@ -394,6 +387,7 @@ components:
           type: string
           enum:
           - oauth_auto
+          - oauth_client_credentials
           - headers
           - none
         transport:
@@ -401,6 +395,12 @@ components:
           enum:
           - http
           - sse
+          - interactive
+        type:
+          type: string
+          enum:
+          - workspace
+          - organisation
   securitySchemes:
     Portkey-Key:
       type: apiKey

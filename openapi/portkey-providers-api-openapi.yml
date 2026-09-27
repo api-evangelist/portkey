@@ -355,6 +355,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    RateLimits:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - requests
+          - tokens
+        unit:
+          type: string
+          enum:
+          - rpd
+          - rph
+          - rpm
+        value:
+          type: integer
     UsageLimits:
       type: object
       properties:
@@ -446,22 +462,6 @@ components:
           type: string
           enum:
           - provider
-    RateLimits:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - requests
-          - tokens
-        unit:
-          type: string
-          enum:
-          - rpd
-          - rph
-          - rpm
-        value:
-          type: integer
   securitySchemes:
     Portkey-Key:
       type: apiKey

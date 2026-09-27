@@ -83,19 +83,6 @@ paths:
         source: "import os\nimport asyncio\nfrom urllib.parse import urlparse, urlunparse\nimport websockets\n\nasync def main():\n    p = urlparse(os.environ[\"SELF_HOSTED_GATEWAY_URL\"])\n    scheme = \"wss\" if p.scheme == \"https\" else \"ws\"\n    path = p.path.rstrip(\"/\") + \"/realtime\"\n    uri = urlunparse((scheme, p.netloc, path, \"\", \"model=gpt-4o-realtime-preview\", \"\"))\n    headers = {\n        \"x-portkey-api-key\": os.environ[\"PORTKEY_API_KEY\"],\n        \"x-portkey-virtual-key\": os.environ[\"PORTKEY_PROVIDER_VIRTUAL_KEY\"],\n    }\n    async with websockets.connect(uri, extra_headers=headers):\n        pass\n\nasyncio.run(main())\n"
 components:
   parameters:
-    PortkeyCacheNamespace:
-      in: header
-      name: x-portkey-cache-namespace
-      schema:
-        type: string
-      description: Partition your Portkey cache store based on custom strings, ignoring metadata and other headers
-    PortkeyMetadata:
-      in: header
-      name: x-portkey-metadata
-      schema:
-        type: object
-      description: Pass any arbitrary metadata along with your request
-      required: false
     PortkeyCacheForceRefresh:
       in: header
       name: x-portkey-cache-force-refresh
@@ -116,13 +103,6 @@ components:
         type: string
       description: Link a child span to a parent span
       required: false
-    PortkeyTraceId:
-      in: header
-      name: x-portkey-trace-id
-      schema:
-        type: string
-      description: An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)
-      required: false
     PortkeySpanName:
       in: header
       name: x-portkey-span-name
@@ -130,6 +110,26 @@ components:
         type: string
       description: Name for the Span ID
       required: false
+    PortkeyMetadata:
+      in: header
+      name: x-portkey-metadata
+      schema:
+        type: object
+      description: Pass any arbitrary metadata along with your request
+      required: false
+    PortkeyTraceId:
+      in: header
+      name: x-portkey-trace-id
+      schema:
+        type: string
+      description: An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)
+      required: false
+    PortkeyCacheNamespace:
+      in: header
+      name: x-portkey-cache-namespace
+      schema:
+        type: string
+      description: Partition your Portkey cache store based on custom strings, ignoring metadata and other headers
   securitySchemes:
     Portkey-Key:
       type: apiKey

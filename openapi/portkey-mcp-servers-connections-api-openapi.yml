@@ -108,6 +108,12 @@ components:
         last_updated_at:
           type: string
           format: date-time
+    McpServerConnectionDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
     McpServerConnectionsListResponse:
       type: object
       properties:
@@ -119,12 +125,6 @@ components:
           type: integer
         has_more:
           type: boolean
-    McpServerConnectionDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
   securitySchemes:
     Portkey-Key:
       type: apiKey

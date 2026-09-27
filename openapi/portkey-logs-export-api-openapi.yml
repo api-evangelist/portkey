@@ -359,6 +359,129 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    UpdateExportResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier of the updated export
+        total:
+          type: integer
+          description: The total number of items in the export
+        object:
+          type: string
+          enum:
+          - export
+          description: The type of the object
+      required:
+      - id
+      - total
+      - object
+    ExportTaskResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message indicating the status of the export task
+        object:
+          type: string
+          enum:
+          - export
+          description: The type of the object
+      required:
+      - message
+      - object
+    LogExportsRequestedData:
+      type: array
+      items:
+        type: string
+        enum:
+        - id
+        - trace_id
+        - created_at
+        - request
+        - response
+        - is_success
+        - ai_org
+        - ai_model
+        - req_units
+        - res_units
+        - total_units
+        - request_url
+        - cost
+        - cost_currency
+        - response_time
+        - response_status_code
+        - mode
+        - config
+        - prompt_slug
+        - metadata
+    GenerationsFilterSchema:
+      type: object
+      properties:
+        time_of_generation_min:
+          type: string
+          format: date-time
+        time_of_generation_max:
+          type: string
+          format: date-time
+        total_units_min:
+          type: integer
+        total_units_max:
+          type: integer
+        cost_min:
+          type: number
+        cost_max:
+          type: number
+        ai_model:
+          type: string
+        prompt_token_min:
+          type: integer
+        prompt_token_max:
+          type: integer
+        completion_token_min:
+          type: integer
+        completion_token_max:
+          type: integer
+        status_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        ai_org_model:
+          type: string
+          example: openai__gpt-3.5-turbo, anthropic__claude-2.1
+        weighted_feedback_min:
+          type: number
+        weighted_feedback_max:
+          type: number
+        virtual_keys:
+          type: string
+        trace_id:
+          type: string
+        configs:
+          type: string
+        workspace_slug:
+          type: string
+        prompt_slug:
+          type: string
+        page_size:
+          type: number
+          description: 'max: 50000, default: 50000'
+          example: 50000
+        current_page:
+          type: number
+          example: 0
+    DownloadLogsResponse:
+      type: object
+      properties:
+        signed_url:
+          type: string
+          format: uri
+          description: A pre-signed URL for downloading the exported logs
+      required:
+      - signed_url
     ExportItem:
       type: object
       properties:
@@ -423,129 +546,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExportItem'
-    GenerationsFilterSchema:
-      type: object
-      properties:
-        time_of_generation_min:
-          type: string
-          format: date-time
-        time_of_generation_max:
-          type: string
-          format: date-time
-        total_units_min:
-          type: integer
-        total_units_max:
-          type: integer
-        cost_min:
-          type: number
-        cost_max:
-          type: number
-        ai_model:
-          type: string
-        prompt_token_min:
-          type: integer
-        prompt_token_max:
-          type: integer
-        completion_token_min:
-          type: integer
-        completion_token_max:
-          type: integer
-        status_code:
-          type: string
-        metadata:
-          type: object
-          additionalProperties: true
-        ai_org_model:
-          type: string
-          example: openai__gpt-3.5-turbo, anthropic__claude-2.1
-        weighted_feedback_min:
-          type: number
-        weighted_feedback_max:
-          type: number
-        virtual_keys:
-          type: string
-        trace_id:
-          type: string
-        configs:
-          type: string
-        workspace_slug:
-          type: string
-        prompt_slug:
-          type: string
-        page_size:
-          type: number
-          description: 'max: 50000, default: 50000'
-          example: 50000
-        current_page:
-          type: number
-          example: 0
-    UpdateExportResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: The unique identifier of the updated export
-        total:
-          type: integer
-          description: The total number of items in the export
-        object:
-          type: string
-          enum:
-          - export
-          description: The type of the object
-      required:
-      - id
-      - total
-      - object
-    ExportTaskResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message indicating the status of the export task
-        object:
-          type: string
-          enum:
-          - export
-          description: The type of the object
-      required:
-      - message
-      - object
-    LogExportsRequestedData:
-      type: array
-      items:
-        type: string
-        enum:
-        - id
-        - trace_id
-        - created_at
-        - request
-        - response
-        - is_success
-        - ai_org
-        - ai_model
-        - req_units
-        - res_units
-        - total_units
-        - request_url
-        - cost
-        - cost_currency
-        - response_time
-        - response_status_code
-        - mode
-        - config
-        - prompt_slug
-        - metadata
-    DownloadLogsResponse:
-      type: object
-      properties:
-        signed_url:
-          type: string
-          format: uri
-          description: A pre-signed URL for downloading the exported logs
-      required:
-      - signed_url
   securitySchemes:
     Portkey-Key:
       type: apiKey

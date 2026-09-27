@@ -86,6 +86,41 @@ paths:
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY',\n  baseURL: 'SELF_HOSTED_GATEWAY_URL'\n});\n\nasync function main() {\n  const response = await client.post('/rerank', {\n    model: 'rerank-v3.5',\n    query: 'What is the capital of France?',\n    documents: [\n      'Paris is the capital of France.',\n      'Berlin is the capital of Germany.',\n      'Madrid is the capital of Spain.'\n    ],\n    top_n: 2\n  });\n\n  console.log(response);\n}\n\nmain();\n"
 components:
   schemas:
+    CreateRerankResponse:
+      type: object
+      description: Response from the rerank endpoint.
+      properties:
+        id:
+          type: string
+          description: A unique identifier for the rerank request.
+          example: rerank-abc123
+        object:
+          type: string
+          description: The object type, which is always "list".
+          enum:
+          - list
+          example: list
+        results:
+          type: array
+          description: 'The reranked results sorted by relevance score in descending order.
+
+            '
+          items:
+            $ref: '#/components/schemas/RerankResult'
+        model:
+          type: string
+          description: The model used for reranking.
+          example: rerank-v3.5
+        usage:
+          $ref: '#/components/schemas/RerankUsage'
+        provider:
+          type: string
+          description: The provider that processed the request.
+          example: cohere
+      required:
+      - object
+      - results
+      - model
     RerankUsage:
       type: object
       description: Usage information for the rerank request.
@@ -236,48 +271,13 @@ components:
       - model
       - query
       - documents
-    CreateRerankResponse:
-      type: object
-      description: Response from the rerank endpoint.
-      properties:
-        id:
-          type: string
-          description: A unique identifier for the rerank request.
-          example: rerank-abc123
-        object:
-          type: string
-          description: The object type, which is always "list".
-          enum:
-          - list
-          example: list
-        results:
-          type: array
-          description: 'The reranked results sorted by relevance score in descending order.
-
-            '
-          items:
-            $ref: '#/components/schemas/RerankResult'
-        model:
-          type: string
-          description: The model used for reranking.
-          example: rerank-v3.5
-        usage:
-          $ref: '#/components/schemas/RerankUsage'
-        provider:
-          type: string
-          description: The provider that processed the request.
-          example: cohere
-      required:
-      - object
-      - results
-      - model
   parameters:
-    PortkeyMetadata:
+    PortkeySpanId:
       in: header
-      name: x-portkey-metadata
+      name: x-portkey-span-id
       schema:
-        type: object
-      description: Pass any arbitrary metadata along with your request
+        type: string
+      description: An ID you can pass to refer to a span under a trace.
       required: false
     PortkeyParentSpanId:
       in: header
@@ -286,12 +286,19 @@ components:
         type: string
       description: Link a child span to a parent span
       required: false
-    PortkeySpanId:
+    PortkeySpanName:
       in: header
-      name: x-portkey-span-id
+      name: x-portkey-span-name
       schema:
         type: string
-      description: An ID you can pass to refer to a span under a trace.
+      description: Name for the Span ID
+      required: false
+    PortkeyMetadata:
+      in: header
+      name: x-portkey-metadata
+      schema:
+        type: object
+      description: Pass any arbitrary metadata along with your request
       required: false
     PortkeyTraceId:
       in: header
@@ -299,13 +306,6 @@ components:
       schema:
         type: string
       description: An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)
-      required: false
-    PortkeySpanName:
-      in: header
-      name: x-portkey-span-name
-      schema:
-        type: string
-      description: Name for the Span ID
       required: false
   securitySchemes:
     Portkey-Key:

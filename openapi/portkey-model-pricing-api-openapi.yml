@@ -196,29 +196,18 @@ paths:
                     example: Model not found
 components:
   schemas:
-    ModelPricingConfig:
+    ModelTokenPrice:
       type: object
-      description: Complete pricing configuration for a model
+      description: Price object (value is in USD cents)
       properties:
-        pay_as_you_go:
-          $ref: '#/components/schemas/ModelPayAsYouGo'
-        calculate:
-          $ref: '#/components/schemas/ModelCalculateConfig'
-        currency:
-          type: string
-          enum:
-          - USD
-          description: Currency code (always USD)
-        finetune_config:
-          $ref: '#/components/schemas/ModelFinetuneConfig'
-    ModelFinetuneConfig:
-      type: object
-      description: Fine-tuning pricing configuration
-      properties:
-        pay_per_token:
-          $ref: '#/components/schemas/ModelTokenPrice'
-        pay_per_hour:
-          $ref: '#/components/schemas/ModelTokenPrice'
+        price:
+          type: number
+          description: 'Price in USD cents per token/unit.
+
+
+            Example: `0.003` = 0.003 cents/token = $0.03 per 1K tokens
+
+            '
     ModelImagePricing:
       type: object
       description: Image generation pricing by quality and size
@@ -237,25 +226,6 @@ components:
             price: 8
           1024x1792:
             price: 12
-    ModelValueReference:
-      type: object
-      properties:
-        value:
-          type: string
-          description: 'Reference to a value or rate.
-
-
-            Examples:
-
-            - `input_tokens`: Number of input tokens
-
-            - `output_tokens`: Number of output tokens
-
-            - `rates.request_token`: Request token rate
-
-            - `rates.response_token`: Response token rate
-
-            '
     ModelCalculateOperation:
       type: object
       description: Mathematical operation for cost calculation
@@ -273,26 +243,14 @@ components:
             oneOf:
             - $ref: '#/components/schemas/ModelCalculateOperation'
             - $ref: '#/components/schemas/ModelValueReference'
-    ModelCalculateConfig:
+    ModelFinetuneConfig:
       type: object
-      description: Cost calculation formulas
+      description: Fine-tuning pricing configuration
       properties:
-        request:
-          $ref: '#/components/schemas/ModelCalculateOperation'
-        response:
-          $ref: '#/components/schemas/ModelCalculateOperation'
-    ModelTokenPrice:
-      type: object
-      description: Price object (value is in USD cents)
-      properties:
-        price:
-          type: number
-          description: 'Price in USD cents per token/unit.
-
-
-            Example: `0.003` = 0.003 cents/token = $0.03 per 1K tokens
-
-            '
+        pay_per_token:
+          $ref: '#/components/schemas/ModelTokenPrice'
+        pay_per_hour:
+          $ref: '#/components/schemas/ModelTokenPrice'
     ModelPayAsYouGo:
       type: object
       description: Token-based pricing (all prices in USD cents)
@@ -333,6 +291,48 @@ components:
             $ref: '#/components/schemas/ModelTokenPrice'
         image:
           $ref: '#/components/schemas/ModelImagePricing'
+    ModelValueReference:
+      type: object
+      properties:
+        value:
+          type: string
+          description: 'Reference to a value or rate.
+
+
+            Examples:
+
+            - `input_tokens`: Number of input tokens
+
+            - `output_tokens`: Number of output tokens
+
+            - `rates.request_token`: Request token rate
+
+            - `rates.response_token`: Response token rate
+
+            '
+    ModelCalculateConfig:
+      type: object
+      description: Cost calculation formulas
+      properties:
+        request:
+          $ref: '#/components/schemas/ModelCalculateOperation'
+        response:
+          $ref: '#/components/schemas/ModelCalculateOperation'
+    ModelPricingConfig:
+      type: object
+      description: Complete pricing configuration for a model
+      properties:
+        pay_as_you_go:
+          $ref: '#/components/schemas/ModelPayAsYouGo'
+        calculate:
+          $ref: '#/components/schemas/ModelCalculateConfig'
+        currency:
+          type: string
+          enum:
+          - USD
+          description: Currency code (always USD)
+        finetune_config:
+          $ref: '#/components/schemas/ModelFinetuneConfig'
   securitySchemes:
     Portkey-Key:
       type: apiKey

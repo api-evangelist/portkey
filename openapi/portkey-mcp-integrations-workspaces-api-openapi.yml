@@ -72,6 +72,17 @@ paths:
                 type: object
 components:
   schemas:
+    McpIntegrationWorkspacesLegacyResponse:
+      type: object
+      properties:
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
+        global_workspace_access:
+          type:
+          - object
+          - 'null'
     McpIntegrationWorkspaceItem:
       type: object
       properties:
@@ -88,6 +99,19 @@ components:
         last_updated_at:
           type: string
           format: date-time
+    McpIntegrationWorkspacesListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
+        global_workspace_access:
+          type:
+          - object
+          - 'null'
+        total:
+          type: integer
     BulkUpdateMcpIntegrationWorkspaces:
       type: object
       required:
@@ -117,30 +141,6 @@ components:
         override_existing_workspace_access:
           type: boolean
           default: false
-    McpIntegrationWorkspacesLegacyResponse:
-      type: object
-      properties:
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
-        global_workspace_access:
-          type:
-          - object
-          - 'null'
-    McpIntegrationWorkspacesListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
-        global_workspace_access:
-          type:
-          - object
-          - 'null'
-        total:
-          type: integer
   securitySchemes:
     Portkey-Key:
       type: apiKey

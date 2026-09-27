@@ -287,14 +287,130 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    WorkersAIConfiguration:
+    IntegrationList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+        organisation_id:
+          type: string
+          format: UUID
+        ai_provider_id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+        created_at:
+          type: string
+          format: date-time
+        last_updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        slug:
+          type: string
+        description:
+          type: string
+        object:
+          type: string
+          enum:
+          - integration
+    IntegrationDetailResponse:
+      allOf:
+      - $ref: '#/components/schemas/IntegrationList'
+      - type: object
+        properties:
+          masked_key:
+            type: string
+            description: Masked API key
+          configurations:
+            type: object
+            description: 'Provider-specific configuration object
+
+
+              **⚠️ Security Note - Response Masking:**
+
+              When retrieving integration details, sensitive fields are automatically masked:
+
+              - Sensitive fields get a `masked_` prefix (e.g., `client_secret` → `masked_client_secret`)
+
+              - Non-sensitive fields (IDs, URLs, regions, etc.) remain unchanged
+
+              '
+            oneOf:
+            - $ref: '#/components/schemas/OpenAIConfiguration'
+              title: OpenAI
+            - $ref: '#/components/schemas/AzureOpenAIConfiguration'
+              title: Azure OpenAI
+            - $ref: '#/components/schemas/BedrockConfiguration'
+              title: AWS Bedrock
+            - $ref: '#/components/schemas/VertexAIConfiguration'
+              title: Vertex AI
+            - $ref: '#/components/schemas/AzureAIConfiguration'
+              title: Azure AI
+            - $ref: '#/components/schemas/WorkersAIConfiguration'
+              title: Workers AI
+            - $ref: '#/components/schemas/SageMakerConfiguration'
+              title: AWS Sagemaker
+            - $ref: '#/components/schemas/HuggingFaceConfiguration'
+              title: Hugginface
+            - $ref: '#/components/schemas/CortexConfiguration'
+              title: Cortex
+            - $ref: '#/components/schemas/CustomHostConfiguration'
+              title: Custom Base URL
+          global_workspace_access_settings:
+            type:
+            - object
+            - 'null'
+            $ref: '#/components/schemas/GlobalWorkspaceAccess'
+            description: Global workspace access configuration
+          allow_all_models:
+            type: boolean
+            description: Whether new models will be enabled by default
+          workspace_count:
+            type: integer
+            description: Number of workspaces with access to this integration
+          secret_mappings:
+            type: array
+            items:
+              $ref: '#/components/schemas/SecretMapping'
+            description: Secret reference mappings for this integration. Valid target_field values are "key" or "configurations.<field>".
+    CortexConfiguration:
       type: object
       required:
-      - workers_ai_account_id
+      - snowflake_account
       properties:
-        workers_ai_account_id:
+        snowflake_account:
           type: string
-          description: Cloudflare Workers AI account ID
+          description: Snowflake account identifier
+    GlobalWorkspaceAccess:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether global workspace access is enabled. When enabled, the integration will be enabled for all workspaces that are created in future.
+        usage_limits:
+          type:
+          - array
+          - 'null'
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/UsageLimits'
+        rate_limits:
+          type:
+          - array
+          - 'null'
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/RateLimits'
     AzureOpenAIConfiguration:
       type: object
       required:
@@ -329,6 +445,240 @@ components:
         azure_managed_client_id:
           type: string
           description: Managed identity client ID (optional for managed auth)
+    AzureAIConfiguration:
+      type: object
+      required:
+      - azure_foundry_url
+      - azure_auth_mode
+      properties:
+        azure_auth_mode:
+          type: string
+          enum:
+          - default
+          - entra
+          - managed
+          description: Authentication mode for Azure AI
+        azure_foundry_url:
+          type: string
+          description: Azure AI Foundry URL
+        azure_api_version:
+          type: string
+          maxLength: 30
+          description: Azure API version
+        azure_deployment_name:
+          type: string
+          description: Azure deployment name
+        azure_entra_tenant_id:
+          type: string
+          description: Azure AD tenant ID (required for entra auth)
+        azure_entra_client_id:
+          type: string
+          description: Azure AD client ID (required for entra auth)
+        azure_entra_client_secret:
+          type: string
+          description: Azure AD client secret (required for entra auth)
+        azure_managed_client_id:
+          type: string
+          description: Managed identity client ID (optional for managed auth)
+    RateLimits:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - requests
+          - tokens
+        unit:
+          type: string
+          enum:
+          - rpd
+          - rph
+          - rpm
+        value:
+          type: integer
+    BedrockConfiguration:
+      type: object
+      required:
+      - aws_auth_type
+      - aws_region
+      properties:
+        aws_auth_type:
+          type: string
+          enum:
+          - accessKey
+          - assumedRole
+          description: AWS authentication type
+        aws_region:
+          type: string
+          description: AWS region
+        aws_access_key_id:
+          type: string
+          description: AWS access key ID (required for accessKey auth)
+        aws_secret_access_key:
+          type: string
+          description: AWS secret access key (required for accessKey auth)
+        aws_role_arn:
+          type: string
+          description: AWS role ARN (required for assumedRole auth)
+        aws_external_id:
+          type:
+          - string
+          - 'null'
+          description: AWS external ID (optional for assumedRole auth)
+    OpenAIConfiguration:
+      type: object
+      properties:
+        openai_organization:
+          type: string
+          description: OpenAI organization ID
+        openai_project:
+          type: string
+          description: OpenAI project ID
+    HuggingFaceConfiguration:
+      type: object
+      properties:
+        huggingface_base_url:
+          type: string
+          description: Custom Hugging Face base URL
+    UsageLimits:
+      type: object
+      properties:
+        credit_limit:
+          type: integer
+          description: Credit Limit. Used for tracking usage
+          minimum: 1
+          default: null
+        type:
+          type: string
+          description: Type of credit limit
+          enum:
+          - cost
+          - tokens
+        alert_threshold:
+          type: integer
+          description: Alert Threshold. Used for alerting when usage reaches more than this
+          minimum: 1
+          default: null
+        periodic_reset:
+          type:
+          - string
+          - 'null'
+          description: Reset the usage periodically.
+          enum:
+          - monthly
+          - weekly
+          example: monthly
+        periodic_reset_days:
+          type:
+          - integer
+          - 'null'
+          description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
+          minimum: 1
+          maximum: 365
+          example: 30
+        next_usage_reset_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
+          example: '2026-05-01T00:00:00Z'
+      example:
+        credit_limit: 10
+        periodic_reset: monthly
+        alert_threshold: 8
+    SageMakerConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/BedrockConfiguration'
+      - type: object
+        properties:
+          amzn_sagemaker_custom_attributes:
+            type: string
+            description: Custom attributes for SageMaker
+          amzn_sagemaker_target_model:
+            type: string
+            description: Target model for SageMaker
+          amzn_sagemaker_target_variant:
+            type: string
+            description: Target variant for SageMaker
+          amzn_sagemaker_target_container_hostname:
+            type: string
+            description: Target container hostname
+          amzn_sagemaker_inference_id:
+            type: string
+            description: Inference ID
+          amzn_sagemaker_enable_explanations:
+            type: string
+            description: Enable explanations
+          amzn_sagemaker_inference_component:
+            type: string
+            description: Inference component
+          amzn_sagemaker_session_id:
+            type: string
+            description: Session ID
+          amzn_sagemaker_model_name:
+            type: string
+            description: Model name
+    SecretMapping:
+      type: object
+      required:
+      - target_field
+      - secret_reference_id
+      properties:
+        target_field:
+          type: string
+          description: 'The field on the entity to populate from the secret reference. Must be unique within the array.
+
+            - **Integrations**: `key` or `configurations.<field>` (e.g. `configurations.aws_secret_access_key`)
+
+            - **Virtual Keys**: `key` or `model_config.<field>` (e.g. `model_config.awsSecretAccessKey`)
+
+            '
+          example: key
+        secret_reference_id:
+          type: string
+          description: UUID or slug of the secret reference. Must belong to the same organisation and be accessible by the workspace.
+          example: my-aws-secret
+        secret_key:
+          type:
+          - string
+          - 'null'
+          description: Override the secret_key defined on the secret reference. Use to pick a specific key from a multi-value secret.
+    CustomHostConfiguration:
+      type: object
+      properties:
+        custom_host:
+          type: string
+          description: Custom host URL (can be used along with other provider specific configuration fields)
+        custom_headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Custom headers to send with requests (can be used along with other provider specific configuration fields)
+    AzureDeploymentConfig:
+      type: object
+      required:
+      - azure_api_version
+      - azure_deployment_name
+      - azure_model_slug
+      properties:
+        alias:
+          type: string
+          description: Alias for the deployment
+        azure_api_version:
+          type: string
+          maxLength: 30
+          description: Azure API version
+        azure_deployment_name:
+          type: string
+          description: Azure deployment name
+        is_default:
+          type: boolean
+          default: false
+          description: Whether this is the default deployment
+        azure_model_slug:
+          type: string
+          description: Azure model slug
     UpdateIntegrationRequest:
       type: object
       properties:
@@ -373,146 +723,6 @@ components:
           items:
             $ref: '#/components/schemas/SecretMapping'
           description: Dynamically resolve secrets from secret references at runtime. Valid target_field values are "key" or "configurations.<field>" (e.g. "configurations.aws_secret_access_key", "configurations.azure_entra_client_secret"). Each target_field must be unique.
-    AzureAIConfiguration:
-      type: object
-      required:
-      - azure_foundry_url
-      - azure_auth_mode
-      properties:
-        azure_auth_mode:
-          type: string
-          enum:
-          - default
-          - entra
-          - managed
-          description: Authentication mode for Azure AI
-        azure_foundry_url:
-          type: string
-          description: Azure AI Foundry URL
-        azure_api_version:
-          type: string
-          maxLength: 30
-          description: Azure API version
-        azure_deployment_name:
-          type: string
-          description: Azure deployment name
-        azure_entra_tenant_id:
-          type: string
-          description: Azure AD tenant ID (required for entra auth)
-        azure_entra_client_id:
-          type: string
-          description: Azure AD client ID (required for entra auth)
-        azure_entra_client_secret:
-          type: string
-          description: Azure AD client secret (required for entra auth)
-        azure_managed_client_id:
-          type: string
-          description: Managed identity client ID (optional for managed auth)
-    AzureDeploymentConfig:
-      type: object
-      required:
-      - azure_api_version
-      - azure_deployment_name
-      - azure_model_slug
-      properties:
-        alias:
-          type: string
-          description: Alias for the deployment
-        azure_api_version:
-          type: string
-          maxLength: 30
-          description: Azure API version
-        azure_deployment_name:
-          type: string
-          description: Azure deployment name
-        is_default:
-          type: boolean
-          default: false
-          description: Whether this is the default deployment
-        azure_model_slug:
-          type: string
-          description: Azure model slug
-    SecretMapping:
-      type: object
-      required:
-      - target_field
-      - secret_reference_id
-      properties:
-        target_field:
-          type: string
-          description: 'The field on the entity to populate from the secret reference. Must be unique within the array.
-
-            - **Integrations**: `key` or `configurations.<field>` (e.g. `configurations.aws_secret_access_key`)
-
-            - **Virtual Keys**: `key` or `model_config.<field>` (e.g. `model_config.awsSecretAccessKey`)
-
-            '
-          example: key
-        secret_reference_id:
-          type: string
-          description: UUID or slug of the secret reference. Must belong to the same organisation and be accessible by the workspace.
-          example: my-aws-secret
-        secret_key:
-          type:
-          - string
-          - 'null'
-          description: Override the secret_key defined on the secret reference. Use to pick a specific key from a multi-value secret.
-    SageMakerConfiguration:
-      allOf:
-      - $ref: '#/components/schemas/BedrockConfiguration'
-      - type: object
-        properties:
-          amzn_sagemaker_custom_attributes:
-            type: string
-            description: Custom attributes for SageMaker
-          amzn_sagemaker_target_model:
-            type: string
-            description: Target model for SageMaker
-          amzn_sagemaker_target_variant:
-            type: string
-            description: Target variant for SageMaker
-          amzn_sagemaker_target_container_hostname:
-            type: string
-            description: Target container hostname
-          amzn_sagemaker_inference_id:
-            type: string
-            description: Inference ID
-          amzn_sagemaker_enable_explanations:
-            type: string
-            description: Enable explanations
-          amzn_sagemaker_inference_component:
-            type: string
-            description: Inference component
-          amzn_sagemaker_session_id:
-            type: string
-            description: Session ID
-          amzn_sagemaker_model_name:
-            type: string
-            description: Model name
-    RateLimits:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - requests
-          - tokens
-        unit:
-          type: string
-          enum:
-          - rpd
-          - rph
-          - rpm
-        value:
-          type: integer
-    CortexConfiguration:
-      type: object
-      required:
-      - snowflake_account
-      properties:
-        snowflake_account:
-          type: string
-          description: Snowflake account identifier
     VertexAIConfiguration:
       type: object
       required:
@@ -534,97 +744,14 @@ components:
         vertex_service_account_json:
           type: object
           description: Service account JSON (required for serviceAccount auth)
-    IntegrationList:
-      type: object
-      properties:
-        id:
-          type: string
-          format: UUID
-        organisation_id:
-          type: string
-          format: UUID
-        ai_provider_id:
-          type: string
-        name:
-          type: string
-        status:
-          type: string
-          enum:
-          - active
-          - archived
-        created_at:
-          type: string
-          format: date-time
-        last_updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        slug:
-          type: string
-        description:
-          type: string
-        object:
-          type: string
-          enum:
-          - integration
-    BedrockConfiguration:
+    WorkersAIConfiguration:
       type: object
       required:
-      - aws_auth_type
-      - aws_region
+      - workers_ai_account_id
       properties:
-        aws_auth_type:
+        workers_ai_account_id:
           type: string
-          enum:
-          - accessKey
-          - assumedRole
-          description: AWS authentication type
-        aws_region:
-          type: string
-          description: AWS region
-        aws_access_key_id:
-          type: string
-          description: AWS access key ID (required for accessKey auth)
-        aws_secret_access_key:
-          type: string
-          description: AWS secret access key (required for accessKey auth)
-        aws_role_arn:
-          type: string
-          description: AWS role ARN (required for assumedRole auth)
-        aws_external_id:
-          type:
-          - string
-          - 'null'
-          description: AWS external ID (optional for assumedRole auth)
-    GlobalWorkspaceAccess:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether global workspace access is enabled. When enabled, the integration will be enabled for all workspaces that are created in future.
-        usage_limits:
-          type:
-          - array
-          - 'null'
-          maxItems: 1
-          items:
-            $ref: '#/components/schemas/UsageLimits'
-        rate_limits:
-          type:
-          - array
-          - 'null'
-          maxItems: 1
-          items:
-            $ref: '#/components/schemas/RateLimits'
-    HuggingFaceConfiguration:
-      type: object
-      properties:
-        huggingface_base_url:
-          type: string
-          description: Custom Hugging Face base URL
+          description: Cloudflare Workers AI account ID
     CreateIntegrationRequest:
       type: object
       required:
@@ -694,133 +821,6 @@ components:
           items:
             $ref: '#/components/schemas/SecretMapping'
           description: Dynamically resolve secrets from secret references at runtime. Valid target_field values are "key" or "configurations.<field>" (e.g. "configurations.aws_secret_access_key", "configurations.azure_entra_client_secret"). Each target_field must be unique. When "key" is mapped, the key body field can be omitted.
-    CustomHostConfiguration:
-      type: object
-      properties:
-        custom_host:
-          type: string
-          description: Custom host URL (can be used along with other provider specific configuration fields)
-        custom_headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: Custom headers to send with requests (can be used along with other provider specific configuration fields)
-    IntegrationDetailResponse:
-      allOf:
-      - $ref: '#/components/schemas/IntegrationList'
-      - type: object
-        properties:
-          masked_key:
-            type: string
-            description: Masked API key
-          configurations:
-            type: object
-            description: 'Provider-specific configuration object
-
-
-              **⚠️ Security Note - Response Masking:**
-
-              When retrieving integration details, sensitive fields are automatically masked:
-
-              - Sensitive fields get a `masked_` prefix (e.g., `client_secret` → `masked_client_secret`)
-
-              - Non-sensitive fields (IDs, URLs, regions, etc.) remain unchanged
-
-              '
-            oneOf:
-            - $ref: '#/components/schemas/OpenAIConfiguration'
-              title: OpenAI
-            - $ref: '#/components/schemas/AzureOpenAIConfiguration'
-              title: Azure OpenAI
-            - $ref: '#/components/schemas/BedrockConfiguration'
-              title: AWS Bedrock
-            - $ref: '#/components/schemas/VertexAIConfiguration'
-              title: Vertex AI
-            - $ref: '#/components/schemas/AzureAIConfiguration'
-              title: Azure AI
-            - $ref: '#/components/schemas/WorkersAIConfiguration'
-              title: Workers AI
-            - $ref: '#/components/schemas/SageMakerConfiguration'
-              title: AWS Sagemaker
-            - $ref: '#/components/schemas/HuggingFaceConfiguration'
-              title: Hugginface
-            - $ref: '#/components/schemas/CortexConfiguration'
-              title: Cortex
-            - $ref: '#/components/schemas/CustomHostConfiguration'
-              title: Custom Base URL
-          global_workspace_access_settings:
-            type:
-            - object
-            - 'null'
-            $ref: '#/components/schemas/GlobalWorkspaceAccess'
-            description: Global workspace access configuration
-          allow_all_models:
-            type: boolean
-            description: Whether new models will be enabled by default
-          workspace_count:
-            type: integer
-            description: Number of workspaces with access to this integration
-          secret_mappings:
-            type: array
-            items:
-              $ref: '#/components/schemas/SecretMapping'
-            description: Secret reference mappings for this integration. Valid target_field values are "key" or "configurations.<field>".
-    UsageLimits:
-      type: object
-      properties:
-        credit_limit:
-          type: integer
-          description: Credit Limit. Used for tracking usage
-          minimum: 1
-          default: null
-        type:
-          type: string
-          description: Type of credit limit
-          enum:
-          - cost
-          - tokens
-        alert_threshold:
-          type: integer
-          description: Alert Threshold. Used for alerting when usage reaches more than this
-          minimum: 1
-          default: null
-        periodic_reset:
-          type:
-          - string
-          - 'null'
-          description: Reset the usage periodically.
-          enum:
-          - monthly
-          - weekly
-          example: monthly
-        periodic_reset_days:
-          type:
-          - integer
-          - 'null'
-          description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
-          minimum: 1
-          maximum: 365
-          example: 30
-        next_usage_reset_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
-          example: '2026-05-01T00:00:00Z'
-      example:
-        credit_limit: 10
-        periodic_reset: monthly
-        alert_threshold: 8
-    OpenAIConfiguration:
-      type: object
-      properties:
-        openai_organization:
-          type: string
-          description: OpenAI organization ID
-        openai_project:
-          type: string
-          description: OpenAI project ID
   securitySchemes:
     Portkey-Key:
       type: apiKey

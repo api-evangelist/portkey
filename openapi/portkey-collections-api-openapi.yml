@@ -251,6 +251,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    CollectionDetails:
+      type: object
+      properties:
+        child_collections_count:
+          type: integer
+        prompts_count:
+          type: integer
+        child_collections_last_updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        prompts_last_updated_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
     CollectionWithChildCollections:
       allOf:
       - $ref: '#/components/schemas/Collection'
@@ -290,23 +307,6 @@ components:
           format: date-time
         last_updated_at:
           type: string
-          format: date-time
-    CollectionDetails:
-      type: object
-      properties:
-        child_collections_count:
-          type: integer
-        prompts_count:
-          type: integer
-        child_collections_last_updated_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        prompts_last_updated_at:
-          type:
-          - string
-          - 'null'
           format: date-time
     ChildCollection:
       type: object

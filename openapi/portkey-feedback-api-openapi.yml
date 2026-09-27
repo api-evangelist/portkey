@@ -170,20 +170,6 @@ components:
           type: object
           additionalProperties: true
           description: Additional metadata for the feedback.
-    FeedbackResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          description: success or failure
-        message:
-          type: string
-          description: Confirmation message indicating successful feedback submission.
-        feedback_ids:
-          type: array
-          description: Ids of Feedbacks created returned in the same order as input
-          items:
-            type: string
     FeedbackRequest:
       type: object
       required:
@@ -209,6 +195,20 @@ components:
           type: object
           additionalProperties: true
           description: Additional metadata for the feedback.
+    FeedbackResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: success or failure
+        message:
+          type: string
+          description: Confirmation message indicating successful feedback submission.
+        feedback_ids:
+          type: array
+          description: Ids of Feedbacks created returned in the same order as input
+          items:
+            type: string
   securitySchemes:
     Portkey-Key:
       type: apiKey
