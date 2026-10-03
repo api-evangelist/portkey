@@ -87,6 +87,81 @@ paths:
                 $ref: '#/components/schemas/McpServerCapabilitiesBulkUpdateResponse'
 components:
   schemas:
+    BulkUpdateMcpServerCapabilities:
+      type: object
+      required:
+      - capabilities
+      properties:
+        capabilities:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required:
+            - name
+            - type
+            - enabled
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+                enum:
+                - tool
+                - prompt
+                - resource
+              enabled:
+                type: boolean
+    McpServerCapabilitiesCounts:
+      type: object
+      properties:
+        tools:
+          type: object
+          properties:
+            total:
+              type: integer
+            enabled:
+              type: integer
+        prompts:
+          type: object
+          properties:
+            total:
+              type: integer
+            enabled:
+              type: integer
+        resources:
+          type: object
+          properties:
+            total:
+              type: integer
+            enabled:
+              type: integer
+        resource_templates:
+          type: object
+          properties:
+            total:
+              type: integer
+            enabled:
+              type: integer
+    McpServerCapabilitiesBulkUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    McpServerCapabilitiesListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerCapabilityItem'
+        counts:
+          $ref: '#/components/schemas/McpServerCapabilitiesCounts'
+        total:
+          type: integer
+        has_more:
+          type: boolean
     McpServerCapabilityItem:
       type: object
       properties:
@@ -154,81 +229,6 @@ components:
           type:
           - number
           - 'null'
-    McpServerCapabilitiesBulkUpdateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
-    McpServerCapabilitiesListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpServerCapabilityItem'
-        counts:
-          $ref: '#/components/schemas/McpServerCapabilitiesCounts'
-        total:
-          type: integer
-        has_more:
-          type: boolean
-    BulkUpdateMcpServerCapabilities:
-      type: object
-      required:
-      - capabilities
-      properties:
-        capabilities:
-          type: array
-          minItems: 1
-          items:
-            type: object
-            required:
-            - name
-            - type
-            - enabled
-            properties:
-              name:
-                type: string
-              type:
-                type: string
-                enum:
-                - tool
-                - prompt
-                - resource
-              enabled:
-                type: boolean
-    McpServerCapabilitiesCounts:
-      type: object
-      properties:
-        tools:
-          type: object
-          properties:
-            total:
-              type: integer
-            enabled:
-              type: integer
-        prompts:
-          type: object
-          properties:
-            total:
-              type: integer
-            enabled:
-              type: integer
-        resources:
-          type: object
-          properties:
-            total:
-              type: integer
-            enabled:
-              type: integer
-        resource_templates:
-          type: object
-          properties:
-            total:
-              type: integer
-            enabled:
-              type: integer
   securitySchemes:
     Portkey-Key:
       type: apiKey

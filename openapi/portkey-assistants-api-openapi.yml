@@ -1231,251 +1231,50 @@ paths:
         response: "{\n  \"id\": \"step_abc123\",\n  \"object\": \"thread.run.step\",\n  \"created_at\": 1699063291,\n  \"run_id\": \"run_abc123\",\n  \"assistant_id\": \"asst_abc123\",\n  \"thread_id\": \"thread_abc123\",\n  \"type\": \"message_creation\",\n  \"status\": \"completed\",\n  \"cancelled_at\": null,\n  \"completed_at\": 1699063291,\n  \"expired_at\": null,\n  \"failed_at\": null,\n  \"last_error\": null,\n  \"step_details\": {\n    \"type\": \"message_creation\",\n    \"message_creation\": {\n      \"message_id\": \"msg_abc123\"\n    }\n  },\n  \"usage\": {\n    \"prompt_tokens\": 123,\n    \"completion_tokens\": 456,\n    \"total_tokens\": 579\n  }\n}\n"
 components:
   schemas:
-    SubmitToolOutputsRunRequest:
+    DeleteAssistantResponse:
       type: object
-      additionalProperties: false
       properties:
-        tool_outputs:
-          description: A list of tools for which the outputs are being submitted.
+        id:
+          type: string
+        deleted:
+          type: boolean
+        object:
+          type: string
+          enum:
+          - assistant.deleted
+      required:
+      - id
+      - object
+      - deleted
+    ListRunsResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
           type: array
           items:
-            type: object
-            properties:
-              tool_call_id:
-                type: string
-                description: The ID of the tool call in the `required_action` object within the run object the output is being submitted for.
-              output:
-                type: string
-                description: The output of the tool call to be submitted to continue the run.
-        stream:
-          type:
-          - boolean
-          - 'null'
-          description: 'If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message.
-
-            '
+            $ref: '#/components/schemas/RunObject'
+        first_id:
+          type: string
+          example: run_abc123
+        last_id:
+          type: string
+          example: run_abc456
+        has_more:
+          type: boolean
+          example: false
       required:
-      - tool_outputs
-    MessageRequestContentTextObject:
-      title: Text
-      type: object
-      description: The text content that is part of a message.
-      properties:
-        type:
-          description: Always `text`.
-          type: string
-          enum:
-          - text
-        text:
-          type: string
-          description: Text content to be sent to the model
-      required:
-      - type
-      - text
-    MessageContentTextAnnotationsFilePathObject:
-      title: File path
-      type: object
-      description: A URL for the file that's generated when the assistant used the `code_interpreter` tool to generate a file.
-      properties:
-        type:
-          description: Always `file_path`.
-          type: string
-          enum:
-          - file_path
-        text:
-          description: The text in the message content that needs to be replaced.
-          type: string
-        file_path:
-          type: object
-          properties:
-            file_id:
-              description: The ID of the file that was generated.
-              type: string
-          required:
-          - file_id
-        start_index:
-          type: integer
-          minimum: 0
-        end_index:
-          type: integer
-          minimum: 0
-      required:
-      - type
-      - text
-      - file_path
-      - start_index
-      - end_index
-    RunStepDetailsMessageCreationObject:
-      title: Message creation
-      type: object
-      description: Details of the message creation by the run step.
-      properties:
-        type:
-          description: Always `message_creation`.
-          type: string
-          enum:
-          - message_creation
-        message_creation:
-          type: object
-          properties:
-            message_id:
-              type: string
-              description: The ID of the message that was created by this run step.
-          required:
-          - message_id
-      required:
-      - type
-      - message_creation
-    RunStepCompletionUsage:
-      type:
       - object
-      - 'null'
-      description: Usage statistics related to the run step. This value will be `null` while the run step's status is `in_progress`.
-      properties:
-        completion_tokens:
-          type: integer
-          description: Number of completion tokens used over the course of the run step.
-        prompt_tokens:
-          type: integer
-          description: Number of prompt tokens used over the course of the run step.
-        total_tokens:
-          type: integer
-          description: Total number of tokens used (prompt + completion).
-      required:
-      - prompt_tokens
-      - completion_tokens
-      - total_tokens
-    CreateRunRequest:
+      - data
+      - first_id
+      - last_id
+      - has_more
+    FunctionParameters:
       type: object
-      additionalProperties: false
-      properties:
-        assistant_id:
-          description: The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run.
-          type: string
-        model:
-          description: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
-          example: gpt-4-turbo
-          anyOf:
-          - type: string
-          - type: string
-            enum:
-            - gpt-4o
-            - gpt-4o-2024-05-13
-            - gpt-4-turbo
-            - gpt-4-turbo-2024-04-09
-            - gpt-4-0125-preview
-            - gpt-4-turbo-preview
-            - gpt-4-1106-preview
-            - gpt-4-vision-preview
-            - gpt-4
-            - gpt-4-0314
-            - gpt-4-0613
-            - gpt-4-32k
-            - gpt-4-32k-0314
-            - gpt-4-32k-0613
-            - gpt-3.5-turbo
-            - gpt-3.5-turbo-16k
-            - gpt-3.5-turbo-0613
-            - gpt-3.5-turbo-1106
-            - gpt-3.5-turbo-0125
-            - gpt-3.5-turbo-16k-0613
-          x-oaiTypeLabel: string
-        instructions:
-          description: Overrides the [instructions](https://platform.openai.com/docs/api-reference/assistants/createAssistant) of the assistant. This is useful for modifying the behavior on a per-run basis.
-          type:
-          - string
-          - 'null'
-        additional_instructions:
-          description: Appends additional instructions at the end of the instructions for the run. This is useful for modifying the behavior on a per-run basis without overriding other instructions.
-          type:
-          - string
-          - 'null'
-        additional_messages:
-          description: Adds additional messages to the thread before creating the run.
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CreateMessageRequest'
-        tools:
-          description: Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis.
-          type:
-          - array
-          - 'null'
-          maxItems: 20
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/AssistantToolsCode'
-            - $ref: '#/components/schemas/AssistantToolsFileSearch'
-            - $ref: '#/components/schemas/AssistantToolsFunction'
-            x-oaiExpandable: true
-        metadata:
-          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
-
-            '
-          type:
-          - object
-          - 'null'
-          x-oaiTypeLabel: map
-        temperature:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-          maximum: 2
-          default: 1
-          example: 1
-          description: 'What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
-
-            '
-        top_p:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-          maximum: 1
-          default: 1
-          example: 1
-          description: 'An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
-
-
-            We generally recommend altering this or temperature but not both.
-
-            '
-        stream:
-          type:
-          - boolean
-          - 'null'
-          description: 'If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message.
-
-            '
-        max_prompt_tokens:
-          type:
-          - integer
-          - 'null'
-          description: 'The maximum number of prompt tokens that may be used over the course of the run. The run will make a best effort to use only the number of prompt tokens specified, across multiple turns of the run. If the run exceeds the number of prompt tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
-
-            '
-          minimum: 256
-        max_completion_tokens:
-          type:
-          - integer
-          - 'null'
-          description: 'The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
-
-            '
-          minimum: 256
-        truncation_strategy:
-          $ref: '#/components/schemas/TruncationObject'
-        tool_choice:
-          $ref: '#/components/schemas/AssistantsApiToolChoiceOption'
-        parallel_tool_calls:
-          $ref: '#/components/schemas/ParallelToolCalls'
-        response_format:
-          $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
-      required:
-      - thread_id
-      - assistant_id
+      description: "The parameters the functions accepts, described as a JSON Schema object. See the [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format. \n\nOmitting `parameters` defines a function with an empty parameter list."
+      additionalProperties: true
     RunStepDetailsToolCallsObject:
       title: Tool calls
       type: object
@@ -1500,84 +1299,61 @@ components:
       required:
       - type
       - tool_calls
-    MessageObject:
+    AssistantsApiResponseFormatOption:
+      description: 'Specifies the format that the model must output. Compatible with [GPT-4o](https://platform.openai.com/docs/models/gpt-4o), [GPT-4 Turbo](https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4), and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
+
+
+        Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON.
+
+
+        **Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly "stuck" request. Also note that the message content may be partially cut off if `finish_reason="length"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+
+        '
+      oneOf:
+      - type: string
+        description: '`auto` is the default value
+
+          '
+        enum:
+        - none
+        - auto
+      - $ref: '#/components/schemas/AssistantsApiResponseFormat'
+      x-oaiExpandable: true
+    CreateMessageRequest:
       type: object
-      title: The message object
-      description: Represents a message within a [thread](https://platform.openai.com/docs/api-reference/threads).
+      additionalProperties: false
+      required:
+      - role
+      - content
       properties:
-        id:
-          description: The identifier, which can be referenced in API endpoints.
-          type: string
-        object:
-          description: The object type, which is always `thread.message`.
-          type: string
-          enum:
-          - thread.message
-        created_at:
-          description: The Unix timestamp (in seconds) for when the message was created.
-          type: integer
-        thread_id:
-          description: The [thread](https://platform.openai.com/docs/api-reference/threads) ID that this message belongs to.
-          type: string
-        status:
-          description: The status of the message, which can be either `in_progress`, `incomplete`, or `completed`.
-          type: string
-          enum:
-          - in_progress
-          - incomplete
-          - completed
-        incomplete_details:
-          description: On an incomplete message, details about why the message is incomplete.
-          type:
-          - object
-          - 'null'
-          properties:
-            reason:
-              type: string
-              description: The reason the message is incomplete.
-              enum:
-              - content_filter
-              - max_tokens
-              - run_cancelled
-              - run_expired
-              - run_failed
-          required:
-          - reason
-        completed_at:
-          description: The Unix timestamp (in seconds) for when the message was completed.
-          type:
-          - integer
-          - 'null'
-        incomplete_at:
-          description: The Unix timestamp (in seconds) for when the message was marked as incomplete.
-          type:
-          - integer
-          - 'null'
         role:
-          description: The entity that produced the message. One of `user` or `assistant`.
           type: string
           enum:
           - user
           - assistant
+          description: 'The role of the entity that is creating the message. Allowed values include:
+
+            - `user`: Indicates the message is sent by an actual user and should be used in most cases to represent user-generated messages.
+
+            - `assistant`: Indicates the message is generated by the assistant. Use this value to insert messages from the assistant into the conversation.
+
+            '
         content:
-          description: The content of the message in array of text and/or images.
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/MessageContentImageFileObject'
-            - $ref: '#/components/schemas/MessageContentImageUrlObject'
-            - $ref: '#/components/schemas/MessageContentTextObject'
-            x-oaiExpandable: true
-        assistant_id:
-          description: If applicable, the ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) that authored this message.
-          type:
-          - string
-          - 'null'
-        run_id:
-          description: The ID of the [run](https://platform.openai.com/docs/api-reference/runs) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints.
-          type:
-          - string
-          - 'null'
+          oneOf:
+          - type: string
+            description: The text contents of the message.
+            title: Text content
+          - type: array
+            description: An array of content parts with a defined type, each can be of type `text` or images can be passed with `image_url` or `image_file`. Image types are only supported on [Vision-compatible models](https://platform.openai.com/docs/models/overview).
+            title: Array of content parts
+            items:
+              oneOf:
+              - $ref: '#/components/schemas/MessageContentImageFileObject'
+              - $ref: '#/components/schemas/MessageContentImageUrlObject'
+              - $ref: '#/components/schemas/MessageRequestContentTextObject'
+              x-oaiExpandable: true
+            minItems: 1
+          x-oaiExpandable: true
         attachments:
           type:
           - array
@@ -1596,7 +1372,10 @@ components:
                   - $ref: '#/components/schemas/AssistantToolsCode'
                   - $ref: '#/components/schemas/AssistantToolsFileSearchTypeOnly'
                   x-oaiExpandable: true
-          description: A list of files attached to the message, and the tools they were added to.
+          description: A list of files attached to the message, and the tools they should be added to.
+          required:
+          - file_id
+          - tools
         metadata:
           description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
 
@@ -1605,214 +1384,65 @@ components:
           - object
           - 'null'
           x-oaiTypeLabel: map
-      required:
-      - id
-      - object
-      - created_at
-      - thread_id
-      - status
-      - incomplete_details
-      - completed_at
-      - incomplete_at
-      - role
-      - content
-      - assistant_id
-      - run_id
-      - attachments
-      - metadata
-      x-code-samples:
-        name: The message object
-        beta: true
-        example: "{\n  \"id\": \"msg_abc123\",\n  \"object\": \"thread.message\",\n  \"created_at\": 1698983503,\n  \"thread_id\": \"thread_abc123\",\n  \"role\": \"assistant\",\n  \"content\": [\n    {\n      \"type\": \"text\",\n      \"text\": {\n        \"value\": \"Hi! How can I help you today?\",\n        \"annotations\": []\n      }\n    }\n  ],\n  \"assistant_id\": \"asst_abc123\",\n  \"run_id\": \"run_abc123\",\n  \"attachments\": [],\n  \"metadata\": {}\n}\n"
-    AssistantToolsFileSearchTypeOnly:
+    RunStepDetailsMessageCreationObject:
+      title: Message creation
       type: object
-      title: FileSearch tool
+      description: Details of the message creation by the run step.
       properties:
         type:
+          description: Always `message_creation`.
           type: string
-          description: 'The type of tool being defined: `file_search`'
           enum:
-          - file_search
-      required:
-      - type
-    CreateThreadAndRunRequest:
-      type: object
-      additionalProperties: false
-      properties:
-        assistant_id:
-          description: The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run.
-          type: string
-        thread:
-          $ref: '#/components/schemas/CreateThreadRequest'
-          description: If no thread is provided, an empty thread will be created.
-        model:
-          description: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
-          example: gpt-4-turbo
-          anyOf:
-          - type: string
-          - type: string
-            enum:
-            - gpt-4o
-            - gpt-4o-2024-05-13
-            - gpt-4-turbo
-            - gpt-4-turbo-2024-04-09
-            - gpt-4-0125-preview
-            - gpt-4-turbo-preview
-            - gpt-4-1106-preview
-            - gpt-4-vision-preview
-            - gpt-4
-            - gpt-4-0314
-            - gpt-4-0613
-            - gpt-4-32k
-            - gpt-4-32k-0314
-            - gpt-4-32k-0613
-            - gpt-3.5-turbo
-            - gpt-3.5-turbo-16k
-            - gpt-3.5-turbo-0613
-            - gpt-3.5-turbo-1106
-            - gpt-3.5-turbo-0125
-            - gpt-3.5-turbo-16k-0613
-          x-oaiTypeLabel: string
-        instructions:
-          description: Override the default system message of the assistant. This is useful for modifying the behavior on a per-run basis.
-          type:
-          - string
-          - 'null'
-        tools:
-          description: Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis.
-          type:
-          - array
-          - 'null'
-          maxItems: 20
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/AssistantToolsCode'
-            - $ref: '#/components/schemas/AssistantToolsFileSearch'
-            - $ref: '#/components/schemas/AssistantToolsFunction'
-        tool_resources:
-          type:
-          - object
-          - 'null'
-          description: 'A set of resources that are used by the assistant''s tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
-
-            '
-          properties:
-            code_interpreter:
-              type: object
-              properties:
-                file_ids:
-                  type: array
-                  description: 'A list of [file](https://platform.openai.com/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.
-
-                    '
-                  default: []
-                  maxItems: 20
-                  items:
-                    type: string
-            file_search:
-              type: object
-              properties:
-                vector_store_ids:
-                  type: array
-                  description: 'The ID of the [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
-
-                    '
-                  maxItems: 1
-                  items:
-                    type: string
-        metadata:
-          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
-
-            '
-          type:
-          - object
-          - 'null'
-          x-oaiTypeLabel: map
-        temperature:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-          maximum: 2
-          default: 1
-          example: 1
-          description: 'What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
-
-            '
-        top_p:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-          maximum: 1
-          default: 1
-          example: 1
-          description: 'An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
-
-
-            We generally recommend altering this or temperature but not both.
-
-            '
-        stream:
-          type:
-          - boolean
-          - 'null'
-          description: 'If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message.
-
-            '
-        max_prompt_tokens:
-          type:
-          - integer
-          - 'null'
-          description: 'The maximum number of prompt tokens that may be used over the course of the run. The run will make a best effort to use only the number of prompt tokens specified, across multiple turns of the run. If the run exceeds the number of prompt tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
-
-            '
-          minimum: 256
-        max_completion_tokens:
-          type:
-          - integer
-          - 'null'
-          description: 'The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
-
-            '
-          minimum: 256
-        truncation_strategy:
-          $ref: '#/components/schemas/TruncationObject'
-        tool_choice:
-          $ref: '#/components/schemas/AssistantsApiToolChoiceOption'
-        parallel_tool_calls:
-          $ref: '#/components/schemas/ParallelToolCalls'
-        response_format:
-          $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
-      required:
-      - thread_id
-      - assistant_id
-    AssistantToolsFileSearch:
-      type: object
-      title: FileSearch tool
-      properties:
-        type:
-          type: string
-          description: 'The type of tool being defined: `file_search`'
-          enum:
-          - file_search
-        file_search:
+          - message_creation
+        message_creation:
           type: object
-          description: Overrides for the file search tool.
           properties:
-            max_num_results:
-              type: integer
-              minimum: 1
-              maximum: 50
-              description: 'The maximum number of results the file search tool should output. The default is 20 for gpt-4* models and 5 for gpt-3.5-turbo. This number should be between 1 and 50 inclusive.
-
-
-                Note that the file search tool may output fewer than `max_num_results` results. See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search/number-of-chunks-returned) for more information.
-
-                '
+            message_id:
+              type: string
+              description: The ID of the message that was created by this run step.
+          required:
+          - message_id
       required:
       - type
-    DeleteThreadResponse:
+      - message_creation
+    MessageContentTextAnnotationsFileCitationObject:
+      title: File citation
+      type: object
+      description: A citation within the message that points to a specific quote from a specific File associated with the assistant or the message. Generated when the assistant uses the "file_search" tool to search files.
+      properties:
+        type:
+          description: Always `file_citation`.
+          type: string
+          enum:
+          - file_citation
+        text:
+          description: The text in the message content that needs to be replaced.
+          type: string
+        file_citation:
+          type: object
+          properties:
+            file_id:
+              description: The ID of the specific File the citation is from.
+              type: string
+            quote:
+              description: The specific quote in the file.
+              type: string
+          required:
+          - file_id
+          - quote
+        start_index:
+          type: integer
+          minimum: 0
+        end_index:
+          type: integer
+          minimum: 0
+      required:
+      - type
+      - text
+      - file_citation
+      - start_index
+      - end_index
+    DeleteMessageResponse:
       type: object
       properties:
         id:
@@ -1822,43 +1452,57 @@ components:
         object:
           type: string
           enum:
-          - thread.deleted
+          - thread.message.deleted
       required:
       - id
       - object
       - deleted
-    AssistantsApiToolChoiceOption:
-      description: 'Controls which (if any) tool is called by the model.
-
-        `none` means the model will not call any tools and instead generates a message.
-
-        `auto` is the default value and means the model can pick between generating a message or calling one or more tools.
-
-        `required` means the model must call one or more tools before responding to the user.
-
-        Specifying a particular tool like `{"type": "file_search"}` or `{"type": "function", "function": {"name": "my_function"}}` forces the model to call that tool.
-
-        '
-      oneOf:
-      - type: string
-        description: '`none` means the model will not call any tools and instead generates a message. `auto` means the model can pick between generating a message or calling one or more tools. `required` means the model must call one or more tools before responding to the user.
-
-          '
-        enum:
-        - none
-        - auto
-        - required
-      - $ref: '#/components/schemas/AssistantsNamedToolChoice'
-      x-oaiExpandable: true
-    CreateThreadRequest:
+    MessageContentImageUrlObject:
+      title: Image URL
       type: object
-      additionalProperties: false
+      description: References an image URL in the content of a message.
       properties:
-        messages:
-          description: A list of [messages](https://platform.openai.com/docs/api-reference/messages) to start the thread with.
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateMessageRequest'
+        type:
+          type: string
+          enum:
+          - image_url
+          description: The type of the content part.
+        image_url:
+          type: object
+          properties:
+            url:
+              type: string
+              description: 'The external URL of the image, must be a supported image types: jpeg, jpg, png, gif, webp.'
+              format: uri
+            detail:
+              type: string
+              description: Specifies the detail level of the image. `low` uses fewer tokens, you can opt in to high resolution using `high`. Default value is `auto`
+              enum:
+              - auto
+              - low
+              - high
+              default: auto
+          required:
+          - url
+      required:
+      - type
+      - image_url
+    ThreadObject:
+      type: object
+      title: Thread
+      description: Represents a thread that contains [messages](https://platform.openai.com/docs/api-reference/messages).
+      properties:
+        id:
+          description: The identifier, which can be referenced in API endpoints.
+          type: string
+        object:
+          description: The object type, which is always `thread`.
+          type: string
+          enum:
+          - thread
+        created_at:
+          description: The Unix timestamp (in seconds) for when the thread was created.
+          type: integer
         tool_resources:
           type:
           - object
@@ -1890,84 +1534,6 @@ components:
                   maxItems: 1
                   items:
                     type: string
-                vector_stores:
-                  type: array
-                  description: 'A helper to create a [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) with file_ids and attach it to this thread. There can be a maximum of 1 vector store attached to the thread.
-
-                    '
-                  maxItems: 1
-                  items:
-                    type: object
-                    properties:
-                      file_ids:
-                        type: array
-                        description: 'A list of [file](https://platform.openai.com/docs/api-reference/files) IDs to add to the vector store. There can be a maximum of 10000 files in a vector store.
-
-                          '
-                        maxItems: 10000
-                        items:
-                          type: string
-                      chunking_strategy:
-                        type: object
-                        description: The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.
-                        oneOf:
-                        - type: object
-                          title: Auto Chunking Strategy
-                          description: The default strategy. This strategy currently uses a `max_chunk_size_tokens` of `800` and `chunk_overlap_tokens` of `400`.
-                          additionalProperties: false
-                          properties:
-                            type:
-                              type: string
-                              description: Always `auto`.
-                              enum:
-                              - auto
-                          required:
-                          - type
-                        - type: object
-                          title: Static Chunking Strategy
-                          additionalProperties: false
-                          properties:
-                            type:
-                              type: string
-                              description: Always `static`.
-                              enum:
-                              - static
-                            static:
-                              type: object
-                              additionalProperties: false
-                              properties:
-                                max_chunk_size_tokens:
-                                  type: integer
-                                  minimum: 100
-                                  maximum: 4096
-                                  description: The maximum number of tokens in each chunk. The default value is `800`. The minimum value is `100` and the maximum value is `4096`.
-                                chunk_overlap_tokens:
-                                  type: integer
-                                  description: 'The number of tokens that overlap between chunks. The default value is `400`.
-
-
-                                    Note that the overlap must not exceed half of `max_chunk_size_tokens`.
-
-                                    '
-                              required:
-                              - max_chunk_size_tokens
-                              - chunk_overlap_tokens
-                          required:
-                          - type
-                          - static
-                        x-oaiExpandable: true
-                      metadata:
-                        type: object
-                        description: 'Set of 16 key-value pairs that can be attached to a vector store. This can be useful for storing additional information about the vector store in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
-
-                          '
-                        x-oaiTypeLabel: map
-                    x-oaiExpandable: true
-              oneOf:
-              - required:
-                - vector_store_ids
-              - required:
-                - vector_stores
         metadata:
           description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
 
@@ -1976,99 +1542,42 @@ components:
           - object
           - 'null'
           x-oaiTypeLabel: map
-    TruncationObject:
-      type: object
-      title: Thread Truncation Controls
-      description: Controls for how a thread will be truncated prior to the run. Use this to control the intial context window of the run.
-      properties:
-        type:
-          type: string
-          description: The truncation strategy to use for the thread. The default is `auto`. If set to `last_messages`, the thread will be truncated to the n most recent messages in the thread. When set to `auto`, messages in the middle of the thread will be dropped to fit the context length of the model, `max_prompt_tokens`.
-          enum:
-          - auto
-          - last_messages
-        last_messages:
-          type:
-          - integer
-          - 'null'
-          description: The number of most recent messages from the thread when constructing the context for the run.
-          minimum: 1
       required:
-      - type
-    MessageContentImageUrlObject:
-      title: Image URL
-      type: object
-      description: References an image URL in the content of a message.
-      properties:
-        type:
-          type: string
-          enum:
-          - image_url
-          description: The type of the content part.
-        image_url:
-          type: object
-          properties:
-            url:
-              type: string
-              description: 'The external URL of the image, must be a supported image types: jpeg, jpg, png, gif, webp.'
-              format: uri
-            detail:
-              type: string
-              description: Specifies the detail level of the image. `low` uses fewer tokens, you can opt in to high resolution using `high`. Default value is `auto`
-              enum:
-              - auto
-              - low
-              - high
-              default: auto
-          required:
-          - url
-      required:
-      - type
-      - image_url
-    ModifyRunRequest:
-      type: object
-      additionalProperties: false
-      properties:
-        metadata:
-          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
-
-            '
-          type:
-          - object
-          - 'null'
-          x-oaiTypeLabel: map
-    RunCompletionUsage:
-      type:
+      - id
       - object
-      - 'null'
-      description: Usage statistics related to the run. This value will be `null` if the run is not in a terminal state (i.e. `in_progress`, `queued`, etc.).
-      properties:
-        completion_tokens:
-          type: integer
-          description: Number of completion tokens used over the course of the run.
-        prompt_tokens:
-          type: integer
-          description: Number of prompt tokens used over the course of the run.
-        total_tokens:
-          type: integer
-          description: Total number of tokens used (prompt + completion).
-      required:
-      - prompt_tokens
-      - completion_tokens
-      - total_tokens
-    ModifyMessageRequest:
+      - created_at
+      - tool_resources
+      - metadata
+      x-code-samples:
+        name: The thread object
+        beta: true
+        example: "{\n  \"id\": \"thread_abc123\",\n  \"object\": \"thread\",\n  \"created_at\": 1698107661,\n  \"metadata\": {}\n}\n"
+    AssistantToolsFileSearch:
       type: object
-      additionalProperties: false
+      title: FileSearch tool
       properties:
-        metadata:
-          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
+        type:
+          type: string
+          description: 'The type of tool being defined: `file_search`'
+          enum:
+          - file_search
+        file_search:
+          type: object
+          description: Overrides for the file search tool.
+          properties:
+            max_num_results:
+              type: integer
+              minimum: 1
+              maximum: 50
+              description: 'The maximum number of results the file search tool should output. The default is 20 for gpt-4* models and 5 for gpt-3.5-turbo. This number should be between 1 and 50 inclusive.
 
-            '
-          type:
-          - object
-          - 'null'
-          x-oaiTypeLabel: map
-    ListRunStepsResponse:
+
+                Note that the file search tool may output fewer than `max_num_results` results. See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search/number-of-chunks-returned) for more information.
+
+                '
+      required:
+      - type
+    ListMessagesResponse:
       properties:
         object:
           type: string
@@ -2076,13 +1585,13 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/RunStepObject'
+            $ref: '#/components/schemas/MessageObject'
         first_id:
           type: string
-          example: step_abc123
+          example: msg_abc123
         last_id:
           type: string
-          example: step_abc456
+          example: msg_abc123
         has_more:
           type: boolean
           example: false
@@ -2092,6 +1601,72 @@ components:
       - first_id
       - last_id
       - has_more
+    RunStepDetailsToolCallsFileSearchObject:
+      title: File search tool call
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the tool call object.
+        type:
+          type: string
+          description: The type of tool call. This is always going to be `file_search` for this type of tool call.
+          enum:
+          - file_search
+        file_search:
+          type: object
+          description: For now, this is always going to be an empty object.
+          x-oaiTypeLabel: map
+      required:
+      - id
+      - type
+      - file_search
+    AssistantToolsFileSearchTypeOnly:
+      type: object
+      title: FileSearch tool
+      properties:
+        type:
+          type: string
+          description: 'The type of tool being defined: `file_search`'
+          enum:
+          - file_search
+      required:
+      - type
+    RunStepDetailsToolCallsFunctionObject:
+      type: object
+      title: Function tool call
+      properties:
+        id:
+          type: string
+          description: The ID of the tool call object.
+        type:
+          type: string
+          description: The type of tool call. This is always going to be `function` for this type of tool call.
+          enum:
+          - function
+        function:
+          type: object
+          description: The definition of the function that was called.
+          properties:
+            name:
+              type: string
+              description: The name of the function.
+            arguments:
+              type: string
+              description: The arguments passed to the function.
+            output:
+              type:
+              - string
+              - 'null'
+              description: The output of the function. This will be `null` if the outputs have not been [submitted](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) yet.
+          required:
+          - name
+          - arguments
+          - output
+      required:
+      - id
+      - type
+      - function
     CreateAssistantRequest:
       type: object
       additionalProperties: false
@@ -2308,155 +1883,6 @@ components:
           $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
       required:
       - model
-    RunStepDetailsToolCallsCodeOutputLogsObject:
-      title: Code Interpreter log output
-      type: object
-      description: Text output from the Code Interpreter tool call as part of a run step.
-      properties:
-        type:
-          description: Always `logs`.
-          type: string
-          enum:
-          - logs
-        logs:
-          type: string
-          description: The text output from the Code Interpreter tool call.
-      required:
-      - type
-      - logs
-    MessageContentImageFileObject:
-      title: Image file
-      type: object
-      description: References an image [File](https://platform.openai.com/docs/api-reference/files) in the content of a message.
-      properties:
-        type:
-          description: Always `image_file`.
-          type: string
-          enum:
-          - image_file
-        image_file:
-          type: object
-          properties:
-            file_id:
-              description: The [File](https://platform.openai.com/docs/api-reference/files) ID of the image in the message content. Set `purpose="vision"` when uploading the File if you need to later display the file content.
-              type: string
-            detail:
-              type: string
-              description: Specifies the detail level of the image if specified by the user. `low` uses fewer tokens, you can opt in to high resolution using `high`.
-              enum:
-              - auto
-              - low
-              - high
-              default: auto
-          required:
-          - file_id
-      required:
-      - type
-      - image_file
-    AssistantToolsFunction:
-      type: object
-      title: Function tool
-      properties:
-        type:
-          type: string
-          description: 'The type of tool being defined: `function`'
-          enum:
-          - function
-        function:
-          $ref: '#/components/schemas/FunctionObject'
-      required:
-      - type
-      - function
-    CreateMessageRequest:
-      type: object
-      additionalProperties: false
-      required:
-      - role
-      - content
-      properties:
-        role:
-          type: string
-          enum:
-          - user
-          - assistant
-          description: 'The role of the entity that is creating the message. Allowed values include:
-
-            - `user`: Indicates the message is sent by an actual user and should be used in most cases to represent user-generated messages.
-
-            - `assistant`: Indicates the message is generated by the assistant. Use this value to insert messages from the assistant into the conversation.
-
-            '
-        content:
-          oneOf:
-          - type: string
-            description: The text contents of the message.
-            title: Text content
-          - type: array
-            description: An array of content parts with a defined type, each can be of type `text` or images can be passed with `image_url` or `image_file`. Image types are only supported on [Vision-compatible models](https://platform.openai.com/docs/models/overview).
-            title: Array of content parts
-            items:
-              oneOf:
-              - $ref: '#/components/schemas/MessageContentImageFileObject'
-              - $ref: '#/components/schemas/MessageContentImageUrlObject'
-              - $ref: '#/components/schemas/MessageRequestContentTextObject'
-              x-oaiExpandable: true
-            minItems: 1
-          x-oaiExpandable: true
-        attachments:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-            properties:
-              file_id:
-                type: string
-                description: The ID of the file to attach to the message.
-              tools:
-                description: The tools to add this file to.
-                type: array
-                items:
-                  oneOf:
-                  - $ref: '#/components/schemas/AssistantToolsCode'
-                  - $ref: '#/components/schemas/AssistantToolsFileSearchTypeOnly'
-                  x-oaiExpandable: true
-          description: A list of files attached to the message, and the tools they should be added to.
-          required:
-          - file_id
-          - tools
-        metadata:
-          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
-
-            '
-          type:
-          - object
-          - 'null'
-          x-oaiTypeLabel: map
-    ListRunsResponse:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/RunObject'
-        first_id:
-          type: string
-          example: run_abc123
-        last_id:
-          type: string
-          example: run_abc456
-        has_more:
-          type: boolean
-          example: false
-      required:
-      - object
-      - data
-      - first_id
-      - last_id
-      - has_more
     RunStepDetailsToolCallsCodeOutputImageObject:
       title: Code Interpreter image output
       type: object
@@ -2477,188 +1903,20 @@ components:
       required:
       - type
       - image
-    AssistantObject:
+    AssistantToolsFunction:
       type: object
-      title: Assistant
-      description: Represents an `assistant` that can call the model and use tools.
+      title: Function tool
       properties:
-        id:
-          description: The identifier, which can be referenced in API endpoints.
+        type:
           type: string
-        object:
-          description: The object type, which is always `assistant`.
-          type: string
+          description: 'The type of tool being defined: `function`'
           enum:
-          - assistant
-        created_at:
-          description: The Unix timestamp (in seconds) for when the assistant was created.
-          type: integer
-        name:
-          description: 'The name of the assistant. The maximum length is 256 characters.
-
-            '
-          type:
-          - string
-          - 'null'
-          maxLength: 256
-        description:
-          description: 'The description of the assistant. The maximum length is 512 characters.
-
-            '
-          type:
-          - string
-          - 'null'
-          maxLength: 512
-        model:
-          description: 'ID of the model to use. You can use the [List models](https://platform.openai.com/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](https://platform.openai.com/docs/models/overview) for descriptions of them.
-
-            '
-          type: string
-        instructions:
-          description: 'The system instructions that the assistant uses. The maximum length is 256,000 characters.
-
-            '
-          type:
-          - string
-          - 'null'
-          maxLength: 256000
-        tools:
-          description: 'A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
-
-            '
-          default: []
-          type: array
-          maxItems: 128
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/AssistantToolsCode'
-            - $ref: '#/components/schemas/AssistantToolsFileSearch'
-            - $ref: '#/components/schemas/AssistantToolsFunction'
-            x-oaiExpandable: true
-        tool_resources:
-          type:
-          - object
-          - 'null'
-          description: 'A set of resources that are used by the assistant''s tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
-
-            '
-          properties:
-            code_interpreter:
-              type: object
-              properties:
-                file_ids:
-                  type: array
-                  description: 'A list of [file](https://platform.openai.com/docs/api-reference/files) IDs made available to the `code_interpreter`` tool. There can be a maximum of 20 files associated with the tool.
-
-                    '
-                  default: []
-                  maxItems: 20
-                  items:
-                    type: string
-            file_search:
-              type: object
-              properties:
-                vector_store_ids:
-                  type: array
-                  description: 'The ID of the [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
-
-                    '
-                  maxItems: 1
-                  items:
-                    type: string
-        metadata:
-          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
-
-            '
-          type:
-          - object
-          - 'null'
-          x-oaiTypeLabel: map
-        temperature:
-          description: 'What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
-
-            '
-          type:
-          - number
-          - 'null'
-          minimum: 0
-          maximum: 2
-          default: 1
-          example: 1
-        top_p:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-          maximum: 1
-          default: 1
-          example: 1
-          description: 'An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
-
-
-            We generally recommend altering this or temperature but not both.
-
-            '
-        response_format:
-          $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
+          - function
+        function:
+          $ref: '#/components/schemas/FunctionObject'
       required:
-      - id
-      - object
-      - created_at
-      - name
-      - description
-      - model
-      - instructions
-      - tools
-      - metadata
-      x-code-samples:
-        name: The assistant object
-        beta: true
-        example: "{\n  \"id\": \"asst_abc123\",\n  \"object\": \"assistant\",\n  \"created_at\": 1698984975,\n  \"name\": \"Math Tutor\",\n  \"description\": null,\n  \"model\": \"gpt-4-turbo\",\n  \"instructions\": \"You are a personal math tutor. When asked a question, write and run Python code to answer the question.\",\n  \"tools\": [\n    {\n      \"type\": \"code_interpreter\"\n    }\n  ],\n  \"metadata\": {},\n  \"top_p\": 1.0,\n  \"temperature\": 1.0,\n  \"response_format\": \"auto\"\n}\n"
-    DeleteAssistantResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        deleted:
-          type: boolean
-        object:
-          type: string
-          enum:
-          - assistant.deleted
-      required:
-      - id
-      - object
-      - deleted
-    ListAssistantsResponse:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssistantObject'
-        first_id:
-          type: string
-          example: asst_abc123
-        last_id:
-          type: string
-          example: asst_abc456
-        has_more:
-          type: boolean
-          example: false
-      required:
-      - object
-      - data
-      - first_id
-      - last_id
-      - has_more
-      x-code-samples:
-        name: List assistants response object
-        group: chat
-        example: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"asst_abc123\",\n      \"object\": \"assistant\",\n      \"created_at\": 1698982736,\n      \"name\": \"Coding Tutor\",\n      \"description\": null,\n      \"model\": \"gpt-4-turbo\",\n      \"instructions\": \"You are a helpful assistant designed to make me better at coding!\",\n      \"tools\": [],\n      \"tool_resources\": {},\n      \"metadata\": {},\n      \"top_p\": 1.0,\n      \"temperature\": 1.0,\n      \"response_format\": \"auto\"\n    },\n    {\n      \"id\": \"asst_abc456\",\n      \"object\": \"assistant\",\n      \"created_at\": 1698982718,\n      \"name\": \"My Assistant\",\n      \"description\": null,\n      \"model\": \"gpt-4-turbo\",\n      \"instructions\": \"You are a helpful assistant designed to make me better at coding!\",\n      \"tools\": [],\n      \"tool_resources\": {},\n      \"metadata\": {},\n      \"top_p\": 1.0,\n      \"temperature\": 1.0,\n      \"response_format\": \"auto\"\n    },\n    {\n      \"id\": \"asst_abc789\",\n      \"object\": \"assistant\",\n      \"created_at\": 1698982643,\n      \"name\": null,\n      \"description\": null,\n      \"model\": \"gpt-4-turbo\",\n      \"instructions\": null,\n      \"tools\": [],\n      \"tool_resources\": {},\n      \"metadata\": {},\n      \"top_p\": 1.0,\n      \"temperature\": 1.0,\n      \"response_format\": \"auto\"\n    }\n  ],\n  \"first_id\": \"asst_abc123\",\n  \"last_id\": \"asst_abc789\",\n  \"has_more\": false\n}\n"
+      - type
+      - function
     RunStepDetailsToolCallsCodeObject:
       title: Code Interpreter tool call
       type: object
@@ -2695,84 +1953,180 @@ components:
       - id
       - type
       - code_interpreter
-    MessageContentTextAnnotationsFileCitationObject:
-      title: File citation
+    FunctionObject:
       type: object
-      description: A citation within the message that points to a specific quote from a specific File associated with the assistant or the message. Generated when the assistant uses the "file_search" tool to search files.
+      properties:
+        description:
+          type: string
+          description: A description of what the function does, used by the model to choose when and how to call the function.
+        name:
+          type: string
+          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        parameters:
+          $ref: '#/components/schemas/FunctionParameters'
+        strict:
+          type:
+          - boolean
+          - 'null'
+          default: false
+          description: Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Learn more about Structured Outputs in the [function calling guide](docs/guides/function-calling).
+      required:
+      - name
+    MessageContentTextObject:
+      title: Text
+      type: object
+      description: The text content that is part of a message.
       properties:
         type:
-          description: Always `file_citation`.
+          description: Always `text`.
           type: string
           enum:
-          - file_citation
+          - text
         text:
-          description: The text in the message content that needs to be replaced.
-          type: string
-        file_citation:
           type: object
           properties:
-            file_id:
-              description: The ID of the specific File the citation is from.
+            value:
+              description: The data that makes up the text.
               type: string
-            quote:
-              description: The specific quote in the file.
-              type: string
+            annotations:
+              type: array
+              items:
+                oneOf:
+                - $ref: '#/components/schemas/MessageContentTextAnnotationsFileCitationObject'
+                - $ref: '#/components/schemas/MessageContentTextAnnotationsFilePathObject'
+                x-oaiExpandable: true
           required:
-          - file_id
-          - quote
-        start_index:
-          type: integer
-          minimum: 0
-        end_index:
-          type: integer
-          minimum: 0
+          - value
+          - annotations
       required:
       - type
       - text
-      - file_citation
-      - start_index
-      - end_index
-    AssistantsNamedToolChoice:
+    CreateThreadRequest:
       type: object
-      description: Specifies a tool the model should use. Use to force the model to call a specific tool.
+      additionalProperties: false
       properties:
-        type:
-          type: string
-          enum:
-          - function
-          - code_interpreter
-          - file_search
-          description: The type of the tool. If type is `function`, the function name must be set
-        function:
-          type: object
+        messages:
+          description: A list of [messages](https://platform.openai.com/docs/api-reference/messages) to start the thread with.
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateMessageRequest'
+        tool_resources:
+          type:
+          - object
+          - 'null'
+          description: 'A set of resources that are made available to the assistant''s tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+
+            '
           properties:
-            name:
-              type: string
-              description: The name of the function to call.
-          required:
-          - name
-      required:
-      - type
-    RunStepDetailsToolCallsFileSearchObject:
-      title: File search tool call
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the tool call object.
-        type:
-          type: string
-          description: The type of tool call. This is always going to be `file_search` for this type of tool call.
-          enum:
-          - file_search
-        file_search:
-          type: object
-          description: For now, this is always going to be an empty object.
+            code_interpreter:
+              type: object
+              properties:
+                file_ids:
+                  type: array
+                  description: 'A list of [file](https://platform.openai.com/docs/api-reference/files) IDs made available to the `code_interpreter` tool. There can be a maximum of 20 files associated with the tool.
+
+                    '
+                  default: []
+                  maxItems: 20
+                  items:
+                    type: string
+            file_search:
+              type: object
+              properties:
+                vector_store_ids:
+                  type: array
+                  description: 'The [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) attached to this thread. There can be a maximum of 1 vector store attached to the thread.
+
+                    '
+                  maxItems: 1
+                  items:
+                    type: string
+                vector_stores:
+                  type: array
+                  description: 'A helper to create a [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) with file_ids and attach it to this thread. There can be a maximum of 1 vector store attached to the thread.
+
+                    '
+                  maxItems: 1
+                  items:
+                    type: object
+                    properties:
+                      file_ids:
+                        type: array
+                        description: 'A list of [file](https://platform.openai.com/docs/api-reference/files) IDs to add to the vector store. There can be a maximum of 10000 files in a vector store.
+
+                          '
+                        maxItems: 10000
+                        items:
+                          type: string
+                      chunking_strategy:
+                        type: object
+                        description: The chunking strategy used to chunk the file(s). If not set, will use the `auto` strategy.
+                        oneOf:
+                        - type: object
+                          title: Auto Chunking Strategy
+                          description: The default strategy. This strategy currently uses a `max_chunk_size_tokens` of `800` and `chunk_overlap_tokens` of `400`.
+                          additionalProperties: false
+                          properties:
+                            type:
+                              type: string
+                              description: Always `auto`.
+                              enum:
+                              - auto
+                          required:
+                          - type
+                        - type: object
+                          title: Static Chunking Strategy
+                          additionalProperties: false
+                          properties:
+                            type:
+                              type: string
+                              description: Always `static`.
+                              enum:
+                              - static
+                            static:
+                              type: object
+                              additionalProperties: false
+                              properties:
+                                max_chunk_size_tokens:
+                                  type: integer
+                                  minimum: 100
+                                  maximum: 4096
+                                  description: The maximum number of tokens in each chunk. The default value is `800`. The minimum value is `100` and the maximum value is `4096`.
+                                chunk_overlap_tokens:
+                                  type: integer
+                                  description: 'The number of tokens that overlap between chunks. The default value is `400`.
+
+
+                                    Note that the overlap must not exceed half of `max_chunk_size_tokens`.
+
+                                    '
+                              required:
+                              - max_chunk_size_tokens
+                              - chunk_overlap_tokens
+                          required:
+                          - type
+                          - static
+                        x-oaiExpandable: true
+                      metadata:
+                        type: object
+                        description: 'Set of 16 key-value pairs that can be attached to a vector store. This can be useful for storing additional information about the vector store in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
+
+                          '
+                        x-oaiTypeLabel: map
+                    x-oaiExpandable: true
+              oneOf:
+              - required:
+                - vector_store_ids
+              - required:
+                - vector_stores
+        metadata:
+          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
+
+            '
+          type:
+          - object
+          - 'null'
           x-oaiTypeLabel: map
-      required:
-      - id
-      - type
-      - file_search
     ModifyAssistantRequest:
       type: object
       additionalProperties: false
@@ -2886,42 +2240,76 @@ components:
             '
         response_format:
           $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
-    DeleteMessageResponse:
+    AssistantToolsCode:
       type: object
+      title: Code interpreter tool
       properties:
-        id:
+        type:
           type: string
-        deleted:
-          type: boolean
-        object:
-          type: string
+          description: 'The type of tool being defined: `code_interpreter`'
           enum:
-          - thread.message.deleted
+          - code_interpreter
       required:
-      - id
-      - object
-      - deleted
-    ThreadObject:
+      - type
+    CreateThreadAndRunRequest:
       type: object
-      title: Thread
-      description: Represents a thread that contains [messages](https://platform.openai.com/docs/api-reference/messages).
+      additionalProperties: false
       properties:
-        id:
-          description: The identifier, which can be referenced in API endpoints.
+        assistant_id:
+          description: The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run.
           type: string
-        object:
-          description: The object type, which is always `thread`.
-          type: string
-          enum:
-          - thread
-        created_at:
-          description: The Unix timestamp (in seconds) for when the thread was created.
-          type: integer
+        thread:
+          $ref: '#/components/schemas/CreateThreadRequest'
+          description: If no thread is provided, an empty thread will be created.
+        model:
+          description: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
+          example: gpt-4-turbo
+          anyOf:
+          - type: string
+          - type: string
+            enum:
+            - gpt-4o
+            - gpt-4o-2024-05-13
+            - gpt-4-turbo
+            - gpt-4-turbo-2024-04-09
+            - gpt-4-0125-preview
+            - gpt-4-turbo-preview
+            - gpt-4-1106-preview
+            - gpt-4-vision-preview
+            - gpt-4
+            - gpt-4-0314
+            - gpt-4-0613
+            - gpt-4-32k
+            - gpt-4-32k-0314
+            - gpt-4-32k-0613
+            - gpt-3.5-turbo
+            - gpt-3.5-turbo-16k
+            - gpt-3.5-turbo-0613
+            - gpt-3.5-turbo-1106
+            - gpt-3.5-turbo-0125
+            - gpt-3.5-turbo-16k-0613
+          x-oaiTypeLabel: string
+        instructions:
+          description: Override the default system message of the assistant. This is useful for modifying the behavior on a per-run basis.
+          type:
+          - string
+          - 'null'
+        tools:
+          description: Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis.
+          type:
+          - array
+          - 'null'
+          maxItems: 20
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/AssistantToolsCode'
+            - $ref: '#/components/schemas/AssistantToolsFileSearch'
+            - $ref: '#/components/schemas/AssistantToolsFunction'
         tool_resources:
           type:
           - object
           - 'null'
-          description: 'A set of resources that are made available to the assistant''s tools in this thread. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+          description: 'A set of resources that are used by the assistant''s tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
 
             '
           properties:
@@ -2942,7 +2330,7 @@ components:
               properties:
                 vector_store_ids:
                   type: array
-                  description: 'The [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) attached to this thread. There can be a maximum of 1 vector store attached to the thread.
+                  description: 'The ID of the [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
 
                     '
                   maxItems: 1
@@ -2956,31 +2344,410 @@ components:
           - object
           - 'null'
           x-oaiTypeLabel: map
+        temperature:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 2
+          default: 1
+          example: 1
+          description: 'What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+
+            '
+        top_p:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 1
+          default: 1
+          example: 1
+          description: 'An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
+
+
+            We generally recommend altering this or temperature but not both.
+
+            '
+        stream:
+          type:
+          - boolean
+          - 'null'
+          description: 'If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message.
+
+            '
+        max_prompt_tokens:
+          type:
+          - integer
+          - 'null'
+          description: 'The maximum number of prompt tokens that may be used over the course of the run. The run will make a best effort to use only the number of prompt tokens specified, across multiple turns of the run. If the run exceeds the number of prompt tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
+
+            '
+          minimum: 256
+        max_completion_tokens:
+          type:
+          - integer
+          - 'null'
+          description: 'The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
+
+            '
+          minimum: 256
+        truncation_strategy:
+          $ref: '#/components/schemas/TruncationObject'
+        tool_choice:
+          $ref: '#/components/schemas/AssistantsApiToolChoiceOption'
+        parallel_tool_calls:
+          $ref: '#/components/schemas/ParallelToolCalls'
+        response_format:
+          $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
+      required:
+      - thread_id
+      - assistant_id
+    SubmitToolOutputsRunRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        tool_outputs:
+          description: A list of tools for which the outputs are being submitted.
+          type: array
+          items:
+            type: object
+            properties:
+              tool_call_id:
+                type: string
+                description: The ID of the tool call in the `required_action` object within the run object the output is being submitted for.
+              output:
+                type: string
+                description: The output of the tool call to be submitted to continue the run.
+        stream:
+          type:
+          - boolean
+          - 'null'
+          description: 'If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message.
+
+            '
+      required:
+      - tool_outputs
+    DeleteThreadResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+        object:
+          type: string
+          enum:
+          - thread.deleted
+      required:
+      - id
+      - object
+      - deleted
+    CreateRunRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        assistant_id:
+          description: The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run.
+          type: string
+        model:
+          description: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
+          example: gpt-4-turbo
+          anyOf:
+          - type: string
+          - type: string
+            enum:
+            - gpt-4o
+            - gpt-4o-2024-05-13
+            - gpt-4-turbo
+            - gpt-4-turbo-2024-04-09
+            - gpt-4-0125-preview
+            - gpt-4-turbo-preview
+            - gpt-4-1106-preview
+            - gpt-4-vision-preview
+            - gpt-4
+            - gpt-4-0314
+            - gpt-4-0613
+            - gpt-4-32k
+            - gpt-4-32k-0314
+            - gpt-4-32k-0613
+            - gpt-3.5-turbo
+            - gpt-3.5-turbo-16k
+            - gpt-3.5-turbo-0613
+            - gpt-3.5-turbo-1106
+            - gpt-3.5-turbo-0125
+            - gpt-3.5-turbo-16k-0613
+          x-oaiTypeLabel: string
+        instructions:
+          description: Overrides the [instructions](https://platform.openai.com/docs/api-reference/assistants/createAssistant) of the assistant. This is useful for modifying the behavior on a per-run basis.
+          type:
+          - string
+          - 'null'
+        additional_instructions:
+          description: Appends additional instructions at the end of the instructions for the run. This is useful for modifying the behavior on a per-run basis without overriding other instructions.
+          type:
+          - string
+          - 'null'
+        additional_messages:
+          description: Adds additional messages to the thread before creating the run.
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CreateMessageRequest'
+        tools:
+          description: Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis.
+          type:
+          - array
+          - 'null'
+          maxItems: 20
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/AssistantToolsCode'
+            - $ref: '#/components/schemas/AssistantToolsFileSearch'
+            - $ref: '#/components/schemas/AssistantToolsFunction'
+            x-oaiExpandable: true
+        metadata:
+          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
+
+            '
+          type:
+          - object
+          - 'null'
+          x-oaiTypeLabel: map
+        temperature:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 2
+          default: 1
+          example: 1
+          description: 'What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+
+            '
+        top_p:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 1
+          default: 1
+          example: 1
+          description: 'An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
+
+
+            We generally recommend altering this or temperature but not both.
+
+            '
+        stream:
+          type:
+          - boolean
+          - 'null'
+          description: 'If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message.
+
+            '
+        max_prompt_tokens:
+          type:
+          - integer
+          - 'null'
+          description: 'The maximum number of prompt tokens that may be used over the course of the run. The run will make a best effort to use only the number of prompt tokens specified, across multiple turns of the run. If the run exceeds the number of prompt tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
+
+            '
+          minimum: 256
+        max_completion_tokens:
+          type:
+          - integer
+          - 'null'
+          description: 'The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
+
+            '
+          minimum: 256
+        truncation_strategy:
+          $ref: '#/components/schemas/TruncationObject'
+        tool_choice:
+          $ref: '#/components/schemas/AssistantsApiToolChoiceOption'
+        parallel_tool_calls:
+          $ref: '#/components/schemas/ParallelToolCalls'
+        response_format:
+          $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
+      required:
+      - thread_id
+      - assistant_id
+    RunStepCompletionUsage:
+      type:
+      - object
+      - 'null'
+      description: Usage statistics related to the run step. This value will be `null` while the run step's status is `in_progress`.
+      properties:
+        completion_tokens:
+          type: integer
+          description: Number of completion tokens used over the course of the run step.
+        prompt_tokens:
+          type: integer
+          description: Number of prompt tokens used over the course of the run step.
+        total_tokens:
+          type: integer
+          description: Total number of tokens used (prompt + completion).
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+    RunCompletionUsage:
+      type:
+      - object
+      - 'null'
+      description: Usage statistics related to the run. This value will be `null` if the run is not in a terminal state (i.e. `in_progress`, `queued`, etc.).
+      properties:
+        completion_tokens:
+          type: integer
+          description: Number of completion tokens used over the course of the run.
+        prompt_tokens:
+          type: integer
+          description: Number of prompt tokens used over the course of the run.
+        total_tokens:
+          type: integer
+          description: Total number of tokens used (prompt + completion).
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+    ModifyRunRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        metadata:
+          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
+
+            '
+          type:
+          - object
+          - 'null'
+          x-oaiTypeLabel: map
+    MessageObject:
+      type: object
+      title: The message object
+      description: Represents a message within a [thread](https://platform.openai.com/docs/api-reference/threads).
+      properties:
+        id:
+          description: The identifier, which can be referenced in API endpoints.
+          type: string
+        object:
+          description: The object type, which is always `thread.message`.
+          type: string
+          enum:
+          - thread.message
+        created_at:
+          description: The Unix timestamp (in seconds) for when the message was created.
+          type: integer
+        thread_id:
+          description: The [thread](https://platform.openai.com/docs/api-reference/threads) ID that this message belongs to.
+          type: string
+        status:
+          description: The status of the message, which can be either `in_progress`, `incomplete`, or `completed`.
+          type: string
+          enum:
+          - in_progress
+          - incomplete
+          - completed
+        incomplete_details:
+          description: On an incomplete message, details about why the message is incomplete.
+          type:
+          - object
+          - 'null'
+          properties:
+            reason:
+              type: string
+              description: The reason the message is incomplete.
+              enum:
+              - content_filter
+              - max_tokens
+              - run_cancelled
+              - run_expired
+              - run_failed
+          required:
+          - reason
+        completed_at:
+          description: The Unix timestamp (in seconds) for when the message was completed.
+          type:
+          - integer
+          - 'null'
+        incomplete_at:
+          description: The Unix timestamp (in seconds) for when the message was marked as incomplete.
+          type:
+          - integer
+          - 'null'
+        role:
+          description: The entity that produced the message. One of `user` or `assistant`.
+          type: string
+          enum:
+          - user
+          - assistant
+        content:
+          description: The content of the message in array of text and/or images.
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/MessageContentImageFileObject'
+            - $ref: '#/components/schemas/MessageContentImageUrlObject'
+            - $ref: '#/components/schemas/MessageContentTextObject'
+            x-oaiExpandable: true
+        assistant_id:
+          description: If applicable, the ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) that authored this message.
+          type:
+          - string
+          - 'null'
+        run_id:
+          description: The ID of the [run](https://platform.openai.com/docs/api-reference/runs) associated with the creation of this message. Value is `null` when messages are created manually using the create message or create thread endpoints.
+          type:
+          - string
+          - 'null'
+        attachments:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+            properties:
+              file_id:
+                type: string
+                description: The ID of the file to attach to the message.
+              tools:
+                description: The tools to add this file to.
+                type: array
+                items:
+                  oneOf:
+                  - $ref: '#/components/schemas/AssistantToolsCode'
+                  - $ref: '#/components/schemas/AssistantToolsFileSearchTypeOnly'
+                  x-oaiExpandable: true
+          description: A list of files attached to the message, and the tools they were added to.
+        metadata:
+          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
+
+            '
+          type:
+          - object
+          - 'null'
+          x-oaiTypeLabel: map
       required:
       - id
       - object
       - created_at
-      - tool_resources
+      - thread_id
+      - status
+      - incomplete_details
+      - completed_at
+      - incomplete_at
+      - role
+      - content
+      - assistant_id
+      - run_id
+      - attachments
       - metadata
       x-code-samples:
-        name: The thread object
+        name: The message object
         beta: true
-        example: "{\n  \"id\": \"thread_abc123\",\n  \"object\": \"thread\",\n  \"created_at\": 1698107661,\n  \"metadata\": {}\n}\n"
-    AssistantToolsCode:
-      type: object
-      title: Code interpreter tool
-      properties:
-        type:
-          type: string
-          description: 'The type of tool being defined: `code_interpreter`'
-          enum:
-          - code_interpreter
-      required:
-      - type
-    ParallelToolCalls:
-      description: Whether to enable [parallel function calling](https://platform.openai.com/docs/guides/function-calling/parallel-function-calling) during tool use.
-      type: boolean
-      default: true
+        example: "{\n  \"id\": \"msg_abc123\",\n  \"object\": \"thread.message\",\n  \"created_at\": 1698983503,\n  \"thread_id\": \"thread_abc123\",\n  \"role\": \"assistant\",\n  \"content\": [\n    {\n      \"type\": \"text\",\n      \"text\": {\n        \"value\": \"Hi! How can I help you today?\",\n        \"annotations\": []\n      }\n    }\n  ],\n  \"assistant_id\": \"asst_abc123\",\n  \"run_id\": \"run_abc123\",\n  \"attachments\": [],\n  \"metadata\": {}\n}\n"
     RunObject:
       type: object
       title: A run on a thread
@@ -3188,106 +2955,18 @@ components:
         name: The run object
         beta: true
         example: "{\n  \"id\": \"run_abc123\",\n  \"object\": \"thread.run\",\n  \"created_at\": 1698107661,\n  \"assistant_id\": \"asst_abc123\",\n  \"thread_id\": \"thread_abc123\",\n  \"status\": \"completed\",\n  \"started_at\": 1699073476,\n  \"expires_at\": null,\n  \"cancelled_at\": null,\n  \"failed_at\": null,\n  \"completed_at\": 1699073498,\n  \"last_error\": null,\n  \"model\": \"gpt-4-turbo\",\n  \"instructions\": null,\n  \"tools\": [{\"type\": \"file_search\"}, {\"type\": \"code_interpreter\"}],\n  \"metadata\": {},\n  \"incomplete_details\": null,\n  \"usage\": {\n    \"prompt_tokens\": 123,\n    \"completion_tokens\": 456,\n    \"total_tokens\": 579\n  },\n  \"temperature\": 1.0,\n  \"top_p\": 1.0,\n  \"max_prompt_tokens\": 1000,\n  \"max_completion_tokens\": 1000,\n  \"truncation_strategy\": {\n    \"type\": \"auto\",\n    \"last_messages\": null\n  },\n  \"response_format\": \"auto\",\n  \"tool_choice\": \"auto\",\n  \"parallel_tool_calls\": true\n}\n"
-    ListMessagesResponse:
+    ModifyMessageRequest:
+      type: object
+      additionalProperties: false
       properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/MessageObject'
-        first_id:
-          type: string
-          example: msg_abc123
-        last_id:
-          type: string
-          example: msg_abc123
-        has_more:
-          type: boolean
-          example: false
-      required:
-      - object
-      - data
-      - first_id
-      - last_id
-      - has_more
-    FunctionParameters:
-      type: object
-      description: "The parameters the functions accepts, described as a JSON Schema object. See the [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format. \n\nOmitting `parameters` defines a function with an empty parameter list."
-      additionalProperties: true
-    RunToolCallObject:
-      type: object
-      description: Tool call objects
-      properties:
-        id:
-          type: string
-          description: The ID of the tool call. This ID must be referenced when you submit the tool outputs in using the [Submit tool outputs to run](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) endpoint.
-        type:
-          type: string
-          description: The type of tool call the output is required for. For now, this is always `function`.
-          enum:
-          - function
-        function:
-          type: object
-          description: The function definition.
-          properties:
-            name:
-              type: string
-              description: The name of the function.
-            arguments:
-              type: string
-              description: The arguments that the model expects you to pass to the function.
-          required:
-          - name
-          - arguments
-      required:
-      - id
-      - type
-      - function
-    MessageContentTextObject:
-      title: Text
-      type: object
-      description: The text content that is part of a message.
-      properties:
-        type:
-          description: Always `text`.
-          type: string
-          enum:
-          - text
-        text:
-          type: object
-          properties:
-            value:
-              description: The data that makes up the text.
-              type: string
-            annotations:
-              type: array
-              items:
-                oneOf:
-                - $ref: '#/components/schemas/MessageContentTextAnnotationsFileCitationObject'
-                - $ref: '#/components/schemas/MessageContentTextAnnotationsFilePathObject'
-                x-oaiExpandable: true
-          required:
-          - value
-          - annotations
-      required:
-      - type
-      - text
-    AssistantsApiResponseFormat:
-      type: object
-      description: 'An object describing the expected output of the model. If `json_object` only `function` type `tools` are allowed to be passed to the Run. If `text` the model can return text or any value needed.
+        metadata:
+          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
 
-        '
-      properties:
-        type:
-          type: string
-          enum:
-          - text
-          - json_object
-          example: json_object
-          default: text
-          description: Must be one of `text` or `json_object`.
+            '
+          type:
+          - object
+          - 'null'
+          x-oaiTypeLabel: map
     RunStepObject:
       type: object
       title: Run steps
@@ -3406,25 +3085,108 @@ components:
         name: The run step object
         beta: true
         example: "{\n  \"id\": \"step_abc123\",\n  \"object\": \"thread.run.step\",\n  \"created_at\": 1699063291,\n  \"run_id\": \"run_abc123\",\n  \"assistant_id\": \"asst_abc123\",\n  \"thread_id\": \"thread_abc123\",\n  \"type\": \"message_creation\",\n  \"status\": \"completed\",\n  \"cancelled_at\": null,\n  \"completed_at\": 1699063291,\n  \"expired_at\": null,\n  \"failed_at\": null,\n  \"last_error\": null,\n  \"step_details\": {\n    \"type\": \"message_creation\",\n    \"message_creation\": {\n      \"message_id\": \"msg_abc123\"\n    }\n  },\n  \"usage\": {\n    \"prompt_tokens\": 123,\n    \"completion_tokens\": 456,\n    \"total_tokens\": 579\n  }\n}\n"
-    FunctionObject:
+    TruncationObject:
       type: object
+      title: Thread Truncation Controls
+      description: Controls for how a thread will be truncated prior to the run. Use this to control the intial context window of the run.
       properties:
-        description:
+        type:
           type: string
-          description: A description of what the function does, used by the model to choose when and how to call the function.
-        name:
-          type: string
-          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
-        parameters:
-          $ref: '#/components/schemas/FunctionParameters'
-        strict:
+          description: The truncation strategy to use for the thread. The default is `auto`. If set to `last_messages`, the thread will be truncated to the n most recent messages in the thread. When set to `auto`, messages in the middle of the thread will be dropped to fit the context length of the model, `max_prompt_tokens`.
+          enum:
+          - auto
+          - last_messages
+        last_messages:
           type:
-          - boolean
+          - integer
           - 'null'
-          default: false
-          description: Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Learn more about Structured Outputs in the [function calling guide](docs/guides/function-calling).
+          description: The number of most recent messages from the thread when constructing the context for the run.
+          minimum: 1
       required:
-      - name
+      - type
+    AssistantsApiResponseFormat:
+      type: object
+      description: 'An object describing the expected output of the model. If `json_object` only `function` type `tools` are allowed to be passed to the Run. If `text` the model can return text or any value needed.
+
+        '
+      properties:
+        type:
+          type: string
+          enum:
+          - text
+          - json_object
+          example: json_object
+          default: text
+          description: Must be one of `text` or `json_object`.
+    ListRunStepsResponse:
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunStepObject'
+        first_id:
+          type: string
+          example: step_abc123
+        last_id:
+          type: string
+          example: step_abc456
+        has_more:
+          type: boolean
+          example: false
+      required:
+      - object
+      - data
+      - first_id
+      - last_id
+      - has_more
+    MessageRequestContentTextObject:
+      title: Text
+      type: object
+      description: The text content that is part of a message.
+      properties:
+        type:
+          description: Always `text`.
+          type: string
+          enum:
+          - text
+        text:
+          type: string
+          description: Text content to be sent to the model
+      required:
+      - type
+      - text
+    MessageContentImageFileObject:
+      title: Image file
+      type: object
+      description: References an image [File](https://platform.openai.com/docs/api-reference/files) in the content of a message.
+      properties:
+        type:
+          description: Always `image_file`.
+          type: string
+          enum:
+          - image_file
+        image_file:
+          type: object
+          properties:
+            file_id:
+              description: The [File](https://platform.openai.com/docs/api-reference/files) ID of the image in the message content. Set `purpose="vision"` when uploading the File if you need to later display the file content.
+              type: string
+            detail:
+              type: string
+              description: Specifies the detail level of the image if specified by the user. `low` uses fewer tokens, you can opt in to high resolution using `high`.
+              enum:
+              - auto
+              - low
+              - high
+              default: auto
+          required:
+          - file_id
+      required:
+      - type
+      - image_file
     ModifyThreadRequest:
       type: object
       additionalProperties: false
@@ -3468,61 +3230,299 @@ components:
           - object
           - 'null'
           x-oaiTypeLabel: map
-    RunStepDetailsToolCallsFunctionObject:
+    ListAssistantsResponse:
       type: object
-      title: Function tool call
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssistantObject'
+        first_id:
+          type: string
+          example: asst_abc123
+        last_id:
+          type: string
+          example: asst_abc456
+        has_more:
+          type: boolean
+          example: false
+      required:
+      - object
+      - data
+      - first_id
+      - last_id
+      - has_more
+      x-code-samples:
+        name: List assistants response object
+        group: chat
+        example: "{\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"id\": \"asst_abc123\",\n      \"object\": \"assistant\",\n      \"created_at\": 1698982736,\n      \"name\": \"Coding Tutor\",\n      \"description\": null,\n      \"model\": \"gpt-4-turbo\",\n      \"instructions\": \"You are a helpful assistant designed to make me better at coding!\",\n      \"tools\": [],\n      \"tool_resources\": {},\n      \"metadata\": {},\n      \"top_p\": 1.0,\n      \"temperature\": 1.0,\n      \"response_format\": \"auto\"\n    },\n    {\n      \"id\": \"asst_abc456\",\n      \"object\": \"assistant\",\n      \"created_at\": 1698982718,\n      \"name\": \"My Assistant\",\n      \"description\": null,\n      \"model\": \"gpt-4-turbo\",\n      \"instructions\": \"You are a helpful assistant designed to make me better at coding!\",\n      \"tools\": [],\n      \"tool_resources\": {},\n      \"metadata\": {},\n      \"top_p\": 1.0,\n      \"temperature\": 1.0,\n      \"response_format\": \"auto\"\n    },\n    {\n      \"id\": \"asst_abc789\",\n      \"object\": \"assistant\",\n      \"created_at\": 1698982643,\n      \"name\": null,\n      \"description\": null,\n      \"model\": \"gpt-4-turbo\",\n      \"instructions\": null,\n      \"tools\": [],\n      \"tool_resources\": {},\n      \"metadata\": {},\n      \"top_p\": 1.0,\n      \"temperature\": 1.0,\n      \"response_format\": \"auto\"\n    }\n  ],\n  \"first_id\": \"asst_abc123\",\n  \"last_id\": \"asst_abc789\",\n  \"has_more\": false\n}\n"
+    MessageContentTextAnnotationsFilePathObject:
+      title: File path
+      type: object
+      description: A URL for the file that's generated when the assistant used the `code_interpreter` tool to generate a file.
+      properties:
+        type:
+          description: Always `file_path`.
+          type: string
+          enum:
+          - file_path
+        text:
+          description: The text in the message content that needs to be replaced.
+          type: string
+        file_path:
+          type: object
+          properties:
+            file_id:
+              description: The ID of the file that was generated.
+              type: string
+          required:
+          - file_id
+        start_index:
+          type: integer
+          minimum: 0
+        end_index:
+          type: integer
+          minimum: 0
+      required:
+      - type
+      - text
+      - file_path
+      - start_index
+      - end_index
+    AssistantObject:
+      type: object
+      title: Assistant
+      description: Represents an `assistant` that can call the model and use tools.
+      properties:
+        id:
+          description: The identifier, which can be referenced in API endpoints.
+          type: string
+        object:
+          description: The object type, which is always `assistant`.
+          type: string
+          enum:
+          - assistant
+        created_at:
+          description: The Unix timestamp (in seconds) for when the assistant was created.
+          type: integer
+        name:
+          description: 'The name of the assistant. The maximum length is 256 characters.
+
+            '
+          type:
+          - string
+          - 'null'
+          maxLength: 256
+        description:
+          description: 'The description of the assistant. The maximum length is 512 characters.
+
+            '
+          type:
+          - string
+          - 'null'
+          maxLength: 512
+        model:
+          description: 'ID of the model to use. You can use the [List models](https://platform.openai.com/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](https://platform.openai.com/docs/models/overview) for descriptions of them.
+
+            '
+          type: string
+        instructions:
+          description: 'The system instructions that the assistant uses. The maximum length is 256,000 characters.
+
+            '
+          type:
+          - string
+          - 'null'
+          maxLength: 256000
+        tools:
+          description: 'A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools can be of types `code_interpreter`, `file_search`, or `function`.
+
+            '
+          default: []
+          type: array
+          maxItems: 128
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/AssistantToolsCode'
+            - $ref: '#/components/schemas/AssistantToolsFileSearch'
+            - $ref: '#/components/schemas/AssistantToolsFunction'
+            x-oaiExpandable: true
+        tool_resources:
+          type:
+          - object
+          - 'null'
+          description: 'A set of resources that are used by the assistant''s tools. The resources are specific to the type of tool. For example, the `code_interpreter` tool requires a list of file IDs, while the `file_search` tool requires a list of vector store IDs.
+
+            '
+          properties:
+            code_interpreter:
+              type: object
+              properties:
+                file_ids:
+                  type: array
+                  description: 'A list of [file](https://platform.openai.com/docs/api-reference/files) IDs made available to the `code_interpreter`` tool. There can be a maximum of 20 files associated with the tool.
+
+                    '
+                  default: []
+                  maxItems: 20
+                  items:
+                    type: string
+            file_search:
+              type: object
+              properties:
+                vector_store_ids:
+                  type: array
+                  description: 'The ID of the [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object) attached to this assistant. There can be a maximum of 1 vector store attached to the assistant.
+
+                    '
+                  maxItems: 1
+                  items:
+                    type: string
+        metadata:
+          description: 'Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format. Keys can be a maximum of 64 characters long and values can be a maxium of 512 characters long.
+
+            '
+          type:
+          - object
+          - 'null'
+          x-oaiTypeLabel: map
+        temperature:
+          description: 'What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+
+            '
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 2
+          default: 1
+          example: 1
+        top_p:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 1
+          default: 1
+          example: 1
+          description: 'An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
+
+
+            We generally recommend altering this or temperature but not both.
+
+            '
+        response_format:
+          $ref: '#/components/schemas/AssistantsApiResponseFormatOption'
+      required:
+      - id
+      - object
+      - created_at
+      - name
+      - description
+      - model
+      - instructions
+      - tools
+      - metadata
+      x-code-samples:
+        name: The assistant object
+        beta: true
+        example: "{\n  \"id\": \"asst_abc123\",\n  \"object\": \"assistant\",\n  \"created_at\": 1698984975,\n  \"name\": \"Math Tutor\",\n  \"description\": null,\n  \"model\": \"gpt-4-turbo\",\n  \"instructions\": \"You are a personal math tutor. When asked a question, write and run Python code to answer the question.\",\n  \"tools\": [\n    {\n      \"type\": \"code_interpreter\"\n    }\n  ],\n  \"metadata\": {},\n  \"top_p\": 1.0,\n  \"temperature\": 1.0,\n  \"response_format\": \"auto\"\n}\n"
+    RunStepDetailsToolCallsCodeOutputLogsObject:
+      title: Code Interpreter log output
+      type: object
+      description: Text output from the Code Interpreter tool call as part of a run step.
+      properties:
+        type:
+          description: Always `logs`.
+          type: string
+          enum:
+          - logs
+        logs:
+          type: string
+          description: The text output from the Code Interpreter tool call.
+      required:
+      - type
+      - logs
+    ParallelToolCalls:
+      description: Whether to enable [parallel function calling](https://platform.openai.com/docs/guides/function-calling/parallel-function-calling) during tool use.
+      type: boolean
+      default: true
+    AssistantsApiToolChoiceOption:
+      description: 'Controls which (if any) tool is called by the model.
+
+        `none` means the model will not call any tools and instead generates a message.
+
+        `auto` is the default value and means the model can pick between generating a message or calling one or more tools.
+
+        `required` means the model must call one or more tools before responding to the user.
+
+        Specifying a particular tool like `{"type": "file_search"}` or `{"type": "function", "function": {"name": "my_function"}}` forces the model to call that tool.
+
+        '
+      oneOf:
+      - type: string
+        description: '`none` means the model will not call any tools and instead generates a message. `auto` means the model can pick between generating a message or calling one or more tools. `required` means the model must call one or more tools before responding to the user.
+
+          '
+        enum:
+        - none
+        - auto
+        - required
+      - $ref: '#/components/schemas/AssistantsNamedToolChoice'
+      x-oaiExpandable: true
+    RunToolCallObject:
+      type: object
+      description: Tool call objects
       properties:
         id:
           type: string
-          description: The ID of the tool call object.
+          description: The ID of the tool call. This ID must be referenced when you submit the tool outputs in using the [Submit tool outputs to run](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) endpoint.
         type:
           type: string
-          description: The type of tool call. This is always going to be `function` for this type of tool call.
+          description: The type of tool call the output is required for. For now, this is always `function`.
           enum:
           - function
         function:
           type: object
-          description: The definition of the function that was called.
+          description: The function definition.
           properties:
             name:
               type: string
               description: The name of the function.
             arguments:
               type: string
-              description: The arguments passed to the function.
-            output:
-              type:
-              - string
-              - 'null'
-              description: The output of the function. This will be `null` if the outputs have not been [submitted](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) yet.
+              description: The arguments that the model expects you to pass to the function.
           required:
           - name
           - arguments
-          - output
       required:
       - id
       - type
       - function
-    AssistantsApiResponseFormatOption:
-      description: 'Specifies the format that the model must output. Compatible with [GPT-4o](https://platform.openai.com/docs/models/gpt-4o), [GPT-4 Turbo](https://platform.openai.com/docs/models/gpt-4-turbo-and-gpt-4), and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
-
-
-        Setting to `{ "type": "json_object" }` enables JSON mode, which guarantees the message the model generates is valid JSON.
-
-
-        **Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly "stuck" request. Also note that the message content may be partially cut off if `finish_reason="length"`, which indicates the generation exceeded `max_tokens` or the conversation exceeded the max context length.
-
-        '
-      oneOf:
-      - type: string
-        description: '`auto` is the default value
-
-          '
-        enum:
-        - none
-        - auto
-      - $ref: '#/components/schemas/AssistantsApiResponseFormat'
-      x-oaiExpandable: true
+    AssistantsNamedToolChoice:
+      type: object
+      description: Specifies a tool the model should use. Use to force the model to call a specific tool.
+      properties:
+        type:
+          type: string
+          enum:
+          - function
+          - code_interpreter
+          - file_search
+          description: The type of the tool. If type is `function`, the function name must be set
+        function:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the function to call.
+          required:
+          - name
+      required:
+      - type
   securitySchemes:
     Portkey-Key:
       type: apiKey

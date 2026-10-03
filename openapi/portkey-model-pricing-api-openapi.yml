@@ -196,18 +196,6 @@ paths:
                     example: Model not found
 components:
   schemas:
-    ModelTokenPrice:
-      type: object
-      description: Price object (value is in USD cents)
-      properties:
-        price:
-          type: number
-          description: 'Price in USD cents per token/unit.
-
-
-            Example: `0.003` = 0.003 cents/token = $0.03 per 1K tokens
-
-            '
     ModelImagePricing:
       type: object
       description: Image generation pricing by quality and size
@@ -226,31 +214,14 @@ components:
             price: 8
           1024x1792:
             price: 12
-    ModelCalculateOperation:
+    ModelCalculateConfig:
       type: object
-      description: Mathematical operation for cost calculation
+      description: Cost calculation formulas
       properties:
-        operation:
-          type: string
-          enum:
-          - sum
-          - multiply
-          description: Operation type
-        operands:
-          type: array
-          description: Operands for the operation
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/ModelCalculateOperation'
-            - $ref: '#/components/schemas/ModelValueReference'
-    ModelFinetuneConfig:
-      type: object
-      description: Fine-tuning pricing configuration
-      properties:
-        pay_per_token:
-          $ref: '#/components/schemas/ModelTokenPrice'
-        pay_per_hour:
-          $ref: '#/components/schemas/ModelTokenPrice'
+        request:
+          $ref: '#/components/schemas/ModelCalculateOperation'
+        response:
+          $ref: '#/components/schemas/ModelCalculateOperation'
     ModelPayAsYouGo:
       type: object
       description: Token-based pricing (all prices in USD cents)
@@ -291,6 +262,18 @@ components:
             $ref: '#/components/schemas/ModelTokenPrice'
         image:
           $ref: '#/components/schemas/ModelImagePricing'
+    ModelTokenPrice:
+      type: object
+      description: Price object (value is in USD cents)
+      properties:
+        price:
+          type: number
+          description: 'Price in USD cents per token/unit.
+
+
+            Example: `0.003` = 0.003 cents/token = $0.03 per 1K tokens
+
+            '
     ModelValueReference:
       type: object
       properties:
@@ -310,14 +293,23 @@ components:
             - `rates.response_token`: Response token rate
 
             '
-    ModelCalculateConfig:
+    ModelCalculateOperation:
       type: object
-      description: Cost calculation formulas
+      description: Mathematical operation for cost calculation
       properties:
-        request:
-          $ref: '#/components/schemas/ModelCalculateOperation'
-        response:
-          $ref: '#/components/schemas/ModelCalculateOperation'
+        operation:
+          type: string
+          enum:
+          - sum
+          - multiply
+          description: Operation type
+        operands:
+          type: array
+          description: Operands for the operation
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ModelCalculateOperation'
+            - $ref: '#/components/schemas/ModelValueReference'
     ModelPricingConfig:
       type: object
       description: Complete pricing configuration for a model
@@ -333,6 +325,14 @@ components:
           description: Currency code (always USD)
         finetune_config:
           $ref: '#/components/schemas/ModelFinetuneConfig'
+    ModelFinetuneConfig:
+      type: object
+      description: Fine-tuning pricing configuration
+      properties:
+        pay_per_token:
+          $ref: '#/components/schemas/ModelTokenPrice'
+        pay_per_hour:
+          $ref: '#/components/schemas/ModelTokenPrice'
   securitySchemes:
     Portkey-Key:
       type: apiKey

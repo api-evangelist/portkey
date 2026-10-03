@@ -346,6 +346,87 @@ paths:
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY',\n  baseUrl: 'SELF_HOSTED_GATEWAY_URL'\n});\n\nasync function main() {\n  const checkpointsList = await client.fineTuning.jobs.checkpoints.list(\"<ft-job-id>\")\n  console.log(checkpointsList)\n}\n\nmain();\n"
 components:
   schemas:
+    FineTuningJobCheckpoint:
+      type: object
+      title: FineTuningJobCheckpoint
+      description: 'The `fine_tuning.job.checkpoint` object represents a model checkpoint for a fine-tuning job that is ready to use.
+
+        '
+      properties:
+        id:
+          type: string
+          description: The checkpoint identifier, which can be referenced in the API endpoints.
+        created_at:
+          type: integer
+          description: The Unix timestamp (in seconds) for when the checkpoint was created.
+        fine_tuned_model_checkpoint:
+          type: string
+          description: The name of the fine-tuned checkpoint model that is created.
+        step_number:
+          type: integer
+          description: The step number that the checkpoint was created at.
+        metrics:
+          type: object
+          description: Metrics at the step number during the fine-tuning job.
+          properties:
+            step:
+              type: number
+            train_loss:
+              type: number
+            train_mean_token_accuracy:
+              type: number
+            valid_loss:
+              type: number
+            valid_mean_token_accuracy:
+              type: number
+            full_valid_loss:
+              type: number
+            full_valid_mean_token_accuracy:
+              type: number
+        fine_tuning_job_id:
+          type: string
+          description: The name of the fine-tuning job that this checkpoint was created from.
+        object:
+          type: string
+          description: The object type, which is always "fine_tuning.job.checkpoint".
+          enum:
+          - fine_tuning.job.checkpoint
+      required:
+      - created_at
+      - fine_tuning_job_id
+      - fine_tuned_model_checkpoint
+      - id
+      - metrics
+      - object
+      - step_number
+      x-code-samples:
+        name: The fine-tuning job checkpoint object
+        example: "{\n  \"object\": \"fine_tuning.job.checkpoint\",\n  \"id\": \"ftckpt_qtZ5Gyk4BLq1SfLFWp3RtO3P\",\n  \"created_at\": 1712211699,\n  \"fine_tuned_model_checkpoint\": \"ft:gpt-3.5-turbo-0125:my-org:custom_suffix:9ABel2dg:ckpt-step-88\",\n  \"fine_tuning_job_id\": \"ftjob-fpbNQ3H1GrMehXRf8cO97xTN\",\n  \"metrics\": {\n    \"step\": 88,\n    \"train_loss\": 0.478,\n    \"train_mean_token_accuracy\": 0.924,\n    \"valid_loss\": 10.112,\n    \"valid_mean_token_accuracy\": 0.145,\n    \"full_valid_loss\": 0.567,\n    \"full_valid_mean_token_accuracy\": 0.944\n  },\n  \"step_number\": 88\n}\n"
+    ListFineTuningJobCheckpointsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FineTuningJobCheckpoint'
+        object:
+          type: string
+          enum:
+          - list
+        first_id:
+          type:
+          - string
+          - 'null'
+        last_id:
+          type:
+          - string
+          - 'null'
+        has_more:
+          type: boolean
+      required:
+      - object
+      - data
+      - has_more
     FineTuningJob:
       type: object
       title: FineTuningJob
@@ -482,101 +563,23 @@ components:
       - training_file
       - validation_file
       - seed
-    ListFineTuningJobEventsResponse:
+    ListPaginatedFineTuningJobsResponse:
       type: object
       properties:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/FineTuningJobEvent'
-        object:
-          type: string
-          enum:
-          - list
-      required:
-      - object
-      - data
-    ListFineTuningJobCheckpointsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FineTuningJobCheckpoint'
-        object:
-          type: string
-          enum:
-          - list
-        first_id:
-          type:
-          - string
-          - 'null'
-        last_id:
-          type:
-          - string
-          - 'null'
+            $ref: '#/components/schemas/FineTuningJob'
         has_more:
           type: boolean
+        object:
+          type: string
+          enum:
+          - list
       required:
       - object
       - data
       - has_more
-    FineTuningJobCheckpoint:
-      type: object
-      title: FineTuningJobCheckpoint
-      description: 'The `fine_tuning.job.checkpoint` object represents a model checkpoint for a fine-tuning job that is ready to use.
-
-        '
-      properties:
-        id:
-          type: string
-          description: The checkpoint identifier, which can be referenced in the API endpoints.
-        created_at:
-          type: integer
-          description: The Unix timestamp (in seconds) for when the checkpoint was created.
-        fine_tuned_model_checkpoint:
-          type: string
-          description: The name of the fine-tuned checkpoint model that is created.
-        step_number:
-          type: integer
-          description: The step number that the checkpoint was created at.
-        metrics:
-          type: object
-          description: Metrics at the step number during the fine-tuning job.
-          properties:
-            step:
-              type: number
-            train_loss:
-              type: number
-            train_mean_token_accuracy:
-              type: number
-            valid_loss:
-              type: number
-            valid_mean_token_accuracy:
-              type: number
-            full_valid_loss:
-              type: number
-            full_valid_mean_token_accuracy:
-              type: number
-        fine_tuning_job_id:
-          type: string
-          description: The name of the fine-tuning job that this checkpoint was created from.
-        object:
-          type: string
-          description: The object type, which is always "fine_tuning.job.checkpoint".
-          enum:
-          - fine_tuning.job.checkpoint
-      required:
-      - created_at
-      - fine_tuning_job_id
-      - fine_tuned_model_checkpoint
-      - id
-      - metrics
-      - object
-      - step_number
-      x-code-samples:
-        name: The fine-tuning job checkpoint object
-        example: "{\n  \"object\": \"fine_tuning.job.checkpoint\",\n  \"id\": \"ftckpt_qtZ5Gyk4BLq1SfLFWp3RtO3P\",\n  \"created_at\": 1712211699,\n  \"fine_tuned_model_checkpoint\": \"ft:gpt-3.5-turbo-0125:my-org:custom_suffix:9ABel2dg:ckpt-step-88\",\n  \"fine_tuning_job_id\": \"ftjob-fpbNQ3H1GrMehXRf8cO97xTN\",\n  \"metrics\": {\n    \"step\": 88,\n    \"train_loss\": 0.478,\n    \"train_mean_token_accuracy\": 0.924,\n    \"valid_loss\": 10.112,\n    \"valid_mean_token_accuracy\": 0.145,\n    \"full_valid_loss\": 0.567,\n    \"full_valid_mean_token_accuracy\": 0.944\n  },\n  \"step_number\": 88\n}\n"
     FineTuningJobEvent:
       type: object
       description: Fine-tuning job event object
@@ -606,23 +609,6 @@ components:
       x-code-samples:
         name: The fine-tuning job event object
         example: "{\n  \"object\": \"fine_tuning.job.event\",\n  \"id\": \"ftevent-abc123\"\n  \"created_at\": 1677610602,\n  \"level\": \"info\",\n  \"message\": \"Created fine-tuning job\"\n}\n"
-    ListPaginatedFineTuningJobsResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/FineTuningJob'
-        has_more:
-          type: boolean
-        object:
-          type: string
-          enum:
-          - list
-      required:
-      - object
-      - data
-      - has_more
     FineTuningIntegration:
       type: object
       title: Fine-Tuning Job Integration
@@ -679,6 +665,20 @@ components:
               items:
                 type: string
                 example: custom-tag
+    ListFineTuningJobEventsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FineTuningJobEvent'
+        object:
+          type: string
+          enum:
+          - list
+      required:
+      - object
+      - data
   securitySchemes:
     Portkey-Key:
       type: apiKey

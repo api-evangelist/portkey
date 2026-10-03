@@ -312,34 +312,6 @@ paths:
           description: Server error
 components:
   schemas:
-    PromptPartialSummary:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        slug:
-          type: string
-        name:
-          type: string
-        collection_id:
-          type: string
-          format: uuid
-        created_at:
-          type: string
-          format: date-time
-        last_updated_at:
-          type: string
-          format: date-time
-        status:
-          type: string
-          enum:
-          - active
-          - archived
-        object:
-          type: string
-          enum:
-          - partial
     PromptPartial:
       type: object
       properties:
@@ -393,6 +365,34 @@ components:
           type: string
           format: date-time
         prompt_version_status:
+          type: string
+          enum:
+          - active
+          - archived
+        object:
+          type: string
+          enum:
+          - partial
+    PromptPartialSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
+        name:
+          type: string
+        collection_id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        last_updated_at:
+          type: string
+          format: date-time
+        status:
           type: string
           enum:
           - active

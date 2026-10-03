@@ -149,11 +149,15 @@ paths:
           '
 components:
   schemas:
-    FeedbackUpdateRequest:
+    FeedbackRequest:
       type: object
       required:
+      - trace_id
       - value
       properties:
+        trace_id:
+          type: string
+          description: Unique identifier for the request trace.
         value:
           type: integer
           description: Feedback value, an integer between -10 and 10.
@@ -170,15 +174,11 @@ components:
           type: object
           additionalProperties: true
           description: Additional metadata for the feedback.
-    FeedbackRequest:
+    FeedbackUpdateRequest:
       type: object
       required:
-      - trace_id
       - value
       properties:
-        trace_id:
-          type: string
-          description: Unique identifier for the request trace.
         value:
           type: integer
           description: Feedback value, an integer between -10 and 10.

@@ -359,39 +359,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UpdateExportResponse:
+    DownloadLogsResponse:
       type: object
       properties:
-        id:
+        signed_url:
           type: string
-          format: uuid
-          description: The unique identifier of the updated export
-        total:
-          type: integer
-          description: The total number of items in the export
-        object:
-          type: string
-          enum:
-          - export
-          description: The type of the object
+          format: uri
+          description: A pre-signed URL for downloading the exported logs
       required:
-      - id
-      - total
-      - object
-    ExportTaskResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message indicating the status of the export task
-        object:
-          type: string
-          enum:
-          - export
-          description: The type of the object
-      required:
-      - message
-      - object
+      - signed_url
     LogExportsRequestedData:
       type: array
       items:
@@ -417,6 +393,70 @@ components:
         - config
         - prompt_slug
         - metadata
+    ExportListResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExportItem'
+    ExportItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        organisation_id:
+          type: string
+          format: uuid
+        filters:
+          $ref: '#/components/schemas/GenerationsFilterSchema'
+        requested_data:
+          $ref: '#/components/schemas/LogExportsRequestedData'
+        status:
+          type: string
+          enum:
+          - draft
+          - in_progress
+          - success
+          - failed
+          - stopped
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        last_updated_at:
+          type: string
+          format: date-time
+        created_by:
+          type: string
+          format: uuid
+        workspace_id:
+          type: string
+          format: uuid
+        object:
+          type: string
+          enum:
+          - export
+      required:
+      - id
+      - organisation_id
+      - filters
+      - requested_data
+      - status
+      - description
+      - created_at
+      - last_updated_at
+      - created_by
+      - workspace_id
+      - object
     GenerationsFilterSchema:
       type: object
       properties:
@@ -473,79 +513,39 @@ components:
         current_page:
           type: number
           example: 0
-    DownloadLogsResponse:
+    ExportTaskResponse:
       type: object
       properties:
-        signed_url:
+        message:
           type: string
-          format: uri
-          description: A pre-signed URL for downloading the exported logs
+          description: A message indicating the status of the export task
+        object:
+          type: string
+          enum:
+          - export
+          description: The type of the object
       required:
-      - signed_url
-    ExportItem:
+      - message
+      - object
+    UpdateExportResponse:
       type: object
       properties:
         id:
           type: string
           format: uuid
-        organisation_id:
-          type: string
-          format: uuid
-        filters:
-          $ref: '#/components/schemas/GenerationsFilterSchema'
-        requested_data:
-          $ref: '#/components/schemas/LogExportsRequestedData'
-        status:
-          type: string
-          enum:
-          - draft
-          - in_progress
-          - success
-          - failed
-          - stopped
-        description:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        last_updated_at:
-          type: string
-          format: date-time
-        created_by:
-          type: string
-          format: uuid
-        workspace_id:
-          type: string
-          format: uuid
+          description: The unique identifier of the updated export
+        total:
+          type: integer
+          description: The total number of items in the export
         object:
           type: string
           enum:
           - export
+          description: The type of the object
       required:
       - id
-      - organisation_id
-      - filters
-      - requested_data
-      - status
-      - description
-      - created_at
-      - last_updated_at
-      - created_by
-      - workspace_id
+      - total
       - object
-    ExportListResponse:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExportItem'
   securitySchemes:
     Portkey-Key:
       type: apiKey

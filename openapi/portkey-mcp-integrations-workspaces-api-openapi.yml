@@ -72,17 +72,6 @@ paths:
                 type: object
 components:
   schemas:
-    McpIntegrationWorkspacesLegacyResponse:
-      type: object
-      properties:
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
-        global_workspace_access:
-          type:
-          - object
-          - 'null'
     McpIntegrationWorkspaceItem:
       type: object
       properties:
@@ -141,6 +130,17 @@ components:
         override_existing_workspace_access:
           type: boolean
           default: false
+    McpIntegrationWorkspacesLegacyResponse:
+      type: object
+      properties:
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpIntegrationWorkspaceItem'
+        global_workspace_access:
+          type:
+          - object
+          - 'null'
   securitySchemes:
     Portkey-Key:
       type: apiKey

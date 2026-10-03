@@ -317,6 +317,37 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    InviteList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invite'
+    SuccessInvite:
+      type: object
+      required:
+      - id
+      - invite_link
+      properties:
+        id:
+          type: string
+        invite_link:
+          type: string
+      example:
+        id: a286286b-633d-4c4f-bddb-86b84a50a25c
+        invite_link: https://app.portkey.ai/invite_id
+    InviteRole:
+      type: string
+      enum:
+      - admin
+      - member
     WorkspaceInvite:
       type: object
       required:
@@ -328,12 +359,6 @@ components:
           description: Workspace Slug
         role:
           $ref: '#/components/schemas/WorkspaceInviteRole'
-    WorkspaceInviteRole:
-      type: string
-      enum:
-      - admin
-      - member
-      - manager
     Invite:
       type: object
       properties:
@@ -370,11 +395,12 @@ components:
         invited_by:
           type: string
           format: uuid
-    InviteRole:
+    WorkspaceInviteRole:
       type: string
       enum:
       - admin
       - member
+      - manager
     CreateInvite:
       type: object
       required:
@@ -405,32 +431,6 @@ components:
         workspaces:
         - id: ws-slug
           role: member
-    InviteList:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invite'
-    SuccessInvite:
-      type: object
-      required:
-      - id
-      - invite_link
-      properties:
-        id:
-          type: string
-        invite_link:
-          type: string
-      example:
-        id: a286286b-633d-4c4f-bddb-86b84a50a25c
-        invite_link: https://app.portkey.ai/invite_id
   securitySchemes:
     Portkey-Key:
       type: apiKey

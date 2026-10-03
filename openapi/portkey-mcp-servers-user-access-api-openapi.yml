@@ -88,6 +88,22 @@ components:
         success:
           type: boolean
           example: true
+    McpServerUserAccessListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerUserAccessItem'
+        default_user_access:
+          type: string
+          enum:
+          - allow
+          - deny
+        total:
+          type: integer
+        has_more:
+          type: boolean
     BulkUpdateMcpServerUserAccess:
       type: object
       properties:
@@ -133,22 +149,6 @@ components:
           enum:
           - connected
           - not_connected
-    McpServerUserAccessListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpServerUserAccessItem'
-        default_user_access:
-          type: string
-          enum:
-          - allow
-          - deny
-        total:
-          type: integer
-        has_more:
-          type: boolean
   securitySchemes:
     Portkey-Key:
       type: apiKey

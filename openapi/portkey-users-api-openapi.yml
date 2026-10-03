@@ -264,6 +264,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    UserList:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 2
+        object:
+          type: string
+          enum:
+          - list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
     User:
       type: object
       properties:
@@ -297,20 +311,6 @@ components:
           type: array
           items:
             type: string
-    UserList:
-      type: object
-      properties:
-        total:
-          type: integer
-          example: 2
-        object:
-          type: string
-          enum:
-          - list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
   securitySchemes:
     Portkey-Key:
       type: apiKey

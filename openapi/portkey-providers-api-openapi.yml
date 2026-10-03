@@ -355,22 +355,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    RateLimits:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - requests
-          - tokens
-        unit:
-          type: string
-          enum:
-          - rpd
-          - rph
-          - rpm
-        value:
-          type: integer
     UsageLimits:
       type: object
       properties:
@@ -418,6 +402,22 @@ components:
         credit_limit: 10
         periodic_reset: monthly
         alert_threshold: 8
+    RateLimits:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - requests
+          - tokens
+        unit:
+          type: string
+          enum:
+          - rpd
+          - rph
+          - rpm
+        value:
+          type: integer
     Providers:
       type: object
       properties:

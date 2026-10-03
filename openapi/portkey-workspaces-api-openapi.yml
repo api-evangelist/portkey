@@ -617,6 +617,81 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    UsageLimits:
+      type: object
+      properties:
+        credit_limit:
+          type: integer
+          description: Credit Limit. Used for tracking usage
+          minimum: 1
+          default: null
+        type:
+          type: string
+          description: Type of credit limit
+          enum:
+          - cost
+          - tokens
+        alert_threshold:
+          type: integer
+          description: Alert Threshold. Used for alerting when usage reaches more than this
+          minimum: 1
+          default: null
+        periodic_reset:
+          type:
+          - string
+          - 'null'
+          description: Reset the usage periodically.
+          enum:
+          - monthly
+          - weekly
+          example: monthly
+        periodic_reset_days:
+          type:
+          - integer
+          - 'null'
+          description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
+          minimum: 1
+          maximum: 365
+          example: 30
+        next_usage_reset_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
+          example: '2026-05-01T00:00:00Z'
+      example:
+        credit_limit: 10
+        periodic_reset: monthly
+        alert_threshold: 8
+    ScimWorkspaceMapping:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID of the mapping
+        workspace_id:
+          type: string
+          description: ID of the mapped workspace
+        scim_group:
+          type: string
+          description: Display name of the SCIM group
+        role:
+          type: string
+          enum:
+          - admin
+          - member
+          - manager
+          description: Role assigned to group members
+        scim_group_id:
+          type: string
+          description: ID of the SCIM group
+      example:
+        id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        workspace_id: ws-12345
+        scim_group: Engineering Team
+        role: member
+        scim_group_id: d290f1ee-6c54-4b01-90e6-d701748f0851
     RateLimits:
       type: object
       properties:
@@ -633,6 +708,135 @@ components:
           - rpm
         value:
           type: integer
+    WorkspaceList:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 2
+        object:
+          type: string
+          enum:
+          - list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
+    WorkspaceWithUsers:
+      type: object
+      properties:
+        id:
+          type: string
+          example: ws-test-a-174eb1
+        slug:
+          type: string
+          example: ws-test-a-174eb1
+        name:
+          type: string
+          example: New Workspace
+        description:
+          type:
+          - string
+          - 'null'
+          example: null
+        created_at:
+          type: string
+          format: date-time
+          example: 2024-07-30 13:27:29+00:00
+        last_updated_at:
+          type: string
+          format: date-time
+          example: 2024-07-30 13:27:29+00:00
+        defaults:
+          type:
+          - object
+          - 'null'
+          properties:
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+              example:
+                foo: bar
+            is_default:
+              type: integer
+              example: 0
+            input_guardrails:
+              type: array
+              items:
+                type: string
+            output_guardrails:
+              type: array
+              items:
+                type: string
+            object:
+              type: string
+              enum:
+              - workspace
+        users:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/WorkspaceMember'
+        usage_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageLimits'
+        rate_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimits'
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          example: ws-test-a-174eb1
+        slug:
+          type: string
+          example: ws-test-a-174eb1
+        name:
+          type: string
+          example: New Workspace
+        description:
+          type:
+          - string
+          - 'null'
+          example: null
+        created_at:
+          type: string
+          format: date-time
+          example: 2024-07-30 13:27:29+00:00
+        last_updated_at:
+          type: string
+          format: date-time
+          example: 2024-07-30 13:27:29+00:00
+        defaults:
+          type:
+          - object
+          - 'null'
+          properties:
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+              example:
+                foo: bar
+            is_default:
+              type: integer
+              example: 0
+            object:
+              type: string
+              enum:
+              - workspace
+        usage_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/UsageLimits'
+        rate_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimits'
     WorkspaceMember:
       type: object
       properties:
@@ -714,210 +918,6 @@ components:
           - object
           - 'null'
           example: null
-    Workspace:
-      type: object
-      properties:
-        id:
-          type: string
-          example: ws-test-a-174eb1
-        slug:
-          type: string
-          example: ws-test-a-174eb1
-        name:
-          type: string
-          example: New Workspace
-        description:
-          type:
-          - string
-          - 'null'
-          example: null
-        created_at:
-          type: string
-          format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        last_updated_at:
-          type: string
-          format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        defaults:
-          type:
-          - object
-          - 'null'
-          properties:
-            metadata:
-              type: object
-              additionalProperties:
-                type: string
-              example:
-                foo: bar
-            is_default:
-              type: integer
-              example: 0
-            object:
-              type: string
-              enum:
-              - workspace
-        usage_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageLimits'
-        rate_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimits'
-    WorkspaceList:
-      type: object
-      properties:
-        total:
-          type: integer
-          example: 2
-        object:
-          type: string
-          enum:
-          - list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Workspace'
-    WorkspaceWithUsers:
-      type: object
-      properties:
-        id:
-          type: string
-          example: ws-test-a-174eb1
-        slug:
-          type: string
-          example: ws-test-a-174eb1
-        name:
-          type: string
-          example: New Workspace
-        description:
-          type:
-          - string
-          - 'null'
-          example: null
-        created_at:
-          type: string
-          format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        last_updated_at:
-          type: string
-          format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        defaults:
-          type:
-          - object
-          - 'null'
-          properties:
-            metadata:
-              type: object
-              additionalProperties:
-                type: string
-              example:
-                foo: bar
-            is_default:
-              type: integer
-              example: 0
-            input_guardrails:
-              type: array
-              items:
-                type: string
-            output_guardrails:
-              type: array
-              items:
-                type: string
-            object:
-              type: string
-              enum:
-              - workspace
-        users:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/WorkspaceMember'
-        usage_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageLimits'
-        rate_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimits'
-    ScimWorkspaceMapping:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID of the mapping
-        workspace_id:
-          type: string
-          description: ID of the mapped workspace
-        scim_group:
-          type: string
-          description: Display name of the SCIM group
-        role:
-          type: string
-          enum:
-          - admin
-          - member
-          - manager
-          description: Role assigned to group members
-        scim_group_id:
-          type: string
-          description: ID of the SCIM group
-      example:
-        id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        workspace_id: ws-12345
-        scim_group: Engineering Team
-        role: member
-        scim_group_id: d290f1ee-6c54-4b01-90e6-d701748f0851
-    UsageLimits:
-      type: object
-      properties:
-        credit_limit:
-          type: integer
-          description: Credit Limit. Used for tracking usage
-          minimum: 1
-          default: null
-        type:
-          type: string
-          description: Type of credit limit
-          enum:
-          - cost
-          - tokens
-        alert_threshold:
-          type: integer
-          description: Alert Threshold. Used for alerting when usage reaches more than this
-          minimum: 1
-          default: null
-        periodic_reset:
-          type:
-          - string
-          - 'null'
-          description: Reset the usage periodically.
-          enum:
-          - monthly
-          - weekly
-          example: monthly
-        periodic_reset_days:
-          type:
-          - integer
-          - 'null'
-          description: Reset the usage counter every N days (1-365). Mutually exclusive with periodic_reset.
-          minimum: 1
-          maximum: 365
-          example: 30
-        next_usage_reset_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: ISO 8601 datetime for the next scheduled usage reset. Auto-computed from periodic_reset or periodic_reset_days if not provided.
-          example: '2026-05-01T00:00:00Z'
-      example:
-        credit_limit: 10
-        periodic_reset: monthly
-        alert_threshold: 8
   securitySchemes:
     Portkey-Key:
       type: apiKey

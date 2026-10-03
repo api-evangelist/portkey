@@ -194,19 +194,6 @@ paths:
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY'\n});\n\nasync function main() {\n  const model = await client.models.del(\"ft:gpt-3.5-turbo:acemeco:suffix:abc123\");\n\n  console.log(model);\n}\nmain();\n"
 components:
   schemas:
-    DeleteModelResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        deleted:
-          type: boolean
-        object:
-          type: string
-      required:
-      - id
-      - object
-      - deleted
     Model:
       title: Model
       description: Describes an OpenAI model offering that can be used with the API.
@@ -244,6 +231,19 @@ components:
       required:
       - object
       - data
+    DeleteModelResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+        object:
+          type: string
+      required:
+      - id
+      - object
+      - deleted
   securitySchemes:
     Portkey-Key:
       type: apiKey

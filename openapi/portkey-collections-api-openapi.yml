@@ -251,6 +251,35 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ChildCollection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        last_updated_at:
+          type: string
+          format: date-time
+        collection_details:
+          $ref: '#/components/schemas/CollectionDetails'
+    CollectionWithDetails:
+      allOf:
+      - $ref: '#/components/schemas/Collection'
+      - type: object
+        properties:
+          collection_details:
+            $ref: '#/components/schemas/CollectionDetails'
+    CollectionWithChildCollections:
+      allOf:
+      - $ref: '#/components/schemas/Collection'
+      - type: object
+        properties:
+          child_collections:
+            type: array
+            items:
+              $ref: '#/components/schemas/ChildCollection'
     CollectionDetails:
       type: object
       properties:
@@ -268,15 +297,6 @@ components:
           - string
           - 'null'
           format: date-time
-    CollectionWithChildCollections:
-      allOf:
-      - $ref: '#/components/schemas/Collection'
-      - type: object
-        properties:
-          child_collections:
-            type: array
-            items:
-              $ref: '#/components/schemas/ChildCollection'
     Collection:
       type: object
       properties:
@@ -308,26 +328,6 @@ components:
         last_updated_at:
           type: string
           format: date-time
-    ChildCollection:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        last_updated_at:
-          type: string
-          format: date-time
-        collection_details:
-          $ref: '#/components/schemas/CollectionDetails'
-    CollectionWithDetails:
-      allOf:
-      - $ref: '#/components/schemas/Collection'
-      - type: object
-        properties:
-          collection_details:
-            $ref: '#/components/schemas/CollectionDetails'
   securitySchemes:
     Portkey-Key:
       type: apiKey

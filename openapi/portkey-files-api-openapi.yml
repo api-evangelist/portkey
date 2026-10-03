@@ -260,35 +260,6 @@ components:
       required:
       - file
       - purpose
-    ListFilesResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenAIFile'
-        object:
-          type: string
-          enum:
-          - list
-      required:
-      - object
-      - data
-    DeleteFileResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-          enum:
-          - file
-        deleted:
-          type: boolean
-      required:
-      - id
-      - object
-      - deleted
     OpenAIFile:
       title: OpenAIFile
       description: The `File` object represents a document that has been uploaded to OpenAI.
@@ -344,6 +315,35 @@ components:
       x-code-samples:
         name: The file object
         example: "{\n  \"id\": \"file-abc123\",\n  \"object\": \"file\",\n  \"bytes\": 120000,\n  \"created_at\": 1677610602,\n  \"filename\": \"salesOverview.pdf\",\n  \"purpose\": \"assistants\",\n}\n"
+    ListFilesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenAIFile'
+        object:
+          type: string
+          enum:
+          - list
+      required:
+      - object
+      - data
+    DeleteFileResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          enum:
+          - file
+        deleted:
+          type: boolean
+      required:
+      - id
+      - object
+      - deleted
   securitySchemes:
     Portkey-Key:
       type: apiKey

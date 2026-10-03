@@ -331,87 +331,6 @@ components:
           format: int64
           description: Upstream provider response time in milliseconds
           example: 1200
-    LogObject:
-      type: object
-      required:
-      - _id
-      - request
-      - response
-      - organisation_id
-      - created_at
-      properties:
-        _id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: Unique identifier for the log entry
-          example: 550e8400-e29b-41d4-a716-446655440000
-        request:
-          $ref: '#/components/schemas/LogRequest'
-        response:
-          $ref: '#/components/schemas/LogResponse'
-        organisation_id:
-          type:
-          - string
-          - 'null'
-          description: Organization identifier
-          example: org-123
-        created_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: Timestamp when the log was created
-          example: '2024-01-15T10:30:00.000Z'
-        metrics:
-          $ref: '#/components/schemas/AnalyticsMetrics'
-          description: Analytics metrics object containing detailed metrics about the request
-        finalUntransformedRequest:
-          $ref: '#/components/schemas/RequestResponseObject'
-          description: The original request before any transformations (only present when debug logging is enabled)
-        originalResponse:
-          $ref: '#/components/schemas/RequestResponseObject'
-          description: The original response from the provider (only present when debug logging is enabled or request failed)
-        transformedRequest:
-          $ref: '#/components/schemas/RequestResponseObject'
-          description: The request after transformations (only present when debug logging is enabled)
-    LogResponse:
-      type: object
-      required:
-      - status
-      - responseTime
-      - lastUsedOptionJsonPath
-      properties:
-        status:
-          type: integer
-          format: int32
-          description: HTTP response status code
-          example: 200
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: Response headers (only present when debug logging is enabled or request failed)
-          example:
-            Content-Type: application/json
-        body:
-          type: object
-          additionalProperties: true
-          description: Response body (only present when debug logging is enabled or request failed). May be redacted for certain embedding models.
-          example:
-            id: chatcmpl-123
-            object: chat.completion
-            created: 1677652288
-        responseTime:
-          type: integer
-          format: int64
-          description: Response time in milliseconds
-          example: 1234
-        lastUsedOptionJsonPath:
-          type: string
-          description: JSON path to the last used option in the config
-          example: $.config.options[0]
     CustomLog:
       type: object
       properties:
@@ -460,25 +379,6 @@ components:
       required:
       - request
       - response
-    RequestResponseObject:
-      type: object
-      properties:
-        body:
-          type: object
-          additionalProperties: true
-          description: The body content
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: Headers if present
-        url:
-          type: string
-          format: uri
-          description: URL if present
-        method:
-          type: string
-          description: HTTP method if present
     LogRequest:
       type: object
       required:
@@ -524,6 +424,106 @@ components:
             x-portkey-trace-id: trace-123
             x-portkey-span-id: span-456
             x-portkey-metadata: '{"key":"value"}'
+    RequestResponseObject:
+      type: object
+      properties:
+        body:
+          type: object
+          additionalProperties: true
+          description: The body content
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Headers if present
+        url:
+          type: string
+          format: uri
+          description: URL if present
+        method:
+          type: string
+          description: HTTP method if present
+    LogResponse:
+      type: object
+      required:
+      - status
+      - responseTime
+      - lastUsedOptionJsonPath
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: HTTP response status code
+          example: 200
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: Response headers (only present when debug logging is enabled or request failed)
+          example:
+            Content-Type: application/json
+        body:
+          type: object
+          additionalProperties: true
+          description: Response body (only present when debug logging is enabled or request failed). May be redacted for certain embedding models.
+          example:
+            id: chatcmpl-123
+            object: chat.completion
+            created: 1677652288
+        responseTime:
+          type: integer
+          format: int64
+          description: Response time in milliseconds
+          example: 1234
+        lastUsedOptionJsonPath:
+          type: string
+          description: JSON path to the last used option in the config
+          example: $.config.options[0]
+    LogObject:
+      type: object
+      required:
+      - _id
+      - request
+      - response
+      - organisation_id
+      - created_at
+      properties:
+        _id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Unique identifier for the log entry
+          example: 550e8400-e29b-41d4-a716-446655440000
+        request:
+          $ref: '#/components/schemas/LogRequest'
+        response:
+          $ref: '#/components/schemas/LogResponse'
+        organisation_id:
+          type:
+          - string
+          - 'null'
+          description: Organization identifier
+          example: org-123
+        created_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: Timestamp when the log was created
+          example: '2024-01-15T10:30:00.000Z'
+        metrics:
+          $ref: '#/components/schemas/AnalyticsMetrics'
+          description: Analytics metrics object containing detailed metrics about the request
+        finalUntransformedRequest:
+          $ref: '#/components/schemas/RequestResponseObject'
+          description: The original request before any transformations (only present when debug logging is enabled)
+        originalResponse:
+          $ref: '#/components/schemas/RequestResponseObject'
+          description: The original response from the provider (only present when debug logging is enabled or request failed)
+        transformedRequest:
+          $ref: '#/components/schemas/RequestResponseObject'
+          description: The request after transformations (only present when debug logging is enabled)
   securitySchemes:
     Portkey-Key:
       type: apiKey
