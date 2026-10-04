@@ -104,63 +104,6 @@ components:
           $ref: '#/components/schemas/TokenPricing'
         response_token:
           $ref: '#/components/schemas/TokenPricing'
-    ModelConfigurations:
-      type: object
-      properties:
-        custom_host:
-          type: string
-          description: Custom Host URL for the model.
-    IntegrationModel:
-      type: object
-      properties:
-        slug:
-          type: string
-          description: Model slug identifier
-        name:
-          type: string
-          description: Human-readable model name
-        enabled:
-          type: boolean
-          description: Whether the model is enabled
-        is_custom:
-          type:
-          - boolean
-          - 'null'
-          description: Whether this is a custom model
-        is_finetune:
-          type:
-          - boolean
-          - 'null'
-          description: Whether this is a fine-tuned model
-        base_model_slug:
-          type:
-          - string
-          - 'null'
-          description: Base model slug for fine-tuned models
-        pricing_config:
-          $ref: '#/components/schemas/PricingConfig'
-    IntegrationModelsResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of models
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationModel'
-    BulkUpdateModelsRequest:
-      type: object
-      required:
-      - models
-      properties:
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModelUpdateRequest'
-        allow_all_models:
-          type: boolean
-          description: Whether to allow all models by default
     ModelUpdateRequest:
       type: object
       required:
@@ -192,6 +135,57 @@ components:
           $ref: '#/components/schemas/ModelConfigurations'
         pricing_config:
           $ref: '#/components/schemas/PricingConfig'
+    IntegrationModelsResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of models
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationModel'
+    BulkUpdateModelsRequest:
+      type: object
+      required:
+      - models
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModelUpdateRequest'
+        allow_all_models:
+          type: boolean
+          description: Whether to allow all models by default
+    IntegrationModel:
+      type: object
+      properties:
+        slug:
+          type: string
+          description: Model slug identifier
+        name:
+          type: string
+          description: Human-readable model name
+        enabled:
+          type: boolean
+          description: Whether the model is enabled
+        is_custom:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this is a custom model
+        is_finetune:
+          type:
+          - boolean
+          - 'null'
+          description: Whether this is a fine-tuned model
+        base_model_slug:
+          type:
+          - string
+          - 'null'
+          description: Base model slug for fine-tuned models
+        pricing_config:
+          $ref: '#/components/schemas/PricingConfig'
     PricingConfig:
       type: object
       properties:
@@ -209,6 +203,12 @@ components:
           type: number
           format: float
           description: Price per token
+    ModelConfigurations:
+      type: object
+      properties:
+        custom_host:
+          type: string
+          description: Custom Host URL for the model.
   securitySchemes:
     Portkey-Key:
       type: apiKey

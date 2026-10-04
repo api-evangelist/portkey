@@ -262,16 +262,13 @@ paths:
           description: Server err
 components:
   schemas:
-    ListLabelsResponse:
+    ErrorResponse:
       type: object
       properties:
-        total:
-          type: integer
-          description: Total number of labels
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Label'
+        error:
+          $ref: '#/components/schemas/Error'
+      required:
+      - error
     Error:
       type: object
       properties:
@@ -292,6 +289,45 @@ components:
       - message
       - param
       - code
+    CreateLabelRequest:
+      type: object
+      required:
+      - name
+      properties:
+        organisation_id:
+          type: string
+          format: uuid
+          description: ID of the organisation
+        workspace_id:
+          type: string
+          description: ID or slug of the workspace
+        name:
+          type: string
+          description: Name of the label
+          pattern: ^(?!latest$)(?!default$)(?!\d+$)[a-zA-Z0-9_-]*[^@\s]?[a-zA-Z0-9_-]*$
+        description:
+          type: string
+          description: Description of the label
+        color_code:
+          type: string
+          description: Color code for the label
+    ListLabelsResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of labels
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Label'
+    CreateLabelResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the created label
     Label:
       type: object
       properties:
@@ -333,42 +369,6 @@ components:
     UpdateLabelRequest:
       type: object
       properties:
-        name:
-          type: string
-          description: Name of the label
-          pattern: ^(?!latest$)(?!default$)(?!\d+$)[a-zA-Z0-9_-]*[^@\s]?[a-zA-Z0-9_-]*$
-        description:
-          type: string
-          description: Description of the label
-        color_code:
-          type: string
-          description: Color code for the label
-    CreateLabelResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: ID of the created label
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-      required:
-      - error
-    CreateLabelRequest:
-      type: object
-      required:
-      - name
-      properties:
-        organisation_id:
-          type: string
-          format: uuid
-          description: ID of the organisation
-        workspace_id:
-          type: string
-          description: ID or slug of the workspace
         name:
           type: string
           description: Name of the label

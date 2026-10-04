@@ -317,19 +317,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    InviteList:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        total:
-          type: integer
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invite'
     SuccessInvite:
       type: object
       required:
@@ -343,11 +330,6 @@ components:
       example:
         id: a286286b-633d-4c4f-bddb-86b84a50a25c
         invite_link: https://app.portkey.ai/invite_id
-    InviteRole:
-      type: string
-      enum:
-      - admin
-      - member
     WorkspaceInvite:
       type: object
       required:
@@ -359,6 +341,60 @@ components:
           description: Workspace Slug
         role:
           $ref: '#/components/schemas/WorkspaceInviteRole'
+    InviteRole:
+      type: string
+      enum:
+      - admin
+      - member
+    InviteList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        total:
+          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invite'
+    CreateInvite:
+      type: object
+      required:
+      - email
+      - workspaces
+      - role
+      properties:
+        email:
+          type: string
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspaceInvite'
+        role:
+          $ref: '#/components/schemas/InviteRole'
+        workspace_api_key_details:
+          type: object
+          properties:
+            scopes:
+              type: array
+              items:
+                type: string
+          required:
+          - scopes
+      example:
+        email: test@john.doe
+        role: admin
+        workspaces:
+        - id: ws-slug
+          role: member
+    WorkspaceInviteRole:
+      type: string
+      enum:
+      - admin
+      - member
+      - manager
     Invite:
       type: object
       properties:
@@ -395,42 +431,6 @@ components:
         invited_by:
           type: string
           format: uuid
-    WorkspaceInviteRole:
-      type: string
-      enum:
-      - admin
-      - member
-      - manager
-    CreateInvite:
-      type: object
-      required:
-      - email
-      - workspaces
-      - role
-      properties:
-        email:
-          type: string
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkspaceInvite'
-        role:
-          $ref: '#/components/schemas/InviteRole'
-        workspace_api_key_details:
-          type: object
-          properties:
-            scopes:
-              type: array
-              items:
-                type: string
-          required:
-          - scopes
-      example:
-        email: test@john.doe
-        role: admin
-        workspaces:
-        - id: ws-slug
-          role: member
   securitySchemes:
     Portkey-Key:
       type: apiKey

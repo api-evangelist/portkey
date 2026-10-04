@@ -223,14 +223,6 @@ components:
           enum:
           - http
           - sse
-    McpIntegrationCreateResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        slug:
-          type: string
     McpIntegrationListItem:
       type: object
       properties:
@@ -285,53 +277,14 @@ components:
           type:
           - number
           - 'null'
-    UpdateMcpIntegration:
+    McpIntegrationCreateResponse:
       type: object
-      minProperties: 1
       properties:
-        name:
+        id:
           type: string
-        description:
-          type:
-          - string
-          - 'null'
-        configurations:
-          type: object
-          description: Auth/config key-value pairs (e.g. headers, client credentials)
-          properties:
-            custom_headers:
-              type: object
-              additionalProperties: true
-              description: Custom headers to send to the MCP server.
-              example:
-                Authorization: Bearer some-token
-                x-foo: bar
-            passthrough_header:
-              type: object
-              additionalProperties: true
-              description: Headers to pass through from the incoming request to the MCP server.
-              example:
-                x-user-id:
-                  type: string
-                  example: abc123
-                x-request-id:
-                  type: string
-                  example: req-0001
-          additionalProperties: true
-        url:
+          format: uuid
+        slug:
           type: string
-          format: uri
-        auth_type:
-          type: string
-          enum:
-          - oauth_auto
-          - headers
-          - none
-        transport:
-          type: string
-          enum:
-          - http
-          - sse
     McpIntegration:
       type: object
       properties:
@@ -401,6 +354,53 @@ components:
           type: integer
         has_more:
           type: boolean
+    UpdateMcpIntegration:
+      type: object
+      minProperties: 1
+      properties:
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        configurations:
+          type: object
+          description: Auth/config key-value pairs (e.g. headers, client credentials)
+          properties:
+            custom_headers:
+              type: object
+              additionalProperties: true
+              description: Custom headers to send to the MCP server.
+              example:
+                Authorization: Bearer some-token
+                x-foo: bar
+            passthrough_header:
+              type: object
+              additionalProperties: true
+              description: Headers to pass through from the incoming request to the MCP server.
+              example:
+                x-user-id:
+                  type: string
+                  example: abc123
+                x-request-id:
+                  type: string
+                  example: req-0001
+          additionalProperties: true
+        url:
+          type: string
+          format: uri
+        auth_type:
+          type: string
+          enum:
+          - oauth_auto
+          - headers
+          - none
+        transport:
+          type: string
+          enum:
+          - http
+          - sse
   securitySchemes:
     Portkey-Key:
       type: apiKey

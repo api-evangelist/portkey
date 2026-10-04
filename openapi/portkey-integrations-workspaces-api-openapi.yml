@@ -117,95 +117,6 @@ components:
         credit_limit: 10
         periodic_reset: monthly
         alert_threshold: 8
-    IntegrationWorkspacesResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-          description: Total number of workspaces
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/IntegrationWorkspace'
-    RateLimits:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - requests
-          - tokens
-        unit:
-          type: string
-          enum:
-          - rpd
-          - rph
-          - rpm
-        value:
-          type: integer
-    GlobalWorkspaceAccess:
-      type: object
-      required:
-      - enabled
-      properties:
-        enabled:
-          type: boolean
-          description: Whether global workspace access is enabled. When enabled, the integration will be enabled for all workspaces that are created in future.
-        usage_limits:
-          type:
-          - array
-          - 'null'
-          maxItems: 1
-          items:
-            $ref: '#/components/schemas/UsageLimits'
-        rate_limits:
-          type:
-          - array
-          - 'null'
-          maxItems: 1
-          items:
-            $ref: '#/components/schemas/RateLimits'
-    BulkUpdateWorkspacesRequest:
-      type: object
-      properties:
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkspaceUpdateRequest'
-        global_workspace_access:
-          $ref: '#/components/schemas/GlobalWorkspaceAccess'
-        override_existing_workspace_access:
-          type: boolean
-          description: Whether to override existing workspace access settings
-        create_default_provider:
-          type: boolean
-          default: true
-          description: Whether to automatically create a default provider when granting workspace access. Defaults to true. Can be overridden per workspace.
-        default_provider_slug:
-          type: string
-          description: Custom slug for the auto-created default provider. Applies to all workspaces unless overridden per workspace. If the slug already exists, the request will fail with a validation error.
-    IntegrationWorkspace:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Workspace ID
-          example: ws-my-team-1234
-        enabled:
-          type: boolean
-          description: Whether the workspace has access
-        usage_limits:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/UsageLimits'
-        rate_limits:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/RateLimits'
     WorkspaceUpdateRequest:
       type: object
       required:
@@ -242,6 +153,95 @@ components:
         default_provider_slug:
           type: string
           description: Custom slug for the auto-created default provider for this workspace. Overrides the top-level default_provider_slug. If the slug already exists, the request will fail with a validation error.
+    IntegrationWorkspace:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Workspace ID
+          example: ws-my-team-1234
+        enabled:
+          type: boolean
+          description: Whether the workspace has access
+        usage_limits:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/UsageLimits'
+        rate_limits:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RateLimits'
+    GlobalWorkspaceAccess:
+      type: object
+      required:
+      - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Whether global workspace access is enabled. When enabled, the integration will be enabled for all workspaces that are created in future.
+        usage_limits:
+          type:
+          - array
+          - 'null'
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/UsageLimits'
+        rate_limits:
+          type:
+          - array
+          - 'null'
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/RateLimits'
+    IntegrationWorkspacesResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of workspaces
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationWorkspace'
+    BulkUpdateWorkspacesRequest:
+      type: object
+      properties:
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspaceUpdateRequest'
+        global_workspace_access:
+          $ref: '#/components/schemas/GlobalWorkspaceAccess'
+        override_existing_workspace_access:
+          type: boolean
+          description: Whether to override existing workspace access settings
+        create_default_provider:
+          type: boolean
+          default: true
+          description: Whether to automatically create a default provider when granting workspace access. Defaults to true. Can be overridden per workspace.
+        default_provider_slug:
+          type: string
+          description: Custom slug for the auto-created default provider. Applies to all workspaces unless overridden per workspace. If the slug already exists, the request will fail with a validation error.
+    RateLimits:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - requests
+          - tokens
+        unit:
+          type: string
+          enum:
+          - rpd
+          - rph
+          - rpm
+        value:
+          type: integer
   securitySchemes:
     Portkey-Key:
       type: apiKey

@@ -181,28 +181,6 @@ apis:
     url: https://portkey.ai/docs/api-reference/inference-api/embeddings
   - type: APIReference
     url: https://portkey.ai/docs/api-reference/admin-api/introduction
-- aid: portkey:portkey-chat-api
-  name: Portkey Chat API
-  description: Given a list of messages comprising a conversation, the model will return a response.
-  humanURL: https://portkey.ai/
-  baseURL: https://api.portkey.ai/v1
-  tags:
-  - Chat
-  properties:
-  - type: OpenAPI
-    url: openapi/portkey-chat-api-openapi.yml
-  - type: Documentation
-    url: https://portkey.ai/docs/introduction/what-is-portkey
-  - type: APIReference
-    url: https://portkey.ai/docs/api-reference/inference-api/chat
-  - type: GettingStarted
-    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
-  - type: APIReference
-    url: https://portkey.ai/docs/api-reference/inference-api/completions
-  - type: APIReference
-    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
-  - type: APIReference
-    url: https://portkey.ai/docs/api-reference/admin-api/introduction
 - aid: portkey:portkey-collections-api
   name: Portkey Collections API
   description: Create, List, Retrieve, Update, and Delete collections of prompts.
@@ -1145,6 +1123,28 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/portkey-workspaces-members-api-openapi.yml
+  - type: Documentation
+    url: https://portkey.ai/docs/introduction/what-is-portkey
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/chat
+  - type: GettingStarted
+    url: https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/completions
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/inference-api/embeddings
+  - type: APIReference
+    url: https://portkey.ai/docs/api-reference/admin-api/introduction
+- aid: portkey:portkey-chat-completions-api
+  name: Portkey Chat Completions API
+  description: Given a list of messages comprising a conversation, the model will return a response.
+  humanURL: https://portkey.ai/
+  baseURL: https://api.portkey.ai/v1
+  tags:
+  - Chat Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/portkey-chat-completions-api-openapi.yml
   - type: Documentation
     url: https://portkey.ai/docs/introduction/what-is-portkey
   - type: APIReference

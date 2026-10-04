@@ -693,41 +693,59 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ListGuardrailsResponse:
+    GuardrailSummary:
       type: object
       required:
-      - data
-      - total
+      - id
+      - name
+      - slug
+      - created_at
+      - last_updated_at
+      - owner_id
       properties:
-        data:
-          type: array
-          description: Array of guardrail summaries
-          items:
-            $ref: '#/components/schemas/GuardrailSummary'
-        total:
-          type: integer
-          description: Total number of guardrails available
-          minimum: 0
-    JSONKeysParameters:
-      title: JSON Keys Parameters
-      type: object
-      required:
-      - keys
-      - operator
-      properties:
-        keys:
-          type: array
-          items:
-            type: string
-          description: Keys to check for in JSON
-        operator:
+        id:
+          type: string
+          description: Unique identifier of the guardrail
+        name:
+          type: string
+          description: Name of the guardrail
+        slug:
+          type: string
+          description: URL-friendly slug
+        organisation_id:
+          type: string
+          format: uuid
+          description: Organisation UUID
+        workspace_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Workspace UUID (null for organisation-level guardrails)
+        status:
           type: string
           enum:
-          - any
-          - all
-          - none
-          description: Operator to use for key checking
-          default: any
+          - active
+          - archived
+          description: Current status of the guardrail
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        last_updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+        owner_id:
+          type: string
+          format: uuid
+          description: UUID of the user who created the guardrail
+        updated_by:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: UUID of the user who last updated the guardrail
     AzurePIIParameters:
       title: Azure PII Parameters
       type: object
@@ -750,6 +768,160 @@ components:
         redact:
           type: boolean
           description: Whether to redact detected PII
+          default: false
+        timeout:
+          type: number
+          description: Timeout in milliseconds
+          default: 5000
+    UppercaseParameters:
+      title: Uppercase Parameters
+      type: object
+      properties:
+        not:
+          type: boolean
+          description: If true, the verdict will be inverted
+          default: false
+    PillarScanParameters:
+      title: Pillar Scan Parameters
+      type: object
+      required:
+      - scanners
+      properties:
+        scanners:
+          type: array
+          items:
+            type: string
+            enum:
+            - prompt_injection
+            - pii
+            - secrets
+            - toxic_language
+            - invisible_characters
+          description: Scanners to use for content analysis
+        timeout:
+          type: number
+          description: Timeout in milliseconds
+          default: 5000
+    JWTParameters:
+      title: JWT Parameters
+      type: object
+      required:
+      - jwksUri
+      - headerKey
+      properties:
+        jwksUri:
+          type: string
+          format: uri
+          description: JWKS URI of the JWT token
+        headerKey:
+          type: string
+          description: Header key to check for the JWT token
+        cacheMaxAge:
+          type: number
+          description: Cache max age in seconds
+          default: 86400
+        clockTolerance:
+          type: number
+          description: Clock tolerance in seconds
+          default: 5
+        maxTokenAge:
+          type: string
+          description: Max token age
+          default: 1d
+        algorithms:
+          type: array
+          items:
+            type: string
+          description: Algorithms to check for the JWT token
+          default:
+          - RS256
+    CharacterCountParameters:
+      title: Character Count Parameters
+      type: object
+      properties:
+        minCharacters:
+          type: number
+          description: Minimum number of characters to allow
+          default: 0
+        maxCharacters:
+          type: number
+          description: Maximum number of characters to allow
+          default: 9999999
+        not:
+          type: boolean
+          description: If true, the verdict will be inverted
+          default: false
+    GuardrailDetails:
+      allOf:
+      - $ref: '#/components/schemas/GuardrailSummary'
+      - type: object
+        properties:
+          checks:
+            type: array
+            description: Array of configured guardrail checks
+            items:
+              $ref: '#/components/schemas/GuardrailCheck'
+          actions:
+            $ref: '#/components/schemas/GuardrailActions'
+    ValidUrlsParameters:
+      title: Valid URLs Parameters
+      type: object
+      properties:
+        onlyDNS:
+          type: boolean
+          description: Only check if URL domains resolve (10x faster)
+          default: false
+        not:
+          type: boolean
+          description: If true, the verdict will be inverted
+          default: false
+    BedrockGuardParameters:
+      title: Bedrock Guard Parameters
+      type: object
+      required:
+      - guardrailVersion
+      - guardrailId
+      properties:
+        guardrailVersion:
+          type: string
+          description: Version of the guardrail to use
+        guardrailId:
+          type: string
+          description: ID of the guardrail
+        redact:
+          type: boolean
+          description: Whether to redact detected PII
+          default: false
+        timeout:
+          type: number
+          description: Timeout in milliseconds
+          default: 5000
+    BasicParameters:
+      title: Basic Parameters
+      type: object
+      description: Basic parameters with no specific requirements
+      additionalProperties: true
+    UpdateGuardrailRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Updated name of the guardrail
+        checks:
+          type: array
+          description: Updated array of guardrail checks
+          items:
+            $ref: '#/components/schemas/GuardrailCheck'
+          minItems: 1
+        actions:
+          $ref: '#/components/schemas/GuardrailActions'
+    PromptfooParameters:
+      title: Promptfoo Parameters
+      type: object
+      properties:
+        redact:
+          type: boolean
+          description: Whether to redact detected content
           default: false
         timeout:
           type: number
@@ -832,6 +1004,21 @@ components:
             - listResponseInputItems
             - messages
           description: Request types to block (blocklist). When set, these request types are denied.
+    UpdateGuardrailResponse:
+      type: object
+      required:
+      - id
+      - slug
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the updated guardrail
+        slug:
+          type: string
+          description: URL-friendly slug for the guardrail
+        version_id:
+          type: string
+          description: New version identifier after update
     ErrorResponse:
       type: object
       properties:
@@ -839,6 +1026,59 @@ components:
           $ref: '#/components/schemas/Error'
       required:
       - error
+    PatronusCustomParameters:
+      title: Patronus Custom Parameters
+      type: object
+      required:
+      - profile
+      properties:
+        profile:
+          type: string
+          description: Custom evaluator profile name (e.g., system:is-concise)
+        timeout:
+          type: number
+          description: Timeout in milliseconds
+          default: 15000
+    EndsWithParameters:
+      title: Ends With Parameters
+      type: object
+      required:
+      - suffix
+      properties:
+        suffix:
+          type: string
+          description: Suffix to check for
+        not:
+          type: boolean
+          description: If true, the verdict will be inverted
+          default: false
+    PortkeyModerationParameters:
+      title: Portkey Moderation Parameters
+      type: object
+      required:
+      - categories
+      properties:
+        categories:
+          type: array
+          items:
+            type: string
+            enum:
+            - hate
+            - hate/threatening
+            - harassment
+            - harassment/threatening
+            - self-harm
+            - self-harm/intent
+            - self-harm/instructions
+            - sexual
+            - sexual/minors
+            - violence
+            - violence/graphic
+          description: Categories that should NOT be allowed
+        timeout:
+          type: number
+          description: Timeout in milliseconds
+          default: 5000
     ContainsParameters:
       title: Contains Parameters
       type: object
@@ -859,228 +1099,28 @@ components:
           - none
           description: Operator to use for word checking
           default: any
-    UpdateGuardrailRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Updated name of the guardrail
-        checks:
-          type: array
-          description: Updated array of guardrail checks
-          items:
-            $ref: '#/components/schemas/GuardrailCheck'
-          minItems: 1
-        actions:
-          $ref: '#/components/schemas/GuardrailActions'
-    EndsWithParameters:
-      title: Ends With Parameters
+    WebhookParameters:
+      title: Webhook Parameters
       type: object
       required:
-      - suffix
+      - webhookURL
       properties:
-        suffix:
+        webhookURL:
           type: string
-          description: Suffix to check for
-        not:
-          type: boolean
-          description: If true, the verdict will be inverted
-          default: false
-    ModelWhitelistParameters:
-      title: Model Whitelist Parameters
-      type: object
-      required:
-      - models
-      properties:
-        models:
-          type: array
-          items:
-            type: string
-          description: List of allowed models
-    PatronusParameters:
-      title: Patronus Parameters
-      type: object
-      properties:
-        redact:
-          type: boolean
-          description: Whether to redact detected content
-          default: false
+          format: uri
+          description: Webhook URL to call
+        headers:
+          type: object
+          additionalProperties: true
+          description: Headers to send with the request
         timeout:
           type: number
           description: Timeout in milliseconds
-          default: 5000
-    ValidUrlsParameters:
-      title: Valid URLs Parameters
-      type: object
-      properties:
-        onlyDNS:
+          default: 3000
+        failOnError:
           type: boolean
-          description: Only check if URL domains resolve (10x faster)
+          description: Fail if webhook returns non-200 status or times out
           default: false
-        not:
-          type: boolean
-          description: If true, the verdict will be inverted
-          default: false
-    CreateGuardrailResponse:
-      type: object
-      required:
-      - id
-      - slug
-      - version_id
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the created guardrail
-        slug:
-          type: string
-          description: URL-friendly slug for the guardrail
-        version_id:
-          type: string
-          description: Version identifier for the guardrail configuration
-    GuardrailActions:
-      type: object
-      description: Actions to take when guardrail checks fail or pass
-      properties:
-        deny:
-          type: boolean
-          description: Whether to deny the request when guardrail check fails
-          default: false
-        async:
-          type: boolean
-          description: Whether the guardrail check should be performed asynchronously
-          default: false
-        on_success:
-          type: object
-          description: Actions to take when guardrail check passes
-          properties:
-            feedback:
-              type: object
-              description: Feedback configuration for successful checks
-              properties:
-                value:
-                  type: number
-                  description: Feedback value for successful checks
-                  default: 5
-                weight:
-                  type: number
-                  description: Weight of the feedback
-                  default: 1
-                metadata:
-                  type: string
-                  description: Additional metadata for the feedback
-                  default: ''
-              required:
-              - value
-              - weight
-              - metadata
-          required:
-          - feedback
-        on_fail:
-          type: object
-          description: Actions to take when guardrail check fails
-          properties:
-            feedback:
-              type: object
-              description: Feedback configuration for failed checks
-              properties:
-                value:
-                  type: number
-                  description: Feedback value for failed checks
-                  default: -5
-                weight:
-                  type: number
-                  description: Weight of the feedback
-                  default: 1
-                metadata:
-                  type: string
-                  description: Additional metadata for the feedback
-                  default: ''
-              required:
-              - value
-              - weight
-              - metadata
-          required:
-          - feedback
-      required:
-      - deny
-      - async
-      - on_success
-      - on_fail
-    PANWPrismaParameters:
-      title: PANW Prisma Parameters
-      type: object
-      required:
-      - profile_name
-      properties:
-        profile_name:
-          type: string
-          description: Prisma profile name
-        ai_model:
-          type: string
-          description: AI model identifier
-        app_user:
-          type: string
-          description: Application user identifier
-    JWTParameters:
-      title: JWT Parameters
-      type: object
-      required:
-      - jwksUri
-      - headerKey
-      properties:
-        jwksUri:
-          type: string
-          format: uri
-          description: JWKS URI of the JWT token
-        headerKey:
-          type: string
-          description: Header key to check for the JWT token
-        cacheMaxAge:
-          type: number
-          description: Cache max age in seconds
-          default: 86400
-        clockTolerance:
-          type: number
-          description: Clock tolerance in seconds
-          default: 5
-        maxTokenAge:
-          type: string
-          description: Max token age
-          default: 1d
-        algorithms:
-          type: array
-          items:
-            type: string
-          description: Algorithms to check for the JWT token
-          default:
-          - RS256
-    CreateGuardrailRequest:
-      type: object
-      required:
-      - name
-      - checks
-      - actions
-      properties:
-        name:
-          type: string
-          description: Name of the guardrail
-          example: Content Safety Check
-        workspace_id:
-          type: string
-          format: uuid
-          description: Workspace UUID (required if organisation_id not provided and not using API key)
-        organisation_id:
-          type: string
-          format: uuid
-          description: Organisation UUID (required if workspace_id not provided and not using API key)
-        checks:
-          type: array
-          description: Array of guardrail checks to apply
-          items:
-            $ref: '#/components/schemas/GuardrailCheck'
-          minItems: 1
-        actions:
-          $ref: '#/components/schemas/GuardrailActions'
     RequiredMetadataKeysParameters:
       title: Required Metadata Keys Parameters
       type: object
@@ -1101,6 +1141,240 @@ components:
           - none
           description: Operator to use for key checking
           default: all
+    SydeGuardParameters:
+      title: SydeGuard Parameters
+      type: object
+      properties:
+        prompt_injection_threshold:
+          type: number
+          minimum: 0
+          maximum: 1
+          multipleOf: 0.01
+          description: Threshold for prompt injection risk score (0-1)
+          default: 0.5
+        toxicity_threshold:
+          type: number
+          minimum: 0
+          maximum: 1
+          multipleOf: 0.01
+          description: Threshold for toxicity risk score (0-1)
+          default: 0.5
+        evasion_threshold:
+          type: number
+          minimum: 0
+          maximum: 1
+          multipleOf: 0.01
+          description: Threshold for evasion risk score (0-1)
+          default: 0.5
+        timeout:
+          type: number
+          description: Timeout in milliseconds
+          default: 5000
+    CreateGuardrailResponse:
+      type: object
+      required:
+      - id
+      - slug
+      - version_id
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the created guardrail
+        slug:
+          type: string
+          description: URL-friendly slug for the guardrail
+        version_id:
+          type: string
+          description: Version identifier for the guardrail configuration
+    GuardrailCheck:
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Identifier of the guardrail check type
+          enum:
+          - default.jwt
+          - default.modelWhitelist
+          - default.isAllLowerCase
+          - default.regexMatch
+          - default.sentenceCount
+          - default.wordCount
+          - default.characterCount
+          - default.jsonSchema
+          - default.jsonKeys
+          - default.contains
+          - default.validUrls
+          - default.containsCode
+          - default.webhook
+          - default.endsWith
+          - default.alluppercase
+          - default.requiredMetadataKeys
+          - default.allowedRequestTypes
+          - portkey.moderateContent
+          - portkey.language
+          - portkey.pii
+          - portkey.gibberish
+          - sydelabs.sydeguard
+          - aporia.validateProject
+          - pillar.scanPrompt
+          - pillar.scanResponse
+          - patronus.phi
+          - patronus.pii
+          - patronus.isConcise
+          - patronus.isHelpful
+          - patronus.isPolite
+          - patronus.noApologies
+          - patronus.noGenderBias
+          - patronus.noRacialBias
+          - patronus.retrievalAnswerRelevance
+          - patronus.toxicity
+          - patronus.custom
+          - mistral.moderateContent
+          - bedrock.guard
+          - promptfoo.guard
+          - promptfoo.pii
+          - promptfoo.harm
+          - acuvity.scan
+          - lasso.classify
+          - azure.contentSafety
+          - azure.pii
+          - panw-prisma-airs.intercept
+        parameters:
+          oneOf:
+          - $ref: '#/components/schemas/JWTParameters'
+          - $ref: '#/components/schemas/ModelWhitelistParameters'
+          - $ref: '#/components/schemas/RegexMatchParameters'
+          - $ref: '#/components/schemas/SentenceCountParameters'
+          - $ref: '#/components/schemas/WordCountParameters'
+          - $ref: '#/components/schemas/CharacterCountParameters'
+          - $ref: '#/components/schemas/JSONSchemaParameters'
+          - $ref: '#/components/schemas/JSONKeysParameters'
+          - $ref: '#/components/schemas/ContainsParameters'
+          - $ref: '#/components/schemas/ValidUrlsParameters'
+          - $ref: '#/components/schemas/ContainsCodeParameters'
+          - $ref: '#/components/schemas/WebhookParameters'
+          - $ref: '#/components/schemas/EndsWithParameters'
+          - $ref: '#/components/schemas/UppercaseParameters'
+          - $ref: '#/components/schemas/RequiredMetadataKeysParameters'
+          - $ref: '#/components/schemas/AllowedRequestTypesParameters'
+          - $ref: '#/components/schemas/SydeGuardParameters'
+          - $ref: '#/components/schemas/AporiaParameters'
+          - $ref: '#/components/schemas/PillarScanParameters'
+          - $ref: '#/components/schemas/PatronusParameters'
+          - $ref: '#/components/schemas/PatronusCustomParameters'
+          - $ref: '#/components/schemas/PortkeyModerationParameters'
+          - $ref: '#/components/schemas/PortkeyLanguageParameters'
+          - $ref: '#/components/schemas/PortkeyPIIParameters'
+          - $ref: '#/components/schemas/MistralModerationParameters'
+          - $ref: '#/components/schemas/BedrockGuardParameters'
+          - $ref: '#/components/schemas/PromptfooParameters'
+          - $ref: '#/components/schemas/AcuvityScanParameters'
+          - $ref: '#/components/schemas/AzureContentSafetyParameters'
+          - $ref: '#/components/schemas/AzurePIIParameters'
+          - $ref: '#/components/schemas/PANWPrismaParameters'
+          - $ref: '#/components/schemas/BasicParameters'
+          description: Configuration parameters specific to the check type
+        name:
+          type: string
+          description: Custom name for this specific check instance
+        is_enabled:
+          type: boolean
+          description: Whether this check is enabled
+          default: true
+    RegexMatchParameters:
+      title: Regex Match Parameters
+      type: object
+      required:
+      - rule
+      properties:
+        rule:
+          type: string
+          description: Regex pattern to match
+        not:
+          type: boolean
+          description: If true, the check will fail when the regex pattern matches
+          default: false
+    AporiaParameters:
+      title: Aporia Parameters
+      type: object
+      required:
+      - projectID
+      properties:
+        projectID:
+          type: string
+          description: Aporia Project ID to validate
+        timeout:
+          type: number
+          description: Timeout in milliseconds
+          default: 5000
+    SentenceCountParameters:
+      title: Sentence Count Parameters
+      type: object
+      properties:
+        minSentences:
+          type: number
+          description: Minimum number of sentences to allow
+          default: 0
+        maxSentences:
+          type: number
+          description: Maximum number of sentences to allow
+          default: 99999
+        not:
+          type: boolean
+          description: If true, the verdict will be inverted
+          default: false
+    JSONKeysParameters:
+      title: JSON Keys Parameters
+      type: object
+      required:
+      - keys
+      - operator
+      properties:
+        keys:
+          type: array
+          items:
+            type: string
+          description: Keys to check for in JSON
+        operator:
+          type: string
+          enum:
+          - any
+          - all
+          - none
+          description: Operator to use for key checking
+          default: any
+    JSONSchemaParameters:
+      title: JSON Schema Parameters
+      type: object
+      required:
+      - schema
+      properties:
+        schema:
+          type: object
+          additionalProperties: true
+          description: JSON schema to validate against
+        not:
+          type: boolean
+          description: If true, the verdict will be inverted
+          default: false
+    WordCountParameters:
+      title: Word Count Parameters
+      type: object
+      properties:
+        minWords:
+          type: number
+          description: Minimum number of words to allow
+          default: 0
+        maxWords:
+          type: number
+          description: Maximum number of words to allow
+          default: 99999
+        not:
+          type: boolean
+          description: If true, the verdict will be inverted
+          default: false
     ContainsCodeParameters:
       title: Contains Code Parameters
       type: object
@@ -1140,48 +1414,201 @@ components:
           type: boolean
           description: If true, the verdict will be inverted
           default: false
-    SydeGuardParameters:
-      title: SydeGuard Parameters
+    MistralModerationParameters:
+      title: Mistral Moderation Parameters
       type: object
+      required:
+      - categories
       properties:
-        prompt_injection_threshold:
-          type: number
-          minimum: 0
-          maximum: 1
-          multipleOf: 0.01
-          description: Threshold for prompt injection risk score (0-1)
-          default: 0.5
-        toxicity_threshold:
-          type: number
-          minimum: 0
-          maximum: 1
-          multipleOf: 0.01
-          description: Threshold for toxicity risk score (0-1)
-          default: 0.5
-        evasion_threshold:
-          type: number
-          minimum: 0
-          maximum: 1
-          multipleOf: 0.01
-          description: Threshold for evasion risk score (0-1)
-          default: 0.5
+        categories:
+          type: array
+          items:
+            type: string
+            enum:
+            - sexual
+            - hate_and_discrimination
+            - violence_and_threats
+            - dangerous_and_criminal_content
+            - selfharm
+            - health
+            - financial
+            - law
+            - pii
+          description: Categories that should NOT be allowed
         timeout:
           type: number
           description: Timeout in milliseconds
           default: 5000
-    RegexMatchParameters:
-      title: Regex Match Parameters
+    ModelWhitelistParameters:
+      title: Model Whitelist Parameters
       type: object
       required:
-      - rule
+      - models
       properties:
-        rule:
+        models:
+          type: array
+          items:
+            type: string
+          description: List of allowed models
+    PANWPrismaParameters:
+      title: PANW Prisma Parameters
+      type: object
+      required:
+      - profile_name
+      properties:
+        profile_name:
           type: string
-          description: Regex pattern to match
+          description: Prisma profile name
+        ai_model:
+          type: string
+          description: AI model identifier
+        app_user:
+          type: string
+          description: Application user identifier
+    CreateGuardrailRequest:
+      type: object
+      required:
+      - name
+      - checks
+      - actions
+      properties:
+        name:
+          type: string
+          description: Name of the guardrail
+          example: Content Safety Check
+        workspace_id:
+          type: string
+          format: uuid
+          description: Workspace UUID (required if organisation_id not provided and not using API key)
+        organisation_id:
+          type: string
+          format: uuid
+          description: Organisation UUID (required if workspace_id not provided and not using API key)
+        checks:
+          type: array
+          description: Array of guardrail checks to apply
+          items:
+            $ref: '#/components/schemas/GuardrailCheck'
+          minItems: 1
+        actions:
+          $ref: '#/components/schemas/GuardrailActions'
+    AzureContentSafetyParameters:
+      title: Azure Content Safety Parameters
+      type: object
+      properties:
+        blocklistNames:
+          type: array
+          items:
+            type: string
+          description: Array of blocklist names to check against
+          default: []
+        apiVersion:
+          type: string
+          description: API version for the Content Safety API
+          default: '2024-09-01'
+        severity:
+          type: number
+          description: Severity threshold for the Content Safety API
+          default: 2
+        categories:
+          type: array
+          items:
+            type: string
+            enum:
+            - Hate
+            - SelfHarm
+            - Sexual
+            - Violence
+          description: Categories to check against
+        timeout:
+          type: number
+          description: Timeout in milliseconds
+          default: 5000
+    Error:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type: string
+        param:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+      required:
+      - type
+      - message
+      - param
+      - code
+    PortkeyLanguageParameters:
+      title: Portkey Language Parameters
+      type: object
+      properties:
+        language:
+          type: string
+          enum:
+          - eng_Latn
+          - zho_Hans
+          - spa_Latn
+          - ara_Arab
+          - por_Latn
+          - ind_Latn
+          - fra_Latn
+          - jpn_Jpan
+          - rus_Cyrl
+          - deu_Latn
+          - kor_Hang
+          - tur_Latn
+          - ita_Latn
+          - pes_Arab
+          - pol_Latn
+          - vie_Latn
+          - nld_Latn
+          - hin_Deva
+          - tha_Thai
+          - heb_Hebr
+          - ben_Beng
+          - swe_Latn
+          - ces_Latn
+          - ron_Latn
+          - ell_Grek
+          - ukr_Cyrl
+          - dan_Latn
+          - fin_Latn
+          - nor_Latn
+          - hun_Latn
+          - cat_Latn
+          - bul_Cyrl
+          - msa_Latn
+          - hrv_Latn
+          - arb_Latn
+          - slk_Latn
+          - lit_Latn
+          - lav_Latn
+          - srp_Cyrl
+          - slv_Latn
+          - est_Latn
+          - urd_Arab
+          - fil_Latn
+          - aze_Latn
+          - tam_Taml
+          - tel_Telu
+          - mar_Deva
+          - kan_Knda
+          - fas_Arab
+          description: Language that should be allowed in content
         not:
           type: boolean
-          description: If true, the check will fail when the regex pattern matches
+          description: If true, the verdict will be inverted
           default: false
+        timeout:
+          type: number
+          description: Timeout in milliseconds
+          default: 5000
     AcuvityScanParameters:
       title: Acuvity Scan Parameters
       type: object
@@ -1322,178 +1749,102 @@ components:
           type: number
           description: Timeout in milliseconds
           default: 5000
-    PatronusCustomParameters:
-      title: Patronus Custom Parameters
+    GuardrailActions:
+      type: object
+      description: Actions to take when guardrail checks fail or pass
+      properties:
+        deny:
+          type: boolean
+          description: Whether to deny the request when guardrail check fails
+          default: false
+        async:
+          type: boolean
+          description: Whether the guardrail check should be performed asynchronously
+          default: false
+        on_success:
+          type: object
+          description: Actions to take when guardrail check passes
+          properties:
+            feedback:
+              type: object
+              description: Feedback configuration for successful checks
+              properties:
+                value:
+                  type: number
+                  description: Feedback value for successful checks
+                  default: 5
+                weight:
+                  type: number
+                  description: Weight of the feedback
+                  default: 1
+                metadata:
+                  type: string
+                  description: Additional metadata for the feedback
+                  default: ''
+              required:
+              - value
+              - weight
+              - metadata
+          required:
+          - feedback
+        on_fail:
+          type: object
+          description: Actions to take when guardrail check fails
+          properties:
+            feedback:
+              type: object
+              description: Feedback configuration for failed checks
+              properties:
+                value:
+                  type: number
+                  description: Feedback value for failed checks
+                  default: -5
+                weight:
+                  type: number
+                  description: Weight of the feedback
+                  default: 1
+                metadata:
+                  type: string
+                  description: Additional metadata for the feedback
+                  default: ''
+              required:
+              - value
+              - weight
+              - metadata
+          required:
+          - feedback
+      required:
+      - deny
+      - async
+      - on_success
+      - on_fail
+    ListGuardrailsResponse:
       type: object
       required:
-      - profile
+      - data
+      - total
       properties:
-        profile:
-          type: string
-          description: Custom evaluator profile name (e.g., system:is-concise)
-        timeout:
-          type: number
-          description: Timeout in milliseconds
-          default: 15000
-    BedrockGuardParameters:
-      title: Bedrock Guard Parameters
+        data:
+          type: array
+          description: Array of guardrail summaries
+          items:
+            $ref: '#/components/schemas/GuardrailSummary'
+        total:
+          type: integer
+          description: Total number of guardrails available
+          minimum: 0
+    PatronusParameters:
+      title: Patronus Parameters
       type: object
-      required:
-      - guardrailVersion
-      - guardrailId
       properties:
-        guardrailVersion:
-          type: string
-          description: Version of the guardrail to use
-        guardrailId:
-          type: string
-          description: ID of the guardrail
         redact:
           type: boolean
-          description: Whether to redact detected PII
+          description: Whether to redact detected content
           default: false
         timeout:
           type: number
           description: Timeout in milliseconds
           default: 5000
-    AzureContentSafetyParameters:
-      title: Azure Content Safety Parameters
-      type: object
-      properties:
-        blocklistNames:
-          type: array
-          items:
-            type: string
-          description: Array of blocklist names to check against
-          default: []
-        apiVersion:
-          type: string
-          description: API version for the Content Safety API
-          default: '2024-09-01'
-        severity:
-          type: number
-          description: Severity threshold for the Content Safety API
-          default: 2
-        categories:
-          type: array
-          items:
-            type: string
-            enum:
-            - Hate
-            - SelfHarm
-            - Sexual
-            - Violence
-          description: Categories to check against
-        timeout:
-          type: number
-          description: Timeout in milliseconds
-          default: 5000
-    MistralModerationParameters:
-      title: Mistral Moderation Parameters
-      type: object
-      required:
-      - categories
-      properties:
-        categories:
-          type: array
-          items:
-            type: string
-            enum:
-            - sexual
-            - hate_and_discrimination
-            - violence_and_threats
-            - dangerous_and_criminal_content
-            - selfharm
-            - health
-            - financial
-            - law
-            - pii
-          description: Categories that should NOT be allowed
-        timeout:
-          type: number
-          description: Timeout in milliseconds
-          default: 5000
-    UppercaseParameters:
-      title: Uppercase Parameters
-      type: object
-      properties:
-        not:
-          type: boolean
-          description: If true, the verdict will be inverted
-          default: false
-    BasicParameters:
-      title: Basic Parameters
-      type: object
-      description: Basic parameters with no specific requirements
-      additionalProperties: true
-    GuardrailSummary:
-      type: object
-      required:
-      - id
-      - name
-      - slug
-      - created_at
-      - last_updated_at
-      - owner_id
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the guardrail
-        name:
-          type: string
-          description: Name of the guardrail
-        slug:
-          type: string
-          description: URL-friendly slug
-        organisation_id:
-          type: string
-          format: uuid
-          description: Organisation UUID
-        workspace_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: Workspace UUID (null for organisation-level guardrails)
-        status:
-          type: string
-          enum:
-          - active
-          - archived
-          description: Current status of the guardrail
-        created_at:
-          type: string
-          format: date-time
-          description: Creation timestamp
-        last_updated_at:
-          type: string
-          format: date-time
-          description: Last update timestamp
-        owner_id:
-          type: string
-          format: uuid
-          description: UUID of the user who created the guardrail
-        updated_by:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: UUID of the user who last updated the guardrail
-    UpdateGuardrailResponse:
-      type: object
-      required:
-      - id
-      - slug
-      properties:
-        id:
-          type: string
-          description: Unique identifier of the updated guardrail
-        slug:
-          type: string
-          description: URL-friendly slug for the guardrail
-        version_id:
-          type: string
-          description: New version identifier after update
     PortkeyPIIParameters:
       title: Portkey PII Parameters
       type: object
@@ -1517,357 +1868,6 @@ components:
             - CREDIT_CARD
             - SSN
           description: Types of PII that should NOT be allowed
-        timeout:
-          type: number
-          description: Timeout in milliseconds
-          default: 5000
-    GuardrailDetails:
-      allOf:
-      - $ref: '#/components/schemas/GuardrailSummary'
-      - type: object
-        properties:
-          checks:
-            type: array
-            description: Array of configured guardrail checks
-            items:
-              $ref: '#/components/schemas/GuardrailCheck'
-          actions:
-            $ref: '#/components/schemas/GuardrailActions'
-    CharacterCountParameters:
-      title: Character Count Parameters
-      type: object
-      properties:
-        minCharacters:
-          type: number
-          description: Minimum number of characters to allow
-          default: 0
-        maxCharacters:
-          type: number
-          description: Maximum number of characters to allow
-          default: 9999999
-        not:
-          type: boolean
-          description: If true, the verdict will be inverted
-          default: false
-    PortkeyModerationParameters:
-      title: Portkey Moderation Parameters
-      type: object
-      required:
-      - categories
-      properties:
-        categories:
-          type: array
-          items:
-            type: string
-            enum:
-            - hate
-            - hate/threatening
-            - harassment
-            - harassment/threatening
-            - self-harm
-            - self-harm/intent
-            - self-harm/instructions
-            - sexual
-            - sexual/minors
-            - violence
-            - violence/graphic
-          description: Categories that should NOT be allowed
-        timeout:
-          type: number
-          description: Timeout in milliseconds
-          default: 5000
-    PillarScanParameters:
-      title: Pillar Scan Parameters
-      type: object
-      required:
-      - scanners
-      properties:
-        scanners:
-          type: array
-          items:
-            type: string
-            enum:
-            - prompt_injection
-            - pii
-            - secrets
-            - toxic_language
-            - invisible_characters
-          description: Scanners to use for content analysis
-        timeout:
-          type: number
-          description: Timeout in milliseconds
-          default: 5000
-    Error:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type: string
-        param:
-          type:
-          - string
-          - 'null'
-        type:
-          type: string
-      required:
-      - type
-      - message
-      - param
-      - code
-    WordCountParameters:
-      title: Word Count Parameters
-      type: object
-      properties:
-        minWords:
-          type: number
-          description: Minimum number of words to allow
-          default: 0
-        maxWords:
-          type: number
-          description: Maximum number of words to allow
-          default: 99999
-        not:
-          type: boolean
-          description: If true, the verdict will be inverted
-          default: false
-    PromptfooParameters:
-      title: Promptfoo Parameters
-      type: object
-      properties:
-        redact:
-          type: boolean
-          description: Whether to redact detected content
-          default: false
-        timeout:
-          type: number
-          description: Timeout in milliseconds
-          default: 5000
-    WebhookParameters:
-      title: Webhook Parameters
-      type: object
-      required:
-      - webhookURL
-      properties:
-        webhookURL:
-          type: string
-          format: uri
-          description: Webhook URL to call
-        headers:
-          type: object
-          additionalProperties: true
-          description: Headers to send with the request
-        timeout:
-          type: number
-          description: Timeout in milliseconds
-          default: 3000
-        failOnError:
-          type: boolean
-          description: Fail if webhook returns non-200 status or times out
-          default: false
-    GuardrailCheck:
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Identifier of the guardrail check type
-          enum:
-          - default.jwt
-          - default.modelWhitelist
-          - default.isAllLowerCase
-          - default.regexMatch
-          - default.sentenceCount
-          - default.wordCount
-          - default.characterCount
-          - default.jsonSchema
-          - default.jsonKeys
-          - default.contains
-          - default.validUrls
-          - default.containsCode
-          - default.webhook
-          - default.endsWith
-          - default.alluppercase
-          - default.requiredMetadataKeys
-          - default.allowedRequestTypes
-          - portkey.moderateContent
-          - portkey.language
-          - portkey.pii
-          - portkey.gibberish
-          - sydelabs.sydeguard
-          - aporia.validateProject
-          - pillar.scanPrompt
-          - pillar.scanResponse
-          - patronus.phi
-          - patronus.pii
-          - patronus.isConcise
-          - patronus.isHelpful
-          - patronus.isPolite
-          - patronus.noApologies
-          - patronus.noGenderBias
-          - patronus.noRacialBias
-          - patronus.retrievalAnswerRelevance
-          - patronus.toxicity
-          - patronus.custom
-          - mistral.moderateContent
-          - bedrock.guard
-          - promptfoo.guard
-          - promptfoo.pii
-          - promptfoo.harm
-          - acuvity.scan
-          - lasso.classify
-          - azure.contentSafety
-          - azure.pii
-          - panw-prisma-airs.intercept
-        parameters:
-          oneOf:
-          - $ref: '#/components/schemas/JWTParameters'
-          - $ref: '#/components/schemas/ModelWhitelistParameters'
-          - $ref: '#/components/schemas/RegexMatchParameters'
-          - $ref: '#/components/schemas/SentenceCountParameters'
-          - $ref: '#/components/schemas/WordCountParameters'
-          - $ref: '#/components/schemas/CharacterCountParameters'
-          - $ref: '#/components/schemas/JSONSchemaParameters'
-          - $ref: '#/components/schemas/JSONKeysParameters'
-          - $ref: '#/components/schemas/ContainsParameters'
-          - $ref: '#/components/schemas/ValidUrlsParameters'
-          - $ref: '#/components/schemas/ContainsCodeParameters'
-          - $ref: '#/components/schemas/WebhookParameters'
-          - $ref: '#/components/schemas/EndsWithParameters'
-          - $ref: '#/components/schemas/UppercaseParameters'
-          - $ref: '#/components/schemas/RequiredMetadataKeysParameters'
-          - $ref: '#/components/schemas/AllowedRequestTypesParameters'
-          - $ref: '#/components/schemas/SydeGuardParameters'
-          - $ref: '#/components/schemas/AporiaParameters'
-          - $ref: '#/components/schemas/PillarScanParameters'
-          - $ref: '#/components/schemas/PatronusParameters'
-          - $ref: '#/components/schemas/PatronusCustomParameters'
-          - $ref: '#/components/schemas/PortkeyModerationParameters'
-          - $ref: '#/components/schemas/PortkeyLanguageParameters'
-          - $ref: '#/components/schemas/PortkeyPIIParameters'
-          - $ref: '#/components/schemas/MistralModerationParameters'
-          - $ref: '#/components/schemas/BedrockGuardParameters'
-          - $ref: '#/components/schemas/PromptfooParameters'
-          - $ref: '#/components/schemas/AcuvityScanParameters'
-          - $ref: '#/components/schemas/AzureContentSafetyParameters'
-          - $ref: '#/components/schemas/AzurePIIParameters'
-          - $ref: '#/components/schemas/PANWPrismaParameters'
-          - $ref: '#/components/schemas/BasicParameters'
-          description: Configuration parameters specific to the check type
-        name:
-          type: string
-          description: Custom name for this specific check instance
-        is_enabled:
-          type: boolean
-          description: Whether this check is enabled
-          default: true
-    JSONSchemaParameters:
-      title: JSON Schema Parameters
-      type: object
-      required:
-      - schema
-      properties:
-        schema:
-          type: object
-          additionalProperties: true
-          description: JSON schema to validate against
-        not:
-          type: boolean
-          description: If true, the verdict will be inverted
-          default: false
-    SentenceCountParameters:
-      title: Sentence Count Parameters
-      type: object
-      properties:
-        minSentences:
-          type: number
-          description: Minimum number of sentences to allow
-          default: 0
-        maxSentences:
-          type: number
-          description: Maximum number of sentences to allow
-          default: 99999
-        not:
-          type: boolean
-          description: If true, the verdict will be inverted
-          default: false
-    AporiaParameters:
-      title: Aporia Parameters
-      type: object
-      required:
-      - projectID
-      properties:
-        projectID:
-          type: string
-          description: Aporia Project ID to validate
-        timeout:
-          type: number
-          description: Timeout in milliseconds
-          default: 5000
-    PortkeyLanguageParameters:
-      title: Portkey Language Parameters
-      type: object
-      properties:
-        language:
-          type: string
-          enum:
-          - eng_Latn
-          - zho_Hans
-          - spa_Latn
-          - ara_Arab
-          - por_Latn
-          - ind_Latn
-          - fra_Latn
-          - jpn_Jpan
-          - rus_Cyrl
-          - deu_Latn
-          - kor_Hang
-          - tur_Latn
-          - ita_Latn
-          - pes_Arab
-          - pol_Latn
-          - vie_Latn
-          - nld_Latn
-          - hin_Deva
-          - tha_Thai
-          - heb_Hebr
-          - ben_Beng
-          - swe_Latn
-          - ces_Latn
-          - ron_Latn
-          - ell_Grek
-          - ukr_Cyrl
-          - dan_Latn
-          - fin_Latn
-          - nor_Latn
-          - hun_Latn
-          - cat_Latn
-          - bul_Cyrl
-          - msa_Latn
-          - hrv_Latn
-          - arb_Latn
-          - slk_Latn
-          - lit_Latn
-          - lav_Latn
-          - srp_Cyrl
-          - slv_Latn
-          - est_Latn
-          - urd_Arab
-          - fil_Latn
-          - aze_Latn
-          - tam_Taml
-          - tel_Telu
-          - mar_Deva
-          - kan_Knda
-          - fas_Arab
-          description: Language that should be allowed in content
-        not:
-          type: boolean
-          description: If true, the verdict will be inverted
-          default: false
         timeout:
           type: number
           description: Timeout in milliseconds

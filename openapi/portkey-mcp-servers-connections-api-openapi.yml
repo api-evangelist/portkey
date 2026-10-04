@@ -94,6 +94,23 @@ paths:
                 $ref: '#/components/schemas/McpServerConnectionDeleteResponse'
 components:
   schemas:
+    McpServerConnectionsListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerConnectionItem'
+        total:
+          type: integer
+        has_more:
+          type: boolean
+    McpServerConnectionDeleteResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
     McpServerConnectionItem:
       type: object
       properties:
@@ -108,23 +125,6 @@ components:
         last_updated_at:
           type: string
           format: date-time
-    McpServerConnectionDeleteResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
-    McpServerConnectionsListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpServerConnectionItem'
-        total:
-          type: integer
-        has_more:
-          type: boolean
   securitySchemes:
     Portkey-Key:
       type: apiKey

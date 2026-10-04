@@ -226,62 +226,6 @@ components:
           type: string
           format: uri
           description: Gateway URL for this MCP server (e.g. {gateway_base}/{slug}/mcp)
-    CreateMcpServer:
-      type: object
-      description: Create an MCP Server (workspace instance of an MCP Integration).
-      required:
-      - name
-      - mcp_integration_id
-      properties:
-        workspace_id:
-          type: string
-          format: uuid
-          description: Workspace ID or slug (optional; required when using org admin API key)
-        name:
-          type: string
-          minLength: 1
-          maxLength: 255
-          description: Display name of the MCP server
-        description:
-          type:
-          - string
-          - 'null'
-          maxLength: 500
-        mcp_integration_id:
-          type: string
-          description: MCP Integration ID (UUID) or slug
-        slug:
-          type: string
-          pattern: ^[a-zA-Z0-9_-]+$
-          minLength: 3
-          maxLength: 50
-          description: Optional slug; must be unique within organisation
-    McpServerTestResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        status_code:
-          type:
-          - integer
-          - 'null'
-          description: HTTP status from upstream (when success)
-        response_time_ms:
-          type:
-          - integer
-          - 'null'
-        url:
-          type:
-          - string
-          - 'null'
-          format: uri
-        server_name:
-          type: string
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message when success is false
     UpdateMcpServer:
       type: object
       minProperties: 1
@@ -295,23 +239,6 @@ components:
           - string
           - 'null'
           maxLength: 500
-    McpServerListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpServerListItem'
-        total:
-          type: integer
-    McpServerCreateResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        slug:
-          type: string
     McpServer:
       type: object
       properties:
@@ -362,6 +289,79 @@ components:
           - string
           - 'null'
           description: Present for system/service auth
+    McpServerTestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        status_code:
+          type:
+          - integer
+          - 'null'
+          description: HTTP status from upstream (when success)
+        response_time_ms:
+          type:
+          - integer
+          - 'null'
+        url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        server_name:
+          type: string
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message when success is false
+    CreateMcpServer:
+      type: object
+      description: Create an MCP Server (workspace instance of an MCP Integration).
+      required:
+      - name
+      - mcp_integration_id
+      properties:
+        workspace_id:
+          type: string
+          format: uuid
+          description: Workspace ID or slug (optional; required when using org admin API key)
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Display name of the MCP server
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 500
+        mcp_integration_id:
+          type: string
+          description: MCP Integration ID (UUID) or slug
+        slug:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 3
+          maxLength: 50
+          description: Optional slug; must be unique within organisation
+    McpServerListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerListItem'
+        total:
+          type: integer
+    McpServerCreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        slug:
+          type: string
   securitySchemes:
     Portkey-Key:
       type: apiKey

@@ -86,19 +86,19 @@ paths:
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY',\n  baseURL: 'SELF_HOSTED_GATEWAY_URL'\n});\n\nasync function main() {\n  const response = await client.post('/rerank', {\n    model: 'rerank-v3.5',\n    query: 'What is the capital of France?',\n    documents: [\n      'Paris is the capital of France.',\n      'Berlin is the capital of Germany.',\n      'Madrid is the capital of Spain.'\n    ],\n    top_n: 2\n  });\n\n  console.log(response);\n}\n\nmain();\n"
 components:
   parameters:
+    PortkeyTraceId:
+      in: header
+      name: x-portkey-trace-id
+      schema:
+        type: string
+      description: An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)
+      required: false
     PortkeyParentSpanId:
       in: header
       name: x-portkey-parent-span-id
       schema:
         type: string
       description: Link a child span to a parent span
-      required: false
-    PortkeySpanId:
-      in: header
-      name: x-portkey-span-id
-      schema:
-        type: string
-      description: An ID you can pass to refer to a span under a trace.
       required: false
     PortkeyMetadata:
       in: header
@@ -107,19 +107,19 @@ components:
         type: object
       description: Pass any arbitrary metadata along with your request
       required: false
-    PortkeyTraceId:
-      in: header
-      name: x-portkey-trace-id
-      schema:
-        type: string
-      description: An ID you can pass to refer to one or more requests later on. If not provided, Portkey generates a trace ID automatically for each request. [Docs](https://portkey.ai/docs/product/observability/traces)
-      required: false
     PortkeySpanName:
       in: header
       name: x-portkey-span-name
       schema:
         type: string
       description: Name for the Span ID
+      required: false
+    PortkeySpanId:
+      in: header
+      name: x-portkey-span-id
+      schema:
+        type: string
+      description: An ID you can pass to refer to a span under a trace.
       required: false
   schemas:
     RerankDocument:

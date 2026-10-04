@@ -496,115 +496,6 @@ components:
         credit_limit: 10
         periodic_reset: monthly
         alert_threshold: 8
-    UpdateApiKeyObject:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Development API Key
-        description:
-          type: string
-          example: API key for development environment
-        rate_limits:
-          type:
-          - array
-          - 'null'
-          items:
-            type: object
-            required:
-            - type
-            - unit
-            - value
-            properties:
-              type:
-                type: string
-                enum:
-                - requests
-                - tokens
-                example: requests
-              unit:
-                type: string
-                enum:
-                - rpd
-                - rph
-                - rpm
-                - rps
-                - rpw
-                description: 'Rate limit unit: requests/tokens per day, hour, minute, second, or week.'
-                example: rpm
-              value:
-                type: integer
-                minimum: 0
-                example: 100
-        usage_limits:
-          $ref: '#/components/schemas/UsageLimits'
-        reset_usage:
-          type: boolean
-          description: Whether to reset current usage. If the current status is exhausted, this will change it back to active.
-          example: true
-        scopes:
-          type: array
-          items:
-            type: string
-          example:
-          - completions.write
-        defaults:
-          type: object
-          properties:
-            metadata:
-              type: object
-              additionalProperties: true
-              example:
-                environment: development
-                team: backend
-            config_id:
-              type: string
-              example: config-abc
-            allow_config_override:
-              type: boolean
-              default: true
-              description: When false, the pinned config_id cannot be overridden at request time.
-              example: false
-        alert_emails:
-          type: array
-          items:
-            type: string
-            format: email
-            example: foo@bar.com
-        expires_at:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: ISO 8601 datetime at which this key expires.
-          example: '2026-12-31T23:59:59Z'
-        rotation_policy:
-          type:
-          - object
-          - 'null'
-          description: Update or replace the automatic key rotation configuration. Requires either rotation_period or next_rotation_at.
-          properties:
-            rotation_period:
-              type:
-              - string
-              - 'null'
-              enum:
-              - weekly
-              - monthly
-              description: How often to automatically rotate the key.
-              example: monthly
-            next_rotation_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-              description: Explicit datetime for the next rotation. Mutually exclusive with rotation_period.
-              example: '2026-06-01T00:00:00Z'
-            key_transition_period_ms:
-              type: integer
-              minimum: 1800000
-              description: Duration in milliseconds during which the previous key remains valid after rotation. Minimum 30 minutes (1800000). Must be less than the full rotation period.
-              example: 3600000
     RotateApiKeyResponse:
       type: object
       properties:
@@ -742,14 +633,6 @@ components:
               minimum: 1800000
               description: Duration in milliseconds during which the previous key remains valid after rotation. Minimum 30 minutes (1800000). Must be less than the full rotation period.
               example: 3600000
-    RotateApiKeyRequest:
-      type: object
-      properties:
-        key_transition_period_ms:
-          type: integer
-          minimum: 1800000
-          description: Optional transition period in milliseconds during which the previous key remains valid.
-          example: 3600000
     ApiKeyObject:
       type: object
       properties:
@@ -856,6 +739,123 @@ components:
           enum:
           - api-key
           example: api-key
+    UpdateApiKeyObject:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Development API Key
+        description:
+          type: string
+          example: API key for development environment
+        rate_limits:
+          type:
+          - array
+          - 'null'
+          items:
+            type: object
+            required:
+            - type
+            - unit
+            - value
+            properties:
+              type:
+                type: string
+                enum:
+                - requests
+                - tokens
+                example: requests
+              unit:
+                type: string
+                enum:
+                - rpd
+                - rph
+                - rpm
+                - rps
+                - rpw
+                description: 'Rate limit unit: requests/tokens per day, hour, minute, second, or week.'
+                example: rpm
+              value:
+                type: integer
+                minimum: 0
+                example: 100
+        usage_limits:
+          $ref: '#/components/schemas/UsageLimits'
+        reset_usage:
+          type: boolean
+          description: Whether to reset current usage. If the current status is exhausted, this will change it back to active.
+          example: true
+        scopes:
+          type: array
+          items:
+            type: string
+          example:
+          - completions.write
+        defaults:
+          type: object
+          properties:
+            metadata:
+              type: object
+              additionalProperties: true
+              example:
+                environment: development
+                team: backend
+            config_id:
+              type: string
+              example: config-abc
+            allow_config_override:
+              type: boolean
+              default: true
+              description: When false, the pinned config_id cannot be overridden at request time.
+              example: false
+        alert_emails:
+          type: array
+          items:
+            type: string
+            format: email
+            example: foo@bar.com
+        expires_at:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: ISO 8601 datetime at which this key expires.
+          example: '2026-12-31T23:59:59Z'
+        rotation_policy:
+          type:
+          - object
+          - 'null'
+          description: Update or replace the automatic key rotation configuration. Requires either rotation_period or next_rotation_at.
+          properties:
+            rotation_period:
+              type:
+              - string
+              - 'null'
+              enum:
+              - weekly
+              - monthly
+              description: How often to automatically rotate the key.
+              example: monthly
+            next_rotation_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+              description: Explicit datetime for the next rotation. Mutually exclusive with rotation_period.
+              example: '2026-06-01T00:00:00Z'
+            key_transition_period_ms:
+              type: integer
+              minimum: 1800000
+              description: Duration in milliseconds during which the previous key remains valid after rotation. Minimum 30 minutes (1800000). Must be less than the full rotation period.
+              example: 3600000
+    RotateApiKeyRequest:
+      type: object
+      properties:
+        key_transition_period_ms:
+          type: integer
+          minimum: 1800000
+          description: Optional transition period in milliseconds during which the previous key remains valid.
+          example: 3600000
     ApiKeyObjectList:
       type: object
       properties:

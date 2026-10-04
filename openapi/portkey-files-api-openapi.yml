@@ -234,32 +234,20 @@ paths:
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY'\n});\n\nasync function main() {\n  const file = await client.files.content(\"file-abc123\");\n\n  console.log(file);\n}\n\nmain();\n"
 components:
   schemas:
-    CreateFileRequest:
+    ListFilesResponse:
       type: object
-      additionalProperties: false
       properties:
-        file:
-          description: 'The File object (not file name) to be uploaded.
-
-            '
-          type: string
-          format: binary
-        purpose:
-          description: 'The intended purpose of the uploaded file.
-
-
-            Use "assistants" for [Assistants](https://platform.openai.com/docs/api-reference/assistants) and [Message](https://platform.openai.com/docs/api-reference/messages) files, "vision" for Assistants image file inputs, "batch" for [Batch API](https://platform.openai.com/docs/guides/batch), and "fine-tune" for [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning).
-
-            '
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenAIFile'
+        object:
           type: string
           enum:
-          - assistants
-          - batch
-          - fine-tune
-          - vision
+          - list
       required:
-      - file
-      - purpose
+      - object
+      - data
     OpenAIFile:
       title: OpenAIFile
       description: The `File` object represents a document that has been uploaded to OpenAI.
@@ -315,20 +303,32 @@ components:
       x-code-samples:
         name: The file object
         example: "{\n  \"id\": \"file-abc123\",\n  \"object\": \"file\",\n  \"bytes\": 120000,\n  \"created_at\": 1677610602,\n  \"filename\": \"salesOverview.pdf\",\n  \"purpose\": \"assistants\",\n}\n"
-    ListFilesResponse:
+    CreateFileRequest:
       type: object
+      additionalProperties: false
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenAIFile'
-        object:
+        file:
+          description: 'The File object (not file name) to be uploaded.
+
+            '
+          type: string
+          format: binary
+        purpose:
+          description: 'The intended purpose of the uploaded file.
+
+
+            Use "assistants" for [Assistants](https://platform.openai.com/docs/api-reference/assistants) and [Message](https://platform.openai.com/docs/api-reference/messages) files, "vision" for Assistants image file inputs, "batch" for [Batch API](https://platform.openai.com/docs/guides/batch), and "fine-tune" for [Fine-tuning](https://platform.openai.com/docs/api-reference/fine-tuning).
+
+            '
           type: string
           enum:
-          - list
+          - assistants
+          - batch
+          - fine-tune
+          - vision
       required:
-      - object
-      - data
+      - file
+      - purpose
     DeleteFileResponse:
       type: object
       properties:

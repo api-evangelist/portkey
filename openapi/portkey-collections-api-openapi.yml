@@ -251,26 +251,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ChildCollection:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        last_updated_at:
-          type: string
-          format: date-time
-        collection_details:
-          $ref: '#/components/schemas/CollectionDetails'
-    CollectionWithDetails:
-      allOf:
-      - $ref: '#/components/schemas/Collection'
-      - type: object
-        properties:
-          collection_details:
-            $ref: '#/components/schemas/CollectionDetails'
     CollectionWithChildCollections:
       allOf:
       - $ref: '#/components/schemas/Collection'
@@ -280,6 +260,13 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/ChildCollection'
+    CollectionWithDetails:
+      allOf:
+      - $ref: '#/components/schemas/Collection'
+      - type: object
+        properties:
+          collection_details:
+            $ref: '#/components/schemas/CollectionDetails'
     CollectionDetails:
       type: object
       properties:
@@ -328,6 +315,19 @@ components:
         last_updated_at:
           type: string
           format: date-time
+    ChildCollection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        last_updated_at:
+          type: string
+          format: date-time
+        collection_details:
+          $ref: '#/components/schemas/CollectionDetails'
   securitySchemes:
     Portkey-Key:
       type: apiKey

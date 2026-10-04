@@ -356,21 +356,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    WorkspaceMemberList:
-      type: object
-      properties:
-        total:
-          type: integer
-          example: 2
-        object:
-          type: string
-          example: list
-          enum:
-          - list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkspaceMember'
     WorkspaceMember:
       type: object
       properties:
@@ -452,6 +437,21 @@ components:
           - object
           - 'null'
           example: null
+    WorkspaceMemberList:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 2
+        object:
+          type: string
+          example: list
+          enum:
+          - list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspaceMember'
   securitySchemes:
     Portkey-Key:
       type: apiKey

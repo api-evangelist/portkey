@@ -196,32 +196,14 @@ paths:
                     example: Model not found
 components:
   schemas:
-    ModelImagePricing:
+    ModelFinetuneConfig:
       type: object
-      description: Image generation pricing by quality and size
-      additionalProperties:
-        type: object
-        additionalProperties:
-          $ref: '#/components/schemas/ModelTokenPrice'
-      example:
-        standard:
-          1024x1024:
-            price: 4
-          1024x1792:
-            price: 8
-        hd:
-          1024x1024:
-            price: 8
-          1024x1792:
-            price: 12
-    ModelCalculateConfig:
-      type: object
-      description: Cost calculation formulas
+      description: Fine-tuning pricing configuration
       properties:
-        request:
-          $ref: '#/components/schemas/ModelCalculateOperation'
-        response:
-          $ref: '#/components/schemas/ModelCalculateOperation'
+        pay_per_token:
+          $ref: '#/components/schemas/ModelTokenPrice'
+        pay_per_hour:
+          $ref: '#/components/schemas/ModelTokenPrice'
     ModelPayAsYouGo:
       type: object
       description: Token-based pricing (all prices in USD cents)
@@ -262,6 +244,41 @@ components:
             $ref: '#/components/schemas/ModelTokenPrice'
         image:
           $ref: '#/components/schemas/ModelImagePricing'
+    ModelCalculateOperation:
+      type: object
+      description: Mathematical operation for cost calculation
+      properties:
+        operation:
+          type: string
+          enum:
+          - sum
+          - multiply
+          description: Operation type
+        operands:
+          type: array
+          description: Operands for the operation
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/ModelCalculateOperation'
+            - $ref: '#/components/schemas/ModelValueReference'
+    ModelImagePricing:
+      type: object
+      description: Image generation pricing by quality and size
+      additionalProperties:
+        type: object
+        additionalProperties:
+          $ref: '#/components/schemas/ModelTokenPrice'
+      example:
+        standard:
+          1024x1024:
+            price: 4
+          1024x1792:
+            price: 8
+        hd:
+          1024x1024:
+            price: 8
+          1024x1792:
+            price: 12
     ModelTokenPrice:
       type: object
       description: Price object (value is in USD cents)
@@ -293,23 +310,6 @@ components:
             - `rates.response_token`: Response token rate
 
             '
-    ModelCalculateOperation:
-      type: object
-      description: Mathematical operation for cost calculation
-      properties:
-        operation:
-          type: string
-          enum:
-          - sum
-          - multiply
-          description: Operation type
-        operands:
-          type: array
-          description: Operands for the operation
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/ModelCalculateOperation'
-            - $ref: '#/components/schemas/ModelValueReference'
     ModelPricingConfig:
       type: object
       description: Complete pricing configuration for a model
@@ -325,14 +325,14 @@ components:
           description: Currency code (always USD)
         finetune_config:
           $ref: '#/components/schemas/ModelFinetuneConfig'
-    ModelFinetuneConfig:
+    ModelCalculateConfig:
       type: object
-      description: Fine-tuning pricing configuration
+      description: Cost calculation formulas
       properties:
-        pay_per_token:
-          $ref: '#/components/schemas/ModelTokenPrice'
-        pay_per_hour:
-          $ref: '#/components/schemas/ModelTokenPrice'
+        request:
+          $ref: '#/components/schemas/ModelCalculateOperation'
+        response:
+          $ref: '#/components/schemas/ModelCalculateOperation'
   securitySchemes:
     Portkey-Key:
       type: apiKey

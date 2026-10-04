@@ -355,6 +355,50 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Providers:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Open AI Workspace
+        integration_id:
+          type: string
+        note:
+          type:
+          - string
+          - 'null'
+          example: randomness
+        status:
+          type: string
+          enum:
+          - active
+          - exhausted
+          - expired
+        usage_limits:
+          $ref: '#/components/schemas/UsageLimits'
+        reset_usage:
+          type:
+          - number
+          - 'null'
+          example: 0
+        created_at:
+          type: string
+          format: date-time
+        slug:
+          type: string
+        rate_limits:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RateLimits'
+        expires_at:
+          type: string
+          format: date-time
+        object:
+          type: string
+          enum:
+          - provider
     UsageLimits:
       type: object
       properties:
@@ -418,50 +462,6 @@ components:
           - rpm
         value:
           type: integer
-    Providers:
-      type: object
-      properties:
-        name:
-          type: string
-          example: Open AI Workspace
-        integration_id:
-          type: string
-        note:
-          type:
-          - string
-          - 'null'
-          example: randomness
-        status:
-          type: string
-          enum:
-          - active
-          - exhausted
-          - expired
-        usage_limits:
-          $ref: '#/components/schemas/UsageLimits'
-        reset_usage:
-          type:
-          - number
-          - 'null'
-          example: 0
-        created_at:
-          type: string
-          format: date-time
-        slug:
-          type: string
-        rate_limits:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/RateLimits'
-        expires_at:
-          type: string
-          format: date-time
-        object:
-          type: string
-          enum:
-          - provider
   securitySchemes:
     Portkey-Key:
       type: apiKey

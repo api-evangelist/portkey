@@ -587,47 +587,6 @@ components:
         credit_limit: 10
         periodic_reset: monthly
         alert_threshold: 8
-    RateLimits:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - requests
-          - tokens
-        unit:
-          type: string
-          enum:
-          - rpd
-          - rph
-          - rpm
-        value:
-          type: integer
-    SecretMapping:
-      type: object
-      required:
-      - target_field
-      - secret_reference_id
-      properties:
-        target_field:
-          type: string
-          description: 'The field on the entity to populate from the secret reference. Must be unique within the array.
-
-            - **Integrations**: `key` or `configurations.<field>` (e.g. `configurations.aws_secret_access_key`)
-
-            - **Virtual Keys**: `key` or `model_config.<field>` (e.g. `model_config.awsSecretAccessKey`)
-
-            '
-          example: key
-        secret_reference_id:
-          type: string
-          description: UUID or slug of the secret reference. Must belong to the same organisation and be accessible by the workspace.
-          example: my-aws-secret
-        secret_key:
-          type:
-          - string
-          - 'null'
-          description: Override the secret_key defined on the secret reference. Use to pick a specific key from a multi-value secret.
     VirtualKeys:
       type: object
       properties:
@@ -676,6 +635,47 @@ components:
           type: string
           enum:
           - virtual-key
+    RateLimits:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - requests
+          - tokens
+        unit:
+          type: string
+          enum:
+          - rpd
+          - rph
+          - rpm
+        value:
+          type: integer
+    SecretMapping:
+      type: object
+      required:
+      - target_field
+      - secret_reference_id
+      properties:
+        target_field:
+          type: string
+          description: 'The field on the entity to populate from the secret reference. Must be unique within the array.
+
+            - **Integrations**: `key` or `configurations.<field>` (e.g. `configurations.aws_secret_access_key`)
+
+            - **Virtual Keys**: `key` or `model_config.<field>` (e.g. `model_config.awsSecretAccessKey`)
+
+            '
+          example: key
+        secret_reference_id:
+          type: string
+          description: UUID or slug of the secret reference. Must belong to the same organisation and be accessible by the workspace.
+          example: my-aws-secret
+        secret_key:
+          type:
+          - string
+          - 'null'
+          description: Override the secret_key defined on the secret reference. Use to pick a specific key from a multi-value secret.
   securitySchemes:
     Portkey-Key:
       type: apiKey

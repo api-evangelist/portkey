@@ -82,50 +82,6 @@ paths:
                 $ref: '#/components/schemas/McpServerUserAccessBulkUpdateResponse'
 components:
   schemas:
-    McpServerUserAccessBulkUpdateResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
-    McpServerUserAccessListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/McpServerUserAccessItem'
-        default_user_access:
-          type: string
-          enum:
-          - allow
-          - deny
-        total:
-          type: integer
-        has_more:
-          type: boolean
-    BulkUpdateMcpServerUserAccess:
-      type: object
-      properties:
-        user_access:
-          type: array
-          items:
-            type: object
-            required:
-            - user_id
-            - enabled
-            properties:
-              user_id:
-                type: string
-                description: User ID (global user_id or user_org_map_id depending on API key)
-              enabled:
-                type: boolean
-        default_user_access:
-          type: string
-          enum:
-          - allow
-          - deny
-          description: Server default when user has no explicit override
     McpServerUserAccessItem:
       type: object
       properties:
@@ -149,6 +105,50 @@ components:
           enum:
           - connected
           - not_connected
+    McpServerUserAccessListResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/McpServerUserAccessItem'
+        default_user_access:
+          type: string
+          enum:
+          - allow
+          - deny
+        total:
+          type: integer
+        has_more:
+          type: boolean
+    McpServerUserAccessBulkUpdateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    BulkUpdateMcpServerUserAccess:
+      type: object
+      properties:
+        user_access:
+          type: array
+          items:
+            type: object
+            required:
+            - user_id
+            - enabled
+            properties:
+              user_id:
+                type: string
+                description: User ID (global user_id or user_org_map_id depending on API key)
+              enabled:
+                type: boolean
+        default_user_access:
+          type: string
+          enum:
+          - allow
+          - deny
+          description: Server default when user has no explicit override
   securitySchemes:
     Portkey-Key:
       type: apiKey

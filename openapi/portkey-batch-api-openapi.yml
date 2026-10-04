@@ -310,29 +310,89 @@ paths:
         source: "import Portkey from 'portkey-ai';\n\nconst client = new Portkey({\n  apiKey: 'PORTKEY_API_KEY',\n  baseUrl: 'SELF_HOSTED_GATEWAY_URL',\n  virtualKey: 'PROVIDER_VIRTUAL_KEY'\n});\n\nasync function main() {\n  const batch = await client.batches.cancel(\"batch_abc123\");\n\n  console.log(batch);\n}\n\nmain();\n"
 components:
   schemas:
-    ListBatchesResponse:
+    PortkeyBatchJob:
       type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Batch'
-        first_id:
-          type: string
-          example: batch_abc123
-        last_id:
-          type: string
-          example: batch_abc456
-        has_more:
-          type: boolean
-        object:
-          type: string
-          enum:
-          - list
       required:
-      - object
-      - data
-      - has_more
+      - model
+      properties:
+        job_name:
+          type: string
+          description: Job name for the batch job
+        output_data_config:
+          type: string
+          description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
+        model:
+          type: string
+          description: Model to start batch job with
+        role_arn:
+          type: string
+          description: Role ARN for the bedrock batch job
+        portkey_options:
+          allOf:
+          - $ref: '#/components/schemas/PortkeyBatchOptions'
+          description: Portkey Gateway Provider specific headers to be passed to the provider, if portkey is used as a provider
+        provider_options:
+          anyOf:
+          - type: object
+            title: Bedrock Options
+            properties:
+              job_name:
+                type: string
+                description: Job name for the batch job
+              output_data_config:
+                type: string
+                description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
+              model:
+                type: string
+                description: Model to start batch job with
+              role_arn:
+                type: string
+                description: Role ARN for the bedrock batch job
+            required:
+            - model
+            - role_arn
+          - type: object
+            title: Vertex Options
+            properties:
+              job_name:
+                type: string
+                description: Job name for the batch job
+              output_data_config:
+                type: string
+                description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
+              model:
+                type: string
+                description: Model to start batch job with
+            required:
+            - model
+          description: Provider specific options to be passed to the provider, optional can be passed directly as well.
+      allOf:
+      - $ref: '#/components/schemas/OpenAIBatchJob'
+      description: Gateway supported body params for portkey managed batching.
+      title: Portkey Params
+    PortkeyBatchOptions:
+      type: object
+      required:
+      - x-portkey-virtual-key
+      properties:
+        x-portkey-virtual-key:
+          type: string
+          description: The virtual key to communicate with the provider
+        x-portkey-aws-s3-bucket:
+          type: string
+          description: The AWS S3 bucket to use for file upload during finetune
+        x-portkey-vertex-storage-bucket-name:
+          type: string
+          description: Google Storage bucket to use for file upload during finetune
+        x-portkey-provider-model:
+          type: string
+          description: Model to use for the batch job also for file transformation for model specific inference input.
+      example:
+        x-portkey-virtual-key: vkey-1234567890
+        x-portkey-aws-s3-bucket: my-bucket
+        x-portkey-provider-model: meta.llama3-1-8b-instruct-v1:0
+        x-portkey-vertex-storage-bucket-name: my-bucket
+      description: Options to be passed to the provider, supports all options supported by the provider from gateway.
     Batch:
       type: object
       properties:
@@ -457,6 +517,69 @@ components:
       - completion_window
       - status
       - created_at
+    VertexBatchJob:
+      type: object
+      required:
+      - model
+      properties:
+        job_name:
+          type: string
+          description: Job name for the batch job
+        output_data_config:
+          type: string
+          description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
+        model:
+          type: string
+          description: Model to start batch job with
+      allOf:
+      - $ref: '#/components/schemas/OpenAIBatchJob'
+      description: Gateway supported body params for Vertext fine-tuning.
+      title: Vertex Params
+    BedrockBatchJob:
+      type: object
+      required:
+      - model
+      - role_arn
+      properties:
+        job_name:
+          type: string
+          description: Job name for the batch job
+        output_data_config:
+          type: string
+          description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
+        model:
+          type: string
+          description: Model to start batch job with
+        role_arn:
+          type: string
+          description: Role ARN for the bedrock batch job
+      allOf:
+      - $ref: '#/components/schemas/OpenAIBatchJob'
+      description: Gateway supported body params for bedrock fine-tuning.
+      title: Bedrock Params
+    ListBatchesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Batch'
+        first_id:
+          type: string
+          example: batch_abc123
+        last_id:
+          type: string
+          example: batch_abc456
+        has_more:
+          type: boolean
+        object:
+          type: string
+          enum:
+          - list
+      required:
+      - object
+      - data
+      - has_more
     OpenAIBatchJob:
       type: object
       required:
@@ -488,129 +611,6 @@ components:
           additionalProperties: true
       description: Gateway supported body params for OpenAI, Azure OpenAI and VertexAI.
       title: OpenAI Params
-    PortkeyBatchOptions:
-      type: object
-      required:
-      - x-portkey-virtual-key
-      properties:
-        x-portkey-virtual-key:
-          type: string
-          description: The virtual key to communicate with the provider
-        x-portkey-aws-s3-bucket:
-          type: string
-          description: The AWS S3 bucket to use for file upload during finetune
-        x-portkey-vertex-storage-bucket-name:
-          type: string
-          description: Google Storage bucket to use for file upload during finetune
-        x-portkey-provider-model:
-          type: string
-          description: Model to use for the batch job also for file transformation for model specific inference input.
-      example:
-        x-portkey-virtual-key: vkey-1234567890
-        x-portkey-aws-s3-bucket: my-bucket
-        x-portkey-provider-model: meta.llama3-1-8b-instruct-v1:0
-        x-portkey-vertex-storage-bucket-name: my-bucket
-      description: Options to be passed to the provider, supports all options supported by the provider from gateway.
-    BedrockBatchJob:
-      type: object
-      required:
-      - model
-      - role_arn
-      properties:
-        job_name:
-          type: string
-          description: Job name for the batch job
-        output_data_config:
-          type: string
-          description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
-        model:
-          type: string
-          description: Model to start batch job with
-        role_arn:
-          type: string
-          description: Role ARN for the bedrock batch job
-      allOf:
-      - $ref: '#/components/schemas/OpenAIBatchJob'
-      description: Gateway supported body params for bedrock fine-tuning.
-      title: Bedrock Params
-    VertexBatchJob:
-      type: object
-      required:
-      - model
-      properties:
-        job_name:
-          type: string
-          description: Job name for the batch job
-        output_data_config:
-          type: string
-          description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
-        model:
-          type: string
-          description: Model to start batch job with
-      allOf:
-      - $ref: '#/components/schemas/OpenAIBatchJob'
-      description: Gateway supported body params for Vertext fine-tuning.
-      title: Vertex Params
-    PortkeyBatchJob:
-      type: object
-      required:
-      - model
-      properties:
-        job_name:
-          type: string
-          description: Job name for the batch job
-        output_data_config:
-          type: string
-          description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
-        model:
-          type: string
-          description: Model to start batch job with
-        role_arn:
-          type: string
-          description: Role ARN for the bedrock batch job
-        portkey_options:
-          allOf:
-          - $ref: '#/components/schemas/PortkeyBatchOptions'
-          description: Portkey Gateway Provider specific headers to be passed to the provider, if portkey is used as a provider
-        provider_options:
-          anyOf:
-          - type: object
-            title: Bedrock Options
-            properties:
-              job_name:
-                type: string
-                description: Job name for the batch job
-              output_data_config:
-                type: string
-                description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
-              model:
-                type: string
-                description: Model to start batch job with
-              role_arn:
-                type: string
-                description: Role ARN for the bedrock batch job
-            required:
-            - model
-            - role_arn
-          - type: object
-            title: Vertex Options
-            properties:
-              job_name:
-                type: string
-                description: Job name for the batch job
-              output_data_config:
-                type: string
-                description: Batch job's output storage location, will be constructed based on `input_file_id` if not provided
-              model:
-                type: string
-                description: Model to start batch job with
-            required:
-            - model
-          description: Provider specific options to be passed to the provider, optional can be passed directly as well.
-      allOf:
-      - $ref: '#/components/schemas/OpenAIBatchJob'
-      description: Gateway supported body params for portkey managed batching.
-      title: Portkey Params
   securitySchemes:
     Portkey-Key:
       type: apiKey

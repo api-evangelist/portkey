@@ -692,36 +692,57 @@ components:
         scim_group: Engineering Team
         role: member
         scim_group_id: d290f1ee-6c54-4b01-90e6-d701748f0851
-    RateLimits:
+    Workspace:
       type: object
       properties:
-        type:
+        id:
           type: string
-          enum:
-          - requests
-          - tokens
-        unit:
+          example: ws-test-a-174eb1
+        slug:
           type: string
-          enum:
-          - rpd
-          - rph
-          - rpm
-        value:
-          type: integer
-    WorkspaceList:
-      type: object
-      properties:
-        total:
-          type: integer
-          example: 2
-        object:
+          example: ws-test-a-174eb1
+        name:
           type: string
-          enum:
-          - list
-        data:
+          example: New Workspace
+        description:
+          type:
+          - string
+          - 'null'
+          example: null
+        created_at:
+          type: string
+          format: date-time
+          example: 2024-07-30 13:27:29+00:00
+        last_updated_at:
+          type: string
+          format: date-time
+          example: 2024-07-30 13:27:29+00:00
+        defaults:
+          type:
+          - object
+          - 'null'
+          properties:
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+              example:
+                foo: bar
+            is_default:
+              type: integer
+              example: 0
+            object:
+              type: string
+              enum:
+              - workspace
+        usage_limits:
           type: array
           items:
-            $ref: '#/components/schemas/Workspace'
+            $ref: '#/components/schemas/UsageLimits'
+        rate_limits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimits'
     WorkspaceWithUsers:
       type: object
       properties:
@@ -778,57 +799,6 @@ components:
           items:
             type: object
             $ref: '#/components/schemas/WorkspaceMember'
-        usage_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/UsageLimits'
-        rate_limits:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimits'
-    Workspace:
-      type: object
-      properties:
-        id:
-          type: string
-          example: ws-test-a-174eb1
-        slug:
-          type: string
-          example: ws-test-a-174eb1
-        name:
-          type: string
-          example: New Workspace
-        description:
-          type:
-          - string
-          - 'null'
-          example: null
-        created_at:
-          type: string
-          format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        last_updated_at:
-          type: string
-          format: date-time
-          example: 2024-07-30 13:27:29+00:00
-        defaults:
-          type:
-          - object
-          - 'null'
-          properties:
-            metadata:
-              type: object
-              additionalProperties:
-                type: string
-              example:
-                foo: bar
-            is_default:
-              type: integer
-              example: 0
-            object:
-              type: string
-              enum:
-              - workspace
         usage_limits:
           type: array
           items:
@@ -918,6 +888,36 @@ components:
           - object
           - 'null'
           example: null
+    RateLimits:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - requests
+          - tokens
+        unit:
+          type: string
+          enum:
+          - rpd
+          - rph
+          - rpm
+        value:
+          type: integer
+    WorkspaceList:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 2
+        object:
+          type: string
+          enum:
+          - list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Workspace'
   securitySchemes:
     Portkey-Key:
       type: apiKey

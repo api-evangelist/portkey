@@ -359,40 +359,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    DownloadLogsResponse:
-      type: object
-      properties:
-        signed_url:
-          type: string
-          format: uri
-          description: A pre-signed URL for downloading the exported logs
-      required:
-      - signed_url
-    LogExportsRequestedData:
-      type: array
-      items:
-        type: string
-        enum:
-        - id
-        - trace_id
-        - created_at
-        - request
-        - response
-        - is_success
-        - ai_org
-        - ai_model
-        - req_units
-        - res_units
-        - total_units
-        - request_url
-        - cost
-        - cost_currency
-        - response_time
-        - response_status_code
-        - mode
-        - config
-        - prompt_slug
-        - metadata
     ExportListResponse:
       type: object
       properties:
@@ -406,57 +372,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExportItem'
-    ExportItem:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        organisation_id:
-          type: string
-          format: uuid
-        filters:
-          $ref: '#/components/schemas/GenerationsFilterSchema'
-        requested_data:
-          $ref: '#/components/schemas/LogExportsRequestedData'
-        status:
-          type: string
-          enum:
-          - draft
-          - in_progress
-          - success
-          - failed
-          - stopped
-        description:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        last_updated_at:
-          type: string
-          format: date-time
-        created_by:
-          type: string
-          format: uuid
-        workspace_id:
-          type: string
-          format: uuid
-        object:
-          type: string
-          enum:
-          - export
-      required:
-      - id
-      - organisation_id
-      - filters
-      - requested_data
-      - status
-      - description
-      - created_at
-      - last_updated_at
-      - created_by
-      - workspace_id
-      - object
     GenerationsFilterSchema:
       type: object
       properties:
@@ -513,20 +428,6 @@ components:
         current_page:
           type: number
           example: 0
-    ExportTaskResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A message indicating the status of the export task
-        object:
-          type: string
-          enum:
-          - export
-          description: The type of the object
-      required:
-      - message
-      - object
     UpdateExportResponse:
       type: object
       properties:
@@ -546,6 +447,105 @@ components:
       - id
       - total
       - object
+    DownloadLogsResponse:
+      type: object
+      properties:
+        signed_url:
+          type: string
+          format: uri
+          description: A pre-signed URL for downloading the exported logs
+      required:
+      - signed_url
+    ExportTaskResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A message indicating the status of the export task
+        object:
+          type: string
+          enum:
+          - export
+          description: The type of the object
+      required:
+      - message
+      - object
+    ExportItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        organisation_id:
+          type: string
+          format: uuid
+        filters:
+          $ref: '#/components/schemas/GenerationsFilterSchema'
+        requested_data:
+          $ref: '#/components/schemas/LogExportsRequestedData'
+        status:
+          type: string
+          enum:
+          - draft
+          - in_progress
+          - success
+          - failed
+          - stopped
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        last_updated_at:
+          type: string
+          format: date-time
+        created_by:
+          type: string
+          format: uuid
+        workspace_id:
+          type: string
+          format: uuid
+        object:
+          type: string
+          enum:
+          - export
+      required:
+      - id
+      - organisation_id
+      - filters
+      - requested_data
+      - status
+      - description
+      - created_at
+      - last_updated_at
+      - created_by
+      - workspace_id
+      - object
+    LogExportsRequestedData:
+      type: array
+      items:
+        type: string
+        enum:
+        - id
+        - trace_id
+        - created_at
+        - request
+        - response
+        - is_success
+        - ai_org
+        - ai_model
+        - req_units
+        - res_units
+        - total_units
+        - request_url
+        - cost
+        - cost_currency
+        - response_time
+        - response_status_code
+        - mode
+        - config
+        - prompt_slug
+        - metadata
   securitySchemes:
     Portkey-Key:
       type: apiKey
