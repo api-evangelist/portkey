@@ -473,7 +473,7 @@ paths:
     get:
       tags:
       - Analytics > Graphs
-      summary: Get users requests graph.
+      summary: Get users requests graph
       parameters:
       - $ref: '#/components/parameters/WorkspaceSlug'
       - $ref: '#/components/parameters/TimeOfGenerationMin'

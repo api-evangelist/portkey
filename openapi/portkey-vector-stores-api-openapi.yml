@@ -432,7 +432,7 @@ paths:
       operationId: deleteVectorStoreFile
       tags:
       - Vector Stores
-      summary: Delete a vector store file.
+      summary: Delete a vector store file
       parameters:
       - in: path
         name: vector_store_id
@@ -575,7 +575,7 @@ paths:
       operationId: cancelVectorStoreFileBatch
       tags:
       - Vector Stores
-      summary: Cancel a vector store file batch.
+      summary: Cancel a vector store file batch
       parameters:
       - in: path
         name: vector_store_id

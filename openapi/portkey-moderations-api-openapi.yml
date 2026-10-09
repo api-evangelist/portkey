@@ -29,7 +29,7 @@ paths:
       operationId: createModeration
       tags:
       - Moderations
-      summary: Identify potentially harmful content in text and images.
+      summary: Identify potentially harmful content in text and images
       requestBody:
         required: true
         content:

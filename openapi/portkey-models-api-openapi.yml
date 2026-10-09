@@ -157,7 +157,7 @@ paths:
       operationId: deleteModel
       tags:
       - Models
-      summary: Delete a fine-tuned model.
+      summary: Delete a fine-tuned model
       parameters:
       - in: path
         name: model

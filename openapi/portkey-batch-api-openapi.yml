@@ -262,7 +262,7 @@ paths:
       operationId: cancelBatch
       tags:
       - Batch
-      summary: Cancels an in-progress batch.
+      summary: Cancels an in-progress batch
       parameters:
       - in: path
         name: batch_id

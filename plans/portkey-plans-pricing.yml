@@ -50,3 +50,39 @@ rate_limit_statements:
 - 10k recorded logs per month
 - 100k recorded logs per month
 - Requests per Month No Limit 10K 100K Custom
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units: []
+  plans:
+  - name: Developer
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Production
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Enterprise
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Open Source
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
