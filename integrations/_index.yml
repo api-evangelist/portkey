@@ -191,10 +191,10 @@
   relationship: system-coverage
   status: not-a-workflow
   arazzo: null
-- slug: portkey-gemini
-  label: gemini
-  partner: gemini
-  partner_name: gemini
+- slug: portkey-google-gemini
+  label: google-gemini
+  partner: google-gemini
+  partner_name: google-gemini
   type: coverage
   channel: provider-built
   evidence: https://github.com/Portkey-AI/gateway/tree/main/src/providers/google
