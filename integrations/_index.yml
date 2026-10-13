@@ -226,7 +226,7 @@
   arazzo: null
 - slug: portkey-hyperbolic
   label: hyperbolic
-  partner: hyperbolic-ai
+  partner: hyperbolic
   partner_name: hyperbolic
   type: coverage
   channel: provider-built
