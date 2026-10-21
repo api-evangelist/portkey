@@ -620,3 +620,16 @@
   relationship: system-coverage
   status: not-a-workflow
   arazzo: null
+- slug: portkey-terraform-terraform-registry
+  label: Terraform (terraform-registry)
+  partner: terraform
+  partner_name: Terraform (terraform-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: terraform-registry
+  channel: partner-built
+  evidence: https://registry.terraform.io/providers/Portkey-AI/portkey
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null

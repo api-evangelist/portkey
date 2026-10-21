@@ -3,6 +3,7 @@ method: searched
 checked:
 - https://azuremarketplace.microsoft.com/
 - https://github.com/Portkey-AI/gateway/tree/main/src/providers
+- terraform/integrations/terraform-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -1012,3 +1013,24 @@ edges:
   matched_by: verified-token-table
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
+- partner_name: Terraform (terraform-registry)
+  partner: terraform
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: terraform-registry
+  evidence: https://registry.terraform.io/providers/Portkey-AI/portkey
+  mirror_of: terraform/integrations/terraform-integration-edges.yml
+  apps:
+  - Portkey-AI/portkey
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
+source:
+- terraform/integrations/terraform-integration-edges.yml
