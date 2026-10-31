@@ -1,4 +1,4 @@
-# Portkey (portkey)
+# Portkey
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,142 +66,200 @@
 
 Portkey equips AI teams with everything they need to go to production - Gateway, Observability, Guardrails, Governance, and Prompt Management, all in one platform.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/portkey/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/portkey/refs/heads/main/apis.yml)
+**Areas:** AI Gateway · Gateways · Governance · Guardrails · Observability · Prompt Management
 
-## Scope
+## Portkey on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Portkey is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/portkey/](https://apis.io/providers/portkey/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (51)
 
-- AI Gateways
-- Gateways
-- Governance
-- Guardrails
-- Observability
-- Prompt Management
+- [Portkey Analytics > Graphs API](https://apis.io/apis/portkey/portkey-analytics-graphs-api/) — Get data points for graphical representation.
+- [Portkey Analytics > Groups API](https://apis.io/apis/portkey/portkey-analytics-groups-api/) — Get grouped metrics for the selected time bucket.
+- [Portkey Analytics > Summary API](https://apis.io/apis/portkey/portkey-analytics-summary-api/) — Get overall summary for the selected time bucket.
+- [Portkey Api-Keys API](https://apis.io/apis/portkey/portkey-api-keys-api/) — Create, List, Retrieve, Update, and Delete your Portkey API keys.
+- [Portkey Assistants API](https://apis.io/apis/portkey/portkey-assistants-api/) — Build Assistants that can call models and use tools.
+- [Portkey Audio API](https://apis.io/apis/portkey/portkey-audio-api/) — Turn audio into text or text into audio.
+- [Portkey Audit Logs API](https://apis.io/apis/portkey/portkey-audit-logs-api/) — Get audit logs for your Portkey account.
+- [Portkey Batch API](https://apis.io/apis/portkey/portkey-batch-api/) — Create large batches of API requests to run asynchronously.
+- [Portkey Collections API](https://apis.io/apis/portkey/portkey-collections-api/) — Create, List, Retrieve, Update, and Delete collections of prompts.
+- [Portkey Completions API](https://apis.io/apis/portkey/portkey-completions-api/) — Given a prompt, the model will return one or more predicted completions, and can also return the probabilities of alternative tokens at each position.
+- [Portkey Configs API](https://apis.io/apis/portkey/portkey-configs-api/) — Create, List, Retrieve, and Update your Portkey Configs.
+- [Portkey Embeddings API](https://apis.io/apis/portkey/portkey-embeddings-api/) — Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
+- [Portkey Feedback API](https://apis.io/apis/portkey/portkey-feedback-api/) — Send and Update any feedback.
+- [Portkey Files API](https://apis.io/apis/portkey/portkey-files-api/) — Files are used to upload documents that can be used with features like Assistants and Fine-tuning.
+- [Portkey Fine-tuning API](https://apis.io/apis/portkey/portkey-fine-tuning-api/) — Manage fine-tuning jobs to tailor a model to your specific training data.
+- [Portkey Finetune API](https://apis.io/apis/portkey/portkey-finetune-api/) — The Finetune API from Portkey — 1 operation(s) for finetune.
+- [Portkey Guardrails API](https://apis.io/apis/portkey/portkey-guardrails-api/) — Create, List, Retrieve, Update, and Delete prompt Guardrails.
+- [Portkey Images API](https://apis.io/apis/portkey/portkey-images-api/) — Given a prompt and/or an input image, the model will generate a new image.
+- [Portkey Integrations API](https://apis.io/apis/portkey/portkey-integrations-api/) — Create, List, Retrieve, Update, and Delete your Portkey Integrations.
+- [Portkey Integrations > Models API](https://apis.io/apis/portkey/portkey-integrations-models-api/) — Manage model access for your Portkey Integrations.
+- [Portkey Integrations > Workspaces API](https://apis.io/apis/portkey/portkey-integrations-workspaces-api/) — Manage workspace access for your Portkey Integrations.
+- [Portkey Labels API](https://apis.io/apis/portkey/portkey-labels-api/) — Create, List, Retrieve, Update, and Delete labels.
+- [Portkey Logs API](https://apis.io/apis/portkey/portkey-logs-api/) — Custom Logger to add external logs to Portkey.
+- [Portkey Logs Export API](https://apis.io/apis/portkey/portkey-logs-export-api/) — Exports logs service.
+- [Portkey MCP Integrations API](https://apis.io/apis/portkey/portkey-mcp-integrations-api/) — Create, List, Retrieve, Update, and Delete MCP Integrations.
+- [Portkey MCP Integrations > Capabilities API](https://apis.io/apis/portkey/portkey-mcp-integrations-capabilities-api/) — List and manage capabilities for MCP Integrations.
+- [Portkey MCP Integrations > Metadata API](https://apis.io/apis/portkey/portkey-mcp-integrations-metadata-api/) — Get MCP Integration metadata and sync info.
+- [Portkey MCP Integrations > Workspaces API](https://apis.io/apis/portkey/portkey-mcp-integrations-workspaces-api/) — Manage workspace access for MCP Integrations.
+- [Portkey MCP Servers API](https://apis.io/apis/portkey/portkey-mcp-servers-api/) — Create, List, Retrieve, Update, and Delete MCP Servers (workspace instances of MCP Integrations).
+- [Portkey MCP Servers > Capabilities API](https://apis.io/apis/portkey/portkey-mcp-servers-capabilities-api/) — List and manage capabilities for MCP Servers.
+- [Portkey MCP Servers > Connections API](https://apis.io/apis/portkey/portkey-mcp-servers-connections-api/) — List and manage user connections for MCP Servers.
+- [Portkey MCP Servers > User Access API](https://apis.io/apis/portkey/portkey-mcp-servers-user-access-api/) — List and manage user access for MCP Servers.
+- [Portkey Model Pricing API](https://apis.io/apis/portkey/portkey-model-pricing-api/) — Model pricing configurations for 2300+ LLMs across 40+ providers
+- [Portkey Models API](https://apis.io/apis/portkey/portkey-models-api/) — List and describe the various models available in the API.
+- [Portkey Moderations API](https://apis.io/apis/portkey/portkey-moderations-api/) — Given a input text, outputs if the model classifies it as potentially harmful.
+- [Portkey PromptPartials API](https://apis.io/apis/portkey/portkey-promptpartials-api/) — Create, List, Retrieve, Update, and Delete prompt partials.
+- [Portkey Prompts API](https://apis.io/apis/portkey/portkey-prompts-api/) — Given a prompt template ID and variables, will run the saved prompt template and return a response.
+- [Portkey Providers API](https://apis.io/apis/portkey/portkey-providers-api/) — Create, List, Retrieve, Update, and Delete your Portkey Providers.
+- [Portkey Rate Limits Policies API](https://apis.io/apis/portkey/portkey-rate-limits-policies-api/) — Manage rate limits policies to control request or token rates
+- [Portkey Realtime API](https://apis.io/apis/portkey/portkey-realtime-api/) — WebSocket proxy for provider Realtime APIs
+- [Portkey Rerank API](https://apis.io/apis/portkey/portkey-rerank-api/) — Rerank a list of documents based on their relevance to a query. Supported providers include Cohere, Voyage, Jina, Pinecone, Bedrock, and Azure AI.
+- [Portkey Responses API](https://apis.io/apis/portkey/portkey-responses-api/) — The Responses API from Portkey — 3 operation(s) for responses.
+- [Portkey Secret-References API](https://apis.io/apis/portkey/portkey-secret-references-api/) — Create, List, Retrieve, Update, and Delete secret references to external secret managers.
+- [Portkey Usage Limits Policies API](https://apis.io/apis/portkey/portkey-usage-limits-policies-api/) — Manage usage limits policies to control total usage over time
+- [Portkey User-invites API](https://apis.io/apis/portkey/portkey-user-invites-api/) — Create and manage user invites.
+- [Portkey Users API](https://apis.io/apis/portkey/portkey-users-api/) — Create and manage users.
+- [Portkey Vector Stores API](https://apis.io/apis/portkey/portkey-vector-stores-api/) — The Vector Stores API from Portkey — 8 operation(s) for vector stores.
+- [Portkey Virtual-keys API](https://apis.io/apis/portkey/portkey-virtual-keys-api/) — Create, List, Retrieve, Update, and Delete your Portkey Virtual keys.
+- [Portkey Workspaces API](https://apis.io/apis/portkey/portkey-workspaces-api/) — Create and manage workspaces.
+- [Portkey Workspaces > Members API](https://apis.io/apis/portkey/portkey-workspaces-members-api/) — Create and manage workspace members.
+- [Portkey Chat Completions API](https://apis.io/apis/portkey/portkey-chat-completions-api/) — Given a list of messages comprising a conversation, the model will return a response.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-08-19
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Portkey
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Portkey equips AI teams with everything they need to go to production - Gateway, Observability, Guardrails, Governance, and Prompt Management, all in one platform.
+- [Portkey Agentic Access](https://apis.io/agentic-access/portkey/portkey-agentic-access/)
 
-- **Human URL:** [https://portkey.ai/](https://portkey.ai/)
+#### Collections (52)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- AI Gateways
-- Governance
-- Guardrails
-- Observability
-- Prompt Management
+- [Portkey API](https://apis.io/collections/portkey/open-portkey/)
+- [Portkey Analytics > Graphs API](https://apis.io/collections/portkey/open-portkey-analytics-graphs-api/)
+- [Portkey Analytics > Graphs Analytics > Groups API](https://apis.io/collections/portkey/open-portkey-analytics-groups-api/)
+- [Portkey Analytics > Graphs Analytics > Summary API](https://apis.io/collections/portkey/open-portkey-analytics-summary-api/)
+- [Portkey Analytics > Graphs Api-Keys API](https://apis.io/collections/portkey/open-portkey-api-keys-api/)
+- [Portkey Analytics > Graphs Assistants API](https://apis.io/collections/portkey/open-portkey-assistants-api/)
+- [Portkey Analytics > Graphs Audio API](https://apis.io/collections/portkey/open-portkey-audio-api/)
+- [Portkey Analytics > Graphs Audit Logs API](https://apis.io/collections/portkey/open-portkey-audit-logs-api/)
+- [Portkey Analytics > Graphs Batch API](https://apis.io/collections/portkey/open-portkey-batch-api/)
+- [Portkey Analytics > Graphs Chat API](https://apis.io/collections/portkey/open-portkey-chat-api/)
+- [Portkey Analytics > Graphs Collections API](https://apis.io/collections/portkey/open-portkey-collections-api/)
+- [Portkey Analytics > Graphs Completions API](https://apis.io/collections/portkey/open-portkey-completions-api/)
+- [Portkey Analytics > Graphs Configs API](https://apis.io/collections/portkey/open-portkey-configs-api/)
+- [Portkey Analytics > Graphs Embeddings API](https://apis.io/collections/portkey/open-portkey-embeddings-api/)
+- [Portkey Analytics > Graphs Feedback API](https://apis.io/collections/portkey/open-portkey-feedback-api/)
+- [Portkey Analytics > Graphs Files API](https://apis.io/collections/portkey/open-portkey-files-api/)
+- [Portkey Analytics > Graphs Fine-tuning API](https://apis.io/collections/portkey/open-portkey-fine-tuning-api/)
+- [Portkey Analytics > Graphs Finetune API](https://apis.io/collections/portkey/open-portkey-finetune-api/)
+- [Portkey Analytics > Graphs Guardrails API](https://apis.io/collections/portkey/open-portkey-guardrails-api/)
+- [Portkey Analytics > Graphs Images API](https://apis.io/collections/portkey/open-portkey-images-api/)
+- [Portkey Analytics > Graphs Integrations API](https://apis.io/collections/portkey/open-portkey-integrations-api/)
+- [Portkey Analytics > Graphs Integrations > Models API](https://apis.io/collections/portkey/open-portkey-integrations-models-api/)
+- [Portkey Analytics > Graphs Integrations > Workspaces API](https://apis.io/collections/portkey/open-portkey-integrations-workspaces-api/)
+- [Portkey Analytics > Graphs Labels API](https://apis.io/collections/portkey/open-portkey-labels-api/)
+- [Portkey Analytics > Graphs Logs API](https://apis.io/collections/portkey/open-portkey-logs-api/)
+- …and 27 more published on APIs.io
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://portkey.ai/docs/introduction/what-is-portkey)
-- [API Reference](https://portkey.ai/docs/api-reference/inference-api/chat)
-- [OpenAPI](openapi/portkey-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/portkey.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/portkey.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Getting Started](https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Portkey Inference API
+- [Portkey Authentication](https://apis.io/security/portkey/portkey-authentication/)
+- [Portkey Domain Security](https://apis.io/security/portkey/portkey-domain-security/)
 
-Portkey Inference API provides a universal API for routing to 200+ LLMs across chat completions, completions, embeddings, images, audio, assistants, fine-tuning, batch processing, and moderations endpoints with a single unified interface. Supports OpenAI, Anthropic, and Portkey API formats with automatic translation between providers.
+#### Plans and pricing (2)
 
-- **Human URL:** [https://portkey.ai/docs/product/ai-gateway/universal-api](https://portkey.ai/docs/product/ai-gateway/universal-api)
-- **Base URL:** `https://api.portkey.ai/v1`
+Published plans, tiers and prices.
 
-#### Tags
+- [Portkey Plans Pricing](https://apis.io/plans/portkey/portkey-plans-pricing/)
+- [Portkey Price Estimates](https://apis.io/plans/portkey/portkey-price-estimates/)
 
-- AI Gateways
-- Assistants
-- Audio
-- Batch
-- Chat Completions
-- Completions
-- Embeddings
-- Fine-Tuning
-- Images
-- Inference
-- Moderations
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [API Reference](https://portkey.ai/docs/api-reference/inference-api/chat)
-- [API Reference](https://portkey.ai/docs/api-reference/inference-api/completions)
-- [API Reference](https://portkey.ai/docs/api-reference/inference-api/embeddings)
-- [OpenAPI](openapi/portkey-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/portkey.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/portkey.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Portkey Rate Limits](https://apis.io/rate-limits/portkey/portkey-rate-limits/)
 
-### Portkey Admin API
+#### FinOps (1)
 
-Portkey Admin API enables programmatic management of Portkey organizations and workspaces, including resource management for configs, virtual keys, and API keys, analytics and monitoring for usage statistics and performance trends, and user and workspace administration for managing accounts, permissions, and team membership. Includes audit logging of all administrative operations.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://portkey.ai/docs/api-reference/admin-api/introduction](https://portkey.ai/docs/api-reference/admin-api/introduction)
-- **Base URL:** `https://api.portkey.ai/v1`
+- [Portkey Finops](https://apis.io/finops/portkey/portkey-finops/)
 
-#### Tags
+## Where to find this API
 
-- Administration
-- Analytics
-- API Keys
-- Audit Logs
-- Configs
-- Logs
-- Rate Limits
-- Users
-- Virtual Keys
-- Workspaces
-
-#### Properties
-
-- [API Reference](https://portkey.ai/docs/api-reference/admin-api/introduction)
-- [OpenAPI](openapi/portkey-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/portkey.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/portkey.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://portkey.ai/)
 - [Documentation](https://portkey.ai/docs/introduction/what-is-portkey)
-- [Integrations](https://portkey.ai/docs/integrations/ecosystem)
+- [Getting started](https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway)
+- [API reference](https://portkey.ai/docs/api-reference/inference-api/chat)
+- [Pricing](https://portkey.ai/pricing)
 - [Changelog](https://portkey.ai/docs/changelog/2025/july)
 - [Blog](https://portkey.ai/blog)
-- [Status Page](https://status.portkey.ai/)
-- [Pricing](https://portkey.ai/pricing)
-- [Privacy Policy](https://portkey.ai/privacy-policy)
-- [Terms of Service](https://portkey.ai/terms)
-- [Login](https://new.portkey.ai/login)
-- [Getting Started](https://portkey.ai/docs/guides/getting-started/getting-started-with-ai-gateway)
-- [API Reference](https://portkey.ai/docs/api-reference/inference-api/chat)
-- [API Reference](https://portkey.ai/docs/api-reference/admin-api/introduction)
-- [OpenAPI](https://github.com/Portkey-AI/openapi) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Git Hub Org](https://github.com/Portkey-AI/gateway)
-- [Git Hub Org](https://github.com/Portkey-AI/portkey-python-sdk)
-- [Git Hub Org](https://github.com/Portkey-AI/portkey-node-sdk)
-- [Python Package](https://pypi.org/project/portkey-ai/)
-- [Node Package](https://www.npmjs.com/package/portkey-ai)
-- [SDK](https://portkey.ai/docs/api-reference/portkey-sdk-client)
-- [Forum](https://portkey.ai/docs/support/developer-forum)
 - [Security](https://portkey.ai/features/security-compliance)
-- [Features](https://portkey.ai/features/ai-gateway)
-- [Observability](https://portkey.ai/features/observability)
-- [Guardrails](https://portkey.ai/features/guardrails)
-- [Documentation](https://portkey.ai/docs/product/guardrails)
-- [Providers](https://portkey.ai/docs/api-reference/inference-api/supported-providers)
-- [LinkedIn](https://www.linkedin.com/company/portkey-ai)
+- [Terms of service](https://portkey.ai/terms)
+- [Privacy policy](https://portkey.ai/privacy-policy)
+- [Status](https://status.portkey.ai/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 56.1** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 50.5 |
+| Contract governance | 0.0 |
+| Operational transparency | 78.9 |
+| Developer ergonomics | 61.2 |
+| Access clarity | 76.3 |
+
+**Agent readiness 37.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | unknown |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 19.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/portkey/](https://apis.io/providers/portkey/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Portkey: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/portkey/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
